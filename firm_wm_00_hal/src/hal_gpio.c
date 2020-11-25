@@ -131,7 +131,7 @@ void wm_hal_gpio_init()
 	for ( i = 0; i < DI_GPIO_NUMBER; i++ )
 	{
 		drv_rcc_ahb1_clk_enable( DI_GPIO_CLK[i] );
-    drv_gpio_input_init( DI_GPIO_PORT[i], DI_GPIO_PIN[i], GPIO_PUPD_NOPULL );
+    	drv_gpio_input_init( DI_GPIO_PORT[i], DI_GPIO_PIN[i], GPIO_PUPD_NOPULL );
 	}
 
 	// 逐位输出口线初始化

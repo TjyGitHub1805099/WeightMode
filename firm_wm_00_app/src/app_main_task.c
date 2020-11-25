@@ -3,7 +3,7 @@
 #include "app_main_task.h"
 #include "hal_gpio.h"
 
-enumMainTaskCtrlType mainTaskStatus = MainTask_LED_CTRL;
+enumMainTaskCtrlType mainTaskStatus = MainTask_IDLE;
 
 void LedSysTest(UINT32 ms_tick)
 {
@@ -34,27 +34,43 @@ void app_main_task( void )
 	
 	switch(mainTaskStatus)
 	{
-		case 	MainTask_LED_CTRL:
-					LedCtrlModeCrtl();
-					mainTaskStatus = MainTask_HX711_SAMPLE_CTRL;
-					if(1 == hal_di_get(SYS_KEY_1))
-					{
-						mainTaskStatus = MainTask_SYS_LED_TEST;
-					}
-
+		case MainTask_IDLE:
+			if((1 == hal_di_get(SYS_KEY_1))&&(0 == hal_di_get(SYS_KEY_2)))
+			{
+				mainTaskStatus = MainTask_SYS_LED_TEST;
+			}
+			if((0 == hal_di_get(SYS_KEY_1))&&(1 == hal_di_get(SYS_KEY_2)))
+			{
+				mainTaskStatus = MainTask_HX711_SAMPLE_CTRL;
+			}
+		break;
+		case MainTask_SYS_SDWE_TEST:
+			if((g_sys_ms_tick%125)==0)
+			{
+	 			sdwe_test();
+			}
+			if((1 == hal_di_get(SYS_KEY_1))&&(1 == hal_di_get(SYS_KEY_2)))
+			{
+				mainTaskStatus = MainTask_IDLE;
+			}
+		break;
+		case MainTask_LED_CTRL:
+			LedCtrlModeCrtl();
+			mainTaskStatus = MainTask_HX711_SAMPLE_CTRL;
 		break;
 		case MainTask_HX711_SAMPLE_CTRL:
-					hx711_DataSampleCtrl();
-					mainTaskStatus = MainTask_LED_CTRL;
+			hx711_DataSampleCtrl();
+			//hx711_MainFunction();
+			mainTaskStatus = MainTask_LED_CTRL;
 		break;
 		case MainTask_SYS_LED_TEST:
-				 LedSysTest(g_sys_ms_tick);
-				 LedCtrlModeCrtl();
-					if(1 == hal_di_get(SYS_KEY_2))
-					{
-						LedCtrlModeInit();
-						mainTaskStatus = MainTask_LED_CTRL;
-					}		
+			 LedSysTest(g_sys_ms_tick);
+			 LedCtrlModeCrtl();
+			if((1 == hal_di_get(SYS_KEY_1))&&(1 == hal_di_get(SYS_KEY_2)))
+			{
+				LedCtrlModeInit();
+				mainTaskStatus = MainTask_IDLE;
+			}
 		break;
 		default :
 					mainTaskStatus = MainTask_LED_CTRL;

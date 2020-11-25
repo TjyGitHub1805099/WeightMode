@@ -2,48 +2,72 @@
 #define __APP_HX711_CTRL_H__
 
 #include "typedefine.h"
-
+#define TRUE 1
+#define FALSE 1
 //sample NUM
-
-#define HX711_CHANEL_NUM (8)
-#define HX711_DATA_SAMPLE_TYPE (25)//
-#define HX711_DATA_SAMPLE_WIDE (10)//15us
-
-#define HX711_DATA_SAMPLE_NUM (10)
-
-#define HX711_DEFAULT_DATA	(0X1FFFFFF)
-#define HX711_NEGATIVE_DATA	(0X1000000)
-#define HX711_MAX_WAIT_TIME (200)//200ms
-
-
-#define WM_LINEAR_K	(float)(0.0011)
-#define WM_LINEAR_B	(float)(268.80)
-
-//main task status
 typedef enum HX711ChanelType
 {
-	  HX711Chanel_1 = 0,    /**< HX711  1¿ØÖÆ */
-	  HX711Chanel_2 ,       /**< HX711  2¿ØÖÆ */
-	  HX711Chanel_3 ,       /**< HX711  3¿ØÖÆ */
-	  HX711Chanel_4 ,       /**< HX711  4¿ØÖÆ */
-	  HX711Chanel_5 ,       /**< HX711  5¿ØÖÆ */
-	  HX711Chanel_6 ,       /**< HX711  6¿ØÖÆ */
-	  HX711Chanel_7 ,       /**< HX711  7¿ØÖÆ */
-	  HX711Chanel_8 ,       /**< HX711  8¿ØÖÆ */
-    HX711Chanel_NUM
+	HX711Chanel_1 = 0,  /**< HX711  1æŽ§åˆ¶ */
+	HX711Chanel_2 ,      /**< HX711  2æŽ§åˆ¶ */
+	HX711Chanel_3 ,      /**< HX711  3æŽ§åˆ¶ */
+	HX711Chanel_4 ,      /**< HX711  4æŽ§åˆ¶ */
+	HX711Chanel_5 ,      /**< HX711  5æŽ§åˆ¶ */
+	HX711Chanel_6 ,      /**< HX711  6æŽ§åˆ¶ */
+	HX711Chanel_7 ,      /**< HX711  7æŽ§åˆ¶ */
+	HX711Chanel_8 ,      /**< HX711  8æŽ§åˆ¶ */
+	HX711_CHANEL_NUM	 /**< HX711  æ€»æ•°é‡ hardware chanel number */
 }enumHX711ChanelType;
+
+#define HX711_DATA_SAMPLE_TYPE 	(25)//hx711 sample type ;25:used chanel A 128 gain
+#define HX711_DATA_SAMPLE_WIDE 	(10)//us:careful not lager than 50us 
+
+#define HX711_DATA_SAMPLE_NUM 	(10)//each chanel filter number
+#define HX711_MAX_WAIT_TIME 	(400)//ms:the max wait Data line from high -> low
+
+#define HX711_DEFAULT_DATA		(0X1FFFFFF)
+#define HX711_NEGATIVE_DATA		(0X1000000)//if lager than this data ,it's negative data
+
+
+#define CHANEL_NUM			(8)
+#define CHANEL_FILTER_NUM	(10)
+#define CHANEL_SECTION_NUM	(10)//must lager than 2
+#define CHANEL_MAX_WEIGHT	(5000)
+#define CHANEL_DEFAULT_K	(float)(0.001223)//defaule k
+#define CHANEL_DEFAULT_B	(float)(-267.71)//default b
+
+
+typedef struct
+{
+	UINT8 	initFlag;
+	UINT8	sampleCycle;//onme cycle sample over allow to calculate
+	
+	UINT8	sample_offset;
+	UINT8	section_offset;
+	
+	INT32	sample_Arr[CHANEL_FILTER_NUM];
+	INT32	sample_TotalValue;
+	INT32	sample_AvgValue;
+	
+	UINT32	section_PointSample[CHANEL_SECTION_NUM-1];
+	UINT32	section_PointWeight[CHANEL_SECTION_NUM-1];
+	float 	section_K[CHANEL_SECTION_NUM];//0:degative  CHANEL_SECTION_NUM+1:out range;this 2 status use default K & B
+	float 	section_B[CHANEL_SECTION_NUM];
+	UINT32	weight;
+} ChanelType;
+
 
 //main task status
 typedef enum HX711CtrlType
 {
-	  HX711_CTRL_INIT = 0,   			/**< HX711  ³õÊ¼»¯¿ØÖÆ */
-	  HX711_CTRL_POWER_OFF,   		/**< HX711  ÏÂµç¿ØÖÆ */
-    HX711_CTRL_POWER_ON,				/**< HX711  ÉÏµç¿ØÖÆ */
-    HX711_CTRL_WAIT,						/**< HX711  µÈ´ýÏÂ½µÑØ¿ØÖÆ */
-    HX711_CTRL_SAMPLE,					/**< HX711  ²ÉÑù¿ØÖÆ */
-    HX711_CTRL_NUM
+	HX711_CTRL_INIT = 0,   			/**< HX711  åˆå§‹åŒ–æŽ§åˆ¶ */
+	HX711_CTRL_POWER_OFF,   		/**< HX711  ä¸‹ç”µæŽ§åˆ¶ */
+	HX711_CTRL_POWER_ON,				/**< HX711  ä¸Šç”µæŽ§åˆ¶ */
+	HX711_CTRL_WAIT,						/**< HX711  ç­‰å¾…ä¸‹é™æ²¿æŽ§åˆ¶ */
+	HX711_CTRL_SAMPLE,					/**< HX711  é‡‡æ ·æŽ§åˆ¶ */
+	HX711_CTRL_NUM
 }enumHX711CtrlType;
 
 extern void hx711_DataSampleCtrl(void);
-
+extern void hx711_MainFunction(void);
+extern void hx711_init(void);
 #endif

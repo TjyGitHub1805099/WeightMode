@@ -451,6 +451,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\app_hx711_ctrl.c</FilePath>
             </File>
+            <File>
+              <FileName>app_sdwe_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_sdwe_ctrl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -460,6 +465,11 @@
               <FileName>app_led_ctrl.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\inc\app_led_ctrl.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_sdwe_ctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_sdwe_ctrl.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,0 +1,65 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.16a
+Copyright (C) 2015 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: TAN TANJINYI, TAN, LIC=FYKQD-8A0GI-KN8AC-7DB0K-54IUX-LKSUB
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Standard  Version: 5.16a
+Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 (build 20)
+Assembler:       Armasm.exe V5.06 (build 20)
+Linker/Locator:  ArmLink.exe V5.06 (build 20)
+Library Manager: ArmAr.exe V5.06 (build 20)
+Hex Converter:   FromElf.exe V5.06 (build 20)
+CPU DLL:         SARMCM3.DLL V5.16a
+Dialog DLL:      DCM.DLL V1.13.2.0
+Target DLL:      Segger\JL2CM3.dll V2.99.15.2
+Dialog DLL:      TCM.DLL V1.14.5.0
+ 
+<h2>Project:</h2>
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\firmware_wm_00_app.uvprojx
+Project File Date:  11/25/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Rebuild Project 'firmware_wm_00_app' - Target 'app'
+compiling app_led_ctrl.c...
+compiling app_main_task.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main_task.c(50): warning:  #223-D: function "sdwe_test" declared implicitly
+  	 			sdwe_test();
+src\app_main_task.c: 1 warning, 0 errors
+compiling app_sdwe_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(30): warning:  #1295-D: Deprecated declaration sdwe_test - give arg types
+  extern void sdwe_test();
+src\app_sdwe_ctrl.c: 1 warning, 0 errors
+compiling app_hx711_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(293): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		pChanel->weight = weight + 0.5;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(382): warning:  #550-D: variable "dataT" was set but never used
+  	static float dataT[100];
+src\app_hx711_ctrl.c: 2 warnings, 0 errors
+compiling app_main.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(30): warning:  #1295-D: Deprecated declaration sdwe_test - give arg types
+  extern void sdwe_test();
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main.c(46): warning:  #223-D: function "hx711_init" declared implicitly
+  	hx711_init();
+src\app_main.c: 2 warnings, 0 errors
+assembling startup_stm32f30x.s...
+linking...
+Program Size: Code=10788 RO-data=712 RW-data=896 ZI-data=6696  
+FromELF: creating hex file...
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 6 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE
+  C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>

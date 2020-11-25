@@ -19,7 +19,7 @@
 #include "drv_gpio.h"
 
 //test
-#define TEST_GPIO_PORT			GPIOB
+#define TEST_GPIO_PORT				GPIOB
 #define TEST_GPIO_CLK				RCC_AHBENR_GPIOBEN
 #define TEST_GPIO_PIN				GPIO_PIN_12
 

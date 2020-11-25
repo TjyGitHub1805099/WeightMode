@@ -1,0 +1,10 @@
+.\objects\app_hx711_ctrl.o: src\app_hx711_ctrl.c
+.\objects\app_hx711_ctrl.o: ..\firm_wm_00_hal\inc\hal_gpio.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\inc\drv_gpio.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\typedefine.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_address.h
+.\objects\app_hx711_ctrl.o: ..\firm_wm_00_hal\inc\hal_delay.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\inc\drv_delay.h
+.\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_systick.h
+.\objects\app_hx711_ctrl.o: .\inc\app_hx711_ctrl.h
