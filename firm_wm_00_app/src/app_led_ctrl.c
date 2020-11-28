@@ -1,6 +1,7 @@
 
 #include "hal_gpio.h"
 #include "app_led_ctrl.h"
+#include "app_hx711_ctrl.h"
 
 UINT8 g_led_ctrl_data[LED_CTRL_DATA_LEN]={0};
 
@@ -39,30 +40,30 @@ void LedCtrlSendPulse(enumDoLineType offset,UINT8 type)
 }
 
 //led mode init
-void LedCtrlModeInit(void)
+void led_init(void)
 {
-		//default LED output
-		hal_gpio_set_do_high( LED_DO_SER0 );
-		hal_gpio_set_do_high( LED_DO_OE );//disable LED OUT
-		hal_gpio_set_do_low( LED_DO_RCLK );//init CLK = high
-		hal_gpio_set_do_low( LED_DO_SRCLK );//init LOCK CLK = high
-		hal_gpio_set_do_low( LED_DO_SRCLR );//clear ALL LED shift regester
+	//default LED output
+	hal_gpio_set_do_high( LED_DO_SER0 );
+	hal_gpio_set_do_high( LED_DO_OE );//disable LED OUT
+	hal_gpio_set_do_low( LED_DO_RCLK );//init CLK = high
+	hal_gpio_set_do_low( LED_DO_SRCLK );//init LOCK CLK = high
+	hal_gpio_set_do_low( LED_DO_SRCLR );//clear ALL LED shift regester
 
-		//1rd:disable LED output
-		hal_gpio_set_do_high( LED_DO_OE );
-			
-		//2nd:clear all shift reg = 0
-		LedCtrlSendPulse(LED_DO_SRCLR,0);
-			
-		//2rd:lock data form shift reg to store reg
-		LedCtrlSendPulse(LED_DO_RCLK,1);
-	
-		//4th:enable LED output
-		hal_gpio_set_do_low( LED_DO_OE );
+	//1rd:disable LED output
+	hal_gpio_set_do_high( LED_DO_OE );
+
+	//2nd:clear all shift reg = 0
+	LedCtrlSendPulse(LED_DO_SRCLR,0);
+
+	//2rd:lock data form shift reg to store reg
+	LedCtrlSendPulse(LED_DO_RCLK,1);
+
+	//4th:enable LED output
+	hal_gpio_set_do_low( LED_DO_OE );
 }
 
 //led cycle contrl
-void LedCtrlModeCrtl(void)
+void led_MainFunction(void)
 {
 	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
 	UINT8 *pData=&g_led_ctrl_data[0];
@@ -113,22 +114,22 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 {	
 	UINT8 ret = 0 ;//1:success
 	UINT8 cloorData = 0 ;
-	UINT8 offset = 0 ;// ˝◊È∆´“∆
-	UINT8 lsb_flag = 0;//µÕ4Œª or ∏ﬂ4Œª
+	UINT8 offset = 0 ;//Êï∞ÁªÑÂÅèÁßª
+	UINT8 lsb_flag = 0;//‰Ωé4‰Ωç or È´ò4‰Ωç
 	UINT8 l_data = 0;
 	
 	//color judge
 	switch(color)
 	{
-	  case LED_COLOR_REG:    cloorData = 0x08;/**< LED ∫Ï øÿ÷∆ */
+		case LED_COLOR_REG:		cloorData = 0x08;/**< LED Á∫¢ ÊéßÂà∂ */
 		break;
-	  case LED_COLOR_WHITE:  cloorData = 0x01;/**< LED ∞◊ øÿ÷∆ */
+		case LED_COLOR_WHITE:	cloorData = 0x01;/**< LED ÁôΩ ÊéßÂà∂ */
 		break;
-	  case LED_COLOR_BLUE:   cloorData = 0x02;/**< LED ¿∂ øÿ÷∆ */
+		case LED_COLOR_BLUE:	cloorData = 0x02;/**< LED Ëìù ÊéßÂà∂ */
 		break;
-	  case LED_COLOR_GREEN:  cloorData = 0x04;/**< LED ¬Ã øÿ÷∆ */	
+		case LED_COLOR_GREEN:	cloorData = 0x04;/**< LED Áªø ÊéßÂà∂ */	
 		break;
-		default :							 cloorData = 0x00;/**< LED    øÿ÷∆ */
+		default :			 	cloorData = 0x00;/**< LED    ÊéßÂà∂ */
 		break;
 	}
 	
@@ -162,3 +163,77 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 	}
 	return ret;
 }
+
+
+//ÂÜíÊ≥°ÊéíÂ∫è
+void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
+{
+	UINT8	flag = 0;
+    int 	i = 0, j = 0;
+	float 	temp = 0.0;
+	enumHX711ChanelType chanelTemp = HX711Chanel_1;
+    for( i = 0 ; i < n ; i++ )
+	{
+        flag=0;              //Ë°®Á§∫Êú¨Ë∂üÂÜíÊ≥°ÊòØÂê¶ÂèëÁîü‰∫§Êç¢ÁöÑÊ†áÂøó
+        for( j = 1 ; j < n-i ; j++)
+		{         //jÁöÑËµ∑Âßã‰ΩçÁΩÆ‰∏∫1ÔºåÁªàÊ≠¢‰ΩçÁΩÆ‰∏∫n-i  
+            if(a[j]<a[j-1])
+			{
+				temp = a[j-1];
+				a[j-1] = a[j];
+				a[j] = temp;
+
+				chanelTemp = arry[j-1];
+				arry[j-1] = arry[j];
+				arry[j] = chanelTemp;
+				
+               	flag=1;
+            }
+        }
+        if(flag==0)             //Êú™‰∫§Êç¢ÔºåËØ¥ÊòéÂ∑≤ÁªèÊúâÂ∫èÔºåÂÅúÊ≠¢ÊéíÂ∫è
+        {
+            return;
+        }
+    }          
+}
+
+//
+void useWeightUpdateLedColor(void)
+{
+	enumHX711ChanelType chanel = HX711Chanel_1;
+	enumHX711ChanelType arry[HX711_CHANEL_NUM];
+	enumLedSeqType ledSeq = LED_SEQ_1; 	
+	enumLedColorType color = LED_COLOR_REG ;
+	float weight[HX711_CHANEL_NUM];
+	float weightTen[HX711_CHANEL_NUM];
+	//get each chanel weight
+	for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	{
+		arry[chanel] = chanel;
+		weight[chanel] = hx711_getWeight(chanel);
+		weightTen[chanel] = hx711_getWeightTen(chanel);
+	}
+	//sequence
+	BubbleSort(weight,arry,HX711_CHANEL_NUM);
+	BubbleSort(weightTen,arry,HX711_CHANEL_NUM);
+	//
+	for(ledSeq = LED_SEQ_1;ledSeq<LED_SEQ_NUM-1;ledSeq++)
+	{
+		if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
+			((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
+			((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
+		{
+			LedDataSet(ledSeq, color);//light same color
+			LedDataSet((enumLedSeqType)(ledSeq+1), color);//light same color
+			ledSeq++;
+			color++;
+		}
+		else
+		{
+			LedDataSet(ledSeq, LED_COLOR_NUM);//not light
+		}
+	}
+}
+
+
+

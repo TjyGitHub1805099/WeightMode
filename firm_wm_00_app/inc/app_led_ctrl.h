@@ -8,29 +8,30 @@
 //main task status
 typedef enum LedSeqType
 {
-	  LED_SEQ_1 = 0,    /**< LED 1¿ØÖÆ */
-	  LED_SEQ_2 ,       /**< LED 2¿ØÖÆ */
-	  LED_SEQ_3 ,       /**< LED 3¿ØÖÆ */
-	  LED_SEQ_4 ,       /**< LED 4¿ØÖÆ */
-	  LED_SEQ_5 ,       /**< LED 5¿ØÖÆ */
-	  LED_SEQ_6 ,       /**< LED 6¿ØÖÆ */
-	  LED_SEQ_7 ,       /**< LED 7¿ØÖÆ */
-	  LED_SEQ_8 ,       /**< LED 8¿ØÖÆ */
+	  LED_SEQ_1 = 0,    /**< LED 1æŽ§åˆ¶ */
+	  LED_SEQ_2 ,       /**< LED 2æŽ§åˆ¶ */
+	  LED_SEQ_3 ,       /**< LED 3æŽ§åˆ¶ */
+	  LED_SEQ_4 ,       /**< LED 4æŽ§åˆ¶ */
+	  LED_SEQ_5 ,       /**< LED 5æŽ§åˆ¶ */
+	  LED_SEQ_6 ,       /**< LED 6æŽ§åˆ¶ */
+	  LED_SEQ_7 ,       /**< LED 7æŽ§åˆ¶ */
+	  LED_SEQ_8 ,       /**< LED 8æŽ§åˆ¶ */
     LED_SEQ_NUM
 }enumLedSeqType;
 
 typedef enum LedColorType
 {
-	  LED_COLOR_REG = 0,  /**< LED ºì ¿ØÖÆ */
-	  LED_COLOR_WHITE,    /**< LED °× ¿ØÖÆ */
-	  LED_COLOR_BLUE,    	/**< LED À¶ ¿ØÖÆ */
-	  LED_COLOR_GREEN,    /**< LED ÂÌ ¿ØÖÆ */
+	  LED_COLOR_REG = 0,	/**< LED çº¢ æŽ§åˆ¶ */
+	  LED_COLOR_WHITE,		/**< LED ç™½ æŽ§åˆ¶ */
+	  LED_COLOR_BLUE,		/**< LED è“ æŽ§åˆ¶ */
+	  LED_COLOR_GREEN,		/**< LED ç»¿ æŽ§åˆ¶ */
     LED_COLOR_NUM
 }enumLedColorType;
 
 
-void LedCtrlModeInit(void);
-void LedCtrlModeCrtl(void);
+void led_init(void);
+void led_MainFunction(void);
 UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color);
-
+void useWeightUpdateLedColor(void);
 #endif
+

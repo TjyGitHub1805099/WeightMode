@@ -22,37 +22,30 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\firmware_wm_00_app.uvprojx
-Project File Date:  11/25/2020
+Project File Date:  11/28/2020
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_led_ctrl.c...
-compiling app_main_task.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main_task.c(50): warning:  #223-D: function "sdwe_test" declared implicitly
-  	 			sdwe_test();
-src\app_main_task.c: 1 warning, 0 errors
 compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(30): warning:  #1295-D: Deprecated declaration sdwe_test - give arg types
-  extern void sdwe_test();
-src\app_sdwe_ctrl.c: 1 warning, 0 errors
-compiling app_hx711_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(293): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		pChanel->weight = weight + 0.5;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(382): warning:  #550-D: variable "dataT" was set but never used
-  	static float dataT[100];
-src\app_hx711_ctrl.c: 2 warnings, 0 errors
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(122): warning:  #188-D: enumerated type mixed with another type
+  		weight[i] = (INT16)hx711_getWeight(i);
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(123): warning:  #188-D: enumerated type mixed with another type
+  		weightTen[i] = (INT16)hx711_getWeightTen(i);
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(117): warning:  #177-D: variable "j" was declared but never referenced
+  	UINT16 *pSendData= &g_sdwe_dis_data[0] , i = 0 , j = 0 ,sameA = 5, sameB = 8;
+src\app_sdwe_ctrl.c: 3 warnings, 0 errors
+compiling app_main_task.c...
 compiling app_main.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(30): warning:  #1295-D: Deprecated declaration sdwe_test - give arg types
-  extern void sdwe_test();
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main.c(46): warning:  #223-D: function "hx711_init" declared implicitly
-  	hx711_init();
-src\app_main.c: 2 warnings, 0 errors
+compiling app_hx711_ctrl.c...
+compiling app_led_ctrl.c...
 assembling startup_stm32f30x.s...
+compiling app_key_ctrl.c...
+compiling app_crc.c...
 linking...
-Program Size: Code=10788 RO-data=712 RW-data=896 ZI-data=6696  
+Program Size: Code=10590 RO-data=1226 RW-data=868 ZI-data=6012  
 FromELF: creating hex file...
-".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 6 Warning(s).
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE

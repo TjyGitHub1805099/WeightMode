@@ -6,6 +6,7 @@
 
 #define SDWE_UART_DATA_LEN	(0X100)
 
+
 /** 定义从机串口设备类型 */
 typedef struct structSdweType
 {
@@ -27,14 +28,7 @@ typedef struct structSdweType
 
 
 extern void sdwe_init(void);
-extern void sdwe_test();
-
-
-
-
-
-
-
-
+extern void sdwe_test(void);
+extern void sdwe_MainFunction(void);
 #endif
 

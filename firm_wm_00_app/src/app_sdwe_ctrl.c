@@ -1,4 +1,7 @@
+#include "app_main_task.h"
 #include "app_sdwe_ctrl.h"
+#include "app_crc.h"
+#include "app_hx711_ctrl.h"
 
 SdweType g_sdwe = SdweDefault;
 
@@ -15,9 +18,9 @@ void sdwe_init(void)
 }
 
 
-void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len )
+void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
 {
-	UINT16 i = 0 ,l_data = 0 , total_len = 0 ;
+	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
 	if(address < 0x7ff)
 	{
 		if((len>0)&&(len<0x7f))
@@ -39,15 +42,24 @@ void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len )
 				g_sdwe.txData[6+2*i+0] = 0xff&(l_data>>8);
 				g_sdwe.txData[6+2*i+1] = 0xff&(l_data>>0);
 			}
-			//total len
-			total_len = 6+2*len;
+			//crc
+			if(TRUE == crcEn)
+			{
+				crc = cal_crc16(&g_sdwe.txData[3],(3+2*len));
+				g_sdwe.txData[6+2*i+0] = 0xff&(crc>>8);
+				g_sdwe.txData[6+2*i+1] = 0xff&(crc>>0);
+				//total len
+				total_len = 6+2*len+2;
+			}
+			else
+			{
+				//total len
+				total_len = 6+2*len;
+			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
 		}
 	}
-
-
-
 
 }
 
@@ -84,7 +96,7 @@ void sdwe_test(void)
 		{
 			wm_data[i]=(i+1)*teat_data;
 		}
-		sdweWrite(0,&wm_data[0],8);
+		sdweWrite(0x160,&wm_data[0],8,0);
 	}
 
 
@@ -94,5 +106,31 @@ void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 {
 	UINT8 X=0;
 	X=X+1;
+}
+
+
+#define SDWE_WEIGHR_DATA_LEN 12	
+UINT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
+
+void sdwe_MainFunction(void)
+{
+	UINT16 *pSendData= &g_sdwe_dis_data[0] , i = 0 , j = 0 ,sameA = 5, sameB = 8;
+	INT16 weight[HX711_CHANEL_NUM],weightTen[HX711_CHANEL_NUM];
+	//
+	for(i=0;i<HX711_CHANEL_NUM;i++)
+	{
+		weight[i] = (INT16)hx711_getWeight(i);
+		weightTen[i] = (INT16)hx711_getWeightTen(i);
+		//
+		pSendData[i] = weightTen[i];
+	}
+	//
+	pSendData[i++] = sameA;
+	pSendData[i++] = weight[sameA];
+	pSendData[i++] = sameB;
+	pSendData[i++] = weight[sameB];
+	
+	//void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
+	sdweWrite(0X160,pSendData,i,0);	
 }
 

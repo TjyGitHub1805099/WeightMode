@@ -8,6 +8,9 @@
 #include "drv_cpu.h"
 #include "app_led_ctrl.h"
 #include "app_sdwe_ctrl.h"
+#include "app_hx711_ctrl.h"
+#include "app_key_ctrl.h"
+
 /**
  * @brief  系统初始化
  * @retval 无
@@ -41,9 +44,11 @@ void system_init( void )
 int main(void)
 {
 	system_init();
-	LedCtrlModeInit();
-	sdwe_init();
+	key_init();
+	led_init();
 	hx711_init();
+	sdwe_init();
 	while(1)
 	{}
 }
+

@@ -27,3 +27,5 @@
 .\objects\app_main.o: ..\STM32F303DriverLib\inc\drv_cpu.h
 .\objects\app_main.o: .\inc\app_led_ctrl.h
 .\objects\app_main.o: .\inc\app_sdwe_ctrl.h
+.\objects\app_main.o: .\inc\app_hx711_ctrl.h
+.\objects\app_main.o: .\inc\app_key_ctrl.h

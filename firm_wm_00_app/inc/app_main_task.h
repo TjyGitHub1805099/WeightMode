@@ -1,16 +1,21 @@
 #ifndef __APP_MAIN_TASK_H__
 #define __APP_MAIN_TASK_H__
 
+#define TRUE 1
+#define FALSE 1
+
+
 //main task status
 typedef enum MainTaskCtrlType
 {
-	MainTask_IDLE=0,		  /**< LED¿ØÖÆ */
-
-	MainTask_LED_CTRL,		  /**< LED¿ØÖÆ */
-	  MainTask_HX711_SAMPLE_CTRL,	/**< HX711¿ØÖÆ */
-	  MainTask_SYS_LED_TEST,		  /**< ÏµÍ³LED²âÊÔ¿ØÖÆ */
-		MainTask_SYS_SDWE_TEST,			/**< ÏµÍ³LED²âÊÔ¿ØÖÆ */
-    MainTask_MAIN_TASK_CTRL
+	MainTask_IDLE=0,		/**< ç©ºé—² */
+	MainTask_HX711_CTRL,	/**< HX711æŽ§åˆ¶ */
+	MainTask_LED_CTRL,		/**< LEDæŽ§åˆ¶ */
+	MainTask_SDWE_CTRL,		/**< SDWEæŽ§åˆ¶ */
+	MainTask_SYS_LED_TEST,	/**< ç³»ç»ŸLEDæµ‹è¯•æŽ§åˆ¶ */
+	MainTask_SYS_HX711_TEST,/**< ç³»ç»ŸHX711æµ‹è¯•æŽ§åˆ¶ */
+	MainTask_SYS_SDWE_TEST,	/**< ç³»ç»ŸSDWEæµ‹è¯•æŽ§åˆ¶ */
+	MainTask_MAIN_TASK_CTRL
 }enumMainTaskCtrlType;
 
 #endif

@@ -2,8 +2,8 @@
 #define __APP_HX711_CTRL_H__
 
 #include "typedefine.h"
-#define TRUE 1
-#define FALSE 1
+#include "app_led_ctrl.h"
+
 //sample NUM
 typedef enum HX711ChanelType
 {
@@ -22,7 +22,7 @@ typedef enum HX711ChanelType
 #define HX711_DATA_SAMPLE_WIDE 	(10)//us:careful not lager than 50us 
 
 #define HX711_DATA_SAMPLE_NUM 	(10)//each chanel filter number
-#define HX711_MAX_WAIT_TIME 	(400)//ms:the max wait Data line from high -> low
+#define HX711_MAX_WAIT_TIME 	(500)//ms:the max wait Data line from high -> low
 
 #define HX711_DEFAULT_DATA		(0X1FFFFFF)
 #define HX711_NEGATIVE_DATA		(0X1000000)//if lager than this data ,it's negative data
@@ -34,10 +34,11 @@ typedef enum HX711ChanelType
 #define CHANEL_MAX_WEIGHT	(5000)
 #define CHANEL_DEFAULT_K	(float)(0.001223)//defaule k
 #define CHANEL_DEFAULT_B	(float)(-267.71)//default b
-
+#define CHANEL_MAX_ERR_RANGE	(float)(2.0)//2.0g
 
 typedef struct
 {
+	enumLedSeqType ledType;
 	UINT8 	initFlag;
 	UINT8	sampleCycle;//onme cycle sample over allow to calculate
 	
@@ -52,22 +53,25 @@ typedef struct
 	UINT32	section_PointWeight[CHANEL_SECTION_NUM-1];
 	float 	section_K[CHANEL_SECTION_NUM];//0:degative  CHANEL_SECTION_NUM+1:out range;this 2 status use default K & B
 	float 	section_B[CHANEL_SECTION_NUM];
-	UINT32	weight;
+	INT32	weightTen;
+	INT32	weight;
 } ChanelType;
 
 
 //main task status
 typedef enum HX711CtrlType
 {
-	HX711_CTRL_INIT = 0,   			/**< HX711  初始化控制 */
-	HX711_CTRL_POWER_OFF,   		/**< HX711  下电控制 */
-	HX711_CTRL_POWER_ON,				/**< HX711  上电控制 */
-	HX711_CTRL_WAIT,						/**< HX711  等待下降沿控制 */
-	HX711_CTRL_SAMPLE,					/**< HX711  采样控制 */
+	HX711_CTRL_INIT = 0,   	/**< HX711  初始化控制 */
+	HX711_CTRL_POWER_OFF,   /**< HX711  下电控制 */
+	HX711_CTRL_POWER_ON,	/**< HX711  上电控制 */
+	HX711_CTRL_WAIT,		/**< HX711  等待下降沿控制 */
+	HX711_CTRL_SAMPLE,		/**< HX711  采样控制 */
 	HX711_CTRL_NUM
 }enumHX711CtrlType;
 
-extern void hx711_DataSampleCtrl(void);
-extern void hx711_MainFunction(void);
 extern void hx711_init(void);
+extern void hx711_MainFunction(void);
+extern float hx711_getWeight(enumHX711ChanelType chanel);
+extern float hx711_getWeightTen(enumHX711ChanelType chanel);
 #endif
+
