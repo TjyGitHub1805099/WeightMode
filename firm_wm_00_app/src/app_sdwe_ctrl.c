@@ -4,15 +4,21 @@
 #include "app_hx711_ctrl.h"
 
 SdweType g_sdwe = SdweDefault;
+static INT32 defaultChanelSamplePoint[CHANEL_SECTION_NUM+1] = {0,50,100,200,500,1000,2000,3000,3500,4000,5000};
 
 void sdwe_init(void)
 {
+	UINT8 i = 0 ;
 	//
 	g_sdwe.pUartDevice->pRxLength = &g_sdwe.RxLength;
 	g_sdwe.pUartDevice->pRxFinishFlag = &g_sdwe.RxFinishFlag;
 	g_sdwe.pUartDevice->pTxBuffer = &g_sdwe.rxData[0];
 	g_sdwe.pUartDevice->pRxBuffer = &g_sdwe.rxData[0];
-
+	//
+	for(i=0;i<(CHANEL_SECTION_NUM+1);i++)
+	{
+		g_sdwe.sdweCalPointArry[i] = defaultChanelSamplePoint[i];
+	}
 	//
 	g_sdwe.pUartDevice->init(g_sdwe.pUartDevice);
 }
@@ -101,11 +107,92 @@ void sdwe_test(void)
 
 
 }
-
+void sdweRxDeal(void)
+{
+	UINT16 dataReg = 0 ;
+	if(TRUE == g_sdwe.RxFinishFlag)
+	{
+		//A5 5A 06 83 01 FF 01 00 01
+		if((SDWE_RX_FUN_HEAD1 == g_sdwe.rxData[0]) && (SDWE_RX_FUN_HEAD2 == g_sdwe.rxData[1]))
+		{
+			if((9 == g_sdwe.RxLength) && (6 == g_sdwe.rxData[2] ))
+			{
+				if(SDWE_RX_FUN_0X83 == g_sdwe.rxData[3])
+				{
+					//sdweSetAdd
+					dataReg = 0 ;
+					dataReg = g_sdwe.rxData[4];
+					dataReg <<= 8;
+					dataReg &= 0xff00;
+					dataReg += g_sdwe.rxData[5];
+					g_sdwe.sdweSetAdd = dataReg;
+					//sdweSetData
+					dataReg = 0 ;
+					dataReg = g_sdwe.rxData[7];
+					dataReg <<= 8;
+					dataReg &= 0xff00;
+					dataReg += g_sdwe.rxData[8];
+					g_sdwe.sdweSetData = dataReg;
+				}
+			}
+		}
+		//
+		g_sdwe.RxFinishFlag = FALSE;
+	}
+}
 void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 {
 	UINT8 X=0;
 	X=X+1;
+	sdweRxDeal();	
+}
+
+void sdwe_MainCalFunction(void)
+{
+	UINT8 i = 0 ;
+	UINT8 point;
+	INT32 weight;
+	SdweType *pSdwe = &g_sdwe;
+	switch(pSdwe->sdweSetAdd)
+	{
+		case SDWE_FUNC_CAL_CHANEL_ADD:
+			if(pSdwe->sdweSetData <= HX711_CHANEL_NUM)
+			{
+				pSdwe->sdweCalChanel = pSdwe->sdweSetData;//chanel
+			}
+		break;
+		
+		case SDWE_FUNC_CAL_CHANEL_POINT_ADD://point
+			if((pSdwe->sdweSetData > 0) && 
+				(pSdwe->sdweSetData <= (CHANEL_SECTION_NUM)))
+			{
+				//point
+				pSdwe->sdweCalPoint = pSdwe->sdweSetData;//point
+				point = pSdwe->sdweCalPoint-1;
+				//weight
+				weight = pSdwe->sdweCalPointArry[point];
+				//cal set
+				if((pSdwe->sdweCalChanel <= HX711_CHANEL_NUM) && (pSdwe->sdweCalChanel >= 0))
+				{
+					if(0 == pSdwe->sdweCalChanel)//all chanel set
+					{
+						for(i=0;i<(HX711_CHANEL_NUM);i++)//8通道
+						{
+							sampleCalcKB(i,point,weight);
+						}
+					}
+					else//single chanel set
+					{
+						sampleCalcKB((pSdwe->sdweCalChanel-1),point,weight);
+					}
+				}
+			}
+		break;
+		default:
+		break;
+	}
+	//clr address
+	pSdwe->sdweSetAdd = 0xffff;
 }
 
 

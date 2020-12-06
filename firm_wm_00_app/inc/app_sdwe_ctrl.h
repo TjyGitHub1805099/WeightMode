@@ -3,8 +3,33 @@
 #define __APP_SDWE_H__
 
 #include "hal_uart.h"
+#include "app_hx711_ctrl.h"
 
 #define SDWE_UART_DATA_LEN	(0X100)
+
+#define SDWE_FUNC_CAL_CHANEL_ADD		(0X01FF)
+#define SDWE_FUNC_CAL_CHANEL_POINT_ADD	(0X0300)
+
+typedef enum sdweRxFuncIdType
+{
+	/**< SDWE_RX_0X83 举例
+	1：A5 5A 06 83 01 FF 01 00 01 ; 代表 add = 0x01ff(校准通道号选择) , len = 0x01 , data = 0x0001 
+	解释：校准通道选择 (add=0x01ff , len = 1), data=0:所有通道 data=1~8:代表具体通道
+	2:A5 5A 06 83 03 00 01 00 0A
+	解释：对于通道下的校准点选择 (add=0x0300 , len = 1), data=1~11:具体点(十段总共11点)
+	*/
+	SDWE_RX_FUN_HEAD1 = 0XA5, /**< SDWE HEAD1*/
+	SDWE_RX_FUN_HEAD2 = 0X5A, /**< SDWE HEAD2*/
+	SDWE_RX_FUN_0X83 = 0X83, /**< SDWE 设置变量 下发给MCU*/
+	SDWE_RX_FUN_NUM	 		 /**< SDWE 总数量*/
+}enumsdweRxFuncIdType;
+
+typedef enum sdweTxFuncIdType
+{
+	SDWE_TX_FUN_0X83 = 0X83, /**< SDWE 设置变量 下发给MCU*/
+	SDWE_TX_FUN_NUM 		 /**< SDWE 总数量*/
+}enumsdweTxFuncIdType;
+
 
 
 /** 定义从机串口设备类型 */
@@ -15,6 +40,13 @@ typedef struct structSdweType
 	UINT8 	txData[SDWE_UART_DATA_LEN];
 	UINT16	RxLength;					/**< 接收字节数 */
 	UINT8 	RxFinishFlag;				/**< 接收完成标志 */
+	
+	UINT16  sdweSetAdd;/**< 地址 */
+	UINT16  sdweSetData;/**< 数据 */
+	
+	UINT16 	sdweCalChanel;/**< 通道 */
+	UINT16 	sdweCalPoint;/**< 校准点 */
+	INT32 	sdweCalPointArry[CHANEL_SECTION_NUM+1];/**< 校准点数组 */
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
@@ -24,11 +56,17 @@ typedef struct structSdweType
 	{0}, \
 	0,\
 	0,\
+	0XFFFF,\
+	0XFFFF,\
+	0XFFFF,\
+	0XFFFF,\
+	{0},\
 	}
 
 
 extern void sdwe_init(void);
 extern void sdwe_test(void);
 extern void sdwe_MainFunction(void);
+extern void sdwe_MainCalFunction(void);
 #endif
 

@@ -220,6 +220,7 @@ void useWeightUpdateLedColor(void)
 	for(ledSeq = LED_SEQ_1;ledSeq<LED_SEQ_NUM-1;ledSeq++)
 	{
 		if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
+			((weight[ledSeq+1] - weight[ledSeq]) > -CHANEL_MAX_ERR_RANGE) &&
 			((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
 			((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
 		{
@@ -231,6 +232,10 @@ void useWeightUpdateLedColor(void)
 		else
 		{
 			LedDataSet(ledSeq, LED_COLOR_NUM);//not light
+			if((LED_SEQ_NUM-2) == ledSeq)
+			{
+				LedDataSet((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
+			}
 		}
 	}
 }

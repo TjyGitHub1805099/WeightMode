@@ -28,7 +28,6 @@ typedef enum HX711ChanelType
 #define HX711_NEGATIVE_DATA		(0X1000000)//if lager than this data ,it's negative data
 
 
-#define CHANEL_NUM			(8)
 #define CHANEL_FILTER_NUM	(10)
 #define CHANEL_SECTION_NUM	(10)//must lager than 2
 #define CHANEL_MAX_WEIGHT	(5000)
@@ -49,10 +48,10 @@ typedef struct
 	INT32	sample_TotalValue;
 	INT32	sample_AvgValue;
 	
-	UINT32	section_PointSample[CHANEL_SECTION_NUM-1];
-	UINT32	section_PointWeight[CHANEL_SECTION_NUM-1];
-	float 	section_K[CHANEL_SECTION_NUM];//0:degative  CHANEL_SECTION_NUM+1:out range;this 2 status use default K & B
-	float 	section_B[CHANEL_SECTION_NUM];
+	INT32	section_PointSample[CHANEL_SECTION_NUM+1];
+	INT32	section_PointWeight[CHANEL_SECTION_NUM+1];
+	float 	section_K[CHANEL_SECTION_NUM+2];//0:degative  CHANEL_SECTION_NUM+1:out range;this 2 status use default K & B
+	float 	section_B[CHANEL_SECTION_NUM+2];
 	INT32	weightTen;
 	INT32	weight;
 } ChanelType;
@@ -73,5 +72,6 @@ extern void hx711_init(void);
 extern void hx711_MainFunction(void);
 extern float hx711_getWeight(enumHX711ChanelType chanel);
 extern float hx711_getWeightTen(enumHX711ChanelType chanel);
+extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
 #endif
 

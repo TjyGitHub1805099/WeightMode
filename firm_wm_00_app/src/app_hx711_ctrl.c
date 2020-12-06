@@ -42,7 +42,7 @@ UINT8 hx711_reset(enumHX711ChanelType chanel)
 }
 
 //==========================================================================================
-static ChanelType HX711Chanel[CHANEL_NUM];
+static ChanelType HX711Chanel[HX711_CHANEL_NUM];
 //init
 void hx711_init()
 {
@@ -103,19 +103,35 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	pChanel->sample_offset++;
 }
 //calculate K & B
-void sampleCalcKB(ChanelType *pChanel,UINT8 point,UINT32 weight)
+void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 {
+	UINT8 i = 0 ;
+	ChanelType *pChanel = &HX711Chanel[0];
+
 	float k=0.0,b=0.0;
 	//
-	if(point <= (CHANEL_SECTION_NUM-2))
+	if(chanel >= HX711_CHANEL_NUM)
+		return;
+
+	//
+	pChanel = &HX711Chanel[chanel];
+	
+	//
+	if(point < (CHANEL_SECTION_NUM+1))
 	{
 		pChanel->section_PointWeight[point] = weight ;
 		pChanel->section_PointSample[point] = pChanel->sample_AvgValue;
 		//
-		if((0 == point) || ((CHANEL_SECTION_NUM-2) == point))
+		if((0 == point) || ((CHANEL_SECTION_NUM) == point))
 		{
+			//
+			k = 0.0f;
+			for(i=0;i<CHANEL_SECTION_NUM;i++)
+			{
+				k+=pChanel->section_K[i+1];
+			}
 			//k
-			k = CHANEL_DEFAULT_K;
+			k /= CHANEL_SECTION_NUM;
 			//b
 			b = pChanel->section_PointWeight[point];
 			b -= k*pChanel->section_PointSample[point];
@@ -123,7 +139,7 @@ void sampleCalcKB(ChanelType *pChanel,UINT8 point,UINT32 weight)
 		else
 		{
 			//k
-			k = 0.0;
+			k = 0.0f;
 			k = (pChanel->section_PointWeight[point] - pChanel->section_PointWeight[point-1]);
 			k = k / (pChanel->section_PointSample[point]-pChanel->section_PointSample[point-1]);
 			//b
@@ -146,7 +162,7 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		pChanel->sample_AvgValue = pChanel->sample_TotalValue / CHANEL_FILTER_NUM;
 		
 		//find out k & b
-		for( i = 0 ; i < (CHANEL_SECTION_NUM-1) ; i++ )
+		for( i = 0 ; i < (CHANEL_SECTION_NUM+1) ; i++ )
 		{
 			if( pChanel->sample_AvgValue <= pChanel->section_PointSample[i] )
 			{

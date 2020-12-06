@@ -28,26 +28,33 @@ void LedSysTest(UINT32 ms_tick)
 		}
 	}
 }
-
+UINT8 KEY_COMBIN = 0XF0;
 static UINT32 g_sys_ms_tick = 0 ;
 static UINT32 g_sys_sdwe_tick = 0 ;
 void app_main_task( void )
 {
+	UINT8 i = 0 ;
 	key_MainFunction();
 	switch(mainTaskStatus)
 	{
 		case MainTask_IDLE:
-			if((SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1))&&(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_2)))
+			mainTaskStatus = MainTask_HX711_CTRL;
+			//
+			switch(KEY_COMBIN)
 			{
-				mainTaskStatus = MainTask_SYS_LED_TEST;
-			}
-			else if((SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_1))&&(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_2)))
-			{
-				mainTaskStatus = MainTask_SYS_SDWE_TEST;
-			}
-			else
-			{
-				mainTaskStatus = MainTask_HX711_CTRL;
+				case 0xF0:
+					if((SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1))&&(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_2)))
+					{
+						KEY_COMBIN += 0x1;
+						mainTaskStatus = MainTask_SYS_HX711_TEST;
+					}
+				break;
+				default:
+					if((SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_1))&&(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_2)))
+					{
+						KEY_COMBIN = 0XF0;
+					}
+				break;
 			}
 		break;
 		//==============================================	
@@ -61,6 +68,7 @@ void app_main_task( void )
 			mainTaskStatus = MainTask_SDWE_CTRL;
 		break;
 		case MainTask_SDWE_CTRL:
+			sdwe_MainCalFunction();
 			if(0 == ((g_sys_sdwe_tick++)%25))//25*4=100ms
 			{
 				sdwe_MainFunction();
@@ -79,6 +87,11 @@ void app_main_task( void )
 			}
 		break;
 		case MainTask_SYS_HX711_TEST:
+			for(i=0;i<HX711_CHANEL_NUM;i++)
+			{
+				sampleCalcKB(i,0,0);
+			}
+			mainTaskStatus = MainTask_IDLE;
 		break;
 		case MainTask_SYS_SDWE_TEST:
 			if((g_sys_ms_tick%125)==0)
