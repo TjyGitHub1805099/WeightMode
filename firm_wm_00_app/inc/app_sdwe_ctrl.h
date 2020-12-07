@@ -7,15 +7,24 @@
 
 #define SDWE_UART_DATA_LEN	(0X100)
 
+//address of weight back to SDWE : (0~7)-> weight of chanel(val:g)
+#define SDWE_FUNC_ASK_CHANEL_WEIGHT			(0X0160)//0x0160~0x0167
+
+//address of COLOR back to SDWE : (0~7)-> COLOR of chanel(val=0x00:white,val=0x01:red,val=0x02:green,val=0x03:blue,val=0x04:yellowWhite)
+#define SDWE_FUNC_ASK_CHANEL_WEIGHT_COLOR	(0X0168)//0x0168~0x016F
 
 //address of set chanel number : 0->all chanel set  ; (1~8)->single chanel set
-#define SDWE_FUNC_SET_CHANEL_NUM		(0X01FF)
+#define SDWE_FUNC_SET_CHANEL_NUM			(0X01FF)
 
-//address of set point of chanel : (0~9)-> point of chanel set
-#define SDWE_FUNC_SET_CHANEL_POINT		(0X0300)
+//address of set point(weight value) of chanel : (0~9)-> point of chanel set (:g)
+#define SDWE_FUNC_SET_CHANEL_POINT			(0X0200)//0x0200~0x0209
 
-//address of set weight value of point of chanel : (0~9)-> weight value of point of chanel set
-#define SDWE_FUNC_SET_CHANEL_WEIGHT_VAL		(0X0301)
+//address of COLOR back to SDWE : (0~9)-> COLOR of point of chanel set triger(val=0x00:white(not triger),val=0x01green(triger))
+#define SDWE_FUNC_ASK_CHANEL_POINT_TRIG		(0X020A)//0x020A~0x0213
+
+//address of set point of chanel triger : (0~9)-> point of chanel set triger(val=0xff(SDWE triger MCU))
+#define SDWE_FUNC_SET_CHANEL_POINT_TRIG		(0X0214)//0x0214~0x021D
+
 
 typedef enum sdweRxFuncIdType
 {

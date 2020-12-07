@@ -27,34 +27,31 @@ Project File Date:  11/28/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_led_ctrl.c...
-compiling app_hx711_ctrl.c...
 compiling app_main_task.c...
-compiling app_main.c...
 compiling app_sdwe_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(175): warning:  #186-D: pointless comparison of unsigned integer with zero
   				if((pSdwe->sdweCalChanel <= HX711_CHANEL_NUM) && (pSdwe->sdweCalChanel >= 0))
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(209): warning:  #188-D: enumerated type mixed with another type
-  		weight[i] = (INT16)hx711_getWeight(i);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(210): warning:  #188-D: enumerated type mixed with another type
-  		weightTen[i] = (INT16)hx711_getWeightTen(i);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(204): warning:  #177-D: variable "j" was declared but never referenced
-  	UINT16 *pSendData= &g_sdwe_dis_data[0] , i = 0 , j = 0 ,sameA = 5, sameB = 8;
-src\app_sdwe_ctrl.c: 4 warnings, 0 errors
+src\app_sdwe_ctrl.c: 1 warning, 0 errors
+compiling app_main.c...
+compiling app_led_ctrl.c...
 compiling app_key_ctrl.c...
+compiling app_hx711_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(110): warning:  #177-D: variable "i" was declared but never referenced
+  	UINT8 i = 0 ;
+src\app_hx711_ctrl.c: 1 warning, 0 errors
 assembling startup_stm32f30x.s...
 compiling app_crc.c...
 linking...
-Program Size: Code=11318 RO-data=1226 RW-data=964 ZI-data=6268  
+Program Size: Code=11338 RO-data=1226 RW-data=960 ZI-data=6176  
 FromELF: creating hex file...
-".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 4 Warning(s).
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

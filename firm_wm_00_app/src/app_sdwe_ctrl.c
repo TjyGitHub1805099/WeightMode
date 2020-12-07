@@ -190,10 +190,10 @@ void sdwe_RxFunction(void)
 		break;
 		default:
 			//weight set
-			if(( pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_WEIGHT_VAL )
-				&& ( pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_WEIGHT_VAL + CHANEL_POINT_NUM ) )
+			if(( pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT )
+				&& ( pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT + CHANEL_POINT_NUM ) ) )
 			{
-				pSdwe->sdweCalPointArry[pSdwe->sdweSetAdd-SDWE_FUNC_SET_CHANEL_WEIGHT_VAL] = pSdwe->sdweSetData;//chanel
+				pSdwe->sdweCalPointArry[pSdwe->sdweSetAdd-SDWE_FUNC_SET_CHANEL_POINT] = pSdwe->sdweSetData;//chanel
 			}
 		break;
 	}
@@ -237,7 +237,7 @@ void sdwe_MainFunction(UINT8 hx711DataUpgrade)
 	sdwe_RxFunction();
 	
 	//prepare weight data and send to SDWE when weight data changed or every 1s arrive
-	if(( 1 == hx711DataUpgrade ) || (0 == (sendTick%1000))
+	if(( 1 == hx711DataUpgrade ) || (0 == (sendTick%1000)))
 	{
 		sendTick = 0 ;
 		sdwe_TxFunction();

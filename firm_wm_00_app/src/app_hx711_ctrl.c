@@ -179,7 +179,6 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		weight += pChanel->section_B[i];
 		//
 		pChanel->weightPre = pChanel->weight;
-		pChanel->weightTen = (10*weight);
 		pChanel->weight = weight;
 	}
 }
