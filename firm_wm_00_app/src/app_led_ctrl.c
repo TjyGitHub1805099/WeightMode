@@ -2,6 +2,7 @@
 #include "hal_gpio.h"
 #include "app_led_ctrl.h"
 #include "app_hx711_ctrl.h"
+#include "app_sdwe_ctrl.h"
 
 UINT8 g_led_ctrl_data[LED_CTRL_DATA_LEN]={0};
 
@@ -63,49 +64,53 @@ void led_init(void)
 }
 
 //led cycle contrl
-void led_MainFunction(void)
+void led_MainFunction(UINT8 hx711DataUpgrade)
 {
 	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
 	UINT8 *pData=&g_led_ctrl_data[0];
-	
 	UINT8 i = 0,j = 0,set = 0,l_data = 0;
-	
-	//check data change and store g_led_ctrl_data
-	for(i=0;i<LED_CTRL_DATA_LEN;i++)
-	{
-		if(led_data[i] != pData[i])
-		{
-			led_data[i] = pData[i];
-			set = 1;
-		}
-	}
-	
-	//if data changed
-	if(1 == set)
-	{
-		for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
-		{
-			l_data = led_data[i]; 	
-			for(j=0;j<8;j++)//8 bit
-			{		
-				//set SER
-				if(0x01 == (l_data&0x01))
-				{
-					hal_gpio_set_do_high( LED_DO_SER0 );
-				}
-				else
-				{
-					hal_gpio_set_do_low( LED_DO_SER0 );
-				}
-				l_data>>=1;
 
-				//send SCK shift data
-				LedCtrlSendPulse( LED_DO_SRCLK ,1);	
-			}		
+	//if weight data changed
+	if(1 == hx711DataUpgrade)
+	{	
+		//check data change and store g_led_ctrl_data
+		for(i=0;i<LED_CTRL_DATA_LEN;i++)
+		{
+			if(led_data[i] != pData[i])
+			{
+				led_data[i] = pData[i];
+				set = 1;
+			}
 		}
 		
-		//send RCK lock data
-		LedCtrlSendPulse( LED_DO_RCLK ,1);	
+		//if data changed
+		if(1 == set)
+		{
+			for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
+			{
+				l_data = led_data[i];	
+				for(j=0;j<8;j++)//8 bit
+				{		
+					//set SER
+					if(0x01 == (l_data&0x01))
+					{
+						hal_gpio_set_do_high( LED_DO_SER0 );
+					}
+					else
+					{
+						hal_gpio_set_do_low( LED_DO_SER0 );
+					}
+					l_data>>=1;
+		
+					//send SCK shift data
+					LedCtrlSendPulse( LED_DO_SRCLK ,1); 
+				}		
+			}
+			
+			//send RCK lock data
+			LedCtrlSendPulse( LED_DO_RCLK ,1);	
+		}
+	
 	}
 }
 
@@ -198,47 +203,74 @@ void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
 }
 
 //
-void useWeightUpdateLedColor(void)
+void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	enumHX711ChanelType arry[HX711_CHANEL_NUM];
 	enumLedSeqType ledSeq = LED_SEQ_1; 	
 	enumLedColorType color = LED_COLOR_REG ;
 	float weight[HX711_CHANEL_NUM];
-	float weightTen[HX711_CHANEL_NUM];
-	//get each chanel weight
-	for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	
+	//if weight data changed
+	if(1 == hx711DataUpgrade)
 	{
-		arry[chanel] = chanel;
-		weight[chanel] = hx711_getWeight(chanel);
-		weightTen[chanel] = hx711_getWeightTen(chanel);
-	}
-	//sequence
-	BubbleSort(weight,arry,HX711_CHANEL_NUM);
-	BubbleSort(weightTen,arry,HX711_CHANEL_NUM);
-	//
-	for(ledSeq = LED_SEQ_1;ledSeq<LED_SEQ_NUM-1;ledSeq++)
-	{
-		if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
-			((weight[ledSeq+1] - weight[ledSeq]) > -CHANEL_MAX_ERR_RANGE) &&
-			((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
-			((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
+		//get each chanel weight
+		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 		{
-			LedDataSet(ledSeq, color);//light same color
-			LedDataSet((enumLedSeqType)(ledSeq+1), color);//light same color
-			ledSeq++;
-			color++;
+			arry[chanel] = chanel;
+			weight[chanel] = hx711_getWeight(chanel);
 		}
-		else
+		//sequence
+		BubbleSort(weight,arry,HX711_CHANEL_NUM);
+		//
+		for(ledSeq = LED_SEQ_1;ledSeq<LED_SEQ_NUM-1;ledSeq++)
 		{
-			LedDataSet(ledSeq, LED_COLOR_NUM);//not light
-			if((LED_SEQ_NUM-2) == ledSeq)
+			if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
+				((weight[ledSeq+1] - weight[ledSeq]) > -CHANEL_MAX_ERR_RANGE) &&
+				((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
+				((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
 			{
-				LedDataSet((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
+				LedDataSet(ledSeq, color);//light same color
+				sdweSetWeightBackColor(ledSeq, color);
+				LedDataSet((enumLedSeqType)(ledSeq+1), color);//light same color
+				sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), color);//light same color
+				ledSeq++;
+				color++;
+			}
+			else
+			{
+				LedDataSet(ledSeq, LED_COLOR_NUM);//not light
+				sdweSetWeightBackColor(ledSeq, LED_COLOR_NUM);//not light
+				if((LED_SEQ_NUM-2) == ledSeq)
+				{
+					LedDataSet((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
+					sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
+				}
 			}
 		}
 	}
 }
 
+void LedSysTest(UINT32 ms_tick)
+{
+	static UINT16 l_led_test_cycle = 1000;
+	static enumLedColorType color = LED_COLOR_REG;
+	enumLedSeqType seq = LED_SEQ_1;
+	
+	//every 1s change color:reg->yellow->blue->green
+	if(0 == (ms_tick%l_led_test_cycle))
+	{
+		for(seq = LED_SEQ_1 ; seq < LED_SEQ_NUM ; seq++)
+		{
+			LedDataSet(seq,color);
+		}
+		
+		color++;
+		if( color >= LED_COLOR_NUM )
+		{
+			color = LED_COLOR_REG;
+		}
+	}
+}
 
 

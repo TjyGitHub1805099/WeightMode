@@ -60,14 +60,15 @@ void hx711_init()
 		pChanel[chanel_i].sample_AvgValue = 0 ;
 		pChanel[chanel_i].sample_offset = 0 ;
 		pChanel[chanel_i].section_offset = 0 ;
-		for(section_i=0;section_i<CHANEL_SECTION_NUM;section_i++)
+		for(section_i=0;section_i<(CHANEL_POINT_NUM+1);section_i++)
 		{
 		
 			pChanel[chanel_i].section_K[section_i] = CHANEL_DEFAULT_K ;
 			pChanel[chanel_i].section_B[section_i] = CHANEL_DEFAULT_B ;
 		}
 		pChanel[chanel_i].weight = 0 ;		
-		pChanel[chanel_i].weightTen = 0 ;
+		pChanel[chanel_i].weightPre = 0;
+		pChanel[chanel_i].weightRemove = 0;
 		//
 		pChanel[chanel_i].initFlag = TRUE ;
 	}
@@ -102,6 +103,7 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	//
 	pChanel->sample_offset++;
 }
+
 //calculate K & B
 void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 {
@@ -115,28 +117,16 @@ void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 
 	//
 	pChanel = &HX711Chanel[chanel];
-	
+
 	//
-	if(point < (CHANEL_SECTION_NUM+1))
+	if(point < CHANEL_POINT_NUM)
 	{
+		//load weight and sample
 		pChanel->section_PointWeight[point] = weight ;
 		pChanel->section_PointSample[point] = pChanel->sample_AvgValue;
-		//
-		if((0 == point) || ((CHANEL_SECTION_NUM) == point))
-		{
-			//
-			k = 0.0f;
-			for(i=0;i<CHANEL_SECTION_NUM;i++)
-			{
-				k+=pChanel->section_K[i+1];
-			}
-			//k
-			k /= CHANEL_SECTION_NUM;
-			//b
-			b = pChanel->section_PointWeight[point];
-			b -= k*pChanel->section_PointSample[point];
-		}
-		else
+
+		//cal each k b : point form 1~(CHANEL_POINT_NUM-1)
+		if(0 != point)
 		{
 			//k
 			k = 0.0f;
@@ -144,12 +134,26 @@ void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 			k = k / (pChanel->section_PointSample[point]-pChanel->section_PointSample[point-1]);
 			//b
 			b = pChanel->section_PointWeight[point] - k*pChanel->section_PointSample[point];
+			//
+			pChanel->section_K[point] = k;
+			pChanel->section_B[point] = b;
 		}
-		//
-		pChanel->section_K[point] = k;
-		pChanel->section_B[point] = b;
+
+		//special deal : first point
+		if(1 == point )
+		{
+			pChanel->section_K[point-1] = pChanel->section_K[point];
+			pChanel->section_B[point-1] = pChanel->section_B[point];
+		}
+		//special deal : last point
+		if((CHANEL_POINT_NUM-1) == point)
+		{
+			pChanel->section_K[point+1] = pChanel->section_K[point];
+			pChanel->section_B[point+1] = pChanel->section_B[point];
+		}
 	}
 }
+
 //calculate avrg value and weight
 void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 {
@@ -162,7 +166,7 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		pChanel->sample_AvgValue = pChanel->sample_TotalValue / CHANEL_FILTER_NUM;
 		
 		//find out k & b
-		for( i = 0 ; i < (CHANEL_SECTION_NUM+1) ; i++ )
+		for( i = 0 ; i < CHANEL_POINT_NUM ; i++ )
 		{
 			if( pChanel->sample_AvgValue <= pChanel->section_PointSample[i] )
 			{
@@ -174,8 +178,9 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		weight *= pChanel->sample_AvgValue;
 		weight += pChanel->section_B[i];
 		//
-		pChanel->weightTen = (INT32)(10*weight);
-		pChanel->weight = (INT32)(weight + 0.5f);
+		pChanel->weightPre = pChanel->weight;
+		pChanel->weightTen = (10*weight);
+		pChanel->weight = weight;
 	}
 }
 //
@@ -185,17 +190,8 @@ float hx711_getWeight(enumHX711ChanelType chanel)
 	ChanelType *pChanel=&HX711Chanel[0];
 	if( chanel < HX711_CHANEL_NUM )
 	{
-		ret = pChanel[chanel].weight;
-	}
-	return ret;
-}
-float hx711_getWeightTen(enumHX711ChanelType chanel)
-{
-	float ret = 0 ;
-	ChanelType *pChanel=&HX711Chanel[0];
-	if( chanel < HX711_CHANEL_NUM )
-	{
-		ret = pChanel[chanel].weightTen;
+		//remove tare 去皮
+		ret = pChanel[chanel].weight - pChanel[chanel].weightRemove;
 	}
 	return ret;
 }
@@ -257,23 +253,23 @@ void hx711_AllChanelSample(void)
 //hx711 data sample ctrl
 void hx711_DataSampleCtrl(void)
 {
-	ChanelType *pChanel=&HX711Chanel[0];
 	UINT8 chanel_i = 0 ;
-	//static float dataT[100];
-	//static UINT8 i=0;
+	ChanelType *pChanel=&HX711Chanel[0];
+	//sample
 	hx711_AllChanelSample();
+	//cal weight
 	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
 	{
 		hx711_SigChanelAvrgAndWeightCalc(&pChanel[chanel_i]);
 	}
-	//dataT[i++%100] = pChanel[0].weight;
 }
 //hx711 main function
-void hx711_MainFunction(void)
+UINT8 hx711_MainFunction(void)
 {
 	static enumHX711CtrlType status = HX711_CTRL_INIT;
 	static UINT8 l_max_wait_time = 0;
-	UINT8 i = 0 ,ret = 0;
+	UINT8 i = 0 ,stillWait = 0 , retn = 0 ;
+	//
 	switch(status)
 	{
 		case HX711_CTRL_INIT:
@@ -308,12 +304,12 @@ void hx711_MainFunction(void)
 					//wait DATA faling 1->0
 					if(1 == hal_di_get((enumDoLineType)(HX711_DATA_1+i)))
 					{
-						ret = 1;
+						stillWait = 1;
 						break;
 					}
 				}
 				//
-				if(ret == 1)
+				if(stillWait == 1)
 				{
 					status = HX711_CTRL_WAIT;
 				}
@@ -327,10 +323,13 @@ void hx711_MainFunction(void)
 			 hx711_DataSampleCtrl();
 			 status = HX711_CTRL_WAIT;
 			 l_max_wait_time = 0;
+			 retn = 0 ;
 		break;
 		default :
 			status = HX711_CTRL_POWER_OFF;
 		break;
 	}
+	//
+	return retn;
 }
 

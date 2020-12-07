@@ -4,8 +4,11 @@
 #include "app_hx711_ctrl.h"
 
 SdweType g_sdwe = SdweDefault;
-static INT32 defaultChanelSamplePoint[CHANEL_SECTION_NUM+1] = {0,50,100,200,500,1000,2000,3000,3500,4000,5000};
+static INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM] = {0,50,100,200,500,1000,2000,3000,4000,5000};
+UINT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
 
+
+//sdwe initial
 void sdwe_init(void)
 {
 	UINT8 i = 0 ;
@@ -15,7 +18,7 @@ void sdwe_init(void)
 	g_sdwe.pUartDevice->pTxBuffer = &g_sdwe.rxData[0];
 	g_sdwe.pUartDevice->pRxBuffer = &g_sdwe.rxData[0];
 	//
-	for(i=0;i<(CHANEL_SECTION_NUM+1);i++)
+	for(i=0;i<CHANEL_POINT_NUM;i++)
 	{
 		g_sdwe.sdweCalPointArry[i] = defaultChanelSamplePoint[i];
 	}
@@ -23,7 +26,7 @@ void sdwe_init(void)
 	g_sdwe.pUartDevice->init(g_sdwe.pUartDevice);
 }
 
-
+//write data to SDWE thought UART
 void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
 {
 	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
@@ -70,8 +73,6 @@ void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
 }
 
 
-
-
 void sdwe_test(void)
 {
 	UINT8 i=0;
@@ -107,6 +108,8 @@ void sdwe_test(void)
 
 
 }
+
+//deal rx data
 void sdweRxDeal(void)
 {
 	UINT16 dataReg = 0 ;
@@ -142,12 +145,9 @@ void sdweRxDeal(void)
 }
 void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 {
-	UINT8 X=0;
-	X=X+1;
 	sdweRxDeal();	
 }
-
-void sdwe_MainCalFunction(void)
+void sdwe_RxFunction(void)
 {
 	UINT8 i = 0 ;
 	UINT8 point;
@@ -155,16 +155,16 @@ void sdwe_MainCalFunction(void)
 	SdweType *pSdwe = &g_sdwe;
 	switch(pSdwe->sdweSetAdd)
 	{
-		case SDWE_FUNC_CAL_CHANEL_ADD:
+		case SDWE_FUNC_SET_CHANEL_NUM:
 			if(pSdwe->sdweSetData <= HX711_CHANEL_NUM)
 			{
 				pSdwe->sdweCalChanel = pSdwe->sdweSetData;//chanel
 			}
 		break;
 		
-		case SDWE_FUNC_CAL_CHANEL_POINT_ADD://point
+		case SDWE_FUNC_SET_CHANEL_POINT://point
 			if((pSdwe->sdweSetData > 0) && 
-				(pSdwe->sdweSetData <= (CHANEL_SECTION_NUM)))
+				(pSdwe->sdweSetData <= CHANEL_POINT_NUM))
 			{
 				//point
 				pSdwe->sdweCalPoint = pSdwe->sdweSetData;//point
@@ -189,6 +189,12 @@ void sdwe_MainCalFunction(void)
 			}
 		break;
 		default:
+			//weight set
+			if(( pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_WEIGHT_VAL )
+				&& ( pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_WEIGHT_VAL + CHANEL_POINT_NUM ) )
+			{
+				pSdwe->sdweCalPointArry[pSdwe->sdweSetAdd-SDWE_FUNC_SET_CHANEL_WEIGHT_VAL] = pSdwe->sdweSetData;//chanel
+			}
 		break;
 	}
 	//clr address
@@ -196,28 +202,45 @@ void sdwe_MainCalFunction(void)
 }
 
 
-#define SDWE_WEIGHR_DATA_LEN 12	
-UINT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
-
-void sdwe_MainFunction(void)
+//
+void sdweSetWeightBackColor(UINT8 seq,UINT8 color)
 {
-	UINT16 *pSendData= &g_sdwe_dis_data[0] , i = 0 , j = 0 ,sameA = 5, sameB = 8;
-	INT16 weight[HX711_CHANEL_NUM],weightTen[HX711_CHANEL_NUM];
-	//
-	for(i=0;i<HX711_CHANEL_NUM;i++)
+	if(seq < HX711_CHANEL_NUM)
 	{
-		weight[i] = (INT16)hx711_getWeight(i);
-		weightTen[i] = (INT16)hx711_getWeightTen(i);
-		//
-		pSendData[i] = weightTen[i];
+		g_sdwe_dis_data[HX711_CHANEL_NUM+seq] = color;
 	}
+}
+
+//prepare TX data
+void sdwe_TxFunction(void)
+{
+	UINT16 *pSendData= &g_sdwe_dis_data[0];
+	INT16 weight[HX711_CHANEL_NUM];	
+	enumHX711ChanelType chanel = HX711Chanel_1;
 	//
-	pSendData[i++] = sameA;
-	pSendData[i++] = weight[sameA];
-	pSendData[i++] = sameB;
-	pSendData[i++] = weight[sameB];
+	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	{
+		weight[chanel] = (INT16)(hx711_getWeight(chanel)+0.5f);
+		pSendData[chanel] = weight[chanel];
+	}
 	
 	//void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
-	sdweWrite(0X160,pSendData,i,0);	
+	sdweWrite(0X160,pSendData,SDWE_WEIGHR_DATA_LEN,0);	
+}
+
+//sdwe main function
+void sdwe_MainFunction(UINT8 hx711DataUpgrade)
+{
+	static UINT32 sendTick = 0 ;
+	sendTick++;
+	//deal rx data from SDWE
+	sdwe_RxFunction();
+	
+	//prepare weight data and send to SDWE when weight data changed or every 1s arrive
+	if(( 1 == hx711DataUpgrade ) || (0 == (sendTick%1000))
+	{
+		sendTick = 0 ;
+		sdwe_TxFunction();
+	}
 }
 

@@ -7,8 +7,15 @@
 
 #define SDWE_UART_DATA_LEN	(0X100)
 
-#define SDWE_FUNC_CAL_CHANEL_ADD		(0X01FF)
-#define SDWE_FUNC_CAL_CHANEL_POINT_ADD	(0X0300)
+
+//address of set chanel number : 0->all chanel set  ; (1~8)->single chanel set
+#define SDWE_FUNC_SET_CHANEL_NUM		(0X01FF)
+
+//address of set point of chanel : (0~9)-> point of chanel set
+#define SDWE_FUNC_SET_CHANEL_POINT		(0X0300)
+
+//address of set weight value of point of chanel : (0~9)-> weight value of point of chanel set
+#define SDWE_FUNC_SET_CHANEL_WEIGHT_VAL		(0X0301)
 
 typedef enum sdweRxFuncIdType
 {
@@ -46,7 +53,7 @@ typedef struct structSdweType
 	
 	UINT16 	sdweCalChanel;/**< 通道 */
 	UINT16 	sdweCalPoint;/**< 校准点 */
-	INT32 	sdweCalPointArry[CHANEL_SECTION_NUM+1];/**< 校准点数组 */
+	INT32 	sdweCalPointArry[CHANEL_POINT_NUM];/**< 校准点数组 */
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
@@ -63,10 +70,12 @@ typedef struct structSdweType
 	{0},\
 	}
 
+#define SDWE_WEIGHR_DATA_LEN (2*HX711_CHANEL_NUM)//8 weight data + 8 color data	
+
 
 extern void sdwe_init(void);
 extern void sdwe_test(void);
-extern void sdwe_MainFunction(void);
-extern void sdwe_MainCalFunction(void);
+extern void sdweSetWeightBackColor(UINT8 seq,UINT8 color);
+extern void sdwe_MainFunction(UINT8 hx711DataUpgrade);
 #endif
 
