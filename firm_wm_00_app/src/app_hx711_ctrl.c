@@ -103,7 +103,74 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	//
 	pChanel->sample_offset++;
 }
+//set chanel point value
+void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
+{
+	UINT8 i = 0 ;
+	ChanelType *pChanel = &HX711Chanel[0];
+	//
+	if( (chanel < HX711_CHANEL_NUM) && (point < CHANEL_POINT_NUM) )
+	{
+		pChanel = &HX711Chanel[chanel];
+		pChanel->section_PointWeight[point] = weight ;
+	}
+}
 
+//thought SDWE point triger cacluate K & B
+void trigerCalcKB(UINT8 chanel,UINT8 point)
+{
+	UINT8 i = 0 ;
+	ChanelType *pChanel = &HX711Chanel[0];
+	float k=0.0,b=0.0;
+	//
+	if( (chanel < HX711_CHANEL_NUM) && (point < CHANEL_POINT_NUM) )
+	{
+		pChanel = &HX711Chanel[chanel];
+		//load weight and sample
+		pChanel->section_PointSample[point] = pChanel->sample_AvgValue;
+
+		//cal each k b : point form 1~(CHANEL_POINT_NUM-1)
+		if(0 != point)
+		{
+			//k
+			k = 0.0f;
+			k = (pChanel->section_PointWeight[point] - pChanel->section_PointWeight[point-1]);
+			k = k / (pChanel->section_PointSample[point]-pChanel->section_PointSample[point-1]);
+			//b
+			b = pChanel->section_PointWeight[point] - k*pChanel->section_PointSample[point];
+			//
+			pChanel->section_K[point] = k;
+			pChanel->section_B[point] = b;
+
+			if((CHANEL_POINT_NUM-1) > point)
+			{
+				//k
+				k = 0.0f;
+				k = (pChanel->section_PointWeight[point+1] - pChanel->section_PointWeight[point]);
+				k = k / (pChanel->section_PointSample[point+1]-pChanel->section_PointSample[point]);
+				//b
+				b = pChanel->section_PointWeight[point+1] - k*pChanel->section_PointSample[point+1];
+				//
+				pChanel->section_K[point+1] = k;
+				pChanel->section_B[point+1] = b;
+			}
+
+		}
+
+		//special deal : first point
+		if(1 == point )
+		{
+			pChanel->section_K[point-1] = pChanel->section_K[point];
+			pChanel->section_B[point-1] = pChanel->section_B[point];
+		}
+		//special deal : last point
+		if((CHANEL_POINT_NUM-1) == point)
+		{
+			pChanel->section_K[point+1] = pChanel->section_K[point];
+			pChanel->section_B[point+1] = pChanel->section_B[point];
+		}
+	}
+}
 //calculate K & B
 void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 {
@@ -137,6 +204,20 @@ void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 			//
 			pChanel->section_K[point] = k;
 			pChanel->section_B[point] = b;
+
+			if((CHANEL_POINT_NUM-1) > point)
+			{
+				//k
+				k = 0.0f;
+				k = (pChanel->section_PointWeight[point+1] - pChanel->section_PointWeight[point]);
+				k = k / (pChanel->section_PointSample[point+1]-pChanel->section_PointSample[point]);
+				//b
+				b = pChanel->section_PointWeight[point+1] - k*pChanel->section_PointSample[point+1];
+				//
+				pChanel->section_K[point+1] = k;
+				pChanel->section_B[point+1] = b;
+			}
+
 		}
 
 		//special deal : first point

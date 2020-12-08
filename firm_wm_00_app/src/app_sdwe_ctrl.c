@@ -147,58 +147,77 @@ void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 {
 	sdweRxDeal();	
 }
+
+//store set data to flash
+void storeSysDataToFlash()
+{
+}
+
 void sdwe_RxFunction(void)
 {
-	UINT8 i = 0 ;
+	UINT8 i = 0 ,needStore = 0;
 	UINT8 point;
 	INT32 weight;
 	SdweType *pSdwe = &g_sdwe;
-	switch(pSdwe->sdweSetAdd)
+	
+	//receive address from SDWE
+	if(0xffff != pSdwe->sdweSetAdd)
 	{
-		case SDWE_FUNC_SET_CHANEL_NUM:
+		//chanel choice:0->all chanel , 1~8:single chanel
+		if(SDWE_FUNC_SET_CHANEL_NUM == pSdwe->sdweSetAdd)
+		{
 			if(pSdwe->sdweSetData <= HX711_CHANEL_NUM)
 			{
 				pSdwe->sdweCalChanel = pSdwe->sdweSetData;//chanel
 			}
-		break;
+		}//chanel point weight value set
+		else if((pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT)&&(pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT + CHANEL_POINT_NUM )))
+		{
+			needStore = 1 ;
+			//point
+			pSdwe->sdweCalPoint = (pSdwe->sdweSetAdd -SDWE_FUNC_SET_CHANEL_POINT) ;//point
+			point = pSdwe->sdweCalPoint;
+			pSdwe->sdweCalPointArry[point] = pSdwe->sdweSetData;
+			//weight
+			weight = pSdwe->sdweSetData;
 		
-		case SDWE_FUNC_SET_CHANEL_POINT://point
-			if((pSdwe->sdweSetData > 0) && 
-				(pSdwe->sdweSetData <= CHANEL_POINT_NUM))
+			if(0 == pSdwe->sdweCalChanel)//all chanel point weight value set
 			{
-				//point
-				pSdwe->sdweCalPoint = pSdwe->sdweSetData;//point
-				point = pSdwe->sdweCalPoint-1;
-				//weight
-				weight = pSdwe->sdweCalPointArry[point];
-				//cal set
-				if((pSdwe->sdweCalChanel <= HX711_CHANEL_NUM) && (pSdwe->sdweCalChanel >= 0))
+				for(i=0;i<HX711_CHANEL_NUM;i++)//8通道
 				{
-					if(0 == pSdwe->sdweCalChanel)//all chanel set
-					{
-						for(i=0;i<(HX711_CHANEL_NUM);i++)//8通道
-						{
-							sampleCalcKB(i,point,weight);
-						}
-					}
-					else//single chanel set
-					{
-						sampleCalcKB((pSdwe->sdweCalChanel-1),point,weight);
-					}
+					setSampleWeightValue(i,point,weight);
 				}
 			}
-		break;
-		default:
-			//weight set
-			if(( pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT )
-				&& ( pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT + CHANEL_POINT_NUM ) ) )
+			else//single chanel point weight value set
 			{
-				pSdwe->sdweCalPointArry[pSdwe->sdweSetAdd-SDWE_FUNC_SET_CHANEL_POINT] = pSdwe->sdweSetData;//chanel
+				setSampleWeightValue((pSdwe->sdweCalChanel-1),point,weight);
 			}
-		break;
+		}//triger calculate
+		else if((pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT_TRIG)&&(pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT_TRIG + CHANEL_POINT_NUM )))
+		{
+			needStore = 1 ;
+			point = ( pSdwe->sdweSetAdd - SDWE_FUNC_SET_CHANEL_POINT_TRIG )
+			if(0 == pSdwe->sdweCalChanel)//all chanel caculate	K & B
+			{
+				for(i=0;i<HX711_CHANEL_NUM;i++)//8通道
+				{
+					trigerCalcKB(i,point);
+				}
+			}
+			else//single chanel caculate  K & B
+			{
+				trigerCalcKB((pSdwe->sdweCalChanel-1),point);
+			}
+		}
+
+		//store set data to flash
+		if(1 == needStore)
+		{
+			storeSysDataToFlash();
+		}
+		//clr address
+		pSdwe->sdweSetAdd = 0xffff;
 	}
-	//clr address
-	pSdwe->sdweSetAdd = 0xffff;
 }
 
 

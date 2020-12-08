@@ -87,7 +87,7 @@ void app_main_task( void )
 		case MainTask_SYS_HX711_TEST:
 			for(i=0;i<HX711_CHANEL_NUM;i++)
 			{
-				sampleCalcKB(i,0,0);
+				//sampleCalcKB(i,0,0);
 			}
 			mainTaskStatus = MainTask_IDLE;
 		break;

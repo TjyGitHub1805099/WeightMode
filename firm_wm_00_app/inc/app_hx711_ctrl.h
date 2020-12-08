@@ -77,5 +77,7 @@ extern void hx711_init(void);
 extern UINT8 hx711_MainFunction(void);
 extern float hx711_getWeight(enumHX711ChanelType chanel);
 extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
+extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
+extern void trigerCalcKB(UINT8 chanel,UINT8 point);
 #endif
 
