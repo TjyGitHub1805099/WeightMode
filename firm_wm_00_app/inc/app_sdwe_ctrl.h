@@ -109,5 +109,7 @@ extern void sdwe_init(void);
 extern void sdwe_test(void);
 extern void sdweSetWeightBackColor(UINT8 seq,UINT8 color);
 extern void sdwe_MainFunction(UINT8 hx711DataUpgrade);
+extern void readSysDataFromFlash();
+
 #endif
 

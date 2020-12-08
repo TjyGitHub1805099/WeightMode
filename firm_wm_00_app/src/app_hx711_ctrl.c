@@ -73,6 +73,17 @@ void hx711_init()
 		pChanel[chanel_i].initFlag = TRUE ;
 	}
 }
+ChanelType getChanelStruct(UINT8 chanel_i)
+{
+	ChanelType *pChanel=&HX711Chanel[0];
+	if(chanel_i < HX711_CHANEL_NUM)
+	{
+		pChanel = &HX711Chanel[chanel_i];
+	}
+	return pChanel;
+}
+
+
 //sample data push
 void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 {
@@ -403,7 +414,7 @@ UINT8 hx711_MainFunction(void)
 			 hx711_DataSampleCtrl();
 			 status = HX711_CTRL_WAIT;
 			 l_max_wait_time = 0;
-			 retn = 0 ;
+			 retn = 1 ;
 		break;
 		default :
 			status = HX711_CTRL_POWER_OFF;

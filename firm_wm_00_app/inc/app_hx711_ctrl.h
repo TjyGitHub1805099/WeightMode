@@ -56,9 +56,9 @@ typedef struct
 	INT32	section_PointWeight[CHANEL_POINT_NUM];
 	float 	section_K[CHANEL_POINT_NUM+1];//0:degative  CHANEL_POINT_NUM+1:out range;this 2 status use default K & B
 	float 	section_B[CHANEL_POINT_NUM+1];
+	float	weightRemove;//去皮的重量
 	float	weight;   //当前的重量
 	float	weightPre;//之前的重量
-	float	weightRemove;//去皮的重量
 } ChanelType;
 
 
@@ -79,5 +79,6 @@ extern float hx711_getWeight(enumHX711ChanelType chanel);
 extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
 extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
 extern void trigerCalcKB(UINT8 chanel,UINT8 point);
+extern ChanelType getChanelStruct(UINT8 chanel_i);
 #endif
 
