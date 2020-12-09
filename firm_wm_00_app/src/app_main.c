@@ -48,6 +48,7 @@ int main(void)
 	led_init();
 	hx711_init();
 	sdwe_init();
+	readSysDataFromFlash();
 	while(1)
 	{}
 }

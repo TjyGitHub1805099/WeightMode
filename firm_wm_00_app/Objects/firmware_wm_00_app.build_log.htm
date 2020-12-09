@@ -27,31 +27,58 @@ Project File Date:  11/28/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_main_task.c...
-compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(175): warning:  #186-D: pointless comparison of unsigned integer with zero
-  				if((pSdwe->sdweCalChanel <= HX711_CHANEL_NUM) && (pSdwe->sdweCalChanel >= 0))
-src\app_sdwe_ctrl.c: 1 warning, 0 errors
 compiling app_main.c...
-compiling app_led_ctrl.c...
-compiling app_key_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(115): warning:  #1295-D: Deprecated declaration readSysDataFromFlash - give arg types
+  extern void readSysDataFromFlash();
+src\app_main.c: 1 warning, 0 errors
+compiling app_main_task.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(115): warning:  #1295-D: Deprecated declaration readSysDataFromFlash - give arg types
+  extern void readSysDataFromFlash();
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main_task.c(19): warning:  #177-D: variable "i" was declared but never referenced
+  	UINT8 i = 0 ,hx711DataUpgrade = 0 ;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_main_task.c(11): warning:  #177-D: variable "g_sys_sdwe_tick" was declared but never referenced
+  static UINT32 g_sys_sdwe_tick = 0 ;
+src\app_main_task.c: 3 warnings, 0 errors
 compiling app_hx711_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(110): warning:  #177-D: variable "i" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(127): warning:  #177-D: variable "i" was declared but never referenced
   	UINT8 i = 0 ;
-src\app_hx711_ctrl.c: 1 warning, 0 errors
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(140): warning:  #177-D: variable "i" was declared but never referenced
+  	UINT8 i = 0 ;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(195): warning:  #177-D: variable "i" was declared but never referenced
+  	UINT8 i = 0 ;
+src\app_hx711_ctrl.c: 3 warnings, 0 errors
+compiling app_sdwe_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(115): warning:  #1295-D: Deprecated declaration readSysDataFromFlash - give arg types
+  extern void readSysDataFromFlash();
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(187): warning:  #177-D: variable "pWord" was declared but never referenced
+  	unionFloatInt32 *pWord=0;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(190): warning:  #550-D: variable "endii" was set but never used
+  	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0 , endii = 0;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(245): warning:  #177-D: variable "Int32" was declared but never referenced
+  	INT32 *pInt32 = 0 ,Int32 = 0;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(246): warning:  #177-D: variable "Float" was declared but never referenced
+  	float *pFloat = 0 ,Float = 0.0;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(384): warning:  #177-D: variable "i" was declared but never referenced
+  	UINT8 i = 0 ,need_send = 0;
+src\app_sdwe_ctrl.c: 6 warnings, 0 errors
+compiling app_led_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(115): warning:  #1295-D: Deprecated declaration readSysDataFromFlash - give arg types
+  extern void readSysDataFromFlash();
+src\app_led_ctrl.c: 1 warning, 0 errors
 assembling startup_stm32f30x.s...
 compiling app_crc.c...
+compiling app_key_ctrl.c...
 linking...
-Program Size: Code=11338 RO-data=1226 RW-data=960 ZI-data=6176  
+Program Size: Code=12136 RO-data=1264 RW-data=916 ZI-data=6236  
 FromELF: creating hex file...
-".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 2 Warning(s).
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 14 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

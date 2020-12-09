@@ -5,9 +5,8 @@
 #include "app_hx711_ctrl.h"
 
 SdweType g_sdwe = SdweDefault;
-static INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM] = {0,50,100,200,500,1000,2000,3000,4000,5000};
 UINT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};//8 weight data + 8 color data	
-static UINT16 g_sdwe_triger_data[2][CHANEL_POINT_NUM]={{0}};//10 point triger color data	
+static UINT16 g_sdwe_triger_data[2][CHANEL_POINT_NUM]={{0},{0}};//10 point triger color data	
 
 //sdwe initial
 void sdwe_init(void)
@@ -161,7 +160,7 @@ UINT8 getSdwePointTriger()
 {
 	UINT8 ret = 0 , i = 0 ;
 	
-	for(i=0;i<=CHANEL_POINT_NUM;i++)
+	for(i=0;i<CHANEL_POINT_NUM;i++)
 	{
 		ret = g_sdwe_triger_data[0][i];//point triger need answer flag	
 		if(1 == ret)
@@ -174,7 +173,7 @@ UINT8 getSdwePointTriger()
 void clrSdwePointTriger()
 {
 	UINT8 i = 0 ;
-	for(i=0;i<=CHANEL_POINT_NUM;i++)
+	for(i=0;i<CHANEL_POINT_NUM;i++)
 	{
 		g_sdwe_triger_data[0][i] = 0 ;//clr point triger need answer flag	
 	}
@@ -184,97 +183,123 @@ void clrSdwePointTriger()
 void storeSysDataToFlash()
 {
 	ChanelType *pChanel = 0;	
-	UINT32 *pWord=0,flashDataBuf[HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)]={0};
-	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
+	unionFloatInt32 flashDataBuf[HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)]={0};
+	unionFloatInt32 *pWord=0;
+	INT32 *pInt32 = 0 ;
+	float *pFloat = 0;
+	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0 , endii = 0;
 	//get ram buf
 	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
 	{
 		//get chanel
 		pChanel = getChanelStruct(chanel_i);
-		//point sample value
+		//point sample value and weight value
 		start_i = end_i ;
-		//point sample , weight value , K ,B ,weightRemove
-		end_i = start_i+CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1;
-		pWord = &(pChanel->section_PointSample[0]);
+		//point sample , weight value
+		end_i = start_i+CHANEL_POINT_NUM+CHANEL_POINT_NUM;
+		pInt32 = (INT32 *)&(pChanel->section_PointSample[0]);
 		for(;start_i<end_i;start_i++)
 		{
 			if(start_i <  HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1) )
 			{
-				flashDataBuf[start_i] = *pWord;
+				flashDataBuf[start_i].i_value = *pInt32++;
+			}
+		}
+		//point K & B
+		start_i = end_i ;
+		//point  K ,B 
+		end_i = start_i+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1;
+		pFloat = (float *)&(pChanel->section_K[0]);
+		for(;start_i<end_i;start_i++)
+		{
+			if(start_i <  HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1) )
+			{
+				flashDataBuf[start_i].f_value = *pFloat++;
+			}
+		}
+		//point remove weight
+		start_i = end_i ;
+		//point  remove weight
+		end_i = start_i+1;
+		pFloat = (float *)&(pChanel->weightRemove);
+		for(;start_i<end_i;start_i++)
+		{
+			if(start_i <  HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1) )
+			{
+				flashDataBuf[start_i].f_value = *pFloat++;
 			}
 		}
 	}
-	
+	endii = FLASH_STORE_ADDRESS_END - FLASH_STORE_ADDRESS_START;
 	//write flash
-	if(end_i <= ((FLASH_STORE_ADDRESS_END - FLASH_STORE_ADDRESS_START )/4)
+	if(end_i <= ((FLASH_STORE_ADDRESS_END - FLASH_STORE_ADDRESS_START )/4))
 	{
-		drv_flash_write_words( FLASH_STORE_ADDRESS_START, (&flashDataBuf[0]), (end_i) );
+		drv_flash_write_words( FLASH_STORE_ADDRESS_START, (UINT32 *)(&flashDataBuf[0]), (end_i) );
 	}
 }
 //read data from flash
 void readSysDataFromFlash()
 {
 	ChanelType *pChanel = 0;	
-	INT32 *pInt32 = 0 ;
-	float *pFloat = 0 ;
-	UINT32 flashDataBuf[HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)]={0};
+	unionFloatInt32 flashDataBuf[HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)]={0};
+	INT32 *pInt32 = 0 ,Int32 = 0;
+	float *pFloat = 0 ,Float = 0.0;
 	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
 	
 	//read data from flash
-	drv_flash_read_words( FLASH_STORE_ADDRESS_START, (&flashDataBuf[0]), (HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)) );
+	drv_flash_read_words( FLASH_STORE_ADDRESS_START, (UINT32 *)(&flashDataBuf[0]), (HX711_CHANEL_NUM*(CHANEL_POINT_NUM+CHANEL_POINT_NUM+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1+1)) );
 	
 	//get ram buf
 	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
 	{
-		//get chanel
-		pChanel = getChanelStruct(chanel_i);
-		//point sample value
-		start_i = end_i ;
-		end_i = start_i + CHANEL_POINT_NUM;
-		pInt32 = &(pChanel->section_PointSample[0]);
-		for(;start_i<end_i;start_i++)
-		{
-			*pInt32++ = *((float *)(&flashDataBuf[start_i]));
-		}
-		
-		//point weight value
-		start_i = end_i ;
-		end_i = start_i + CHANEL_POINT_NUM;
-		pInt32 = &(pChanel->section_PointWeight[0]);
-		for(;start_i<end_i;start_i++)
-		{
-			*pInt32++ = *((float *)(&flashDataBuf[start_i]));
-		}
-		
-		//point K value
-		start_i = end_i ;
-		end_i = start_i + CHANEL_POINT_NUM + 1;
-		pFloat = &(pChanel->section_K[0]);
-		for(;start_i<end_i;start_i++)
-		{
-			*pFloat++ = *((float *)(&flashDataBuf[start_i]));
-		}
-		
-		//point B value
-		start_i = end_i ;
-		end_i = start_i + CHANEL_POINT_NUM + 1;
-		pFloat = &(pChanel->section_B[0]);
-		for(;start_i<end_i;start_i++)
-		{
-			*pFloat++ = *((float *)(&flashDataBuf[start_i]));
-		}
-		
-		//point remove value
-		start_i = end_i ;
-		end_i = start_i + 1;
-		pFloat = &(pChanel->weightRemove[0]);
-		for(;start_i<end_i;start_i++)
-		{
-			*pFloat++ = *((float *)(&flashDataBuf[start_i]));
-		}
+			//get chanel
+			pChanel = getChanelStruct(chanel_i);
+			//point sample value
+			start_i = end_i ;
+			end_i = start_i + CHANEL_POINT_NUM;
+			pInt32 = &(pChanel->section_PointSample[0]);
+			for(;start_i<end_i;start_i++)
+			{
+				*pInt32++ = flashDataBuf[start_i].i_value;
+			
+			//point weight value
+			start_i = end_i ;
+			end_i = start_i + CHANEL_POINT_NUM;
+			pInt32 = &(pChanel->section_PointWeight[0]);
+			for(;start_i<end_i;start_i++)
+			{
+				*pInt32++ = flashDataBuf[start_i].i_value;
+			}
+			
+			//point K value
+			start_i = end_i ;
+			end_i = start_i + CHANEL_POINT_NUM + 1;
+			pFloat = &(pChanel->section_K[0]);
+			for(;start_i<end_i;start_i++)
+			{
+				*pFloat++ = flashDataBuf[start_i].f_value;
+			}
+			
+			//point B value
+			start_i = end_i ;
+			end_i = start_i + CHANEL_POINT_NUM + 1;
+			pFloat = &(pChanel->section_B[0]);
+			for(;start_i<end_i;start_i++)
+			{
+				*pFloat++ = flashDataBuf[start_i].f_value;
+			}
+			
+			//point remove value
+			start_i = end_i ;
+			end_i = start_i + 1;
+			pFloat = &(pChanel->weightRemove);
+			for(;start_i<end_i;start_i++)
+			{
+				*pFloat++ = flashDataBuf[start_i].f_value;
+			}
+	}
 	}
 }
-
 void sdwe_RxFunction(void)
 {
 	UINT8 i = 0 ,needStore = 0;
@@ -318,7 +343,7 @@ void sdwe_RxFunction(void)
 		else if((pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT_TRIG)&&(pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT_TRIG + CHANEL_POINT_NUM )))
 		{
 			needStore = 1 ;
-			point = ( pSdwe->sdweSetAdd - SDWE_FUNC_SET_CHANEL_POINT_TRIG )
+			point = ( pSdwe->sdweSetAdd - SDWE_FUNC_SET_CHANEL_POINT_TRIG );
 			askSdwePointTriger(point,1);
 			if(0 == pSdwe->sdweCalChanel)//all chanel caculate	K & B
 			{
@@ -327,7 +352,7 @@ void sdwe_RxFunction(void)
 					trigerCalcKB(i,point);
 				}
 			}
-			else//single chanel caculate  K & B
+			else if(HX711_CHANEL_NUM > pSdwe->sdweCalChanel)//single chanel caculate  K & B
 			{
 				trigerCalcKB((pSdwe->sdweCalChanel-1),point);
 			}

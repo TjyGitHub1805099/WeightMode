@@ -4,6 +4,8 @@
 #include "app_hx711_ctrl.h"
 #include "app_led_ctrl.h"
 
+const INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM] = {0,50,100,200,500,1000,2000,3000,4000,5000};
+
 //power off hx711
 UINT8 hx711_PowerOff(enumHX711ChanelType chanel)
 {
@@ -66,6 +68,11 @@ void hx711_init()
 			pChanel[chanel_i].section_K[section_i] = CHANEL_DEFAULT_K ;
 			pChanel[chanel_i].section_B[section_i] = CHANEL_DEFAULT_B ;
 		}
+		for(section_i=0;section_i<(CHANEL_POINT_NUM);section_i++)
+		{
+		
+			pChanel[chanel_i].section_PointWeight[section_i] = defaultChanelSamplePoint[section_i] ;
+		}		
 		pChanel[chanel_i].weight = 0 ;		
 		pChanel[chanel_i].weightPre = 0;
 		pChanel[chanel_i].weightRemove = 0;
@@ -73,7 +80,7 @@ void hx711_init()
 		pChanel[chanel_i].initFlag = TRUE ;
 	}
 }
-ChanelType getChanelStruct(UINT8 chanel_i)
+ChanelType* getChanelStruct(UINT8 chanel_i)
 {
 	ChanelType *pChanel=&HX711Chanel[0];
 	if(chanel_i < HX711_CHANEL_NUM)

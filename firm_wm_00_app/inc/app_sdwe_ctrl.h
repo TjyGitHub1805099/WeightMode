@@ -27,22 +27,25 @@
 
 
 //==========================================================================================================================
+//point sample , weight value , K ,B ,weightRemove
+
+
 //start of on board flash store address
 #define FLASH_STORE_ADDRESS_START				(0X0803F000)
 
-//each chanel have 10 point : 8*10*4(weight + value) byte
+//each chanel have 10 point : 8*10*8(sample + weight value) byte
 #define FLASH_CHANEL_POINT_ADDRESS_START		(FLASH_STORE_ADDRESS_START)
-#define FLASH_CHANEL_POINT_LEN					(HX711_CHANEL_NUM*CHANEL_POINT_NUM*4)
+#define FLASH_CHANEL_POINT_LEN					(HX711_CHANEL_NUM*CHANEL_POINT_NUM*8)
 #define FLASH_CHANEL_POINT_ADDRESS_END			(FLASH_CHANEL_POINT_ADDRESS_START+FLASH_CHANEL_POINT_LEN)
 
-//each chanel have 10 point -> 11 KB : 8*11*4(K + B) byte
+//each chanel have 10 point -> 11 KB : 8*11*8(K + B) byte
 #define FLASH_CHANEL_POINT_KB_ADDRESS_START		(FLASH_CHANEL_POINT_ADDRESS_END)
-#define FLASH_CHANEL_POINT_KB_LEN				(HX711_CHANEL_NUM*(CHANEL_POINT_NUM+1)*4)
+#define FLASH_CHANEL_POINT_KB_LEN				(HX711_CHANEL_NUM*(CHANEL_POINT_NUM+1)*8)
 #define FLASH_CHANEL_POINT_KB_ADDRESS_END		(FLASH_CHANEL_POINT_KB_ADDRESS_START+FLASH_CHANEL_POINT_KB_LEN)
 
-//each chanel remove weight:8*2
+//each chanel remove weight:8*4
 #define FLASH_CHANEL_POINT_RMW_ADDRESS_START	(FLASH_CHANEL_POINT_KB_ADDRESS_END)
-#define FLASH_CHANEL_POINT_RMW_LEN				(HX711_CHANEL_NUM*2)
+#define FLASH_CHANEL_POINT_RMW_LEN				(HX711_CHANEL_NUM*4)
 #define FLASH_CHANEL_POINT_RMW_ADDRESS_END		((FLASH_CHANEL_POINT_RMW_ADDRESS_START)+FLASH_CHANEL_POINT_RMW_LEN)
 
 //end of on board flash store address
@@ -97,8 +100,8 @@ typedef struct structSdweType
 	0,\
 	0XFFFF,\
 	0XFFFF,\
-	0XFFFF,\
-	0XFFFF,\
+	0,\
+	0,\
 	{0},\
 	}
 

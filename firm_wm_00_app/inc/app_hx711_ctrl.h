@@ -62,6 +62,7 @@ typedef struct
 } ChanelType;
 
 
+
 //main task status
 typedef enum HX711CtrlType
 {
@@ -73,12 +74,22 @@ typedef enum HX711CtrlType
 	HX711_CTRL_NUM
 }enumHX711CtrlType;
 
+
+typedef union
+{
+	INT32 i_value;
+	float f_value;
+}unionFloatInt32;
+
+
+extern const INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM];
+
 extern void hx711_init(void);
 extern UINT8 hx711_MainFunction(void);
 extern float hx711_getWeight(enumHX711ChanelType chanel);
 extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
 extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
 extern void trigerCalcKB(UINT8 chanel,UINT8 point);
-extern ChanelType getChanelStruct(UINT8 chanel_i);
+extern ChanelType* getChanelStruct(UINT8 chanel_i);
 #endif
 
