@@ -121,7 +121,7 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	//
 	pChanel->sample_offset++;
 }
-//set chanel point value
+//set chanel point sample value
 void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 {
 	UINT8 i = 0 ;
@@ -131,6 +131,18 @@ void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 	{
 		pChanel = &HX711Chanel[chanel];
 		pChanel->section_PointWeight[point] = weight ;
+	}
+}
+//set chanel point weight value
+void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample)
+{
+	UINT8 i = 0 ;
+	ChanelType *pChanel = &HX711Chanel[0];
+	//
+	if( (chanel < HX711_CHANEL_NUM) && (point < CHANEL_POINT_NUM) )
+	{
+		pChanel = &HX711Chanel[chanel];
+		pChanel->section_PointSample[point] = sample ;
 	}
 }
 

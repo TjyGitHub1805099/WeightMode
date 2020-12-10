@@ -29,7 +29,6 @@
 //==========================================================================================================================
 //point sample , weight value , K ,B ,weightRemove
 
-
 //start of on board flash store address
 #define FLASH_STORE_ADDRESS_START				(0X0803F000)
 
@@ -50,6 +49,9 @@
 
 //end of on board flash store address
 #define FLASH_STORE_ADDRESS_END					(FLASH_CHANEL_POINT_RMW_ADDRESS_END)
+
+//store flash data : 8 * (sample value , weight value , k , b , remove value ) , crc
+#define FLASH_STORE_MAX_LEN						((FLASH_STORE_ADDRESS_END/4)+1)
 //==========================================================================================================================
 
 typedef enum sdweRxFuncIdType
@@ -84,7 +86,7 @@ typedef struct structSdweType
 	UINT8 	RxFinishFlag;				/**< 接收完成标志 */
 	
 	UINT16  sdweSetAdd;/**< 地址 */
-	INT16  sdweSetData;/**< 数据 */
+	INT16  	sdweSetData;/**< 数据 */
 	
 	UINT16 	sdweCalChanel;/**< 通道 */
 	UINT16 	sdweCalPoint;/**< 校准点 */

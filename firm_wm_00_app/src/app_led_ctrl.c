@@ -223,7 +223,7 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 		//sequence
 		BubbleSort(weight,arry,HX711_CHANEL_NUM);
 		//
-		for(ledSeq = LED_SEQ_1;ledSeq<LED_SEQ_NUM-1;ledSeq++)
+		for(ledSeq = LED_SEQ_1;ledSeq<(LED_SEQ_NUM-1);ledSeq++)
 		{
 			if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
 				((weight[ledSeq+1] - weight[ledSeq]) > -CHANEL_MAX_ERR_RANGE) &&
@@ -240,11 +240,11 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 			else
 			{
 				LedDataSet(ledSeq, LED_COLOR_NUM);//not light
-				sdweSetWeightBackColor(ledSeq, LED_COLOR_NUM);//not light
+				sdweSetWeightBackColor(ledSeq, 0);//not light
 				if((LED_SEQ_NUM-2) == ledSeq)
 				{
 					LedDataSet((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
-					sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
+					sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), 0);//not light
 				}
 			}
 		}

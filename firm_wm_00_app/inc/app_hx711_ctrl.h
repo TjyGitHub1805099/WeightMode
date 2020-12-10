@@ -77,6 +77,7 @@ typedef enum HX711CtrlType
 
 typedef union
 {
+	UINT8 u_value[4];
 	INT32 i_value;
 	float f_value;
 }unionFloatInt32;
@@ -89,6 +90,7 @@ extern UINT8 hx711_MainFunction(void);
 extern float hx711_getWeight(enumHX711ChanelType chanel);
 extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
 extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
+extern void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample);
 extern void trigerCalcKB(UINT8 chanel,UINT8 point);
 extern ChanelType* getChanelStruct(UINT8 chanel_i);
 #endif
