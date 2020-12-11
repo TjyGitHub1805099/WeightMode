@@ -28,6 +28,175 @@ void sdwe_init(void)
 	//
 	g_sdwe.pUartDevice->init(g_sdwe.pUartDevice);
 }
+//==read register data from SDWE thought UART
+void sdweReadRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
+{
+	//A5 5A (03) 81 XX len
+	UINT8 reg_i = 0 ;
+	UINT16 total_len = 0 , crc = 0 ;
+	
+	if(regAdd < 0x7f)
+	{
+		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0x7f))
+		{
+			//head
+			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
+			g_sdwe.txData[cmdPosHead2]=SDWE_RX_FUN_HEAD2;
+			//data len
+			g_sdwe.txData[cmdPosDataLen]=0X03;
+			//order:write register
+			g_sdwe.txData[cmdPosCommand]=cmdReadSWDERegister;
+			//address
+			g_sdwe.txData[cmdPosRegReadAddress]=regAdd;
+			//len
+			g_sdwe.txData[cmdPosRegReadLen]=regLen;
+			//crc
+			if(TRUE == crcEn)
+			{
+				crc = cal_crc16(&g_sdwe.txData[cmdPosCommand],(3));
+				g_sdwe.txData[cmdPosRegReadLen+1] = 0xff&(crc>>8);
+				g_sdwe.txData[cmdPosRegReadLen+2] = 0xff&(crc>>0);
+				//total len
+				total_len =cmdPosRegReadLen+3;
+			}
+			else
+			{
+				//total len
+				total_len = cmdPosRegReadLen+1;
+			}
+			//send
+			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+		}
+	}
+}
+//==write register data to SDWE thought UART
+void sdweWriteRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
+{
+	//A5 5A (02+n*DD) 80 XX n*DD
+	UINT8 reg_i = 0 ;
+	UINT16 total_len = 0 , crc = 0 ;
+	if(regAdd < 0x7f)
+	{
+		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0x7f))
+		{
+			//head
+			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
+			g_sdwe.txData[cmdPosHead2]=SDWE_RX_FUN_HEAD2;
+			//data len
+			g_sdwe.txData[cmdPosDataLen]=0X02+regLen;
+			//order:write register
+			g_sdwe.txData[cmdPosCommand]=cmdWriteSWDERegister;
+			//address
+			g_sdwe.txData[cmdPosRegWriteAddress]=regAdd;
+			//data
+			for(reg_i = 0 ; reg_i < regLen ; reg_i++)
+			{
+				g_sdwe.txData[cmdPosRegWritesData+reg_i] = *(pData+reg_i);
+			}
+			//crc
+			if(TRUE == crcEn)
+			{
+				crc = cal_crc16(&g_sdwe.txData[cmdPosCommand],(2+1*regLen));
+				g_sdwe.txData[cmdPosRegWritesData+regLen+0] = 0xff&(crc>>8);
+				g_sdwe.txData[cmdPosRegWritesData+regLen+1] = 0xff&(crc>>0);
+				//total len
+				total_len = cmdPosRegWritesData+regLen+2;
+			}
+			else
+			{
+				//total len
+				total_len = cmdPosRegWritesData+regLen;
+			}
+			//send
+			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+		}
+	}
+}
+//==read varible data from SDWE thought UART
+void sdweReadVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
+{
+	//A5 5A (04) 83 XX XX len
+	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
+	if(varAdd < 0x7ff)
+	{
+		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0x7f))
+		{
+			//head
+			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
+			g_sdwe.txData[cmdPosHead2]=SDWE_RX_FUN_HEAD2;
+			//data len
+			g_sdwe.txData[cmdPosDataLen]=0X04;
+			//order:write
+			g_sdwe.txData[cmdPosCommand]=cmdReadSWDEVariable;
+			//varAdd
+			g_sdwe.txData[cmdPosVarReadAddress1]=0xff&(varAdd>>8);
+			g_sdwe.txData[cmdPosVarReadAddress2]=0xff&(varAdd>>0);
+			//len
+			g_sdwe.txData[cmdPosVarReadLen]=0xff&(varlen>>0);
+			//crc
+			if(TRUE == crcEn)
+			{
+				crc = cal_crc16(&g_sdwe.txData[cmdPosCommand],(4));
+				g_sdwe.txData[cmdPosVarReadLen+1] = 0xff&(crc>>8);
+				g_sdwe.txData[cmdPosVarReadLen+2] = 0xff&(crc>>0);
+				//total len
+				total_len = cmdPosVarWriteData+2*varlen+2;
+			}
+			else
+			{
+				//total len
+				total_len = cmdPosVarReadLen+1;
+			}
+			//send
+			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+		}
+	}
+}
+//==write varible data to SDWE thought UART
+void sdweWriteVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
+{
+	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
+	if(varAdd < 0x7ff)
+	{
+		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0x7f))
+		{
+			//head
+			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
+			g_sdwe.txData[cmdPosHead2]=SDWE_RX_FUN_HEAD2;
+			//data len
+			g_sdwe.txData[cmdPosDataLen]=0X03+2*varlen;
+			//order:write
+			g_sdwe.txData[cmdPosCommand]=cmdWriteSWDEVariable;
+			//varAdd
+			g_sdwe.txData[cmdPosVarWriteAddress1]=0xff&(varAdd>>8);
+			g_sdwe.txData[cmdPosVarWriteAddress2]=0xff&(varAdd>>0);
+			//data
+			for(i=0;i<varlen;i++)
+			{
+				l_data = *pData++;
+				g_sdwe.txData[cmdPosVarWriteData+2*i+0] = 0xff&(l_data>>8);
+				g_sdwe.txData[cmdPosVarWriteData+2*i+1] = 0xff&(l_data>>0);
+			}
+			//crc
+			if(TRUE == crcEn)
+			{
+				crc = cal_crc16(&g_sdwe.txData[cmdPosCommand],(3+2*varlen));
+				g_sdwe.txData[cmdPosVarWriteData+2*varlen+0] = 0xff&(crc>>8);
+				g_sdwe.txData[cmdPosVarWriteData+2*varlen+1] = 0xff&(crc>>0);
+				//total len
+				total_len = cmdPosVarWriteData+2*varlen+2;
+			}
+			else
+			{
+				//total len
+				total_len = cmdPosVarWriteData+2*varlen;
+			}
+			//send
+			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+		}
+	}
+}
+
 
 //write data to SDWE thought UART
 void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
@@ -434,17 +603,19 @@ void sdwe_TxFunction(void)
 	}
 }
 
-
+//==
 UINT8 sdweAskRegData(UINT8 regAdd, UINT8 regData)
 {
 	UINT8 needStore = FALSE ;
 	return needStore;
 }
+//==
 UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 {
 	UINT8 needStore = FALSE ;
 	return needStore;
 }
+//==SDWE UART data deal
 void sdweRx0Deal(void)
 {
 	UINT8 needStore = FALSE ;
@@ -526,7 +697,13 @@ void sdweRx0Deal(void)
 		g_sdwe.RxFinishFlag = FALSE;
 	}
 }
-
+//==read SDWE version
+void sdweReadVersion()
+{
+	UINT8 version = 0 ;
+	sdweReadRegister(0x00, &version ,1 ,FALSE)
+	//g_sdwe.version = version;
+}
 
 //sdwe main function
 void sdwe_MainFunction(UINT8 hx711DataUpgrade)

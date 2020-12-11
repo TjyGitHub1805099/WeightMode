@@ -68,11 +68,6 @@ typedef enum sdweRxFuncIdType
 	SDWE_RX_FUN_NUM	 		 /**< SDWE 总数量*/
 }enumsdweRxFuncIdType;
 
-typedef enum sdweTxFuncIdType
-{
-	SDWE_TX_FUN_0X83 = 0X83, /**< SDWE 设置变量 下发给MCU*/
-	SDWE_TX_FUN_NUM 		 /**< SDWE 总数量*/
-}enumsdweTxFuncIdType;
 
 typedef enum
 {
@@ -88,11 +83,30 @@ typedef enum
 	cmdPosHead2  = 1 ,//5A
 	cmdPosDataLen= 2 ,//last data len
 	cmdPosCommand= 3 ,//command position
-	
+
+	//=======MCU->SDWE order
+	//read register 
+	cmdPosRegReadAddress= 4 ,//reg address one byte position
+	cmdPosRegReadLen= 5 ,//reg address one byte position
+	//write register 
+	cmdPosRegWriteAddress= 4 ,//reg address one byte position
+	cmdPosRegWritesData= 5 ,//reg address one byte position
+
+	//read varible 
+	cmdPosVarReadAddress1= 4 ,//val address two byte position
+	cmdPosVarReadAddress2= 5 ,//val address two byte position
+	cmdPosVarReadLen= 6 ,//val address two byte position
+	//write varible 
+	cmdPosVarWriteAddress1= 4 ,//val address two byte position
+	cmdPosVarWriteAddress2= 5 ,//val address two byte position
+	cmdPosVarWriteData= 6 ,//val address two byte position
+
+	//=======SDWE->MCU order
+	//read register
 	cmdPosRegAddress= 4 ,//reg address one byte position
 	cmdPosReadRegAskLen= 5 ,//when read data ask data len position
 	cmdPosRegData= 6 ,//reg address one byte position
-	
+	//read varible
 	cmdPosVarAddress1= 4 ,//val address two byte position
 	cmdPosVarAddress2= 5 ,//val address two byte position
 	cmdPosReadVarAskLen= 6 ,//when read data ask data len position
@@ -104,6 +118,7 @@ typedef enum
 typedef struct structSdweType
 {
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
+	UINT8 	version;//SDWE version
 	UINT8 	rxData[SDWE_UART_DATA_LEN];
 	UINT8 	txData[SDWE_UART_DATA_LEN];
 	UINT16	RxLength;					/**< 接收字节数 */
@@ -120,6 +135,7 @@ typedef struct structSdweType
 /** ModbusRtu设备默认配置 */
 #define SdweDefault             { \
 	&g_UartDevice[UART_EXTERN], \
+	0,\
 	{0}, \
 	{0}, \
 	0,\
