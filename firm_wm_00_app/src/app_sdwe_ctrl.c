@@ -434,6 +434,100 @@ void sdwe_TxFunction(void)
 	}
 }
 
+
+UINT8 sdweAskRegData(UINT8 regAdd, UINT8 regData)
+{
+	UINT8 needStore = FALSE ;
+	return needStore;
+}
+UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
+{
+	UINT8 needStore = FALSE ;
+	return needStore;
+}
+void sdweRx0Deal(void)
+{
+	UINT8 needStore = FALSE ;
+	UINT16 regLen = 0 , reg_i = 0 , regAdd = 0 , regData = 0;
+	UINT16 varLen = 0 , var_i = 0 , varAdd = 0 , varData = 0;
+	if(TRUE == g_sdwe.RxFinishFlag)
+	{
+		//A5 5A
+		if((SDWE_RX_FUN_HEAD1 == g_sdwe.rxData[cmdPosHead1]) && (SDWE_RX_FUN_HEAD2 == g_sdwe.rxData[cmdPosHead2]))
+		{
+			//2 head + 1 len + last 3(cmd:1 add:1-2 data:1-n) data 
+			if(( g_sdwe.RxLength >= 6 ) && ((g_sdwe.RxLength-3) == g_sdwe.rxData[cmdPosDataLen]) )
+			{
+				switch(g_sdwe.rxData[cmdPosCommand])
+				{
+					case cmdWriteSWDERegister:
+					break;
+					case cmdReadSWDERegister://each register is 8 bits
+						//send:A5 5A 03 cmdReadSWDERegister XX YY (XX:address YY:len)
+						//rec :A5 5A (03+YY) cmdReadSWDERegister XX YY DD^YY (XX:address YY:len DD:data)
+						//if((g_sdwe.RxLength-3) == g_sdwe.rxData[cmdPosDataLen])//remove 2 head + 1 data len
+						{
+							regLen = g_sdwe.rxData[cmdPosReadRegAskLen];
+							if(((g_sdwe.rxData[cmdPosDataLen]-3)/1) == regLen)
+							{
+								regAdd = 0 ;
+								regAdd = g_sdwe.rxData[cmdPosRegAddress];
+								//mult varible deal
+								for(reg_i = 0 ; reg_i < regLen ;reg_i++)
+								{
+									regData = 0 ;
+									regData = g_sdwe.rxData[cmdPosRegData+reg_i];
+									//deal
+									needStore |= sdweAskRegData((regAdd+reg_i),regData);
+								}
+							}
+						}
+					break;
+					case cmdWriteSWDEVariable:
+					break;
+					case cmdReadSWDEVariable://each variable is 16 bits
+						//send:A5 5A 04 cmdReadSWDEVariable XX XX YY (XX XX:address YY:len)
+						//rec :A5 5A (04+2*YY) cmdReadSWDEVariable XX XX YY DD DD^YY (XX XX:address YY:len DD DD:data)
+						//if((g_sdwe.RxLength-3) == g_sdwe.rxData[cmdPosDataLen])//remove 2 head + 1 data len
+						{
+							varLen = g_sdwe.rxData[cmdPosReadVarAskLen];
+							if(((g_sdwe.rxData[cmdPosDataLen]-4)/2) == varLen)
+							{
+								varAdd = 0 ;
+								varAdd = g_sdwe.rxData[cmdPosVarAddress1];					
+								varAdd <<= 8 ;
+								varAdd &= 0xff00;
+								varAdd += g_sdwe.rxData[cmdPosVarAddress2];
+								//mult varible deal
+								for(var_i = 0 ; var_i < varLen ;var_i++)
+								{
+									varData = 0 ;
+									varData = g_sdwe.rxData[cmdPosVarData1+2*var_i+0];					
+									varData <<= 8 ;
+									varData &= 0xff00;
+									varData += g_sdwe.rxData[cmdPosVarData1+2*var_i+1];
+									//deal
+									needStore |= sdweAskVaribleData((varAdd+var_i),varData);
+								}
+							}
+						}						
+					break;
+					default:
+					break;
+				}
+			}
+			//store in flash
+			if(TRUE == needStore)
+			{
+				
+			}
+		}
+		//
+		g_sdwe.RxFinishFlag = FALSE;
+	}
+}
+
+
 //sdwe main function
 void sdwe_MainFunction(UINT8 hx711DataUpgrade)
 {

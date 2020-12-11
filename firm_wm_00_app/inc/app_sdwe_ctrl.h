@@ -74,6 +74,30 @@ typedef enum sdweTxFuncIdType
 	SDWE_TX_FUN_NUM 		 /**< SDWE 总数量*/
 }enumsdweTxFuncIdType;
 
+typedef enum
+{
+	cmdWriteSWDERegister = 0x80 ,
+	cmdReadSWDERegister = 0x81 ,
+	cmdWriteSWDEVariable = 0x82 ,
+	cmdReadSWDEVariable = 0x83 ,
+}enumSDWEcmdType;
+
+typedef enum
+{
+	cmdPosHead1  = 0 ,//A5
+	cmdPosHead2  = 1 ,//5A
+	cmdPosDataLen= 2 ,//last data len
+	cmdPosCommand= 3 ,//command position
+	
+	cmdPosRegAddress= 4 ,//reg address one byte position
+	cmdPosReadRegAskLen= 5 ,//when read data ask data len position
+	cmdPosRegData= 6 ,//reg address one byte position
+	
+	cmdPosVarAddress1= 4 ,//val address two byte position
+	cmdPosVarAddress2= 5 ,//val address two byte position
+	cmdPosReadVarAskLen= 6 ,//when read data ask data len position
+	cmdPosVarData1= 7 ,//val address two byte position
+}enumSDWEcmdPosType;
 
 
 /** 定义从机串口设备类型 */
