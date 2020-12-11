@@ -21,10 +21,11 @@ typedef enum LedSeqType
 
 typedef enum LedColorType
 {
-	LED_COLOR_REG = 0,	/**< LED 红 控制 */
-	LED_COLOR_WHITE,	/**< LED 白 控制 */
-	LED_COLOR_BLUE,		/**< LED 蓝 控制 */
+	LED_COLOR_NONE = 0,		/**< LED 无 控制 */
+	LED_COLOR_REG ,	/**< LED 红 控制 */
 	LED_COLOR_GREEN,	/**< LED 绿 控制 */
+	LED_COLOR_BLUE, 	/**< LED 蓝 控制 */
+	LED_COLOR_WHITE,	/**< LED 白 控制 */
 	LED_COLOR_NUM
 }enumLedColorType;
 

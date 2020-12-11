@@ -4,40 +4,57 @@
 #include "app_crc.h"
 #include "app_hx711_ctrl.h"
 #include "app_crc.h"
+#include "hal_delay.h"
 
 SdweType g_sdwe = SdweDefault;
-UINT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};//8 weight data + 8 color data	
-static UINT16 g_sdwe_triger_data[2][CHANEL_POINT_NUM]={{0},{0}};//10 point triger color data	
-//store flash data : 8 * (sample value , weight value , k , b , remove value ) , crc
-unionFloatInt32 flashStoreDataBuf[FLASH_STORE_MAX_LEN]={0};//last one is crc
+//store flash data : 8 * (sample value , weight value , k , b , remove value ) , last one is crc
+unionFloatInt32 flashStoreDataBuf[FLASH_STORE_MAX_LEN]={0};
+//sdwe 10 point triger color data
+static INT16 g_sdwe_triger_data[2][CHANEL_POINT_NUM]={{0},{0}};
+//sdwe 8 weight data + 8 color data	
+INT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
 
-//sdwe initial
+//==sdwe initial
 void sdwe_init(void)
 {
 	UINT8 i = 0 ;
+	//
+	g_sdwe.readSdweInit = FALSE;
 	//
 	g_sdwe.pUartDevice->pRxLength = &g_sdwe.RxLength;
 	g_sdwe.pUartDevice->pRxFinishFlag = &g_sdwe.RxFinishFlag;
 	g_sdwe.pUartDevice->pTxBuffer = &g_sdwe.rxData[0];
 	g_sdwe.pUartDevice->pRxBuffer = &g_sdwe.rxData[0];
 	//
+	g_sdwe.version = 0;//SDWE version
+	//
+	g_sdwe.RxLength = 0;					/**< 接收字节数 */
+	g_sdwe.RxFinishFlag = FALSE;				/**< 接收完成标志 */
+	//
+	g_sdwe.sdweSetAdd = 0XFFFF;/**< 地址 */
+	g_sdwe.sdwetDataLen = 0;/**< 数据长度 */
+	g_sdwe.sdweSetData = 0;/**< 数据 */
+	
+	g_sdwe.sdweCalChanel=0;/**< 通道 */
+	g_sdwe.sdweCalPoint=0;/**< 校准点 */
+	//
 	for(i=0;i<CHANEL_POINT_NUM;i++)
 	{
-		g_sdwe.sdweCalPointArry[i] = defaultChanelSamplePoint[i];
+		g_sdwe.sdweCalPointArry[i] = defaultChanelSamplePoint[i];/**< 校准点数组 */
 	}
 	//
 	g_sdwe.pUartDevice->init(g_sdwe.pUartDevice);
 }
 //==read register data from SDWE thought UART
-void sdweReadRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
+void sdweReadRegister(UINT8 regAdd ,UINT8 regLen ,UINT8 crcEn)
 {
+	//A5 5A 03 81 03 02:读取03和04号寄存器数据
 	//A5 5A (03) 81 XX len
-	UINT8 reg_i = 0 ;
 	UINT16 total_len = 0 , crc = 0 ;
 	
-	if(regAdd < 0x7f)
+	if(regAdd < 0xFF)
 	{
-		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0x7f))
+		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0xFf))
 		{
 			//head
 			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
@@ -66,18 +83,21 @@ void sdweReadRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
 			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+			//
+			//hal_delay_ms(5);
 		}
 	}
 }
 //==write register data to SDWE thought UART
 void sdweWriteRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
 {
+	//A5 5A 04 80 03 00 01:向03和04号寄存器写入数据00和01
 	//A5 5A (02+n*DD) 80 XX n*DD
 	UINT8 reg_i = 0 ;
 	UINT16 total_len = 0 , crc = 0 ;
-	if(regAdd < 0x7f)
+	if(regAdd < 0xFF)
 	{
-		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0x7f))
+		if(((regAdd+regLen)>0)&&((regAdd+regLen)<0xFF))
 		{
 			//head
 			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
@@ -109,17 +129,20 @@ void sdweWriteRegister(UINT8 regAdd, UINT8 *pData ,UINT8 regLen ,UINT8 crcEn)
 			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+			//
+			hal_delay_ms(1);
 		}
 	}
 }
 //==read varible data from SDWE thought UART
-void sdweReadVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
+void sdweReadVarible(UINT16 varAdd ,UINT16 varlen ,UINT8 crcEn)
 {
+	//A5 5A 04 83 00 03 02:读取0x0003和0x0004两个寄存器
 	//A5 5A (04) 83 XX XX len
-	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
-	if(varAdd < 0x7ff)
+	UINT16 total_len = 0 , crc = 0;
+	if(varAdd < 0xFFFF)
 	{
-		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0x7f))
+		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0xFFFF))
 		{
 			//head
 			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
@@ -140,7 +163,7 @@ void sdweReadVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
 				g_sdwe.txData[cmdPosVarReadLen+1] = 0xff&(crc>>8);
 				g_sdwe.txData[cmdPosVarReadLen+2] = 0xff&(crc>>0);
 				//total len
-				total_len = cmdPosVarWriteData+2*varlen+2;
+				total_len = cmdPosVarReadLen+3;
 			}
 			else
 			{
@@ -149,16 +172,19 @@ void sdweReadVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
 			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+			//
+			hal_delay_ms(1);
 		}
 	}
 }
 //==write varible data to SDWE thought UART
-void sdweWriteVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
+void sdweWriteVarible(UINT16 varAdd, INT16 *pData ,UINT16 varlen ,UINT8 crcEn)
 {
+	//A5 5A 05 82 00 03 00 01:向0x0003地址写入数据0x0001
 	UINT16 i = 0 ,l_data = 0 , total_len = 0 , crc = 0;
-	if(varAdd < 0x7ff)
+	if(varAdd < 0xFFFF)
 	{
-		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0x7f))
+		if(((varAdd+varlen)>0)&&((varAdd+varlen)<0xFFFF))
 		{
 			//head
 			g_sdwe.txData[cmdPosHead1]=SDWE_RX_FUN_HEAD1;
@@ -193,6 +219,8 @@ void sdweWriteVarible(UINT16 varAdd, UINT16 *pData ,UINT16 varlen ,UINT8 crcEn)
 			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+			//
+			hal_delay_ms(1);
 		}
 	}
 }
@@ -239,9 +267,17 @@ void sdweWrite(UINT16 address, UINT16 *pData ,UINT16 len ,UINT8 crcEn)
 			}
 			//send
 			g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],total_len);
+			//
+			hal_delay_ms(1);
 		}
 	}
 
+}
+//==read SDWE version
+void sdweReadVersion()
+{
+	sdweReadRegister(0x00 ,1 ,FALSE);
+	//g_sdwe.version = version;
 }
 
 
@@ -267,6 +303,8 @@ void sdwe_test(void)
 		g_sdwe.txData[5]=0X02;
 		
 		g_sdwe.pUartDevice->tx_bytes(g_sdwe.pUartDevice,&g_sdwe.txData[0],6);
+		//
+		hal_delay_ms(1);
 	}
 	else
 	{
@@ -287,27 +325,43 @@ void sdweRxDeal(void)
 	UINT16 dataReg = 0 ;
 	if(TRUE == g_sdwe.RxFinishFlag)
 	{
-		//A5 5A 06 83 01 FF 01 00 01
+		//A5 5A
 		if((SDWE_RX_FUN_HEAD1 == g_sdwe.rxData[0]) && (SDWE_RX_FUN_HEAD2 == g_sdwe.rxData[1]))
 		{
-			if((9 == g_sdwe.RxLength) && (6 == g_sdwe.rxData[2] ))
+			if(g_sdwe.RxLength > 4)
 			{
-				if(SDWE_RX_FUN_0X83 == g_sdwe.rxData[3])
+				switch(g_sdwe.rxData[3])
 				{
-					//sdweSetAdd
-					dataReg = 0 ;
-					dataReg = g_sdwe.rxData[4];
-					dataReg <<= 8;
-					dataReg &= 0xff00;
-					dataReg += g_sdwe.rxData[5];
-					g_sdwe.sdweSetAdd = dataReg;
-					//sdweSetData
-					dataReg = 0 ;
-					dataReg = g_sdwe.rxData[7];
-					dataReg <<= 8;
-					dataReg &= 0xff00;
-					dataReg += g_sdwe.rxData[8];
-					g_sdwe.sdweSetData = dataReg;
+					case SDWE_RX_FUN_0X83://sdwe send or answer mcu
+						//A5 5A 06 83 01 FF 01 00 01
+						if(((3+4+1*2) == g_sdwe.RxLength) && ((4+1*2) == g_sdwe.rxData[2] ))
+						{
+							//sdweSetAdd
+							dataReg = 0 ;
+							dataReg = g_sdwe.rxData[4];
+							dataReg <<= 8;
+							dataReg &= 0xff00;
+							dataReg += g_sdwe.rxData[5];
+							g_sdwe.sdweSetAdd = dataReg;
+							//len
+							dataReg = 0 ;
+							dataReg = g_sdwe.rxData[6];
+							g_sdwe.sdwetDataLen = dataReg;
+							//sdweSetData
+							dataReg = 0 ;
+							dataReg = g_sdwe.rxData[7];
+							dataReg <<= 8;
+							dataReg &= 0xff00;
+							dataReg += g_sdwe.rxData[8];
+							g_sdwe.sdweSetData = dataReg;
+						}
+						else if(((3+4+11*2) == g_sdwe.RxLength) && ((4+11*2) == g_sdwe.rxData[2] ))
+						{
+							
+						}
+					break;
+					default:
+					break;
 				}
 			}
 		}
@@ -317,7 +371,7 @@ void sdweRxDeal(void)
 }
 void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 {
-	sdweRxDeal();	
+	//sdweRxDeal();	
 }
 
 void askSdwePointTriger(UINT8 point , UINT8 value)
@@ -354,6 +408,7 @@ void clrSdwePointTriger()
 //store set data to flash
 void storeSysDataToFlash()
 {
+	static UINT16 storeTick = 0 ; 
 	ChanelType *pChanel = 0;	
 	unionFloatInt32 *pWordInt32Float=&flashStoreDataBuf[0];
 	UINT8 *pChar = 0 ;
@@ -366,71 +421,90 @@ void storeSysDataToFlash()
 	{
 		//get chanel
 		pChanel = getChanelStruct(chanel_i);
-		//point sample value and weight value
+		//point sample value value
 		start_i = end_i ;
-		//point sample , weight value
-		end_i = start_i+CHANEL_POINT_NUM+CHANEL_POINT_NUM;
+		end_i = start_i+CHANEL_POINT_NUM;
 		pInt32 = (INT32 *)&(pChanel->section_PointSample[0]);
 		for(;start_i<end_i;start_i++)
 		{
 			if(start_i < (FLASH_STORE_MAX_LEN - 1))
 			{
-				*pWordInt32Float[start_i].i_value = *pInt32++;
+				pWordInt32Float[start_i].i_value = *pInt32++;
 			}
 		}
-		//point K & B
+		//point weight value
 		start_i = end_i ;
-		//point  K ,B 
-		end_i = start_i+CHANEL_POINT_NUM+1+CHANEL_POINT_NUM+1;
+		end_i = start_i+CHANEL_POINT_NUM;
+		pInt32 = (INT32 *)&(pChanel->section_PointWeight[0]);
+		for(;start_i<end_i;start_i++)
+		{
+			if(start_i < (FLASH_STORE_MAX_LEN - 1))
+			{
+				pWordInt32Float[start_i].i_value = *pInt32++;
+			}
+		}
+		//point K
+		start_i = end_i ;
+		end_i = start_i+CHANEL_POINT_NUM+1;
 		pFloat = (float *)&(pChanel->section_K[0]);
 		for(;start_i<end_i;start_i++)
 		{
 			if(start_i < (FLASH_STORE_MAX_LEN - 1))
 			{
-				*pWordInt32Float[start_i].f_value = *pFloat++;
+				pWordInt32Float[start_i].f_value = *pFloat++;
+			}
+		}
+		//point B
+		start_i = end_i ;
+		end_i = start_i+CHANEL_POINT_NUM+1;
+		pFloat = (float *)&(pChanel->section_B[0]);
+		for(;start_i<end_i;start_i++)
+		{
+			if(start_i < (FLASH_STORE_MAX_LEN - 1))
+			{
+				pWordInt32Float[start_i].f_value = *pFloat++;
 			}
 		}
 		//point remove weight
 		start_i = end_i ;
-		//point  remove weight
 		end_i = start_i+1;
 		pFloat = (float *)&(pChanel->weightRemove);
 		for(;start_i<end_i;start_i++)
 		{
 			if(start_i < (FLASH_STORE_MAX_LEN - 1))
 			{
-				*pWordInt32Float[start_i].f_value = *pFloat++;
+				pWordInt32Float[start_i].f_value = *pFloat++;
 			}
 		}
 	}
 	//
 	pChar = (UINT8 *)(&pWordInt32Float[0].u_value[0]);
-	crc = cal_crc16(pChar,start_i);
-	*pWordInt32Float[start_i].i_value = crc
+	crc = cal_crc16(pChar,(4*start_i));
+	pWordInt32Float[start_i].i_value = crc;
 	start_i++;
 	//write flash
 	if(start_i <= FLASH_STORE_MAX_LEN)
-	{
-		
+	{	
+		storeTick++;
+		drv_flash_erase_sector(FLASH_STORE_ADDRESS_START);
 		drv_flash_write_words( FLASH_STORE_ADDRESS_START, (UINT32 *)(&pWordInt32Float[0].i_value), (start_i) );
 	}
 }
 //read data from flash
-void readSysDataFromFlash()
+void readSysDataFromFlash(void)
 {
 	ChanelType *pChanel = 0;	
 	unionFloatInt32 readflashDataBuf[FLASH_STORE_MAX_LEN]={0};
-	UINT8 *pChar = 0 , Uint8 = 0 ;
-	INT32 *pInt32 = 0 ,Int32 = 0;
-	float *pFloat = 0 ,Float = 0.0;
+	INT32 *pInt32 = 0;
+	float *pFloat = 0;
 	UINT32 crc = 0 ;
 	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
 	//read data from flash
 	drv_flash_read_words( FLASH_STORE_ADDRESS_START, (UINT32 *)(&readflashDataBuf[0].i_value), FLASH_STORE_MAX_LEN);
 
 	//crc
-	crc = readflashDataBuf[FLASH_STORE_MAX_LEN-1];
-	if(crc == cal_crc16(((UINT8 *)&readflashDataBuf[0].u_value),4*(FLASH_STORE_MAX_LEN-1))) 
+	crc = readflashDataBuf[FLASH_STORE_MAX_LEN-1].i_value;
+	if(crc == cal_crc16(((UINT8 *)&readflashDataBuf[0].u_value),(4*(FLASH_STORE_MAX_LEN-1)))) 
 	{
 		start_i = 0 ;
 		end_i = 0 ;
@@ -568,11 +642,13 @@ void sdweSetWeightBackColor(UINT8 seq,UINT8 color)
 //prepare TX data
 void sdwe_TxFunction(void)
 {
-	UINT8 i = 0 ,need_send = 0;
-	UINT16 *pSendData= &g_sdwe_dis_data[0];
+	static UINT16 ticks = 0 ;
+	UINT8 need_send = 0;
+	INT16 *pSendData= &g_sdwe_dis_data[0];
 	INT16 weight[HX711_CHANEL_NUM];	
 	static INT16 weightPre[HX711_CHANEL_NUM]; 
 	enumHX711ChanelType chanel = HX711Chanel_1;
+	ticks++;
 	
 	//=============================================================weight value and color
 	pSendData= &g_sdwe_dis_data[0];
@@ -591,28 +667,109 @@ void sdwe_TxFunction(void)
 	//color value was set at useWeightUpdateLedAndSdweColor 
 	if(1 == need_send)
 	{
-		sdweWrite(SDWE_FUNC_ASK_CHANEL_WEIGHT,pSendData,SDWE_WEIGHR_DATA_LEN,0);
+		//sdweWrite(SDWE_FUNC_ASK_CHANEL_WEIGHT,pSendData,SDWE_WEIGHR_DATA_LEN,0);
+		sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_WEIGHT,pSendData,SDWE_WEIGHR_DATA_LEN,0);
 	}
 	
 	//=============================================================point triger ask
 	if(1 == getSdwePointTriger())
 	{
 		pSendData = &g_sdwe_triger_data[1][0];
-		sdweWrite(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,CHANEL_POINT_NUM,0);
+		//sdweWrite(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,CHANEL_POINT_NUM,0);
+		sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,CHANEL_POINT_NUM,0);
 		clrSdwePointTriger();
 	}
-}
 
+	//
+	if((ticks%1000) == 0 )
+	{
+		if(FALSE == g_sdwe.readSdweInit)
+		{
+			sdweReadRegister(0x00,1 ,FALSE);
+			//sdweReadVersion();
+		}
+		else if(TRUE == g_sdwe.readSdweInit)
+		{
+			sdweReadVarible(0X01FF,11,FALSE);
+			g_sdwe.readSdweInit = 2;
+		}
+	}	
+}
 //==
 UINT8 sdweAskRegData(UINT8 regAdd, UINT8 regData)
 {
 	UINT8 needStore = FALSE ;
+	SdweType *pSdwe = &g_sdwe;
+	if(0 == regAdd)
+	{
+		pSdwe->version = regData;
+		pSdwe->readSdweInit = TRUE;
+	}
 	return needStore;
 }
 //==
 UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 {
 	UINT8 needStore = FALSE ;
+	UINT8 i = 0 , point;
+	INT32 weight;
+	SdweType *pSdwe = &g_sdwe;
+	//
+	pSdwe->sdweSetAdd = varAdd ;
+	pSdwe->sdweSetData = varData ;
+	//receive address from SDWE
+	if(0xffff != pSdwe->sdweSetAdd)
+	{
+		//chanel choice:0->all chanel , 1~8:single chanel
+		if(SDWE_FUNC_SET_CHANEL_NUM == pSdwe->sdweSetAdd)
+		{
+			if(pSdwe->sdweSetData <= HX711_CHANEL_NUM)
+			{
+				pSdwe->sdweCalChanel = pSdwe->sdweSetData;//chanel
+			}
+		}//chanel point weight value set
+		else if((pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT)&&(pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT + CHANEL_POINT_NUM )))
+		{
+			needStore = 1 ;
+			//point
+			pSdwe->sdweCalPoint = (pSdwe->sdweSetAdd -SDWE_FUNC_SET_CHANEL_POINT) ;//point
+			point = pSdwe->sdweCalPoint;
+			pSdwe->sdweCalPointArry[point] = pSdwe->sdweSetData;
+			//weight
+			weight = pSdwe->sdweSetData;
+		
+			if(0 == pSdwe->sdweCalChanel)//all chanel point weight value set
+			{
+				for(i=0;i<HX711_CHANEL_NUM;i++)//8通道
+				{
+					setSampleWeightValue(i,point,weight);
+				}
+			}
+			else//single chanel point weight value set
+			{
+				setSampleWeightValue((pSdwe->sdweCalChanel-1),point,weight);
+			}
+		}//triger calculate
+		else if((pSdwe->sdweSetAdd >= SDWE_FUNC_SET_CHANEL_POINT_TRIG)&&(pSdwe->sdweSetAdd < (SDWE_FUNC_SET_CHANEL_POINT_TRIG + CHANEL_POINT_NUM )))
+		{
+			needStore = 1 ;
+			point = ( pSdwe->sdweSetAdd - SDWE_FUNC_SET_CHANEL_POINT_TRIG );
+			askSdwePointTriger(point,1);
+			if(0 == pSdwe->sdweCalChanel)//all chanel caculate	K & B
+			{
+				for(i=0;i<HX711_CHANEL_NUM;i++)//8通道
+				{
+					trigerCalcKB(i,point);
+				}
+			}
+			else if(HX711_CHANEL_NUM > pSdwe->sdweCalChanel)//single chanel caculate  K & B
+			{
+				trigerCalcKB((pSdwe->sdweCalChanel-1),point);
+			}
+		}
+		//clr address
+		pSdwe->sdweSetAdd = 0xffff;
+	}
 	return needStore;
 }
 //==SDWE UART data deal
@@ -690,26 +847,21 @@ void sdweRx0Deal(void)
 			//store in flash
 			if(TRUE == needStore)
 			{
-				
+				storeSysDataToFlash();
 			}
 		}
 		//
 		g_sdwe.RxFinishFlag = FALSE;
 	}
 }
-//==read SDWE version
-void sdweReadVersion()
-{
-	UINT8 version = 0 ;
-	sdweReadRegister(0x00, &version ,1 ,FALSE)
-	//g_sdwe.version = version;
-}
+
 
 //sdwe main function
 void sdwe_MainFunction(UINT8 hx711DataUpgrade)
 {
 	//deal rx data from SDWE
-	sdwe_RxFunction();
+	//sdwe_RxFunction();
+	sdweRx0Deal();
 	sdwe_TxFunction();
 }
 

@@ -8,7 +8,6 @@
 //sys main task status
 enumMainTaskCtrlType mainTaskStatus = MainTask_IDLE;
 static UINT32 g_sys_ms_tick = 0 ;
-static UINT32 g_sys_sdwe_tick = 0 ;
 
 //test
 UINT8 KEY_COMBIN = 0XF0;
@@ -16,7 +15,7 @@ UINT8 KEY_COMBIN = 0XF0;
 //sys main function
 void app_main_task( void )
 {
-	UINT8 i = 0 ,hx711DataUpgrade = 0 ;
+	UINT8 hx711DataUpgrade = 0 ;
 	//KEY sample and filter
 	key_MainFunction();
 	

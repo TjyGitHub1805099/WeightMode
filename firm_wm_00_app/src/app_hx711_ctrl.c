@@ -124,7 +124,6 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 //set chanel point sample value
 void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 {
-	UINT8 i = 0 ;
 	ChanelType *pChanel = &HX711Chanel[0];
 	//
 	if( (chanel < HX711_CHANEL_NUM) && (point < CHANEL_POINT_NUM) )
@@ -136,7 +135,6 @@ void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 //set chanel point weight value
 void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample)
 {
-	UINT8 i = 0 ;
 	ChanelType *pChanel = &HX711Chanel[0];
 	//
 	if( (chanel < HX711_CHANEL_NUM) && (point < CHANEL_POINT_NUM) )
@@ -149,7 +147,6 @@ void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample)
 //thought SDWE point triger cacluate K & B
 void trigerCalcKB(UINT8 chanel,UINT8 point)
 {
-	UINT8 i = 0 ;
 	ChanelType *pChanel = &HX711Chanel[0];
 	float k=0.0,b=0.0;
 	//
@@ -204,7 +201,6 @@ void trigerCalcKB(UINT8 chanel,UINT8 point)
 //calculate K & B
 void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
 {
-	UINT8 i = 0 ;
 	ChanelType *pChanel = &HX711Chanel[0];
 
 	float k=0.0,b=0.0;

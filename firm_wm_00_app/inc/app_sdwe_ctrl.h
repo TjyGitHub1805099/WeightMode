@@ -51,7 +51,7 @@
 #define FLASH_STORE_ADDRESS_END					(FLASH_CHANEL_POINT_RMW_ADDRESS_END)
 
 //store flash data : 8 * (sample value , weight value , k , b , remove value ) , crc
-#define FLASH_STORE_MAX_LEN						((FLASH_STORE_ADDRESS_END/4)+1)
+#define FLASH_STORE_MAX_LEN						(((FLASH_STORE_ADDRESS_END-FLASH_STORE_ADDRESS_START)/4)+1)
 //==========================================================================================================================
 
 typedef enum sdweRxFuncIdType
@@ -117,6 +117,7 @@ typedef enum
 /** 定义从机串口设备类型 */
 typedef struct structSdweType
 {
+	UINT8 	readSdweInit;
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
 	UINT8 	version;//SDWE version
 	UINT8 	rxData[SDWE_UART_DATA_LEN];
@@ -125,6 +126,7 @@ typedef struct structSdweType
 	UINT8 	RxFinishFlag;				/**< 接收完成标志 */
 	
 	UINT16  sdweSetAdd;/**< 地址 */
+	INT16  	sdwetDataLen;/**< 数据长度 */
 	INT16  	sdweSetData;/**< 数据 */
 	
 	UINT16 	sdweCalChanel;/**< 通道 */
@@ -134,6 +136,7 @@ typedef struct structSdweType
 
 /** ModbusRtu设备默认配置 */
 #define SdweDefault             { \
+	0,\
 	&g_UartDevice[UART_EXTERN], \
 	0,\
 	{0}, \
@@ -141,6 +144,7 @@ typedef struct structSdweType
 	0,\
 	0,\
 	0XFFFF,\
+	0,\
 	0XFFFF,\
 	0,\
 	0,\
@@ -154,7 +158,6 @@ extern void sdwe_init(void);
 extern void sdwe_test(void);
 extern void sdweSetWeightBackColor(UINT8 seq,UINT8 color);
 extern void sdwe_MainFunction(UINT8 hx711DataUpgrade);
-extern void readSysDataFromFlash();
+extern void readSysDataFromFlash(void);
 
 #endif
-

@@ -24,3 +24,6 @@
 .\objects\app_sdwe_ctrl.o: .\inc\app_hx711_ctrl.h
 .\objects\app_sdwe_ctrl.o: .\inc\app_led_ctrl.h
 .\objects\app_sdwe_ctrl.o: .\inc\app_crc.h
+.\objects\app_sdwe_ctrl.o: ..\firm_wm_00_hal\inc\hal_delay.h
+.\objects\app_sdwe_ctrl.o: ..\STM32F303DriverLib\inc\drv_delay.h
+.\objects\app_sdwe_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_systick.h

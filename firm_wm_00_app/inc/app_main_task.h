@@ -2,7 +2,7 @@
 #define __APP_MAIN_TASK_H__
 
 #define TRUE 1
-#define FALSE 1
+#define FALSE 0
 
 
 //main task status

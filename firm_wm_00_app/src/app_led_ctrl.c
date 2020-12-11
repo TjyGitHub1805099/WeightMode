@@ -230,21 +230,21 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 				((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
 				((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
 			{
-				LedDataSet(ledSeq, color);//light same color
-				sdweSetWeightBackColor(ledSeq, color);
-				LedDataSet((enumLedSeqType)(ledSeq+1), color);//light same color
-				sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), color);//light same color
+				LedDataSet((enumLedSeqType)arry[ledSeq], color);//light same color
+				sdweSetWeightBackColor(arry[ledSeq], color);
+				LedDataSet((enumLedSeqType)(arry[ledSeq+1]), color);//light same color
+				sdweSetWeightBackColor((enumLedSeqType)(arry[ledSeq+1]), color);//light same color
 				ledSeq++;
 				color++;
 			}
 			else
 			{
-				LedDataSet(ledSeq, LED_COLOR_NUM);//not light
-				sdweSetWeightBackColor(ledSeq, 0);//not light
+				LedDataSet((enumLedSeqType)arry[ledSeq], LED_COLOR_NONE);//not light
+				sdweSetWeightBackColor(arry[ledSeq], LED_COLOR_NONE);//not light
 				if((LED_SEQ_NUM-2) == ledSeq)
 				{
-					LedDataSet((enumLedSeqType)(ledSeq+1), LED_COLOR_NUM);//not light
-					sdweSetWeightBackColor((enumLedSeqType)(ledSeq+1), 0);//not light
+					LedDataSet((enumLedSeqType)(arry[ledSeq+1]), LED_COLOR_NONE);//not light
+					sdweSetWeightBackColor((enumLedSeqType)(arry[ledSeq+1]), LED_COLOR_NONE);//not light
 				}
 			}
 		}

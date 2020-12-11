@@ -28,21 +28,21 @@ I (..\STM32F303DriverLib\reg\reg_stm32f303_dma.h)(0x56F24828)
 I (..\STM32F303DriverLib\inc\drv_uart.h)(0x56FE168C)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_uart.h)(0x56F24578)
 I (..\STM32F303DriverLib\inc\drv_cpu.h)(0x56EB9AAF)
-I (.\inc\app_led_ctrl.h)(0x5FCE256F)
-I (.\inc\app_sdwe_ctrl.h)(0x5FD03B3C)
-I (.\inc\app_hx711_ctrl.h)(0x5FD040D5)
+I (.\inc\app_led_ctrl.h)(0x5FD37742)
+I (.\inc\app_sdwe_ctrl.h)(0x5FD387DD)
+I (.\inc\app_hx711_ctrl.h)(0x5FD22106)
 I (.\inc\app_key_ctrl.h)(0x5FBFD2FD)
-F (.\src\app_main_task.c)(0x5FD02F87)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_main_task.o --omf_browse .\objects\app_main_task.crf --depend .\objects\app_main_task.d)
+F (.\src\app_main_task.c)(0x5FD35DDB)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_main_task.o --omf_browse .\objects\app_main_task.crf --depend .\objects\app_main_task.d)
 I (..\firm_wm_00_hal\inc\hal_gpio.h)(0x5FB3EA78)
 I (..\STM32F303DriverLib\inc\drv_gpio.h)(0x57281F3E)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h)(0x56F245B7)
 I (..\STM32F303DriverLib\reg\typedefine.h)(0x5735D1DF)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_address.h)(0x573678DB)
-I (.\inc\app_led_ctrl.h)(0x5FCE256F)
-I (.\inc\app_hx711_ctrl.h)(0x5FD040D5)
-I (.\inc\app_main_task.h)(0x5FC20574)
+I (.\inc\app_led_ctrl.h)(0x5FD37742)
+I (.\inc\app_hx711_ctrl.h)(0x5FD22106)
+I (.\inc\app_main_task.h)(0x5FD38182)
 I (.\inc\app_key_ctrl.h)(0x5FBFD2FD)
-I (.\inc\app_sdwe_ctrl.h)(0x5FD03B3C)
+I (.\inc\app_sdwe_ctrl.h)(0x5FD387DD)
 I (..\firm_wm_00_hal\inc\hal_uart.h)(0x5FB7C564)
 I (..\STM32F303DriverLib\inc\drv_rcc.h)(0x572993BC)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_rcc.h)(0x57144493)
@@ -58,15 +58,15 @@ I (..\STM32F303DriverLib\inc\drv_dbgmcu.h)(0x56F3955A)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h)(0x56F287E6)
 I (..\STM32F303DriverLib\inc\drv_uart.h)(0x56FE168C)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_uart.h)(0x56F24578)
-F (.\src\app_led_ctrl.c)(0x5FCE256F)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_led_ctrl.o --omf_browse .\objects\app_led_ctrl.crf --depend .\objects\app_led_ctrl.d)
+F (.\src\app_led_ctrl.c)(0x5FD38875)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_led_ctrl.o --omf_browse .\objects\app_led_ctrl.crf --depend .\objects\app_led_ctrl.d)
 I (..\firm_wm_00_hal\inc\hal_gpio.h)(0x5FB3EA78)
 I (..\STM32F303DriverLib\inc\drv_gpio.h)(0x57281F3E)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h)(0x56F245B7)
 I (..\STM32F303DriverLib\reg\typedefine.h)(0x5735D1DF)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_address.h)(0x573678DB)
-I (.\inc\app_led_ctrl.h)(0x5FCE256F)
-I (.\inc\app_hx711_ctrl.h)(0x5FD040D5)
-I (.\inc\app_sdwe_ctrl.h)(0x5FD03B3C)
+I (.\inc\app_led_ctrl.h)(0x5FD37742)
+I (.\inc\app_hx711_ctrl.h)(0x5FD22106)
+I (.\inc\app_sdwe_ctrl.h)(0x5FD387DD)
 I (..\firm_wm_00_hal\inc\hal_uart.h)(0x5FB7C564)
 I (..\STM32F303DriverLib\inc\drv_rcc.h)(0x572993BC)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_rcc.h)(0x57144493)
@@ -82,7 +82,7 @@ I (..\STM32F303DriverLib\inc\drv_dbgmcu.h)(0x56F3955A)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h)(0x56F287E6)
 I (..\STM32F303DriverLib\inc\drv_uart.h)(0x56FE168C)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_uart.h)(0x56F24578)
-F (.\src\app_hx711_ctrl.c)(0x5FD03308)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_hx711_ctrl.o --omf_browse .\objects\app_hx711_ctrl.crf --depend .\objects\app_hx711_ctrl.d)
+F (.\src\app_hx711_ctrl.c)(0x5FD35DDB)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_hx711_ctrl.o --omf_browse .\objects\app_hx711_ctrl.crf --depend .\objects\app_hx711_ctrl.d)
 I (..\firm_wm_00_hal\inc\hal_gpio.h)(0x5FB3EA78)
 I (..\STM32F303DriverLib\inc\drv_gpio.h)(0x57281F3E)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h)(0x56F245B7)
@@ -91,16 +91,16 @@ I (..\STM32F303DriverLib\reg\reg_stm32f303_address.h)(0x573678DB)
 I (..\firm_wm_00_hal\inc\hal_delay.h)(0x56F92E3D)
 I (..\STM32F303DriverLib\inc\drv_delay.h)(0x56F38F6C)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_systick.h)(0x572C3C25)
-I (.\inc\app_main_task.h)(0x5FC20574)
-I (.\inc\app_hx711_ctrl.h)(0x5FD040D5)
-I (.\inc\app_led_ctrl.h)(0x5FCE256F)
-F (.\src\app_sdwe_ctrl.c)(0x5FD04909)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_sdwe_ctrl.o --omf_browse .\objects\app_sdwe_ctrl.crf --depend .\objects\app_sdwe_ctrl.d)
+I (.\inc\app_main_task.h)(0x5FD38182)
+I (.\inc\app_hx711_ctrl.h)(0x5FD22106)
+I (.\inc\app_led_ctrl.h)(0x5FD37742)
+F (.\src\app_sdwe_ctrl.c)(0x5FD3951B)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_sdwe_ctrl.o --omf_browse .\objects\app_sdwe_ctrl.crf --depend .\objects\app_sdwe_ctrl.d)
 I (..\STM32F303DriverLib\inc\drv_flash.h)(0x572AB9CA)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_flash.h)(0x56F8D682)
 I (..\STM32F303DriverLib\reg\typedefine.h)(0x5735D1DF)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_address.h)(0x573678DB)
-I (.\inc\app_main_task.h)(0x5FC20574)
-I (.\inc\app_sdwe_ctrl.h)(0x5FD03B3C)
+I (.\inc\app_main_task.h)(0x5FD38182)
+I (.\inc\app_sdwe_ctrl.h)(0x5FD387DD)
 I (..\firm_wm_00_hal\inc\hal_uart.h)(0x5FB7C564)
 I (..\STM32F303DriverLib\inc\drv_rcc.h)(0x572993BC)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_rcc.h)(0x57144493)
@@ -117,11 +117,14 @@ I (..\STM32F303DriverLib\inc\drv_dbgmcu.h)(0x56F3955A)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h)(0x56F287E6)
 I (..\STM32F303DriverLib\inc\drv_uart.h)(0x56FE168C)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_uart.h)(0x56F24578)
-I (.\inc\app_hx711_ctrl.h)(0x5FD040D5)
-I (.\inc\app_led_ctrl.h)(0x5FCE256F)
+I (.\inc\app_hx711_ctrl.h)(0x5FD22106)
+I (.\inc\app_led_ctrl.h)(0x5FD37742)
 I (.\inc\app_crc.h)(0x5FC1FF08)
+I (..\firm_wm_00_hal\inc\hal_delay.h)(0x56F92E3D)
+I (..\STM32F303DriverLib\inc\drv_delay.h)(0x56F38F6C)
+I (..\STM32F303DriverLib\reg\reg_stm32f303_systick.h)(0x572C3C25)
 F (.\src\app_key_ctrl.c)(0x5FBFD3A9)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_key_ctrl.o --omf_browse .\objects\app_key_ctrl.crf --depend .\objects\app_key_ctrl.d)
-I (.\inc\app_main_task.h)(0x5FC20574)
+I (.\inc\app_main_task.h)(0x5FD38182)
 I (.\inc\app_key_ctrl.h)(0x5FBFD2FD)
 I (..\STM32F303DriverLib\reg\typedefine.h)(0x5735D1DF)
 I (..\firm_wm_00_hal\inc\hal_gpio.h)(0x5FB3EA78)
@@ -130,10 +133,10 @@ I (..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h)(0x56F245B7)
 I (..\STM32F303DriverLib\reg\reg_stm32f303_address.h)(0x573678DB)
 F (.\src\app_crc.c)(0x5FC201A2)(-c --cpu Cortex-M4.fp -g -O0 --apcs=interwork --split_sections -I..\STM32F303DriverLib\reg -I..\STM32F303DriverLib\inc -I..\firm_wm_00_hal\inc -I.\inc-I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="516" -DSTM32F303xC-o .\objects\app_crc.o --omf_browse .\objects\app_crc.crf --depend .\objects\app_crc.d)
 I (..\STM32F303DriverLib\reg\typedefine.h)(0x5735D1DF)
-F (.\inc\app_led_ctrl.h)(0x5FCE256F)()
-F (.\inc\app_sdwe_ctrl.h)(0x5FD03B3C)()
-F (.\inc\app_hx711_ctrl.h)(0x5FD040D5)()
+F (.\inc\app_led_ctrl.h)(0x5FD37742)()
+F (.\inc\app_sdwe_ctrl.h)(0x5FD387DD)()
+F (.\inc\app_hx711_ctrl.h)(0x5FD22106)()
 F (.\inc\app_key_ctrl.h)(0x5FBFD2FD)()
-F (.\inc\app_main_task.h)(0x5FC20574)()
+F (.\inc\app_main_task.h)(0x5FD38182)()
 F (.\inc\app_crc.h)(0x5FC1FF08)()
 F (.\startup\startup_stm32f30x.s)(0x572AB7A6)(--cpu Cortex-M4.fp -g --apcs=interwork -I D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\RTE-I C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include-I C:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 516" --pd "STM32F303xC SETA 1"--list .\listings\startup_stm32f30x.lst --xref -o .\objects\startup_stm32f30x.o --depend .\objects\startup_stm32f30x.d)
