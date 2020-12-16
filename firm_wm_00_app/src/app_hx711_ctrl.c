@@ -52,6 +52,7 @@ void hx711_init()
 	UINT8 chanel_i = 0 ,sample_i = 0 ,section_i = 0 ;
 	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
 	{
+		pChanel[chanel_i].weightDir = WEIGHT_DIRECTION_FW;
 		pChanel[chanel_i].sampleCycle = FALSE;
 		for(sample_i=0;sample_i<HX711_DATA_SAMPLE_NUM;sample_i++)
 		{
@@ -72,6 +73,7 @@ void hx711_init()
 		{
 		
 			pChanel[chanel_i].section_PointWeight[section_i] = defaultChanelSamplePoint[section_i] ;
+			pChanel[chanel_i].calibrationArr[section_i] = FALSE;
 		}		
 		pChanel[chanel_i].weight = 0 ;		
 		pChanel[chanel_i].weightPre = 0;
@@ -155,10 +157,23 @@ void trigerCalcKB(UINT8 chanel,UINT8 point)
 		pChanel = &HX711Chanel[chanel];
 		//load weight and sample
 		pChanel->section_PointSample[point] = pChanel->sample_AvgValue;
-
+		//calibration
+		pChanel->calibrationArr[point] = TRUE;
 		//cal each k b : point form 1~(CHANEL_POINT_NUM-1)
 		if(0 != point)
 		{
+			//calibration
+			if( TRUE == pChanel->calibrationArr[point-1] )
+			{
+				if( pChanel->section_PointSample[point] > pChanel->section_PointSample[point-1]) 
+				{
+					pChanel->weightDir = WEIGHT_DIRECTION_FW;//forward
+				}
+				else
+				{
+					pChanel->weightDir = WEIGHT_DIRECTION_BW;//backword
+				}
+			}
 			//k
 			k = 0.0f;
 			k = (pChanel->section_PointWeight[point] - pChanel->section_PointWeight[point-1]);
@@ -181,7 +196,6 @@ void trigerCalcKB(UINT8 chanel,UINT8 point)
 				pChanel->section_K[point+1] = k;
 				pChanel->section_B[point+1] = b;
 			}
-
 		}
 
 		//special deal : first point
@@ -275,9 +289,19 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		//find out k & b
 		for( i = 0 ; i < CHANEL_POINT_NUM ; i++ )
 		{
-			if( pChanel->sample_AvgValue <= pChanel->section_PointSample[i] )
+			if(WEIGHT_DIRECTION_FW == pChanel->weightDir)//forword
 			{
-				break;
+				if( pChanel->sample_AvgValue <= pChanel->section_PointSample[i] )
+				{
+					break;
+				}
+			}
+			else//backword
+			{
+				if( pChanel->sample_AvgValue >= pChanel->section_PointSample[i] )
+				{
+					break;
+				}
 			}
 		}
 		//calculate weight

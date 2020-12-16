@@ -27,7 +27,8 @@
 
 
 //==========================================================================================================================
-//point sample , weight value , K ,B ,weightRemove
+//==========important:each need store data need 4 byte
+//point sample , weight value , K ,B ,weightRemove,weightDir
 
 //start of on board flash store address
 #define FLASH_STORE_ADDRESS_START				(0X0803F000)
@@ -47,10 +48,15 @@
 #define FLASH_CHANEL_POINT_RMW_LEN				(HX711_CHANEL_NUM*4)
 #define FLASH_CHANEL_POINT_RMW_ADDRESS_END		((FLASH_CHANEL_POINT_RMW_ADDRESS_START)+FLASH_CHANEL_POINT_RMW_LEN)
 
-//end of on board flash store address
-#define FLASH_STORE_ADDRESS_END					(FLASH_CHANEL_POINT_RMW_ADDRESS_END)
+//each chanel sensor direction :8*4
+#define FLASH_CHANEL_SERNSER_DIR_ADDRESS_START	(FLASH_CHANEL_POINT_RMW_ADDRESS_END)
+#define FLASH_CHANEL_SERNSER_DIR_LEN			(HX711_CHANEL_NUM*4)
+#define FLASH_CHANEL_SERNSER_DIR_ADDRESS_END	((FLASH_CHANEL_SERNSER_DIR_ADDRESS_START)+FLASH_CHANEL_SERNSER_DIR_LEN)
 
-//store flash data : 8 * (sample value , weight value , k , b , remove value ) , crc
+//end of on board flash store address
+#define FLASH_STORE_ADDRESS_END					(FLASH_CHANEL_SERNSER_DIR_ADDRESS_END)
+
+//store flash data : 8 * (sample value , weight value , k , b , remove value , weightDir ) , crc
 #define FLASH_STORE_MAX_LEN						(((FLASH_STORE_ADDRESS_END-FLASH_STORE_ADDRESS_START)/4)+1)
 //==========================================================================================================================
 
@@ -128,7 +134,8 @@ typedef struct structSdweType
 	UINT16  sdweSetAdd;/**< 地址 */
 	INT16  	sdwetDataLen;/**< 数据长度 */
 	INT16  	sdweSetData;/**< 数据 */
-	
+
+	UINT16 	sdweColorClen;/**< 通道改变时清颜色 */
 	UINT16 	sdweCalChanel;/**< 通道 */
 	UINT16 	sdweCalPoint;/**< 校准点 */
 	INT32 	sdweCalPointArry[CHANEL_POINT_NUM];/**< 校准点数组 */
@@ -143,9 +150,12 @@ typedef struct structSdweType
 	{0}, \
 	0,\
 	0,\
-	0XFFFF,\
+	
+	0XFFFF,\	
 	0,\
-	0XFFFF,\
+	0,\
+	
+	0,\
 	0,\
 	0,\
 	{0},\

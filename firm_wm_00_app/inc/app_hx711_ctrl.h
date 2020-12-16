@@ -39,6 +39,9 @@ typedef enum HX711ChanelType
 
 #define CHANEL_MAX_ERR_RANGE	(float)(2.0)//2.0g
 
+#define WEIGHT_DIRECTION_FW	(0)
+#define WEIGHT_DIRECTION_BW	(1)
+
 typedef struct
 {
 	enumLedSeqType ledType;
@@ -47,16 +50,19 @@ typedef struct
 	
 	UINT8	sample_offset;
 	UINT8	section_offset;
-	
 	INT32	sample_Arr[CHANEL_FILTER_NUM];
 	INT32	sample_TotalValue;
 	INT32	sample_AvgValue;
-	
+
+	UINT8	calibrationArr[CHANEL_POINT_NUM];//是否标定
+	//need storeLstart
 	INT32	section_PointSample[CHANEL_POINT_NUM];
 	INT32	section_PointWeight[CHANEL_POINT_NUM];
 	float 	section_K[CHANEL_POINT_NUM+1];//0:degative  CHANEL_POINT_NUM+1:out range;this 2 status use default K & B
 	float 	section_B[CHANEL_POINT_NUM+1];
 	float	weightRemove;//去皮的重量
+	UINT32 	weightDir;//senser sample value direction:forword or backword
+	//need store:end
 	float	weight;   //当前的重量
 	float	weightPre;//之前的重量
 } ChanelType;
