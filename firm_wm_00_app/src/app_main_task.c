@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "hal_gpio.h"
 #include "app_led_ctrl.h"
 #include "app_hx711_ctrl.h"
@@ -5,21 +8,24 @@
 #include "app_key_ctrl.h"
 #include "app_sdwe_ctrl.h"
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
 //sys main task status
 enumMainTaskCtrlType mainTaskStatus = MainTask_IDLE;
 static UINT32 g_sys_ms_tick = 0 ;
 
-//test
-UINT8 KEY_COMBIN = 0XF0;
-
-//sys main function
+/*******************************************************************************
+ * Functions
+ ******************************************************************************/
+//==sys main function
 void app_main_task( void )
 {
 	UINT8 hx711DataUpgrade = 0 ;
 	//KEY sample and filter
 	key_MainFunction();
 	
-	//HX711 sanple and calculate weight
+	//HX711 sanple and calculate avgSampleValue and weight
 	hx711DataUpgrade = hx711_MainFunction();
 
 	//update LED and SDWE BLACK color
@@ -31,7 +37,7 @@ void app_main_task( void )
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);
 	
-	//
+	//sys tick add
 	g_sys_ms_tick++;
 }
 

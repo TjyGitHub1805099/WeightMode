@@ -1,13 +1,20 @@
-
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "hal_gpio.h"
 #include "app_led_ctrl.h"
 #include "app_hx711_ctrl.h"
 #include "app_sdwe_ctrl.h"
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
 UINT8 g_led_ctrl_data[LED_CTRL_DATA_LEN]={0};
 
-
-//led delay
+/*******************************************************************************
+ * Functions
+ ******************************************************************************/
+//==led delay
 void Led_delay( UINT32 TIME )
 {
 	while(TIME>0)
@@ -15,8 +22,7 @@ void Led_delay( UINT32 TIME )
 		TIME--;
 	}
 }
-
-//led send pulse
+//==led send pulse
 void LedCtrlSendPulse(enumDoLineType offset,UINT8 type)
 {
 		UINT8 TIME = 100;
@@ -39,8 +45,7 @@ void LedCtrlSendPulse(enumDoLineType offset,UINT8 type)
 			Led_delay( TIME );
 		}
 }
-
-//led mode init
+//==led mode init
 void led_init(void)
 {
 	//default LED output
@@ -62,59 +67,7 @@ void led_init(void)
 	//4th:enable LED output
 	hal_gpio_set_do_low( LED_DO_OE );
 }
-
-//led cycle contrl
-void led_MainFunction(UINT8 hx711DataUpgrade)
-{
-	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
-	UINT8 *pData=&g_led_ctrl_data[0];
-	UINT8 i = 0,j = 0,set = 0,l_data = 0;
-
-	//if weight data changed
-	if(1 == hx711DataUpgrade)
-	{	
-		//check data change and store g_led_ctrl_data
-		for(i=0;i<LED_CTRL_DATA_LEN;i++)
-		{
-			if(led_data[i] != pData[i])
-			{
-				led_data[i] = pData[i];
-				set = 1;
-			}
-		}
-		
-		//if data changed
-		if(1 == set)
-		{
-			for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
-			{
-				l_data = led_data[i];	
-				for(j=0;j<8;j++)//8 bit
-				{		
-					//set SER
-					if(0x01 == (l_data&0x01))
-					{
-						hal_gpio_set_do_high( LED_DO_SER0 );
-					}
-					else
-					{
-						hal_gpio_set_do_low( LED_DO_SER0 );
-					}
-					l_data>>=1;
-		
-					//send SCK shift data
-					LedCtrlSendPulse( LED_DO_SRCLK ,1); 
-				}		
-			}
-			
-			//send RCK lock data
-			LedCtrlSendPulse( LED_DO_RCLK ,1);	
-		}
-	
-	}
-}
-
-//set LED light 
+//==set LED light 
 UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 {	
 	UINT8 ret = 0 ;//1:success
@@ -168,9 +121,7 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 	}
 	return ret;
 }
-
-
-//冒泡排序
+//==冒泡排序
 void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
 {
 	UINT8	flag = 0;
@@ -201,8 +152,7 @@ void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
         }
     }          
 }
-
-//
+//==update color
 void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1;
@@ -250,7 +200,7 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 		}
 	}
 }
-
+//==led test
 void LedSysTest(UINT32 ms_tick)
 {
 	static UINT16 l_led_test_cycle = 1000;
@@ -272,5 +222,54 @@ void LedSysTest(UINT32 ms_tick)
 		}
 	}
 }
+//==led cycle contrl
+void led_MainFunction(UINT8 hx711DataUpgrade)
+{
+	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
+	UINT8 *pData=&g_led_ctrl_data[0];
+	UINT8 i = 0,j = 0,set = 0,l_data = 0;
 
+	//if weight data changed
+	if(1 == hx711DataUpgrade)
+	{	
+		//check data change and store g_led_ctrl_data
+		for(i=0;i<LED_CTRL_DATA_LEN;i++)
+		{
+			if(led_data[i] != pData[i])
+			{
+				led_data[i] = pData[i];
+				set = 1;
+			}
+		}
+		
+		//if data changed
+		if(1 == set)
+		{
+			for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
+			{
+				l_data = led_data[i];	
+				for(j=0;j<8;j++)//8 bit
+				{		
+					//set SER
+					if(0x01 == (l_data&0x01))
+					{
+						hal_gpio_set_do_high( LED_DO_SER0 );
+					}
+					else
+					{
+						hal_gpio_set_do_low( LED_DO_SER0 );
+					}
+					l_data>>=1;
+		
+					//send SCK shift data
+					LedCtrlSendPulse( LED_DO_SRCLK ,1); 
+				}		
+			}
+			
+			//send RCK lock data
+			LedCtrlSendPulse( LED_DO_RCLK ,1);	
+		}
+	
+	}
+}
 

@@ -46,28 +46,29 @@ typedef struct
 {
 	enumLedSeqType ledType;
 	UINT8 	initFlag;
-	UINT8	sampleCycle;//onme cycle sample over allow to calculate
+	UINT8	sampleCycle;//only single cycle sample done ,allow to calculate total
 	
 	UINT8	sample_offset;
-	UINT8	section_offset;
 	INT32	sample_Arr[CHANEL_FILTER_NUM];
 	INT32	sample_TotalValue;
 	INT32	sample_AvgValue;
 
-	UINT8	calibrationArr[CHANEL_POINT_NUM];//是否标定
+	UINT8	calibrationArr[CHANEL_POINT_NUM];//if not calibration used to judge weight direction
+	
 	//need storeLstart
 	INT32	section_PointSample[CHANEL_POINT_NUM];
 	INT32	section_PointWeight[CHANEL_POINT_NUM];
 	float 	section_K[CHANEL_POINT_NUM+1];//0:degative  CHANEL_POINT_NUM+1:out range;this 2 status use default K & B
 	float 	section_B[CHANEL_POINT_NUM+1];
-	float	weightRemove;//去皮的重量
+	float	weightRemove;//remove weighe
 	UINT32 	weightDir;//senser sample value direction:forword or backword
 	//need store:end
-	float	weight;   //当前的重量
-	float	weightPre;//之前的重量
+	
+	float	weight;   //cur weight
+	float	weightPre;//pre weight
 } ChanelType;
 
-
+extern ChanelType HX711Chanel[HX711_CHANEL_NUM];
 
 //main task status
 typedef enum HX711CtrlType
@@ -94,7 +95,7 @@ extern const INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM];
 extern void hx711_init(void);
 extern UINT8 hx711_MainFunction(void);
 extern float hx711_getWeight(enumHX711ChanelType chanel);
-extern void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight);
+extern INT32 hx711_getAvgSample(enumHX711ChanelType chanel);
 extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
 extern void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample);
 extern void trigerCalcKB(UINT8 chanel,UINT8 point);

@@ -1,12 +1,24 @@
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "hal_gpio.h"
 #include "hal_delay.h"
 #include "app_main_task.h"
 #include "app_hx711_ctrl.h"
 #include "app_led_ctrl.h"
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
+//==global value
+ChanelType HX711Chanel[HX711_CHANEL_NUM];
+//==point weight default value
 const INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM] = {0,50,100,200,500,1000,2000,3000,4000,5000};
 
-//power off hx711
+/*******************************************************************************
+ * Functions
+ ******************************************************************************/
+//==power off hx711
 UINT8 hx711_PowerOff(enumHX711ChanelType chanel)
 {
 	UINT8 ret = 0 ;//1:success
@@ -19,7 +31,7 @@ UINT8 hx711_PowerOff(enumHX711ChanelType chanel)
 	}
 	return ret;
 }
-//power on hx711
+//==power on hx711
 UINT8 hx711_PowerOn(enumHX711ChanelType chanel)
 {
 	UINT8 ret = 0 ;//1:success
@@ -31,57 +43,47 @@ UINT8 hx711_PowerOn(enumHX711ChanelType chanel)
 	}
 	return ret;
 }
-
-//reset hx711
-UINT8 hx711_reset(enumHX711ChanelType chanel)
-{
-	UINT8 ret = 0 ;//1:sucess
-	if(1 == hx711_PowerOff(chanel))
-	{
-		ret = hx711_PowerOn(chanel);
-	}
-	return ret;
-}
-
-//==========================================================================================
-static ChanelType HX711Chanel[HX711_CHANEL_NUM];
-//init
+//==init
 void hx711_init()
 {
 	ChanelType *pChanel=&HX711Chanel[0];
 	UINT8 chanel_i = 0 ,sample_i = 0 ,section_i = 0 ;
 	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
 	{
-		pChanel[chanel_i].weightDir = WEIGHT_DIRECTION_FW;
+		pChanel[chanel_i].ledType = (enumLedSeqType)chanel_i;
+		//sample
 		pChanel[chanel_i].sampleCycle = FALSE;
+		pChanel[chanel_i].sample_offset = 0 ;
+		pChanel[chanel_i].sample_TotalValue = 0 ;
+		pChanel[chanel_i].sample_AvgValue = 0 ;
 		for(sample_i=0;sample_i<HX711_DATA_SAMPLE_NUM;sample_i++)
 		{
 			pChanel[chanel_i].sample_Arr[sample_i] = 0 ;
 		}
-		pChanel[chanel_i].ledType = (enumLedSeqType)chanel_i;
-		pChanel[chanel_i].sample_TotalValue = 0 ;
-		pChanel[chanel_i].sample_AvgValue = 0 ;
-		pChanel[chanel_i].sample_offset = 0 ;
-		pChanel[chanel_i].section_offset = 0 ;
+		//point weight & calibration status
+		for(section_i=0;section_i<(CHANEL_POINT_NUM);section_i++)
+		{
+		
+			pChanel[chanel_i].section_PointWeight[section_i] = defaultChanelSamplePoint[section_i] ;
+			pChanel[chanel_i].calibrationArr[section_i] = FALSE;//not calibration
+		}		
+		//k & b
 		for(section_i=0;section_i<(CHANEL_POINT_NUM+1);section_i++)
 		{
 		
 			pChanel[chanel_i].section_K[section_i] = CHANEL_DEFAULT_K ;
 			pChanel[chanel_i].section_B[section_i] = CHANEL_DEFAULT_B ;
 		}
-		for(section_i=0;section_i<(CHANEL_POINT_NUM);section_i++)
-		{
-		
-			pChanel[chanel_i].section_PointWeight[section_i] = defaultChanelSamplePoint[section_i] ;
-			pChanel[chanel_i].calibrationArr[section_i] = FALSE;
-		}		
+		//remove weight , dir , weight , pre weight
+		pChanel[chanel_i].weightRemove = 0;
+		pChanel[chanel_i].weightDir = WEIGHT_DIRECTION_FW;
 		pChanel[chanel_i].weight = 0 ;		
 		pChanel[chanel_i].weightPre = 0;
-		pChanel[chanel_i].weightRemove = 0;
 		//
 		pChanel[chanel_i].initFlag = TRUE ;
 	}
 }
+//==
 ChanelType* getChanelStruct(UINT8 chanel_i)
 {
 	ChanelType *pChanel=&HX711Chanel[0];
@@ -91,9 +93,7 @@ ChanelType* getChanelStruct(UINT8 chanel_i)
 	}
 	return pChanel;
 }
-
-
-//sample data push
+//==sample data push include sign symbol
 void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 {
 	if( pChanel->sample_offset >= CHANEL_FILTER_NUM )
@@ -123,7 +123,7 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	//
 	pChanel->sample_offset++;
 }
-//set chanel point sample value
+//==set chanel point sample value
 void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 {
 	ChanelType *pChanel = &HX711Chanel[0];
@@ -134,7 +134,7 @@ void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight)
 		pChanel->section_PointWeight[point] = weight ;
 	}
 }
-//set chanel point weight value
+//==set chanel point weight value
 void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample)
 {
 	ChanelType *pChanel = &HX711Chanel[0];
@@ -145,8 +145,7 @@ void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample)
 		pChanel->section_PointSample[point] = sample ;
 	}
 }
-
-//thought SDWE point triger cacluate K & B
+//==thought SDWE point triger cacluate K & B & weight dir
 void trigerCalcKB(UINT8 chanel,UINT8 point)
 {
 	ChanelType *pChanel = &HX711Chanel[0];
@@ -212,70 +211,7 @@ void trigerCalcKB(UINT8 chanel,UINT8 point)
 		}
 	}
 }
-//calculate K & B
-void sampleCalcKB(UINT8 chanel,UINT8 point,INT32 weight)
-{
-	ChanelType *pChanel = &HX711Chanel[0];
-
-	float k=0.0,b=0.0;
-	//
-	if(chanel >= HX711_CHANEL_NUM)
-		return;
-
-	//
-	pChanel = &HX711Chanel[chanel];
-
-	//
-	if(point < CHANEL_POINT_NUM)
-	{
-		//load weight and sample
-		pChanel->section_PointWeight[point] = weight ;
-		pChanel->section_PointSample[point] = pChanel->sample_AvgValue;
-
-		//cal each k b : point form 1~(CHANEL_POINT_NUM-1)
-		if(0 != point)
-		{
-			//k
-			k = 0.0f;
-			k = (pChanel->section_PointWeight[point] - pChanel->section_PointWeight[point-1]);
-			k = k / (pChanel->section_PointSample[point]-pChanel->section_PointSample[point-1]);
-			//b
-			b = pChanel->section_PointWeight[point] - k*pChanel->section_PointSample[point];
-			//
-			pChanel->section_K[point] = k;
-			pChanel->section_B[point] = b;
-
-			if((CHANEL_POINT_NUM-1) > point)
-			{
-				//k
-				k = 0.0f;
-				k = (pChanel->section_PointWeight[point+1] - pChanel->section_PointWeight[point]);
-				k = k / (pChanel->section_PointSample[point+1]-pChanel->section_PointSample[point]);
-				//b
-				b = pChanel->section_PointWeight[point+1] - k*pChanel->section_PointSample[point+1];
-				//
-				pChanel->section_K[point+1] = k;
-				pChanel->section_B[point+1] = b;
-			}
-
-		}
-
-		//special deal : first point
-		if(1 == point )
-		{
-			pChanel->section_K[point-1] = pChanel->section_K[point];
-			pChanel->section_B[point-1] = pChanel->section_B[point];
-		}
-		//special deal : last point
-		if((CHANEL_POINT_NUM-1) == point)
-		{
-			pChanel->section_K[point+1] = pChanel->section_K[point];
-			pChanel->section_B[point+1] = pChanel->section_B[point];
-		}
-	}
-}
-
-//calculate avrg value and weight
+//==calculate avrg value and weight
 void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 {
 	UINT8 i = 0 ;
@@ -313,19 +249,32 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		pChanel->weight = weight;
 	}
 }
-//
+//==get svgSample
+INT32 hx711_getAvgSample(enumHX711ChanelType chanel)
+{
+	INT32 ret = 0 ;
+	ChanelType *pChanel=&HX711Chanel[0];
+	if( chanel < HX711_CHANEL_NUM )
+	{
+		//
+		ret = pChanel[chanel].sample_AvgValue;
+	}
+	//sample is 25 bit
+	return ret;
+}
+//==get weight-remove weight
 float hx711_getWeight(enumHX711ChanelType chanel)
 {
 	float ret = 0 ;
 	ChanelType *pChanel=&HX711Chanel[0];
 	if( chanel < HX711_CHANEL_NUM )
 	{
-		//remove tare 去皮
+		//this is allready remove weight
 		ret = pChanel[chanel].weight - pChanel[chanel].weightRemove;
 	}
 	return ret;
 }
-//sample all chanel data
+//==sample all chanel data
 void hx711_AllChanelSample(void)
 {
 	ChanelType *pChanel=&HX711Chanel[0];
@@ -379,8 +328,7 @@ void hx711_AllChanelSample(void)
 		sampleDataPush(&pChanel[chanel_i],sampleDataBuf[chanel_i]);
 	}
 }
-
-//hx711 data sample ctrl
+//==hx711 data sample ctrl
 void hx711_DataSampleCtrl(void)
 {
 	UINT8 chanel_i = 0 ;
@@ -393,7 +341,7 @@ void hx711_DataSampleCtrl(void)
 		hx711_SigChanelAvrgAndWeightCalc(&pChanel[chanel_i]);
 	}
 }
-//hx711 main function
+//==hx711 main function
 UINT8 hx711_MainFunction(void)
 {
 	static enumHX711CtrlType status = HX711_CTRL_INIT;
