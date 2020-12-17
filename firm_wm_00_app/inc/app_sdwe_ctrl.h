@@ -126,6 +126,7 @@ typedef struct structSdweType
 	UINT8 	readSdweInit;
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
 	UINT8 	version;//SDWE version
+	UINT8 	allowCompare;
 	UINT8 	rxData[SDWE_UART_DATA_LEN];
 	UINT8 	txData[SDWE_UART_DATA_LEN];
 	UINT16	RxLength;					/**< 接收字节数 */
@@ -146,6 +147,7 @@ typedef struct structSdweType
 	0,\
 	&g_UartDevice[UART_EXTERN], \
 	0,\
+	FALSE,\
 	{0}, \
 	{0}, \
 	0,\

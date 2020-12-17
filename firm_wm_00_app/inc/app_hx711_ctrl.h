@@ -15,7 +15,8 @@ typedef enum HX711ChanelType
 	HX711Chanel_6 ,      /**< HX711  6控制 */
 	HX711Chanel_7 ,      /**< HX711  7控制 */
 	HX711Chanel_8 ,      /**< HX711  8控制 */
-	HX711_CHANEL_NUM	 /**< HX711  总数量 hardware chanel number */
+	HX711_CHANEL_NUM,	 /**< HX711  总数量 hardware chanel number */
+	HX711_CHANEL_LOCKED=0X80
 }enumHX711ChanelType;
 
 #define HX711_DATA_SAMPLE_TYPE 	(25)//hx711 sample type ;25:used chanel A 128 gain
@@ -38,7 +39,10 @@ typedef enum HX711ChanelType
 #define CHANEL_DEFAULT_B	(float)(-267.71)//default b
 
 #define CHANEL_MAX_ERR_RANGE	(float)(2.0)//2.0g
+#define CHANEL_MAX_TACKOUT_RANGE	(float)(10.0)//10.0g
 
+#define COMAPRE_SPECIAL_FLAG	(0X10)
+#define COMPARE_USED_COLOR		(0XF00)
 #define WEIGHT_DIRECTION_FW	(0)
 #define WEIGHT_DIRECTION_BW	(1)
 

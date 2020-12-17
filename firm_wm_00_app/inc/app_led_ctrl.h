@@ -26,7 +26,8 @@ typedef enum LedColorType
 	LED_COLOR_GREEN,	/**< LED 绿 控制 */
 	LED_COLOR_BLUE, 	/**< LED 蓝 控制 */
 	LED_COLOR_WHITE,	/**< LED 白 控制 */
-	LED_COLOR_NUM
+	LED_COLOR_NUM,
+	LED_COLOR_LOCK=0X80,
 }enumLedColorType;
 
 

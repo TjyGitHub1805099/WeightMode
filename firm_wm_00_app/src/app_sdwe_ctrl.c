@@ -29,13 +29,15 @@ void sdwe_init(void)
 	UINT8 i = 0 ;
 	//
 	g_sdwe.readSdweInit = FALSE;
+	g_sdwe.pUartDevice = &g_UartDevice[UART_EXTERN];
+	g_sdwe.version = 0;//SDWE version
+	g_sdwe.allowCompare = FALSE;
 	//
 	g_sdwe.pUartDevice->pRxLength = &g_sdwe.RxLength;
 	g_sdwe.pUartDevice->pRxFinishFlag = &g_sdwe.RxFinishFlag;
 	g_sdwe.pUartDevice->pTxBuffer = &g_sdwe.rxData[0];
 	g_sdwe.pUartDevice->pRxBuffer = &g_sdwe.rxData[0];
 	//
-	g_sdwe.version = 0;//SDWE version
 	//
 	g_sdwe.RxLength = 0;					/**< 接收字节数 */
 	g_sdwe.RxFinishFlag = FALSE;			/**< 接收完成标志 */
