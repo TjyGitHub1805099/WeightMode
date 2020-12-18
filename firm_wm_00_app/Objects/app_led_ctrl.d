@@ -22,3 +22,4 @@
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
+.\objects\app_led_ctrl.o: .\inc\app_main_task.h

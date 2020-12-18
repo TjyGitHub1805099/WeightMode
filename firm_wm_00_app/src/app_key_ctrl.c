@@ -50,7 +50,7 @@ void key_MainFunction(void)
 UINT8 key_FilterGet(enumDiLineType type)
 {
 	UINT8 value = SYS_KEY_INVALUED;
-	if( (type >= SYS_KEY_1) && (type < (SYS_KEY_1+SYS_KEY_NUM) )
+	if( (type >= SYS_KEY_1) && (type < (SYS_KEY_1+SYS_KEY_NUM) ) )
 	{
 		value =  SysKey[type-SYS_KEY_1].keyOutput;
 	}

@@ -35,6 +35,8 @@ void led_init(void);
 void led_MainFunction(UINT8 hx711DataUpgrade);
 UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color);
 void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade);
+void useWeightCompareOutColor(UINT8 hx711DataUpgrade);
+extern void useWeightUpdataOutColor(UINT8 hx711DataUpgrade);
 void LedSysTest(UINT32 ms_tick);
 #endif
 

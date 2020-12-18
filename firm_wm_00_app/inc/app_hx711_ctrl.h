@@ -65,7 +65,7 @@ typedef struct
 	float 	section_K[CHANEL_POINT_NUM+1];//0:degative  CHANEL_POINT_NUM+1:out range;this 2 status use default K & B
 	float 	section_B[CHANEL_POINT_NUM+1];
 	float	weightRemove;//remove weighe
-	UINT32 	weightDir;//senser sample value direction:forword or backword
+	INT32 	weightDir;//senser sample value direction:forword or backword
 	//need store:end
 	
 	float	weight;   //cur weight

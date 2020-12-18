@@ -140,6 +140,7 @@ typedef struct structSdweType
 	UINT16 	sdweCalChanel;/**< 通道 */
 	UINT16 	sdweCalPoint;/**< 校准点 */
 	INT32 	sdweCalPointArry[CHANEL_POINT_NUM];/**< 校准点数组 */
+	UINT32	sdweTick;
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
@@ -152,15 +153,14 @@ typedef struct structSdweType
 	{0}, \
 	0,\
 	0,\
-	
-	0XFFFF,\	
+	0XFFFF,\
 	0,\
 	0,\
-	
 	0,\
 	0,\
 	0,\
 	{0},\
+	0,\
 	}
 
 #define SDWE_WEIGHR_DATA_LEN (2*HX711_CHANEL_NUM)//8 weight data + 8 color data	

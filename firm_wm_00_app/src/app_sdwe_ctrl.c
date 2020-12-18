@@ -362,7 +362,7 @@ void storeSysDataToFlash()
 		//==point weight dirction
 		start_i = end_i ;
 		end_i = start_i+1;
-		pInt32 = (float *)&(pChanel->weightDir);
+		pInt32 = (INT32 *)&(pChanel->weightDir);
 		for(;start_i<end_i;start_i++)
 		{
 			if(start_i < (FLASH_STORE_MAX_LEN - 1))
@@ -380,8 +380,10 @@ void storeSysDataToFlash()
 	if(start_i <= FLASH_STORE_MAX_LEN)
 	{	
 		storeTick++;
+		drv_flash_unlock();
 		drv_flash_erase_sector(FLASH_STORE_ADDRESS_START);
 		drv_flash_write_words( FLASH_STORE_ADDRESS_START, (UINT32 *)(&pWordInt32Float[0].i_value), (start_i) );
+		drv_flash_lock();
 	}
 }
 //==read data from flash
@@ -457,7 +459,6 @@ void readSysDataFromFlash(void)
 				}
 			}
 		}
-	}
 }
 //==updata sdwe weight color
 void sdweSetWeightBackColor(UINT8 seq,UINT8 color)
@@ -531,7 +532,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			point = ( pSdwe->sdweSetAdd - SDWE_FUNC_SET_CHANEL_POINT_TRIG );
 			if(0 == pSdwe->sdweCalChanel)//all chanel caculate	K & B
 			{
-				avgSampleValue = (hx711_getAvgSample(pSdwe->sdweCalChanel)>>9);
+				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel)/512;
 				for(i=0;i<HX711_CHANEL_NUM;i++)//eight chanel
 				{
 					trigerCalcKB(i,point);
@@ -539,7 +540,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			}
 			else if(HX711_CHANEL_NUM > pSdwe->sdweCalChanel)//single chanel caculate  K & B
 			{
-				avgSampleValue = (hx711_getAvgSample(pSdwe->sdweCalChanel-1)>>9);
+				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
 				trigerCalcKB((pSdwe->sdweCalChanel-1),point);
 			}
 			sdwePointTrigerUpdata(point,1,avgSampleValue);
@@ -552,7 +553,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 //==prepare TX data
 void sdwe_TxFunction(void)
 {
-	SdweType *pSdwe = &g_sdwe;
+	//SdweType *pSdwe = &g_sdwe;
 	static UINT16 ticks = 0 ;
 	static UINT8 need_send = 0;
 	INT16 *pSendData= &g_sdwe_dis_data[0];
@@ -590,6 +591,7 @@ void sdwe_TxFunction(void)
 		{
 			//if chanel changed set SDWE back color to white
 			clrSdwePointTrigerAll();
+			g_sdwe.sdweColorClen = FALSE;
 		}
 		//color get
 		pSendData = &g_sdwe_triger_data[1][0];//color:1 green 0:white
@@ -690,7 +692,7 @@ void sdwe_RxFunction(void)
 				}
 			}
 			//store in flash
-			if(TRUE == needStore)
+			if((TRUE == needStore) && (g_sdwe.sdweTick > 5000 ))
 			{
 				storeSysDataToFlash();
 			}
@@ -708,6 +710,7 @@ void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 //==sdwe main function
 void sdwe_MainFunction(UINT8 hx711DataUpgrade)
 {
+	g_sdwe.sdweTick++;
 	//deal rx data from SDWE
 	sdwe_RxFunction();
 	sdwe_TxFunction();

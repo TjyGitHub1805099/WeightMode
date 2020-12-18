@@ -110,6 +110,7 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	{
 		pChanel->sample_Arr[pChanel->sample_offset] = sampleData;
 	}
+	/*
 	//calculate Total
 	if(TRUE == pChanel->sampleCycle)
 	{
@@ -120,6 +121,7 @@ void sampleDataPush(ChanelType *pChanel , UINT32 sampleData)
 	{
 		pChanel->sample_TotalValue += pChanel->sample_Arr[pChanel->sample_offset];
 	}
+	*/
 	//
 	pChanel->sample_offset++;
 }
@@ -220,6 +222,11 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 	if(TRUE == pChanel->sampleCycle)
 	{
 		//calculate average
+		pChanel->sample_TotalValue = 0 ;
+		for(i=0;i<CHANEL_FILTER_NUM;i++)
+		{
+			pChanel->sample_TotalValue+=pChanel->sample_Arr[i];
+		}
 		pChanel->sample_AvgValue = pChanel->sample_TotalValue / CHANEL_FILTER_NUM;
 		
 		//find out k & b

@@ -30,7 +30,8 @@ void app_main_task( void )
 
 	//update LED and SDWE BLACK color
 	useWeightUpdateLedAndSdweColor(hx711DataUpgrade);
-	
+	//useWeightCompareOutColor(hx711DataUpgrade);
+	//useWeightUpdataOutColor(hx711DataUpgrade);
 	//LED control
 	led_MainFunction(hx711DataUpgrade);
 	
