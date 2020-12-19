@@ -43,6 +43,33 @@ UINT8 hx711_PowerOn(enumHX711ChanelType chanel)
 	}
 	return ret;
 }
+//==sample 冒泡排序
+void sampleBubbleSort(INT32 a[],int n)
+{
+	UINT8	flag = 0;
+    int 	i = 0, j = 0;
+	INT32 	temp = 0.0;
+    for( i = 0 ; i < n ; i++ )
+	{
+        flag=0;              //表示本趟冒泡是否发生交换的标志
+        for( j = 1 ; j < n-i ; j++)
+		{         //j的起始位置为1，终止位置为n-i  
+            if(a[j]<a[j-1])
+			{
+				temp = a[j-1];
+				a[j-1] = a[j];
+				a[j] = temp;
+				
+               	flag=1;
+            }
+        }
+        if(flag==0)             //未交换，说明已经有序，停止排序
+        {
+            return;
+        }
+    }          
+}
+
 //==init
 void hx711_init()
 {
@@ -223,6 +250,7 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 	if(TRUE == pChanel->sampleCycle)
 	{
 		//calculate average
+#if 1
 		pChanel->sample_TotalValue = 0 ;
 		for(i=0;i<CHANEL_FILTER_NUM;i++)
 		{
@@ -236,9 +264,13 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 			}
 			pChanel->sample_TotalValue+=pChanel->sample_Arr[i];
 		}
+		
 		pChanel->sample_TotalValue = pChanel->sample_TotalValue -max-min;
 		pChanel->sample_AvgValue = pChanel->sample_TotalValue / (CHANEL_FILTER_NUM-2);
-		
+#else
+		sampleBubbleSort(&pChanel->sample_Arr[0],CHANEL_FILTER_NUM);
+		pChanel->sample_AvgValue = pChanel->sample_Arr[CHANEL_FILTER_NUM/2];
+#endif
 		//find out k & b
 		for( i = 0 ; i < CHANEL_POINT_NUM ; i++ )
 		{

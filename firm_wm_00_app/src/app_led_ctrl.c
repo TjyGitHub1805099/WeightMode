@@ -184,27 +184,59 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 		//check allready equal chanel,judge again
 		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 		{
+			//get a(self_chanel) and b(other_chanel) chanel
+			chanel_a = chanel;
+			chanel_b = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_OTHER_MASK)>>CHANEL_COMPARED_OTHER_BIT)%HX711_CHANEL_NUM;
+			color_i = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_COLOR_MASK)>>CHANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
+			//is lock
 			if(chanelCompareInfo[chanel] & CHANEL_COMPARED_FLAG_MASK)//0xFxxx
 			{
-				//get a and b chanel
-				chanel_a = chanel;
-				chanel_b = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_OTHER_MASK)>>CHANEL_COMPARED_OTHER_BIT)%HX711_CHANEL_NUM;
-				color_i = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_COLOR_MASK)>>CHANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
 				//if a or b changed lager than CHANEL_MAX_ERR_RANGE
-				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) || 
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) ||
 					((curWeight[chanel_a] - curWeight[chanel_b]) < -CHANEL_MAX_ERR_RANGE) )
 				{
-					chanelCompareInfo[chanel] = 0;//chanel unlock
-					colorLock[color_i] = 0 ;//color unlock
+					//chanel unlock,other..,color unlock
+					chanelCompareInfo[chanel] = 0;
+					//color unlock
+					colorLock[color_i] = 0 ;
 					
-					//light color
-					LedDataSet(chanel, LED_COLOR_NONE);//clear color
-					sdweSetWeightBackColor(chanel, LED_COLOR_NONE);//clear color
+					//clear chanel_a color
+					LedDataSet(chanel_a, LED_COLOR_NONE);
+					sdweSetWeightBackColor(chanel_a, LED_COLOR_NONE);
+					//clear chanel_b color
+					LedDataSet(chanel_b, LED_COLOR_NONE);
+					sdweSetWeightBackColor(chanel_b, LED_COLOR_NONE);
+				}
+				else
+				{
+					//update chanelCompareInfo[]
+					chanelCompareInfo[chanel] = 0X0F ;
+					chanelCompareInfo[chanel] <<= 4;
+					chanelCompareInfo[chanel] += chanel_b;
+					chanelCompareInfo[chanel] <<= 4;
+					chanelCompareInfo[chanel] += color_i;
+					chanelCompareInfo[chanel] <<= 4;
+					//color lock
+					colorLock[color_i] = TRUE ;
+					
+					//set chanel_a color
+					LedDataSet(chanel_a, color_i);
+					sdweSetWeightBackColor(chanel_a, color_i);
+					//set chanel_b color
+					LedDataSet(chanel_b, color_i);
+					sdweSetWeightBackColor(chanel_b, color_i);
 				}
 			}
-			else
+			else//not lock
 			{
-				chanelCompareInfo[chanel] = 0;//clear all info
+				//chanel unlock,other..,color unlock
+				chanelCompareInfo[chanel] = 0;
+				//color unlock
+				colorLock[color_i] = 0 ;
+				
+				//clear self color
+				LedDataSet(chanel, LED_COLOR_NONE);
+				sdweSetWeightBackColor(chanel, LED_COLOR_NONE);
 			}
 		}
 		//get unlock chanel num and weight
@@ -225,9 +257,9 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			chanel_a = sortArry[compare_i];
 			chanel_b = sortArry[compare_i+1];
 			//is equal
-			if(	((sortWeight[(compare_i)%sortArry_num] < -CHANEL_MAX_ERR_RANGE) || (sortWeight[(compare_i)%sortArry_num] > CHANEL_MAX_ERR_RANGE)) &&
-				((sortWeight[(compare_i+1)%sortArry_num] < -CHANEL_MAX_ERR_RANGE) || (sortWeight[(compare_i+1)%sortArry_num] > CHANEL_MAX_ERR_RANGE)) &&
-				(((sortWeight[(compare_i+1)%sortArry_num] - sortWeight[compare_i]) > -CHANEL_MAX_ERR_RANGE) && ((sortWeight[(compare_i+1)%sortArry_num] - sortWeight[compare_i]) < CHANEL_MAX_ERR_RANGE) ) )
+			if(	((curWeight[chanel_a] < -CHANEL_MAX_ERR_RANGE) || (curWeight[chanel_a] > CHANEL_MAX_ERR_RANGE)) &&
+				((curWeight[chanel_b] < -CHANEL_MAX_ERR_RANGE) || (curWeight[chanel_b] > CHANEL_MAX_ERR_RANGE)) &&
+				(((curWeight[chanel_b] - curWeight[chanel_a]) > -CHANEL_MAX_ERR_RANGE) && ((curWeight[chanel_b] - curWeight[chanel_a]) < CHANEL_MAX_ERR_RANGE) ) )
 			{
 				//set color
 				//find color
@@ -238,23 +270,26 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 						//color unlock
 						color = color_i;
 						colorLock[color_i] = TRUE ;
-						//lock chanel
-						chanelCompareInfo[chanel_a] = CHANEL_COMPARED_FLAG_MASK;
-						chanelCompareInfo[chanel_a] |= (chanel_b<<CHANEL_COMPARED_OTHER_BIT) & CHANEL_COMPARED_OTHER_MASK;
-						chanelCompareInfo[chanel_b] = CHANEL_COMPARED_FLAG_MASK;
-						chanelCompareInfo[chanel_b] |= (chanel_a<<CHANEL_COMPARED_OTHER_BIT) & CHANEL_COMPARED_OTHER_MASK;
+						//lock chanel,other ,color
+						//update chanelCompareInfo[]
+						chanelCompareInfo[chanel_a] = 0X0F ;
+						chanelCompareInfo[chanel_a] <<= 4;
+						chanelCompareInfo[chanel_a] += chanel_b;
+						chanelCompareInfo[chanel_a] <<= 4;
+						chanelCompareInfo[chanel_a] += color_i;
+						chanelCompareInfo[chanel_a] <<= 4;
+						//update chanelCompareInfo[]
+						chanelCompareInfo[chanel_b] = 0X0F ;
+						chanelCompareInfo[chanel_b] <<= 4;
+						chanelCompareInfo[chanel_b] += chanel_a;
+						chanelCompareInfo[chanel_b] <<= 4;
+						chanelCompareInfo[chanel_b] += color_i;
+						chanelCompareInfo[chanel_b] <<= 4;
 
-						//lock color
-						chanelCompareInfo[chanel_a] = CHANEL_COMPARED_COLOR_MASK;
-						chanelCompareInfo[chanel_a] |= (chanel_b<<CHANEL_COMPARED_COLOR_BIT) & CHANEL_COMPARED_COLOR_MASK;
-						chanelCompareInfo[chanel_b] = CHANEL_COMPARED_COLOR_MASK;
-						chanelCompareInfo[chanel_b] |= (chanel_a<<CHANEL_COMPARED_COLOR_BIT) & CHANEL_COMPARED_COLOR_MASK;
-
-						
 						//light color
 						LedDataSet(chanel_a, color);//light same color
-						LedDataSet(chanel_b, color);//light same color
 						sdweSetWeightBackColor(chanel_a, color);//light same color
+						LedDataSet(chanel_b, color);//light same color
 						sdweSetWeightBackColor(chanel_b, color);//light same color
 
 						//
@@ -265,13 +300,20 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			}
 			else
 			{
-				color_i = ((chanelCompareInfo[chanel_a]&CHANEL_COMPARED_COLOR_MASK)>>CHANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
-				colorLock[chanel_a] = 0 ;//color unlock
-				chanelCompareInfo[chanel_a] = 0;//chanel unlock
-				
-				//light color
-				LedDataSet(chanel_a, LED_COLOR_NONE);//clear color
-				sdweSetWeightBackColor(chanel_a, LED_COLOR_NONE);//clear color
+				//chanel unlock,other..,color unlock
+				chanelCompareInfo[chanel_a] = 0;
+				//clear self color
+				LedDataSet(chanel_a, LED_COLOR_NONE);
+				sdweSetWeightBackColor(chanel_a, LED_COLOR_NONE);
+
+				if((sortArry_num-2) == compare_i)
+				{
+					//chanel unlock,other..,color unlock
+					chanelCompareInfo[chanel_b] = 0;
+					//clear self color
+					LedDataSet(chanel_b, LED_COLOR_NONE);
+					sdweSetWeightBackColor(chanel_b, LED_COLOR_NONE);
+				}
 			}
 		}
 	}
