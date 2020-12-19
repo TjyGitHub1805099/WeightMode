@@ -1,9 +1,19 @@
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "app_main_task.h"
 #include "app_key_ctrl.h"
+#include "app_hx711_ctrl.h"
 
+/*******************************************************************************
+ * Definitions
+ ******************************************************************************/
 SysKeyType SysKey[SYS_KEY_NUM];
 
-//key init
+/*******************************************************************************
+ * Functions
+ ******************************************************************************/
+//==key init
 void key_init(void)
 {
 	UINT8 i = 0 ;
@@ -18,9 +28,8 @@ void key_init(void)
 		pSysKeyType[i].initFlag = TRUE;
 	}
 }
-
-//key filter
-void key_MainFunction(void)
+//==key filter
+void key_filter()
 {
 	UINT8 i = 0;
 	SysKeyType *pSysKeyType = &SysKey[0];
@@ -46,7 +55,7 @@ void key_MainFunction(void)
 		pSysKeyType[i].preSample = pSysKeyType[i].curSample ;
 	}
 }
-
+//==key filter out get
 UINT8 key_FilterGet(enumDiLineType type)
 {
 	UINT8 value = SYS_KEY_INVALUED;
@@ -56,3 +65,21 @@ UINT8 key_FilterGet(enumDiLineType type)
 	}
 	return value;
 }
+//==key main function
+void key_MainFunction(void)
+{
+	static UINT8 preRemoveKey=SYS_KEY_INVALUED;
+	key_filter();
+	
+	//key of remove weight
+	if((SYS_KEY_INVALUED == preRemoveKey)&&(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1)))
+	{
+		preRemoveKey = SYS_KEY_VALUED;
+	}
+	else if((SYS_KEY_VALUED == preRemoveKey)&&(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_1)))
+	{
+		preRemoveKey = SYS_KEY_INVALUED;
+		hx711_setAllRemoveWeight();
+	}
+}
+

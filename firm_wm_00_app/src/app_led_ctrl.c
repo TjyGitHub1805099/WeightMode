@@ -166,7 +166,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
 	float curWeight[HX711_CHANEL_NUM]={0.0};
-	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0},info = 0;
+	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0};
 	static UINT8  colorLock[LED_COLOR_NUM]={FALSE};
 	enumLedColorType color_i = LED_COLOR_REG,color;
 

@@ -6,3 +6,5 @@
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\inc\drv_gpio.h
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_gpio.h
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_address.h
+.\objects\app_key_ctrl.o: .\inc\app_hx711_ctrl.h
+.\objects\app_key_ctrl.o: .\inc\app_led_ctrl.h

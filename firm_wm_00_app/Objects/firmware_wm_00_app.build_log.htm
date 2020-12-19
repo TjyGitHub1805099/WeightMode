@@ -27,15 +27,6 @@ Project File Date:  12/18/2020
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_main_task.c...
-compiling app_hx711_ctrl.c...
-compiling app_main.c...
-compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(535): warning:  #188-D: enumerated type mixed with another type
-  				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(543): warning:  #188-D: enumerated type mixed with another type
-  				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
-src\app_sdwe_ctrl.c: 2 warnings, 0 errors
 compiling app_led_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(191): warning:  #188-D: enumerated type mixed with another type
   				chanel_b = ((chanelCompareInfo[chanel]&
@@ -47,8 +38,7 @@ HANEL_COMPARED_COLOR_MASK)>>
 HANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(201): warning:  #188-D: enumerated type mixed with another type
   					LedDataSet(chanel, LED_COLOR_NONE);//clear color
-src\app_led_ctrl.c: 8 warnings, 0 errors
-#188-D: enumerated type mixed with another type
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(255): warning:  #188-D: enumerated type mixed with another type
   						LedDataSet(chanel_a, color);//light same color
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(256): warning:  #188-D: enumerated type mixed with another type
   						LedDataSet(chanel_b, color);//light same color
@@ -58,13 +48,21 @@ HANEL_COMPARED_COLOR_MASK)>>
 HANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(273): warning:  #188-D: enumerated type mixed with another type
   				LedDataSet(chanel_a, LED_COLOR_NONE);//clear color
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(169): warning:  #177-D: variable "info" was declared but never referenced
-  	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0},info = 0;
-compiling app_key_ctrl.c...
-compiling app_crc.c...
+src\app_led_ctrl.c: 7 warnings, 0 errors
+compiling app_main.c...
+compiling app_main_task.c...
+compiling app_hx711_ctrl.c...
+compiling app_sdwe_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(535): warning:  #188-D: enumerated type mixed with another type
+  				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel)/512;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(543): warning:  #188-D: enumerated type mixed with another type
+  				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
+src\app_sdwe_ctrl.c: 2 warnings, 0 errors
 assembling startup_stm32f30x.s...
+compiling app_crc.c...
+compiling app_key_ctrl.c...
 linking...
-Program Size: Code=13380 RO-data=1264 RW-data=940 ZI-data=7748  
+Program Size: Code=13584 RO-data=1264 RW-data=936 ZI-data=7744  
 FromELF: creating hex file...
 ".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 9 Warning(s).
 
@@ -73,7 +71,7 @@ FromELF: creating hex file...
   C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -218,6 +218,7 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 {
 	UINT8 i = 0 ;
 	float weight = 0 ;
+	INT32 max=0x80000000,min=0x7FFFFFFF;
 	//if sample cycle complete
 	if(TRUE == pChanel->sampleCycle)
 	{
@@ -225,9 +226,18 @@ void hx711_SigChanelAvrgAndWeightCalc(ChanelType *pChanel)
 		pChanel->sample_TotalValue = 0 ;
 		for(i=0;i<CHANEL_FILTER_NUM;i++)
 		{
+			if(pChanel->sample_Arr[i]>=max)
+			{
+				max = pChanel->sample_Arr[i];
+			}
+			if(pChanel->sample_Arr[i]<=min)
+			{
+				min = pChanel->sample_Arr[i];
+			}
 			pChanel->sample_TotalValue+=pChanel->sample_Arr[i];
 		}
-		pChanel->sample_AvgValue = pChanel->sample_TotalValue / CHANEL_FILTER_NUM;
+		pChanel->sample_TotalValue = pChanel->sample_TotalValue -max-min;
+		pChanel->sample_AvgValue = pChanel->sample_TotalValue / (CHANEL_FILTER_NUM-2);
 		
 		//find out k & b
 		for( i = 0 ; i < CHANEL_POINT_NUM ; i++ )
@@ -280,6 +290,16 @@ float hx711_getWeight(enumHX711ChanelType chanel)
 		ret = pChanel[chanel].weight - pChanel[chanel].weightRemove;
 	}
 	return ret;
+}
+//==set all remove weight
+void hx711_setAllRemoveWeight(void)
+{
+	ChanelType *pChanel=&HX711Chanel[0];
+	UINT8 chanel_i = 0;
+	for(chanel_i=0;chanel_i<HX711_CHANEL_NUM;chanel_i++)
+	{
+		pChanel[chanel_i].weightRemove = pChanel[chanel_i].weight;
+	}
 }
 //==sample all chanel data
 void hx711_AllChanelSample(void)

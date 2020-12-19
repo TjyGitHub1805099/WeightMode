@@ -104,5 +104,6 @@ extern void setSampleWeightValue(UINT8 chanel,UINT8 point,INT32 weight);
 extern void setSampleValue(UINT8 chanel,UINT8 point,INT32 sample);
 extern void trigerCalcKB(UINT8 chanel,UINT8 point);
 extern ChanelType* getChanelStruct(UINT8 chanel_i);
+extern void hx711_setAllRemoveWeight(void);
 #endif
 
