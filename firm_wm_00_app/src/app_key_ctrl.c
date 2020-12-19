@@ -82,4 +82,3 @@ void key_MainFunction(void)
 		hx711_setAllRemoveWeight();
 	}
 }
-

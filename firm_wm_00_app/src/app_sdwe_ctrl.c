@@ -16,7 +16,7 @@ SdweType g_sdwe = SdweDefault;
 //store flash data : 8 * (sample value , weight value , k , b , remove value ) , last one is crc
 unionFloatInt32 flashStoreDataBuf[FLASH_STORE_MAX_LEN]={0};
 //sdwe 10 point triger color data:arr0 is triger flag ,arr1 is color ,arr2 is sample data
-static INT16 g_sdwe_triger_data[3][CHANEL_POINT_NUM]={{0},{0},{0}};
+static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
 //sdwe 8 weight data + 8 color data	
 INT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
 
@@ -568,6 +568,7 @@ void sdwe_TxFunction(void)
 	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 	{
 		weight[chanel] = (INT16)(hx711_getWeight(chanel)+0.5f);
+		g_sdwe_triger_data[3][chanel] = (INT16)(hx711_getAvgSample(chanel)/512);
 		pSendData[chanel] = weight[chanel];
 		//
 		if(weight[chanel] != weightPre[chanel])
@@ -595,7 +596,14 @@ void sdwe_TxFunction(void)
 		}
 		//color get
 		pSendData = &g_sdwe_triger_data[1][0];//color:1 green 0:white
-		sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,(2*CHANEL_POINT_NUM),0);
+		if(0 == g_sdwe.sdweCalChanel)
+		{
+			sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,(3*CHANEL_POINT_NUM),0);
+		}
+		else
+		{
+			sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,(2*CHANEL_POINT_NUM),0);
+		}
 	}
 	else if((ticks%1000) == 0 )
 	{

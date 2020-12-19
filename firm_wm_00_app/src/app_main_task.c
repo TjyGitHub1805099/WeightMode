@@ -25,14 +25,6 @@ void app_main_task( void )
 	//KEY sample and filter
 	key_MainFunction();
 
-	
-	//key of remove weight
-	if(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1))
-	{
-
-	}
-
-	
 	//HX711 sanple and calculate avgSampleValue and weight
 	hx711DataUpgrade = hx711_MainFunction();
 
