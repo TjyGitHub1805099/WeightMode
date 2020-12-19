@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\firmware_wm_00_app.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\firmware_wm_00_app.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Sat Dec 19 14:36:15 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Sat Dec 19 14:50:07 2020
 <BR><P>
 <H3>Maximum Stack Usage =       1468 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -650,13 +650,14 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f30x.o(RESET)
 </UL>
-<P><STRONG><a name="[72]"></a>app_main_task</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, app_main_task.o(i.app_main_task))
+<P><STRONG><a name="[72]"></a>app_main_task</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, app_main_task.o(i.app_main_task))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140<LI>Call Chain = app_main_task &rArr; useWeightUpdataOutColor &rArr; LedDataSet
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;useWeightUpdataOutColor
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_MainFunction
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_MainFunction
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_MainFunction
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_setAllRemoveWeight
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_MainFunction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_DAC_IRQHandler
@@ -684,20 +685,20 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_TxFunction
 </UL>
 
-<P><STRONG><a name="[98]"></a>drv_debug_apb1_stop</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_dbgmcu.o(i.drv_debug_apb1_stop))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<P><STRONG><a name="[99]"></a>drv_debug_apb1_stop</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_dbgmcu.o(i.drv_debug_apb1_stop))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 </UL>
 
-<P><STRONG><a name="[91]"></a>drv_delay_init</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_init))
-<BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_init
+<P><STRONG><a name="[92]"></a>drv_delay_init</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_init))
+<BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_init
 </UL>
 
-<P><STRONG><a name="[93]"></a>drv_delay_ms</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_ms))
-<BR><BR>[Called By]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
+<P><STRONG><a name="[94]"></a>drv_delay_ms</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_ms))
+<BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
 </UL>
 
-<P><STRONG><a name="[95]"></a>drv_delay_us</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_us))
-<BR><BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_us
+<P><STRONG><a name="[96]"></a>drv_delay_us</STRONG> (Thumb, 64 bytes, Stack size 0 bytes, drv_delay.o(i.drv_delay_us))
+<BR><BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_us
 </UL>
 
 <P><STRONG><a name="[75]"></a>drv_dma_set_mem_addr_length</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_set_mem_addr_length))
@@ -705,7 +706,7 @@ Global Symbols
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[ae]"></a>drv_dma_stream_clear_flag_status</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_clear_flag_status))
+<P><STRONG><a name="[af]"></a>drv_dma_stream_clear_flag_status</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_clear_flag_status))
 <BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 </UL>
 
@@ -715,8 +716,8 @@ Global Symbols
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[80]"></a>drv_dma_stream_deinit</STRONG> (Thumb, 252 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_deinit))
-<BR><BR>[Called By]<UL><LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_init
+<P><STRONG><a name="[81]"></a>drv_dma_stream_deinit</STRONG> (Thumb, 252 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_deinit))
+<BR><BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_init
 </UL>
 
 <P><STRONG><a name="[6a]"></a>drv_dma_stream_disable</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_disable))
@@ -746,40 +747,40 @@ Global Symbols
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[7f]"></a>drv_dma_stream_init</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, drv_dma.o(i.drv_dma_stream_init))
+<P><STRONG><a name="[80]"></a>drv_dma_stream_init</STRONG> (Thumb, 108 bytes, Stack size 32 bytes, drv_dma.o(i.drv_dma_stream_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = drv_dma_stream_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_deinit
+<BR>[Calls]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_deinit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[a9]"></a>drv_dma_stream_it_enable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_it_enable))
+<P><STRONG><a name="[aa]"></a>drv_dma_stream_it_enable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, drv_dma.o(i.drv_dma_stream_it_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[af]"></a>drv_dma_stream_start_mem_to_periph</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, drv_dma.o(i.drv_dma_stream_start_mem_to_periph))
+<P><STRONG><a name="[b0]"></a>drv_dma_stream_start_mem_to_periph</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, drv_dma.o(i.drv_dma_stream_start_mem_to_periph))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_dma_stream_start_mem_to_periph
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 </UL>
 
-<P><STRONG><a name="[9f]"></a>drv_dma_stream_start_periph_to_mem</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, drv_dma.o(i.drv_dma_stream_start_periph_to_mem))
+<P><STRONG><a name="[a0]"></a>drv_dma_stream_start_periph_to_mem</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, drv_dma.o(i.drv_dma_stream_start_periph_to_mem))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_dma_stream_start_periph_to_mem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
 </UL>
 
-<P><STRONG><a name="[81]"></a>drv_flash_erase_sector</STRONG> (Thumb, 66 bytes, Stack size 12 bytes, drv_flash.o(i.drv_flash_erase_sector))
+<P><STRONG><a name="[82]"></a>drv_flash_erase_sector</STRONG> (Thumb, 66 bytes, Stack size 12 bytes, drv_flash.o(i.drv_flash_erase_sector))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = drv_flash_erase_sector &rArr; drv_flash_wait_last_operation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
+<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
-<P><STRONG><a name="[83]"></a>drv_flash_get_status</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_get_status))
-<BR><BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
+<P><STRONG><a name="[84]"></a>drv_flash_get_status</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_get_status))
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
 
 <P><STRONG><a name="[d3]"></a>drv_flash_lock</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_lock))
@@ -796,33 +797,33 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
-<P><STRONG><a name="[82]"></a>drv_flash_wait_last_operation</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, drv_flash.o(i.drv_flash_wait_last_operation))
+<P><STRONG><a name="[83]"></a>drv_flash_wait_last_operation</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, drv_flash.o(i.drv_flash_wait_last_operation))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_flash_wait_last_operation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_get_status
+<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_get_status
 </UL>
-<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
+<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
 </UL>
 
-<P><STRONG><a name="[84]"></a>drv_flash_write_words</STRONG> (Thumb, 122 bytes, Stack size 24 bytes, drv_flash.o(i.drv_flash_write_words))
+<P><STRONG><a name="[85]"></a>drv_flash_write_words</STRONG> (Thumb, 122 bytes, Stack size 24 bytes, drv_flash.o(i.drv_flash_write_words))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
+<BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
-<P><STRONG><a name="[a3]"></a>drv_gpio_alternate_function_connect</STRONG> (Thumb, 66 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_alternate_function_connect))
+<P><STRONG><a name="[a4]"></a>drv_gpio_alternate_function_connect</STRONG> (Thumb, 66 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_alternate_function_connect))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = drv_gpio_alternate_function_connect
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[a2]"></a>drv_gpio_alternate_function_init</STRONG> (Thumb, 220 bytes, Stack size 28 bytes, drv_gpio.o(i.drv_gpio_alternate_function_init))
+<P><STRONG><a name="[a3]"></a>drv_gpio_alternate_function_init</STRONG> (Thumb, 220 bytes, Stack size 28 bytes, drv_gpio.o(i.drv_gpio_alternate_function_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = drv_gpio_alternate_function_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
 <P><STRONG><a name="[d8]"></a>drv_gpio_input_init</STRONG> (Thumb, 96 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_input_init))
@@ -831,109 +832,109 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 </UL>
 
-<P><STRONG><a name="[a4]"></a>drv_gpio_output_init</STRONG> (Thumb, 220 bytes, Stack size 28 bytes, drv_gpio.o(i.drv_gpio_output_init))
+<P><STRONG><a name="[a5]"></a>drv_gpio_output_init</STRONG> (Thumb, 220 bytes, Stack size 28 bytes, drv_gpio.o(i.drv_gpio_output_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = drv_gpio_output_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[a6]"></a>drv_gpio_set_pins_high</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, hal_uart.o(i.drv_gpio_set_pins_high))
-<BR><BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<P><STRONG><a name="[a7]"></a>drv_gpio_set_pins_high</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, hal_uart.o(i.drv_gpio_set_pins_high))
+<BR><BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[9b]"></a>drv_nvic_enable</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, drv_nvic.o(i.drv_nvic_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<P><STRONG><a name="[9c]"></a>drv_nvic_enable</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, drv_nvic.o(i.drv_nvic_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[9a]"></a>drv_nvic_init</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, drv_nvic.o(i.drv_nvic_init))
+<P><STRONG><a name="[9b]"></a>drv_nvic_init</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, drv_nvic.o(i.drv_nvic_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = drv_nvic_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[a1]"></a>drv_rcc_ahb1_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_ahb1_clk_enable))
+<P><STRONG><a name="[a2]"></a>drv_rcc_ahb1_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_ahb1_clk_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[97]"></a>drv_rcc_apb1_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_clk_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<P><STRONG><a name="[98]"></a>drv_rcc_apb1_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_clk_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[8b]"></a>drv_rcc_apb1_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
+<P><STRONG><a name="[8c]"></a>drv_rcc_apb1_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable))
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
-<P><STRONG><a name="[8a]"></a>drv_rcc_apb1_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
+<P><STRONG><a name="[8b]"></a>drv_rcc_apb1_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
-<P><STRONG><a name="[a7]"></a>drv_rcc_apb2_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_clk_enable))
+<P><STRONG><a name="[a8]"></a>drv_rcc_apb2_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_clk_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[89]"></a>drv_rcc_apb2_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
+<P><STRONG><a name="[8a]"></a>drv_rcc_apb2_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable))
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
-<P><STRONG><a name="[88]"></a>drv_rcc_apb2_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
+<P><STRONG><a name="[89]"></a>drv_rcc_apb2_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
-<P><STRONG><a name="[86]"></a>drv_rcc_get_clocks_freq</STRONG> (Thumb, 238 bytes, Stack size 20 bytes, drv_rcc.o(i.drv_rcc_get_clocks_freq))
+<P><STRONG><a name="[87]"></a>drv_rcc_get_clocks_freq</STRONG> (Thumb, 238 bytes, Stack size 20 bytes, drv_rcc.o(i.drv_rcc_get_clocks_freq))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = drv_rcc_get_clocks_freq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_init
+<BR>[Called By]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_init
 </UL>
 
-<P><STRONG><a name="[85]"></a>drv_rcc_init</STRONG> (Thumb, 694 bytes, Stack size 36 bytes, drv_rcc.o(i.drv_rcc_init))
+<P><STRONG><a name="[86]"></a>drv_rcc_init</STRONG> (Thumb, 694 bytes, Stack size 36 bytes, drv_rcc.o(i.drv_rcc_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = drv_rcc_init &rArr; drv_rcc_get_clocks_freq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_get_clocks_freq
+<BR>[Calls]<UL><LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_get_clocks_freq
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_clock_init
+<BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_clock_init
 </UL>
 
-<P><STRONG><a name="[99]"></a>drv_timer_base_init</STRONG> (Thumb, 104 bytes, Stack size 12 bytes, drv_timer.o(i.drv_timer_base_init))
+<P><STRONG><a name="[9a]"></a>drv_timer_base_init</STRONG> (Thumb, 104 bytes, Stack size 12 bytes, drv_timer.o(i.drv_timer_base_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = drv_timer_base_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 </UL>
 
 <P><STRONG><a name="[71]"></a>drv_timer_clear_it_pending_bit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, drv_timer.o(i.drv_timer_clear_it_pending_bit))
 <BR><BR>[Called By]<UL><LI><a href="#[45]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_DAC_IRQHandler
 </UL>
 
-<P><STRONG><a name="[87]"></a>drv_timer_deinit</STRONG> (Thumb, 216 bytes, Stack size 8 bytes, drv_timer.o(i.drv_timer_deinit))
+<P><STRONG><a name="[88]"></a>drv_timer_deinit</STRONG> (Thumb, 216 bytes, Stack size 8 bytes, drv_timer.o(i.drv_timer_deinit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_timer_deinit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_enable
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_disable
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_enable
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_disable
+<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_enable
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_disable
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_enable
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_disable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
-</UL>
-
-<P><STRONG><a name="[9d]"></a>drv_timer_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_timer.o(i.drv_timer_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 </UL>
 
-<P><STRONG><a name="[9c]"></a>drv_timer_it_enable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, drv_timer.o(i.drv_timer_it_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<P><STRONG><a name="[9e]"></a>drv_timer_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_timer.o(i.drv_timer_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 </UL>
 
-<P><STRONG><a name="[ad]"></a>drv_uart_clear_flag_status</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_clear_flag_status))
+<P><STRONG><a name="[9d]"></a>drv_timer_it_enable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, drv_timer.o(i.drv_timer_it_enable))
+<BR><BR>[Called By]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+</UL>
+
+<P><STRONG><a name="[ae]"></a>drv_uart_clear_flag_status</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_clear_flag_status))
 <BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 </UL>
 
@@ -942,38 +943,38 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[8c]"></a>drv_uart_deinit</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, drv_uart.o(i.drv_uart_deinit))
+<P><STRONG><a name="[8d]"></a>drv_uart_deinit</STRONG> (Thumb, 124 bytes, Stack size 8 bytes, drv_uart.o(i.drv_uart_deinit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_uart_deinit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_enable
-<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_disable
-<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_enable
-<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_disable
+<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_enable
+<LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_periph_reset_disable
+<LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_enable
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_periph_reset_disable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[aa]"></a>drv_uart_dma_rx_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_dma_rx_enable))
+<P><STRONG><a name="[ab]"></a>drv_uart_dma_rx_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_dma_rx_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[a8]"></a>drv_uart_dma_tx_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_dma_tx_enable))
+<P><STRONG><a name="[a9]"></a>drv_uart_dma_tx_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_dma_tx_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[ac]"></a>drv_uart_get_flag_status</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_get_flag_status))
+<P><STRONG><a name="[ad]"></a>drv_uart_get_flag_status</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, drv_uart.o(i.drv_uart_get_flag_status))
 <BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 </UL>
 
-<P><STRONG><a name="[8d]"></a>drv_uart_init</STRONG> (Thumb, 190 bytes, Stack size 24 bytes, drv_uart.o(i.drv_uart_init))
+<P><STRONG><a name="[8e]"></a>drv_uart_init</STRONG> (Thumb, 190 bytes, Stack size 24 bytes, drv_uart.o(i.drv_uart_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = drv_uart_init &rArr; drv_uart_set_baudrate
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_set_baudrate
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_set_baudrate
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
@@ -996,16 +997,16 @@ Global Symbols
 <LI><a href="#[1e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DMA1_Channel2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[ab]"></a>drv_uart_put_bytes</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, drv_uart.o(i.drv_uart_put_bytes))
+<P><STRONG><a name="[ac]"></a>drv_uart_put_bytes</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, drv_uart.o(i.drv_uart_put_bytes))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = drv_uart_put_bytes
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
 </UL>
 
-<P><STRONG><a name="[8e]"></a>drv_uart_set_baudrate</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, drv_uart.o(i.drv_uart_set_baudrate))
+<P><STRONG><a name="[8f]"></a>drv_uart_set_baudrate</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, drv_uart.o(i.drv_uart_set_baudrate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = drv_uart_set_baudrate
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_init
+<BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_init
 <LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_braudrate
 </UL>
 
@@ -1018,47 +1019,47 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_TxFunction
 </UL>
 
-<P><STRONG><a name="[8f]"></a>hal_clock_init</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, hal_clock.o(i.hal_clock_init))
+<P><STRONG><a name="[90]"></a>hal_clock_init</STRONG> (Thumb, 24 bytes, Stack size 16 bytes, hal_clock.o(i.hal_clock_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = hal_clock_init &rArr; drv_rcc_init &rArr; drv_rcc_get_clocks_freq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_init
+<BR>[Calls]<UL><LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
 
-<P><STRONG><a name="[90]"></a>hal_delay_init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, hal_delay.o(i.hal_delay_init))
+<P><STRONG><a name="[91]"></a>hal_delay_init</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, hal_delay.o(i.hal_delay_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = hal_delay_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_init
+<BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
 
-<P><STRONG><a name="[92]"></a>hal_delay_ms</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, app_sdwe_ctrl.o(i.hal_delay_ms))
+<P><STRONG><a name="[93]"></a>hal_delay_ms</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, app_sdwe_ctrl.o(i.hal_delay_ms))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = hal_delay_ms
 </UL>
-<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_ms
+<BR>[Calls]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweWriteVarible
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweReadVarible
 </UL>
 
-<P><STRONG><a name="[94]"></a>hal_delay_us</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.hal_delay_us))
+<P><STRONG><a name="[95]"></a>hal_delay_us</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.hal_delay_us))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = hal_delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_us
+<BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_us
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 </UL>
 
-<P><STRONG><a name="[b1]"></a>hal_di_get</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, hal_gpio.o(i.hal_di_get))
-<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_filter
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<P><STRONG><a name="[b2]"></a>hal_di_get</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, hal_gpio.o(i.hal_di_get))
+<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_filter
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_MainFunction
 </UL>
 
 <P><STRONG><a name="[70]"></a>hal_gpio_set_do_high</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, hal_gpio.o(i.hal_gpio_set_do_high))
-<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedCtrlSendPulse
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_MainFunction
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_MainFunction
@@ -1066,47 +1067,47 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[6e]"></a>hal_gpio_set_do_low</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, hal_gpio.o(i.hal_gpio_set_do_low))
-<BR><BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<BR><BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedCtrlSendPulse
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_MainFunction
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_MainFunction
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_init
 </UL>
 
-<P><STRONG><a name="[96]"></a>hal_timer_init</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, hal_timer.o(i.hal_timer_init))
+<P><STRONG><a name="[97]"></a>hal_timer_init</STRONG> (Thumb, 66 bytes, Stack size 8 bytes, hal_timer.o(i.hal_timer_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = hal_timer_init &rArr; drv_nvic_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_it_enable
-<LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_enable
-<LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
-<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_base_init
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
-<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_debug_apb1_stop
+<BR>[Calls]<UL><LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_it_enable
+<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_enable
+<LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_base_init
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_debug_apb1_stop
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
 
-<P><STRONG><a name="[9e]"></a>hal_uart_dma_rx_start</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, hal_uart.o(i.hal_uart_dma_rx_start))
+<P><STRONG><a name="[9f]"></a>hal_uart_dma_rx_start</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, hal_uart.o(i.hal_uart_dma_rx_start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = hal_uart_dma_rx_start &rArr; drv_uart_clear_it_pending_bit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_clear_it_pending_bit
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_start_periph_to_mem
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_start_periph_to_mem
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
 
-<P><STRONG><a name="[a0]"></a>hal_uart_gpio_init</STRONG> (Thumb, 806 bytes, Stack size 16 bytes, hal_uart.o(i.hal_uart_gpio_init))
+<P><STRONG><a name="[a1]"></a>hal_uart_gpio_init</STRONG> (Thumb, 806 bytes, Stack size 16 bytes, hal_uart.o(i.hal_uart_gpio_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = hal_uart_gpio_init &rArr; drv_gpio_alternate_function_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_alternate_function_init
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_alternate_function_connect
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_alternate_function_init
+<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_alternate_function_connect
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_rx_mode
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_set_pins_high
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_output_init
+<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_set_pins_high
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_output_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 </UL>
@@ -1115,21 +1116,21 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = hal_uart_port_init &rArr; hal_uart_gpio_init &rArr; drv_gpio_alternate_function_init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_it_enable
-<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_init
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_dma_tx_enable
-<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_dma_rx_enable
-<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_init
+<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_dma_tx_enable
+<LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_dma_rx_enable
+<LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_clear_it_pending_bit
-<LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_clk_enable
-<LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_it_enable
-<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_init
+<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb2_clk_enable
+<LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_it_enable
+<LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_init
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_clear_it_pending_bit
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
-<LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
-<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
-<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
-<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
+<LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
+<LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
+<LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 </UL>
@@ -1152,7 +1153,7 @@ Global Symbols
 <P><STRONG><a name="[3]"></a>hal_uart_set_braudrate</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, hal_uart.o(i.hal_uart_set_braudrate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = hal_uart_set_braudrate &rArr; drv_uart_set_baudrate
 </UL>
-<BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_set_baudrate
+<BR>[Calls]<UL><LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_set_baudrate
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hal_uart.o(.data)
 </UL>
@@ -1160,7 +1161,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = hal_uart_set_rx_mode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 <LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[37]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
@@ -1168,48 +1169,48 @@ Global Symbols
 <P><STRONG><a name="[4]"></a>hal_uart_set_timeout</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hal_uart.o(i.hal_uart_set_timeout))
 <BR>[Address Reference Count : 1]<UL><LI> hal_uart.o(.data)
 </UL>
-<P><STRONG><a name="[a5]"></a>hal_uart_set_tx_mode</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, hal_uart.o(i.hal_uart_set_tx_mode))
+<P><STRONG><a name="[a6]"></a>hal_uart_set_tx_mode</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, hal_uart.o(i.hal_uart_set_tx_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = hal_uart_set_tx_mode
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_set_pins_high
+<BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_set_pins_high
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_tx_bytes
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
+<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
 <P><STRONG><a name="[5]"></a>hal_uart_tx_bytes</STRONG> (Thumb, 246 bytes, Stack size 24 bytes, hal_uart.o(i.hal_uart_tx_bytes))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = hal_uart_tx_bytes &rArr; drv_uart_it_enable
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_put_bytes
+<BR>[Calls]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_put_bytes
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_it_enable
-<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_get_flag_status
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_get_flag_status
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_clear_it_pending_bit
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_clear_flag_status
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_start_mem_to_periph
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_clear_flag_status
+<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_start_mem_to_periph
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_get_left_length
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_clear_flag_status
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_clear_flag_status
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_tx_mode
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_set_rx_mode
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hal_uart.o(.data)
 </UL>
-<P><STRONG><a name="[b0]"></a>hx711_AllChanelSample</STRONG> (Thumb, 212 bytes, Stack size 56 bytes, app_hx711_ctrl.o(i.hx711_AllChanelSample))
+<P><STRONG><a name="[b1]"></a>hx711_AllChanelSample</STRONG> (Thumb, 212 bytes, Stack size 56 bytes, app_hx711_ctrl.o(i.hx711_AllChanelSample))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = hx711_AllChanelSample &rArr; sampleDataPush
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sampleDataPush
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_us
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sampleDataPush
+<LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_us
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_gpio_set_do_low
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_gpio_set_do_high
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
 </UL>
 
-<P><STRONG><a name="[b3]"></a>hx711_DataSampleCtrl</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, app_hx711_ctrl.o(i.hx711_DataSampleCtrl))
+<P><STRONG><a name="[b4]"></a>hx711_DataSampleCtrl</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, app_hx711_ctrl.o(i.hx711_DataSampleCtrl))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = hx711_DataSampleCtrl &rArr; hx711_AllChanelSample &rArr; sampleDataPush
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_SigChanelAvrgAndWeightCalc
-<LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_SigChanelAvrgAndWeightCalc
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_MainFunction
 </UL>
@@ -1217,18 +1218,18 @@ Global Symbols
 <P><STRONG><a name="[7b]"></a>hx711_MainFunction</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, app_hx711_ctrl.o(i.hx711_MainFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = hx711_MainFunction &rArr; hx711_DataSampleCtrl &rArr; hx711_AllChanelSample &rArr; sampleDataPush
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
+<LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_gpio_set_do_low
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_gpio_set_do_high
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 </UL>
 
-<P><STRONG><a name="[b4]"></a>hx711_SigChanelAvrgAndWeightCalc</STRONG> (Thumb, 222 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc))
+<P><STRONG><a name="[b5]"></a>hx711_SigChanelAvrgAndWeightCalc</STRONG> (Thumb, 222 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = hx711_SigChanelAvrgAndWeightCalc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
+<BR>[Called By]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
 </UL>
 
 <P><STRONG><a name="[c4]"></a>hx711_getAvgSample</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.hx711_getAvgSample))
@@ -1247,28 +1248,29 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b7]"></a>hx711_setAllRemoveWeight</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.hx711_setAllRemoveWeight))
+<P><STRONG><a name="[7f]"></a>hx711_setAllRemoveWeight</STRONG> (Thumb, 42 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.hx711_setAllRemoveWeight))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_MainFunction
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 </UL>
 
-<P><STRONG><a name="[b6]"></a>key_FilterGet</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, app_key_ctrl.o(i.key_FilterGet))
+<P><STRONG><a name="[b7]"></a>key_FilterGet</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, app_key_ctrl.o(i.key_FilterGet))
 <BR><BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_MainFunction
 </UL>
 
 <P><STRONG><a name="[7a]"></a>key_MainFunction</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, app_key_ctrl.o(i.key_MainFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = key_MainFunction &rArr; key_filter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_filter
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_FilterGet
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_setAllRemoveWeight
+<BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_filter
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_FilterGet
+<LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_setAllRemoveWeight
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 </UL>
 
-<P><STRONG><a name="[b5]"></a>key_filter</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, app_key_ctrl.o(i.key_filter))
+<P><STRONG><a name="[b6]"></a>key_filter</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, app_key_ctrl.o(i.key_filter))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = key_filter
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
+<BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_di_get
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_MainFunction
 </UL>
@@ -1321,10 +1323,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[b2]"></a>sampleDataPush</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.sampleDataPush))
+<P><STRONG><a name="[b3]"></a>sampleDataPush</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.sampleDataPush))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = sampleDataPush
 </UL>
-<BR>[Called By]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 </UL>
 
 <P><STRONG><a name="[cc]"></a>sdweAskRegData</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, app_sdwe_ctrl.o(i.sdweAskRegData))
@@ -1362,7 +1364,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = sdweReadVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_TxFunction
 </UL>
@@ -1375,7 +1377,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = sdweWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
-<LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
+<LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_TxFunction
 </UL>
@@ -1429,10 +1431,10 @@ Global Symbols
 <P><STRONG><a name="[cd]"></a>storeSysDataToFlash</STRONG> (Thumb, 342 bytes, Stack size 40 bytes, app_sdwe_ctrl.o(i.storeSysDataToFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = storeSysDataToFlash &rArr; drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
+<BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_unlock
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_lock
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChanelStruct
 </UL>
@@ -1443,9 +1445,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = system_init &rArr; hal_clock_init &rArr; drv_rcc_init &rArr; drv_rcc_get_clocks_freq
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
-<LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_init
-<LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_clock_init
+<LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
+<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_init
+<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_clock_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1471,8 +1473,8 @@ Global Symbols
 <P><STRONG><a name="[d4]"></a>wm_hal_gpio_init</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, hal_gpio.o(i.wm_hal_gpio_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = wm_hal_gpio_init &rArr; drv_gpio_output_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
-<LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_output_init
+<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
+<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_output_init
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_input_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init

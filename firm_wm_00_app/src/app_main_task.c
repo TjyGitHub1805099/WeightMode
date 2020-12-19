@@ -22,6 +22,7 @@ static UINT32 g_sys_ms_tick = 0 ;
 void app_main_task( void )
 {
 	UINT8 hx711DataUpgrade = 0 ;
+	static UINT8 removeWeight = TRUE;
 	//KEY sample and filter
 	key_MainFunction();
 
@@ -38,8 +39,18 @@ void app_main_task( void )
 	
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);
+
+
+	if((TRUE == removeWeight)&&(g_sys_ms_tick >= 3000))
+	{
+		removeWeight = FALSE;
+		hx711_setAllRemoveWeight();
+	}
 	
 	//sys tick add
 	g_sys_ms_tick++;
+
+
+	
 }
 
