@@ -192,8 +192,15 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			if(chanelCompareInfo[chanel] & CHANEL_COMPARED_FLAG_MASK)//0xFxxx
 			{
 				//if a or b changed lager than CHANEL_MAX_ERR_RANGE
+				#if 0
 				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) ||
 					((curWeight[chanel_a] - curWeight[chanel_b]) < -CHANEL_MAX_ERR_RANGE) )
+				#else
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) ||
+					((curWeight[chanel_a] - curWeight[chanel_b]) < -CHANEL_MAX_ERR_RANGE) ||
+					((curWeight[chanel_a] > -CHANEL_MAX_ERR_RANGE) && (curWeight[chanel_a] < CHANEL_MAX_ERR_RANGE)) ||
+					((curWeight[chanel_b] > -CHANEL_MAX_ERR_RANGE) && (curWeight[chanel_b] < CHANEL_MAX_ERR_RANGE)) )
+				#endif
 				{
 					//chanel unlock,other..,color unlock
 					chanelCompareInfo[chanel] = 0;

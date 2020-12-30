@@ -538,7 +538,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 					trigerCalcKB(i,point);
 				}
 			}
-			else if(HX711_CHANEL_NUM > pSdwe->sdweCalChanel)//single chanel caculate  K & B
+			else if(HX711_CHANEL_NUM >= pSdwe->sdweCalChanel)//single chanel caculate  K & B
 			{
 				avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
 				trigerCalcKB((pSdwe->sdweCalChanel-1),point);
