@@ -1,0 +1,15 @@
+[INIT]
+PICFIX=1
+VARCount=64
+Version=-1
+SCREENDSIZE=1920X480
+SPADDRESS=5000
+[IMG]
+01=01_主页.jpg
+02=02_附页.jpg
+03=03_配平模式.jpg
+04=04-校准模式.jpg
+05=05_数字输入.jpg
+06=06_文本录入.jpg
+07=07-配平模式6.jpg
+08=08-系统设置.jpg
