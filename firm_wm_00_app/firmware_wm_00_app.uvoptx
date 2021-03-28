@@ -129,6 +129,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -232,6 +233,11 @@
           <count>14</count>
           <WinNumber>1</WinNumber>
           <ItemText>flashStoreDataBuf,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>15</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>pSendData,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
