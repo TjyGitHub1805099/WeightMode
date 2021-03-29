@@ -799,7 +799,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 		}//==(update:20210328):remove all weight value
 		else if(DMG_FUNC_REMOVE_WEIGHT_ADDRESS == pSdwe->sdweSetAdd)
 		{
-			if(DMG_FUNC_REMOVE_WEIGHT_VAL == (UINT16)pSdwe->sdweSetAdd)
+			if(DMG_FUNC_REMOVE_WEIGHT_VAL == (UINT16)pSdwe->sdweSetData)
 			{
 				hx711_setAllRemoveWeight();
 			}
@@ -847,10 +847,6 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 					{
 						avgSampleValue = hx711_getAvgSample(i)/512;
 						trigerCalcKB(i,point);
-						for(point_i=0;point_i<CHANEL_POINT_NUM;point_i++)
-						{
-							pointSampleTrigerDataSet(i,point_i,avgSampleValue);
-						}
 						pointTrigerDataSet(i,point,1,avgSampleValue);
 					}
 					pointTrigerDataSet(HX711_CHANEL_NUM,point,1,avgSampleValue);
@@ -860,10 +856,6 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				{
 					avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
 					trigerCalcKB((pSdwe->sdweCalChanel-1),point);
-					for(point_i=0;point_i<CHANEL_POINT_NUM;point_i++)
-					{
-						pointSampleTrigerDataSet((pSdwe->sdweCalChanel-1),point_i,avgSampleValue);
-					}
 					pointTrigerDataSet((pSdwe->sdweCalChanel-1),point,1,avgSampleValue);
 				}
 				//sdwePointTrigerUpdata(point,1,avgSampleValue);
@@ -1016,7 +1008,42 @@ UINT8 chanelChangedTrigerDeal()
 }
 
 
+void sendBalancingModelData(void)
+{
+	static UINT16 ticks = 0 ;
+	static UINT8 need_send = 0;
+	INT16 *pSendData= &g_sdwe_dis_data[0];
+	INT16 weight[HX711_CHANEL_NUM];	
+	static INT16 weightPre[HX711_CHANEL_NUM]; 
+	enumHX711ChanelType chanel = HX711Chanel_1;
 
+
+	//=============================================================weight value and color
+	pSendData= &g_sdwe_dis_data[0];
+	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	{
+		weight[chanel] = (INT16)(hx711_getWeight(chanel)+0.5f);
+		pSendData[chanel] = weight[chanel];
+		//
+		if(weight[chanel] != weightPre[chanel])
+		{
+			weightPre[chanel] = weight[chanel];
+			need_send = TRUE ;
+		}
+	}
+
+	//
+	if(TRUE == need_send)
+	{
+		if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+			((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+		{
+			sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+			//
+			need_send = FALSE;
+		}
+	}
+}
 
 
 
@@ -1024,32 +1051,6 @@ UINT8 chanelChangedTrigerDeal()
 //==prepare TX data
 void sdwe_TxFunction(void)
 {
-	//SdweType *pSdwe = &g_sdwe;
-	static UINT16 ticks = 0 ;
-	static UINT8 need_send = 0;
-	INT16 *pSendData= &g_sdwe_dis_data[0];
-	INT16 weight[HX711_CHANEL_NUM];	
-	static INT16 weightPre[HX711_CHANEL_NUM]; 
-	enumHX711ChanelType chanel = HX711Chanel_1;
-	//
-	ticks++;
-	
-	//=============================================================weight value and color
-	pSendData= &g_sdwe_dis_data[0];
-	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
-	{
-		weight[chanel] = (INT16)(hx711_getWeight(chanel)+0.5f);
-		g_sdwe_triger_data[3][chanel] = (INT16)(hx711_getAvgSample(chanel)/512);
-		pSendData[chanel] = weight[chanel];
-		//
-		if(weight[chanel] != weightPre[chanel])
-		{
-			weightPre[chanel] = weight[chanel];
-			need_send = 1 ;
-		}
-	}
-
-	
 	//==if calibration page: chanel changed trigerd
 	if(TRUE == g_sdwe.sdweChanelChanged)
 	{
@@ -1058,24 +1059,26 @@ void sdwe_TxFunction(void)
 			 g_sdwe.sdweChanelChanged = FALSE;
 		}
 	}
-
 	//==if calibration page: reset calibration trigerd
-	if(TRUE == g_sdwe.sdweResetTriger)
+	else if(TRUE == g_sdwe.sdweResetTriger)
 	{
 		if(0 != resetCalibrationTrigerDeal())
 		{
 			g_sdwe.sdweResetTriger = FALSE;
 		}
 	}
-
 	//==if calibration page: point trigerd
-	if(TRUE == g_sdwe.sdwePointTriger)
+	else if(TRUE == g_sdwe.sdwePointTriger)
 	{
 		if(0 != pointTrigerDeal())
 		{
 			g_sdwe.sdwePointTriger = FALSE;
 		}
 	}
+	else 
+	{
+		sendBalancingModelData();
+	}	
 
 #if 0
 

@@ -33,9 +33,15 @@ void app_main_task( void )
 	//useWeightUpdateLedAndSdweColor(hx711DataUpgrade);
 	//useWeightCompareOutColor(hx711DataUpgrade);
 	useWeightUpdataOutColor(hx711DataUpgrade);
-	
+
 	//LED control
-	led_MainFunction(hx711DataUpgrade);
+	#if LED_CTRL_TEST//test
+		LedSysTest(g_sys_ms_tick);
+		led_MainFunction(led_test_flag);
+		led_test_flag=0;
+	#else
+		led_MainFunction(hx711DataUpgrade);
+	#endif
 	
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);

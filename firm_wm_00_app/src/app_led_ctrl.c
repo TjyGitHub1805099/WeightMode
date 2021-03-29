@@ -80,13 +80,13 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 	//color judge
 	switch(color)
 	{
-		case LED_COLOR_REG:		cloorData = 0x08;/**< LED 红 控制 */
+		case LED_COLOR_REG:		cloorData = 0x01;/**< LED 红 控制 */
 		break;
-		case LED_COLOR_WHITE:	cloorData = 0x01;/**< LED 白 控制 */
+		case LED_COLOR_WHITE:	cloorData = 0x08;/**< LED 白 控制 */
 		break;
-		case LED_COLOR_BLUE:	cloorData = 0x02;/**< LED 蓝 控制 */
+		case LED_COLOR_BLUE:	cloorData = 0x04;/**< LED 蓝 控制 */
 		break;
-		case LED_COLOR_GREEN:	cloorData = 0x04;/**< LED 绿 控制 */	
+		case LED_COLOR_GREEN:	cloorData = 0x02;/**< LED 绿 控制 */	
 		break;
 		default :			 	cloorData = 0x00;/**< LED    控制 */
 		break;
@@ -374,6 +374,7 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 	}
 }
 //==led test
+UINT8 led_test_flag = 0 ;
 void LedSysTest(UINT32 ms_tick)
 {
 	static UINT16 l_led_test_cycle = 1000;
@@ -383,6 +384,7 @@ void LedSysTest(UINT32 ms_tick)
 	//every 1s change color:reg->yellow->blue->green
 	if(0 == (ms_tick%l_led_test_cycle))
 	{
+		led_test_flag=1;
 		for(seq = LED_SEQ_1 ; seq < LED_SEQ_NUM ; seq++)
 		{
 			LedDataSet(seq,color);

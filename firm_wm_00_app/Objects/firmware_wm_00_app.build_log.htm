@@ -22,12 +22,14 @@ Dialog DLL:      TCM.DLL V1.14.5.0
  
 <h2>Project:</h2>
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\firmware_wm_00_app.uvprojx
-Project File Date:  12/18/2020
+Project File Date:  03/28/2021
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
 compiling app_main_task.c...
+compiling app_hx711_ctrl.c...
+compiling app_main.c...
 compiling app_led_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(189): warning:  #188-D: enumerated type mixed with another type
   			chanel_b = ((chanelCompareInfo[chanel]&
@@ -67,29 +69,29 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
   	float *pFloat = 0;
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(848): warning:  #188-D: enumerated type mixed with another type
   						avgSampleValue = hx711_getAvgSample(i)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(861): warning:  #188-D: enumerated type mixed with another type
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(857): warning:  #188-D: enumerated type mixed with another type
   					avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1001): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(770): warning:  #177-D: variable "point_i" was declared but never referenced
+  	UINT8 i = 0 , point = 0 , point_i = 0;
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(993): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
   					pSendData = &(g_sdwe.sdweCalChanel);		
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1029): warning:  #550-D: variable "need_send" was set but never used
-  	static UINT8 need_send = 0;
-src\app_sdwe_ctrl.c: 8 warnings, 0 errors
-compiling app_main.c...
-compiling app_hx711_ctrl.c...
-assembling startup_stm32f30x.s...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1013): warning:  #177-D: variable "ticks" was declared but never referenced
+  	static UINT16 ticks = 0 ;
+src\app_sdwe_ctrl.c: 9 warnings, 0 errors
 compiling app_key_ctrl.c...
+assembling startup_stm32f30x.s...
 compiling app_crc.c...
 linking...
-Program Size: Code=15848 RO-data=1264 RW-data=972 ZI-data=7652  
+Program Size: Code=15860 RO-data=1264 RW-data=968 ZI-data=7648  
 FromELF: creating hex file...
-".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 19 Warning(s).
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 20 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\RTE
   C:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

@@ -3,7 +3,8 @@
 
 #include "typedefine.h"
 
-#define LED_CTRL_DATA_LEN 4
+#define LED_CTRL_TEST	(0)//0:close test 1:open test
+#define LED_CTRL_DATA_LEN 3
 
 //main task status
 typedef enum LedSeqType
@@ -14,8 +15,6 @@ typedef enum LedSeqType
 	LED_SEQ_4 ,       /**< LED 4控制 */
 	LED_SEQ_5 ,       /**< LED 5控制 */
 	LED_SEQ_6 ,       /**< LED 6控制 */
-	LED_SEQ_7 ,       /**< LED 7控制 */
-	LED_SEQ_8 ,       /**< LED 8控制 */
 	LED_SEQ_NUM
 }enumLedSeqType;
 
@@ -38,5 +37,6 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade);
 void useWeightCompareOutColor(UINT8 hx711DataUpgrade);
 extern void useWeightUpdataOutColor(UINT8 hx711DataUpgrade);
 void LedSysTest(UINT32 ms_tick);
+extern UINT8 led_test_flag ;
 #endif
 
