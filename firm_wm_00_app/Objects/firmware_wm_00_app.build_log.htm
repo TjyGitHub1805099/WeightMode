@@ -27,20 +27,8 @@ Project File Date:  03/28/2021
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_hx711_ctrl.c...
-<<<<<<< HEAD
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(358): warning:  #223-D: function "color_clearAllColor" declared implicitly
-  	color_clearAllColor();
-src\app_hx711_ctrl.c: 1 warning, 0 errors
 compiling app_main_task.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(318): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-=======
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(356): warning:  #223-D: function "color_clearAllColor" declared implicitly
-  	color_clearAllColor();
-src\app_hx711_ctrl.c: 1 warning, 0 errors
-compiling app_main_task.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
->>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(313): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(27): warning:  #188-D: enumerated type mixed with another type
   		weight[i++%100] = (INT16)(hx711_getWeight(0)+0.5f);
@@ -49,22 +37,18 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(23): warning:  #550-D: variable "ticks" was set but never used
   	static UINT32 ticks[100];
 src\app_main_task.c: 4 warnings, 0 errors
+compiling app_hx711_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(352): warning:  #223-D: function "color_clearAllColor" declared implicitly
+  	color_clearAllColor();
+src\app_hx711_ctrl.c: 1 warning, 0 errors
 compiling app_main.c...
-<<<<<<< HEAD
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(318): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-=======
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
->>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(313): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main.c(111): warning:  #223-D: function "readSysDataFromFlash_3030" declared implicitly
   	readSysDataFromFlash_3030();
 src\app_main.c: 2 warnings, 0 errors
 compiling app_led_ctrl.c...
-<<<<<<< HEAD
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(318): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-=======
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
->>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(313): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(165): warning:  #188-D: enumerated type mixed with another type
   static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM]={0};
@@ -119,18 +103,12 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(481): warning:  #188-D: enumerated type mixed with another type
   					LedDataSet(chanel_b, LED_COLOR_NONE);
 src\app_led_ctrl.c: 25 warnings, 0 errors
-<<<<<<< HEAD
-compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(318): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-=======
-compiling app_crc.c...
 compiling app_key_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(313): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
 src\app_key_ctrl.c: 1 warning, 0 errors
 compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
->>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(313): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(587): warning:  #177-D: variable "pChanel" was declared but never referenced
   	ChanelType *pChanel = 0;	
@@ -152,52 +130,29 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
   	pInt32 = &(sysPara[0]);
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(769): warning:  #177-D: variable "pFloat" was declared but never referenced
   	float *pFloat = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1078): warning:  #188-D: enumerated type mixed with another type
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1074): warning:  #188-D: enumerated type mixed with another type
   						avgSampleValue = hx711_getAvgSample(i)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1087): warning:  #188-D: enumerated type mixed with another type
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1083): warning:  #188-D: enumerated type mixed with another type
   					avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(946): warning:  #177-D: variable "point_i" was declared but never referenced
   	UINT8 i = 0 , point = 0 , point_i = 0;
-<<<<<<< HEAD
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1280): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1262): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
   					pSendData = &(g_sdwe.sdweCalChanel);		
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1300): warning:  #177-D: variable "ticks" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1282): warning:  #177-D: variable "ticks" was declared but never referenced
   	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1303): warning:  #177-D: variable "weightPre" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1285): warning:  #177-D: variable "weightPre" was declared but never referenced
   	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1307): warning:  #177-D: variable "localChanel" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1289): warning:  #177-D: variable "localChanel" was declared but never referenced
   	static UINT8 inerStatus = 0 , localChanel = 0 ; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1353): warning:  #177-D: variable "ticks" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1335): warning:  #177-D: variable "ticks" was declared but never referenced
   	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1360): warning:  #177-D: variable "localChanel" was declared but never referenced
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1342): warning:  #177-D: variable "localChanel" was declared but never referenced
   	static UINT8 inerStatus = 0 , localChanel = 0 ;	
 src\app_sdwe_ctrl.c: 20 warnings, 0 errors
 compiling app_crc.c...
 assembling startup_stm32f30x.s...
-compiling app_key_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(318): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-src\app_key_ctrl.c: 1 warning, 0 errors
 linking...
-Program Size: Code=19816 RO-data=1280 RW-data=1124 ZI-data=7724  
-=======
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1281): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
-  					pSendData = &(g_sdwe.sdweCalChanel);		
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1301): warning:  #177-D: variable "ticks" was declared but never referenced
-  	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1304): warning:  #177-D: variable "weightPre" was declared but never referenced
-  	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1308): warning:  #177-D: variable "localChanel" was declared but never referenced
-  	static UINT8 inerStatus = 0 , localChanel = 0 ; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1354): warning:  #177-D: variable "ticks" was declared but never referenced
-  	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1361): warning:  #177-D: variable "localChanel" was declared but never referenced
-  	static UINT8 inerStatus = 0 , localChanel = 0 ;	
-src\app_sdwe_ctrl.c: 20 warnings, 0 errors
-assembling startup_stm32f30x.s...
-linking...
-Program Size: Code=19120 RO-data=1280 RW-data=1124 ZI-data=7724  
->>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
+Program Size: Code=18924 RO-data=1276 RW-data=1124 ZI-data=7724  
 FromELF: creating hex file...
 ".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 53 Warning(s).
 
