@@ -4,6 +4,7 @@
 #include "app_main_task.h"
 #include "app_key_ctrl.h"
 #include "app_hx711_ctrl.h"
+#include "app_sdwe_ctrl.h"
 
 /*******************************************************************************
  * Definitions
@@ -37,7 +38,6 @@ void key_filter()
 	for(i=0;i<SYS_KEY_NUM;i++)
 	{
 		pSysKeyType[i].curSample = hal_di_get(pSysKeyType[i].type);
-		//
 		if( pSysKeyType[i].preSample == pSysKeyType[i].curSample)
 		{
 			pSysKeyType[i].count++;
@@ -69,16 +69,54 @@ UINT8 key_FilterGet(enumDiLineType type)
 void key_MainFunction(void)
 {
 	static UINT8 preRemoveKey=SYS_KEY_INVALUED;
+	static UINT8 preHomeAndCalibrateKey=SYS_KEY_INVALUED;
+	static UINT8 preHomeAndCalibrateStatus = 0 ;
 	key_filter();
-	
-	//key of remove weight
-	if((SYS_KEY_INVALUED == preRemoveKey)&&(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1)))
+
+	//去皮
+	if(preRemoveKey == SYS_KEY_INVALUED)
 	{
-		preRemoveKey = SYS_KEY_VALUED;
+		if(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_2))
+		{
+			preRemoveKey = SYS_KEY_VALUED;
+			//
+			g_sdwe.sdweRemoveWeightTriger = TRUE;
+			hx711_setAllRemoveWeight();
+		}
 	}
-	else if((SYS_KEY_VALUED == preRemoveKey)&&(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_1)))
+	else
 	{
-		preRemoveKey = SYS_KEY_INVALUED;
-		hx711_setAllRemoveWeight();
+		if(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_2))
+		{
+			preRemoveKey = SYS_KEY_INVALUED;
+		}
+	}
+
+	//主页 和 配平模式来回切
+	if(SYS_KEY_INVALUED == preHomeAndCalibrateKey)
+	{
+		if(SYS_KEY_VALUED == key_FilterGet(SYS_KEY_1))
+		{
+			preHomeAndCalibrateKey = SYS_KEY_VALUED;
+			//
+			switch((preHomeAndCalibrateStatus++)%2)
+			{
+				case 0://切主页
+						g_sdwe.sdweJumpToHomePage = TRUE;
+				break;
+				case 1://切配平
+						g_sdwe.sdweJumpToBanlingPage = TRUE;
+				break;
+				default:
+				break;
+			}
+		}
+	}
+	else
+	{
+		if(SYS_KEY_INVALUED == key_FilterGet(SYS_KEY_1))
+		{
+			preHomeAndCalibrateKey = SYS_KEY_INVALUED;
+		}
 	}
 }

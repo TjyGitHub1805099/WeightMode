@@ -14,7 +14,8 @@ typedef enum HX711ChanelType
 	HX711Chanel_5 ,      /**< HX711  5控制 */
 	HX711Chanel_6 ,      /**< HX711  6控制 */
 	HX711_CHANEL_NUM,	 /**< HX711  总数量 hardware chanel number */
-	HX711_CHANEL_LOCKED=0X80
+	HX711_CHANEL_LOCKED=0X80,
+	HX711_CHANEL_UNLOCKED=0X81
 }enumHX711ChanelType;
 
 #define HX711_DATA_SAMPLE_TYPE 	(25)//hx711 sample type ;25:used chanel A 128 gain
@@ -27,7 +28,7 @@ typedef enum HX711ChanelType
 #define HX711_NEGATIVE_DATA		(0X1000000)//if lager than this data ,it's negative data
 
 
-#define CHANEL_FILTER_NUM	(10)
+#define CHANEL_FILTER_NUM	(5)
 
 #define CHANEL_POINT_NUM	(10)//must lager than 2 , used to cal k & b
 

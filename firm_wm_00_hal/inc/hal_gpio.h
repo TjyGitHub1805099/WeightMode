@@ -185,7 +185,7 @@ typedef enum DoLineType
 		DO_GPIO_NUMBER
 }enumDoLineType;
 
-//input gpio type
+//input gpio type (uodate to v3:2021.04.29)
 typedef enum DiLineType
 {
 		LED_DI_QH3 = 0,       /**< LED数据输入 */
@@ -200,8 +200,8 @@ typedef enum DiLineType
 		HX711_DATA_6,
 		HX711_DATA_7,
 		HX711_DATA_8,
-		SYS_KEY_1,
-		SYS_KEY_2,
+		SYS_KEY_1,//主页 配平模式
+		SYS_KEY_2,//去皮
 		DI_GPIO_NUMBER
 }enumDiLineType;
 
