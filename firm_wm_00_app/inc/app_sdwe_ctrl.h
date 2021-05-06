@@ -43,6 +43,7 @@
 //==(update:20210428):address of remove weight
 #define DMG_FUNC_JUNPTO_CALIBRATION_ADDRESS		(0X2103)
 #define DMG_FUNC_JUNPTO_CALIBRATION_VAL			(2021)
+#define DMG_FUNC_JUNPTO_ACTIVE_VAL				(1202)
 
 //==(update:20210328):address of set point(weight value) of chanel : (0~9)-> point of chanel set (:g)
 #define DMG_FUNC_SET_CHANEL_POINT_ADDRESS		(0X2200)//0x2200~0x2209
@@ -257,6 +258,7 @@ typedef struct structSdweType
 	UINT16 	sdweJumpToCalitrationPage;/**< 跳转至校准页面 */
 	UINT16	sdweJumpToHomePage;
 	UINT16	sdweJumpToBanlingPage;
+	UINT16 	sdweJumpActivePage;/**< 跳转至激活页面 */
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
@@ -282,6 +284,7 @@ typedef struct structSdweType
 	88,\
 	0,\
 	{0},\
+	0,\
 	0,\
 	0,\
 	0,\

@@ -1021,6 +1021,10 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			{
 				pSdwe->sdweJumpToCalitrationPage = TRUE;
 			}
+			else if(DMG_FUNC_JUNPTO_ACTIVE_VAL == (UINT16)pSdwe->sdweSetData)
+			{
+				pSdwe->sdweJumpActivePage = TRUE;
+			}
 		}//==(update:20210328):remove all weight value
 		else if(DMG_FUNC_REMOVE_WEIGHT_ADDRESS == pSdwe->sdweSetAdd)
 		{
@@ -1091,6 +1095,20 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 		pSdwe->sdweSetAdd = 0xffff;
 	}
 	return needStore;
+}
+//if need jump to active page 
+UINT8 jumpToActivePage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,56};//56 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
 }
 
 //if need jump to calibration page 
@@ -1503,6 +1521,14 @@ void sdwe_TxFunction(void)
 		if(0 != chanelChangedTrigerDeal())
 		{
 			 g_sdwe.sdweChanelChanged = FALSE;
+		}
+	}
+	//==if need junp to active page
+	else if(TRUE == g_sdwe.sdweJumpActivePage)
+	{
+		if(0 != jumpToActivePage())
+		{
+			g_sdwe.sdweJumpActivePage = FALSE;
 		}
 	}
 	//==if need junp to calibration page
