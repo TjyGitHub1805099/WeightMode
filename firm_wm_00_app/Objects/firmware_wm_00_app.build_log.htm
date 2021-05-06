@@ -27,10 +27,6 @@ Project File Date:  03/28/2021
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_hx711_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(358): warning:  #223-D: function "color_clearAllColor" declared implicitly
-  	color_clearAllColor();
-src\app_hx711_ctrl.c: 1 warning, 0 errors
 compiling app_main.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
@@ -47,6 +43,10 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(23): warning:  #550-D: variable "ticks" was set but never used
   	static UINT32 ticks[100];
 src\app_main_task.c: 4 warnings, 0 errors
+compiling app_hx711_ctrl.c...
+D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(358): warning:  #223-D: function "color_clearAllColor" declared implicitly
+  	color_clearAllColor();
+src\app_hx711_ctrl.c: 1 warning, 0 errors
 compiling app_led_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
@@ -103,6 +103,7 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(481): warning:  #188-D: enumerated type mixed with another type
   					LedDataSet(chanel_b, LED_COLOR_NONE);
 src\app_led_ctrl.c: 25 warnings, 0 errors
+compiling app_crc.c...
 compiling app_sdwe_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
@@ -146,7 +147,6 @@ D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_ap
   	static UINT8 inerStatus = 0 , localChanel = 0 ;	
 src\app_sdwe_ctrl.c: 20 warnings, 0 errors
 assembling startup_stm32f30x.s...
-compiling app_crc.c...
 compiling app_key_ctrl.c...
 D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(316): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
   extern void color_clearAllColor();
