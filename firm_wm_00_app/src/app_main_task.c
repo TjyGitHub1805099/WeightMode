@@ -14,6 +14,21 @@
 //sys main task status
 enumMainTaskCtrlType mainTaskStatus = MainTask_IDLE;
 static UINT32 g_sys_ms_tick = 0 ;
+gSystemParaType gSystemPara = gSystemParaDefault;
+
+
+void test(UINT8 hx711DataUpgrade,UINT32 tick)
+{
+	static float weight[100];
+	static UINT32 ticks[100];
+	static UINT8 i = 0 ;
+	if(hx711DataUpgrade == 1)
+	{
+		weight[i++%100] = (INT16)(hx711_getWeight(0)+0.5f);
+		ticks[i++%100] = tick;
+	}
+}
+
 
 /*******************************************************************************
  * Functions
@@ -32,7 +47,20 @@ void app_main_task( void )
 	//update LED and SDWE BLACK color
 	//useWeightUpdateLedAndSdweColor(hx711DataUpgrade);
 	//useWeightCompareOutColor(hx711DataUpgrade);
+
+	//useWeightUpdataOutColor(hx711DataUpgrade);
+	//useWeightUpdataOutColor_3030(hx711DataUpgrade);
+
+	//test(hx711DataUpgrade,g_sys_ms_tick);
+	
+#if(COLOR_ALT_20210328_DEFINE)
 	useWeightUpdataOutColor(hx711DataUpgrade);
+#endif	
+	
+	
+#if(COLOR_ALT_20210414_DEFINE)
+	useWeightUpdataOutColor_20210414(hx711DataUpgrade);
+#endif
 
 	//LED control
 	#if LED_CTRL_TEST//test
@@ -46,7 +74,6 @@ void app_main_task( void )
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);
 
-
 	if((TRUE == removeWeight)&&(g_sys_ms_tick >= 3000))
 	{
 		removeWeight = FALSE;
@@ -55,8 +82,10 @@ void app_main_task( void )
 	
 	//sys tick add
 	g_sys_ms_tick++;
-
-
 	
 }
+
+
+
+
 

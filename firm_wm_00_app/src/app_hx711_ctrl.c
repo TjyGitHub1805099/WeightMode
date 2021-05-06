@@ -330,12 +330,16 @@ INT32 hx711_getAvgSample(enumHX711ChanelType chanel)
 //==get weight-remove weight
 float hx711_getWeight(enumHX711ChanelType chanel)
 {
-	float ret = 0 ;
+	float ret = 0 ,max = (float)(1.1)*gSystemPara.maxWeight;
 	ChanelType *pChanel=&HX711Chanel[0];
 	if( chanel < HX711_CHANEL_NUM )
 	{
 		//this is allready remove weight
 		ret = pChanel[chanel].weight - pChanel[chanel].weightRemove;
+	}
+	if(ret >= max)
+	{
+		ret = max;
 	}
 	return ret;
 }
@@ -348,6 +352,8 @@ void hx711_setAllRemoveWeight(void)
 	{
 		pChanel[chanel_i].weightRemove = pChanel[chanel_i].weight;
 	}
+	//clear all clor
+	color_clearAllColor();
 }
 //==sample all chanel data
 void hx711_AllChanelSample(void)
@@ -452,8 +458,8 @@ UINT8 hx711_MainFunction(void)
 			}
 			else
 			{
-				for(i=0;i<1;i++)
-				//for(i=0;i<HX711_CHANEL_NUM;i++)
+				//for(i=0;i<1;i++)
+				for(i=0;i<HX711_CHANEL_NUM;i++)
 				{
 					//wait DATA faling 1->0
 					if(1 == hal_di_get((enumDoLineType)(HX711_DATA_1+i)))

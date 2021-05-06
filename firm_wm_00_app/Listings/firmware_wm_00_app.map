@@ -4,12 +4,20 @@ Component: ARM Compiler 5.06 (build 20) Tool: armlink [4d35a3]
 
 Section Cross References
 
+    app_main.o(i.STM32CheckPassWord) refers to app_main.o(.bss) for STM32McuId
+    app_main.o(i.STM32CheckPassWord) refers to app_main.o(.data) for g_passWordId
+    app_main.o(i.STM32MCUIDGet) refers to app_main.o(.data) for idAddr
     app_main.o(i.main) refers to app_main.o(i.system_init) for system_init
     app_main.o(i.main) refers to app_key_ctrl.o(i.key_init) for key_init
     app_main.o(i.main) refers to app_led_ctrl.o(i.led_init) for led_init
     app_main.o(i.main) refers to app_hx711_ctrl.o(i.hx711_init) for hx711_init
     app_main.o(i.main) refers to app_sdwe_ctrl.o(i.sdwe_init) for sdwe_init
     app_main.o(i.main) refers to app_sdwe_ctrl.o(i.readSysDataFromFlash) for readSysDataFromFlash
+    app_main.o(i.main) refers to app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) for readSysDataFromFlash_3030
+    app_main.o(i.main) refers to app_main.o(i.STM32MCUIDGet) for STM32MCUIDGet
+    app_main.o(i.main) refers to app_main.o(i.STM32CheckPassWord) for STM32CheckPassWord
+    app_main.o(i.main) refers to app_main.o(.bss) for STM32McuId
+    app_main.o(i.main) refers to app_main.o(.data) for g_passWordStore
     app_main.o(i.system_init) refers to hal_clock.o(i.hal_clock_init) for hal_clock_init
     app_main.o(i.system_init) refers to hal_delay.o(i.hal_delay_init) for hal_delay_init
     app_main.o(i.system_init) refers to hal_gpio.o(i.wm_hal_gpio_init) for wm_hal_gpio_init
@@ -21,6 +29,9 @@ Section Cross References
     app_main_task.o(i.app_main_task) refers to app_sdwe_ctrl.o(i.sdwe_MainFunction) for sdwe_MainFunction
     app_main_task.o(i.app_main_task) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
     app_main_task.o(i.app_main_task) refers to app_main_task.o(.data) for removeWeight
+    app_main_task.o(i.test) refers to app_hx711_ctrl.o(i.hx711_getWeight) for hx711_getWeight
+    app_main_task.o(i.test) refers to app_main_task.o(.data) for i
+    app_main_task.o(i.test) refers to app_main_task.o(.bss) for weight
     app_led_ctrl.o(i.LedCtrlSendPulse) refers to hal_gpio.o(i.hal_gpio_set_do_low) for hal_gpio_set_do_low
     app_led_ctrl.o(i.LedCtrlSendPulse) refers to app_led_ctrl.o(i.Led_delay) for Led_delay
     app_led_ctrl.o(i.LedCtrlSendPulse) refers to hal_gpio.o(i.hal_gpio_set_do_high) for hal_gpio_set_do_high
@@ -31,6 +42,7 @@ Section Cross References
     app_led_ctrl.o(i.led_MainFunction) refers to hal_gpio.o(i.hal_gpio_set_do_low) for hal_gpio_set_do_low
     app_led_ctrl.o(i.led_MainFunction) refers to app_led_ctrl.o(i.LedCtrlSendPulse) for LedCtrlSendPulse
     app_led_ctrl.o(i.led_MainFunction) refers to app_led_ctrl.o(.data) for g_led_ctrl_data
+    app_led_ctrl.o(i.led_MainFunction) refers to app_main_task.o(.data) for gSystemPara
     app_led_ctrl.o(i.led_init) refers to hal_gpio.o(i.hal_gpio_set_do_high) for hal_gpio_set_do_high
     app_led_ctrl.o(i.led_init) refers to hal_gpio.o(i.hal_gpio_set_do_low) for hal_gpio_set_do_low
     app_led_ctrl.o(i.led_init) refers to app_led_ctrl.o(i.LedCtrlSendPulse) for LedCtrlSendPulse
@@ -40,12 +52,21 @@ Section Cross References
     app_led_ctrl.o(i.useWeightUpdataOutColor) refers to app_sdwe_ctrl.o(i.sdweSetWeightBackColor) for sdweSetWeightBackColor
     app_led_ctrl.o(i.useWeightUpdataOutColor) refers to app_led_ctrl.o(i.BubbleSort) for BubbleSort
     app_led_ctrl.o(i.useWeightUpdataOutColor) refers to app_led_ctrl.o(.bss) for chanelCompareInfo
+    app_led_ctrl.o(i.useWeightUpdataOutColor) refers to app_main_task.o(.data) for gSystemPara
     app_led_ctrl.o(i.useWeightUpdataOutColor) refers to app_led_ctrl.o(.data) for colorLock
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_hx711_ctrl.o(i.hx711_getWeight) for hx711_getWeight
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_led_ctrl.o(i.LedDataSet) for LedDataSet
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_sdwe_ctrl.o(i.sdweSetWeightBackColor) for sdweSetWeightBackColor
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_led_ctrl.o(i.BubbleSort) for BubbleSort
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_led_ctrl.o(.bss) for tWeightUpdateColorArr
+    app_led_ctrl.o(i.useWeightUpdataOutColor_3030) refers to app_main_task.o(.data) for gSystemPara
     app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
     app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to app_hx711_ctrl.o(i.hx711_getWeight) for hx711_getWeight
     app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to app_led_ctrl.o(i.BubbleSort) for BubbleSort
     app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to app_led_ctrl.o(i.LedDataSet) for LedDataSet
     app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to app_sdwe_ctrl.o(i.sdweSetWeightBackColor) for sdweSetWeightBackColor
+    app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor) refers to app_main_task.o(.data) for gSystemPara
     app_hx711_ctrl.o(i.getChanelStruct) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.getSampleWeightValue) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.hx711_AllChanelSample) refers to hal_gpio.o(i.hal_gpio_set_do_low) for hal_gpio_set_do_low
@@ -66,9 +87,11 @@ Section Cross References
     app_hx711_ctrl.o(i.hx711_PowerOff) refers to app_hx711_ctrl.o(i.hal_delay_us) for hal_delay_us
     app_hx711_ctrl.o(i.hx711_PowerOn) refers to hal_gpio.o(i.hal_gpio_set_do_low) for hal_gpio_set_do_low
     app_hx711_ctrl.o(i.hx711_getAvgSample) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
+    app_hx711_ctrl.o(i.hx711_getWeight) refers to app_main_task.o(.data) for gSystemPara
     app_hx711_ctrl.o(i.hx711_getWeight) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.hx711_init) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.hx711_init) refers to app_hx711_ctrl.o(.constdata) for defaultChanelSamplePoint
+    app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) refers to app_sdwe_ctrl.o(i.color_clearAllColor) for color_clearAllColor
     app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.setSampleValue) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
     app_hx711_ctrl.o(i.setSampleWeightValue) refers to app_hx711_ctrl.o(.bss) for HX711Chanel
@@ -80,8 +103,21 @@ Section Cross References
     app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData) refers to app_sdwe_ctrl.o(.bss) for g_dmg_triger_data
     app_sdwe_ctrl.o(i.clrSdwePointTriger) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_triger_data
     app_sdwe_ctrl.o(i.clrSdwePointTrigerAll) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_triger_data
+    app_sdwe_ctrl.o(i.color_clearAllColor) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_dis_data
     app_sdwe_ctrl.o(i.getSdwePointTriger) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_triger_data
     app_sdwe_ctrl.o(i.getSysPara) refers to app_sdwe_ctrl.o(.bss) for sysPara
+    app_sdwe_ctrl.o(i.jumpToActivePage) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.jumpToActivePage) refers to app_sdwe_ctrl.o(.constdata) for .constdata
+    app_sdwe_ctrl.o(i.jumpToActivePage) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.jumpToBanlingPage) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.jumpToBanlingPage) refers to app_sdwe_ctrl.o(.constdata) for .constdata
+    app_sdwe_ctrl.o(i.jumpToBanlingPage) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.jumpToCalibrationPage) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.jumpToCalibrationPage) refers to app_sdwe_ctrl.o(.constdata) for .constdata
+    app_sdwe_ctrl.o(i.jumpToCalibrationPage) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.jumpToHomePage) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.jumpToHomePage) refers to app_sdwe_ctrl.o(.constdata) for .constdata
+    app_sdwe_ctrl.o(i.jumpToHomePage) refers to app_sdwe_ctrl.o(.data) for g_sdwe
     app_sdwe_ctrl.o(i.pointSampleTrigerDataSet) refers to app_sdwe_ctrl.o(.bss) for g_dmg_triger_data
     app_sdwe_ctrl.o(i.pointTrigerDataSet) refers to app_sdwe_ctrl.o(.bss) for g_dmg_triger_data
     app_sdwe_ctrl.o(i.pointTrigerDeal) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
@@ -94,14 +130,24 @@ Section Cross References
     app_sdwe_ctrl.o(i.readSysDataFromFlash) refers to app_hx711_ctrl.o(i.getChanelStruct) for getChanelStruct
     app_sdwe_ctrl.o(i.readSysDataFromFlash) refers to app_sdwe_ctrl.o(i.pointSampleTrigerDataSet) for pointSampleTrigerDataSet
     app_sdwe_ctrl.o(i.readSysDataFromFlash) refers to app_sdwe_ctrl.o(i.pointWeightTrigerDataSet) for pointWeightTrigerDataSet
+    app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
+    app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) refers to drv_flash.o(i.drv_flash_read_words) for drv_flash_read_words
+    app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) refers to app_crc.o(i.cal_crc16) for cal_crc16
+    app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) refers to app_main.o(.data) for g_passWordStore
+    app_sdwe_ctrl.o(i.readSysDataFromFlash_3030) refers to app_main_task.o(.data) for gSystemPara
     app_sdwe_ctrl.o(i.readSysParaFromFlsh) refers to rt_memclr_w.o(.text) for __aeabi_memclr4
     app_sdwe_ctrl.o(i.readSysParaFromFlsh) refers to drv_flash.o(i.drv_flash_read_words) for drv_flash_read_words
     app_sdwe_ctrl.o(i.readSysParaFromFlsh) refers to app_crc.o(i.cal_crc16) for cal_crc16
     app_sdwe_ctrl.o(i.readSysParaFromFlsh) refers to app_sdwe_ctrl.o(.bss) for sysPara
+    app_sdwe_ctrl.o(i.removeWeightTrigerDeal) refers to app_hx711_ctrl.o(i.hx711_getWeight) for hx711_getWeight
+    app_sdwe_ctrl.o(i.removeWeightTrigerDeal) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.removeWeightTrigerDeal) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_dis_data
+    app_sdwe_ctrl.o(i.removeWeightTrigerDeal) refers to app_sdwe_ctrl.o(.data) for inerStatus
     app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
     app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal) refers to app_sdwe_ctrl.o(.data) for g_sdwe
     app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal) refers to app_sdwe_ctrl.o(.bss) for g_dmg_triger_data
     app_sdwe_ctrl.o(i.sdweAskRegData) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_main.o(i.STM32CheckPassWord) for STM32CheckPassWord
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData) for clearLocalCalibrationRecordData
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_sdwe_ctrl.o(i.clearLocalCalibrationKAndBAndSample) for clearLocalCalibrationKAndBAndSample
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
@@ -111,6 +157,7 @@ Section Cross References
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_hx711_ctrl.o(i.trigerCalcKB) for trigerCalcKB
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_sdwe_ctrl.o(i.pointTrigerDataSet) for pointTrigerDataSet
     app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.sdweAskVaribleData) refers to app_main_task.o(.data) for gSystemPara
     app_sdwe_ctrl.o(i.sdwePointTrigerUpdata) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_triger_data
     app_sdwe_ctrl.o(i.sdweReadRegister) refers to app_crc.o(i.cal_crc16) for cal_crc16
     app_sdwe_ctrl.o(i.sdweReadRegister) refers to app_sdwe_ctrl.o(.data) for g_sdwe
@@ -137,19 +184,31 @@ Section Cross References
     app_sdwe_ctrl.o(i.sdwe_RxFunction) refers to app_sdwe_ctrl.o(i.sdweAskRegData) for sdweAskRegData
     app_sdwe_ctrl.o(i.sdwe_RxFunction) refers to app_sdwe_ctrl.o(i.sdweAskVaribleData) for sdweAskVaribleData
     app_sdwe_ctrl.o(i.sdwe_RxFunction) refers to app_sdwe_ctrl.o(i.storeSysDataToFlash) for storeSysDataToFlash
+    app_sdwe_ctrl.o(i.sdwe_RxFunction) refers to app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) for storeSysDataToFlash_3030
     app_sdwe_ctrl.o(i.sdwe_RxFunction) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.sendSysParaDataToDiwen) for sendSysParaDataToDiwen
     app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.chanelChangedTrigerDeal) for chanelChangedTrigerDeal
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.jumpToActivePage) for jumpToActivePage
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.jumpToCalibrationPage) for jumpToCalibrationPage
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.jumpToHomePage) for jumpToHomePage
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.jumpToBanlingPage) for jumpToBanlingPage
     app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal) for resetCalibrationTrigerDeal
     app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.pointTrigerDeal) for pointTrigerDeal
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.removeWeightTrigerDeal) for removeWeightTrigerDeal
     app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(i.sendBalancingModelData) for sendBalancingModelData
     app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_sdwe_ctrl.o(.data) for g_sdwe
+    app_sdwe_ctrl.o(i.sdwe_TxFunction) refers to app_main.o(.data) for g_sysLocked
     app_sdwe_ctrl.o(i.sdwe_init) refers to app_sdwe_ctrl.o(.data) for g_sdwe
     app_sdwe_ctrl.o(i.sdwe_init) refers to hal_uart.o(.data) for g_UartDevice
     app_sdwe_ctrl.o(i.sdwe_init) refers to app_hx711_ctrl.o(.constdata) for defaultChanelSamplePoint
     app_sdwe_ctrl.o(i.sendBalancingModelData) refers to app_hx711_ctrl.o(i.hx711_getWeight) for hx711_getWeight
     app_sdwe_ctrl.o(i.sendBalancingModelData) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
     app_sdwe_ctrl.o(i.sendBalancingModelData) refers to app_sdwe_ctrl.o(.bss) for g_sdwe_dis_data
-    app_sdwe_ctrl.o(i.sendBalancingModelData) refers to app_sdwe_ctrl.o(.data) for need_send
+    app_sdwe_ctrl.o(i.sendBalancingModelData) refers to app_sdwe_ctrl.o(.data) for weightPre
+    app_sdwe_ctrl.o(i.sendSysParaDataToDiwen) refers to app_sdwe_ctrl.o(i.sdweWriteVarible) for sdweWriteVarible
+    app_sdwe_ctrl.o(i.sendSysParaDataToDiwen) refers to app_sdwe_ctrl.o(.data) for inerStatus
+    app_sdwe_ctrl.o(i.sendSysParaDataToDiwen) refers to app_main_task.o(.data) for gSystemPara
+    app_sdwe_ctrl.o(i.sendSysParaDataToDiwen) refers to app_main.o(.data) for g_passWordId
     app_sdwe_ctrl.o(i.setSysPara) refers to app_sdwe_ctrl.o(.bss) for sysPara
     app_sdwe_ctrl.o(i.storeSysDataToFlash) refers to app_hx711_ctrl.o(i.getChanelStruct) for getChanelStruct
     app_sdwe_ctrl.o(i.storeSysDataToFlash) refers to app_crc.o(i.cal_crc16) for cal_crc16
@@ -159,6 +218,15 @@ Section Cross References
     app_sdwe_ctrl.o(i.storeSysDataToFlash) refers to drv_flash.o(i.drv_flash_lock) for drv_flash_lock
     app_sdwe_ctrl.o(i.storeSysDataToFlash) refers to app_sdwe_ctrl.o(.bss) for flashStoreDataBuf
     app_sdwe_ctrl.o(i.storeSysDataToFlash) refers to app_sdwe_ctrl.o(.data) for storeTick
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to app_crc.o(i.cal_crc16) for cal_crc16
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to drv_flash.o(i.drv_flash_unlock) for drv_flash_unlock
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to drv_flash.o(i.drv_flash_erase_sector) for drv_flash_erase_sector
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to drv_flash.o(i.drv_flash_write_words) for drv_flash_write_words
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to drv_flash.o(i.drv_flash_lock) for drv_flash_lock
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to app_sdwe_ctrl.o(.bss) for flashStoreDataBuf_3030
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to app_main.o(.data) for g_passWordStore
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to app_main_task.o(.data) for gSystemPara
+    app_sdwe_ctrl.o(i.storeSysDataToFlash_3030) refers to app_sdwe_ctrl.o(.data) for storeTick
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to app_crc.o(i.cal_crc16) for cal_crc16
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to drv_flash.o(i.drv_flash_unlock) for drv_flash_unlock
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to drv_flash.o(i.drv_flash_erase_sector) for drv_flash_erase_sector
@@ -166,12 +234,14 @@ Section Cross References
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to drv_flash.o(i.drv_flash_lock) for drv_flash_lock
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to app_sdwe_ctrl.o(.bss) for flashSysParaStoreDataBuf
     app_sdwe_ctrl.o(i.storeSysParaFromFlsh) refers to app_sdwe_ctrl.o(.data) for storeTick
+    app_sdwe_ctrl.o(i.storeSysPara_3030) refers to app_main_task.o(.data) for gSystemPara
     app_sdwe_ctrl.o(.data) refers to hal_uart.o(.data) for g_UartDevice
     app_key_ctrl.o(i.key_FilterGet) refers to app_key_ctrl.o(.bss) for SysKey
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(i.key_filter) for key_filter
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(i.key_FilterGet) for key_FilterGet
     app_key_ctrl.o(i.key_MainFunction) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(.data) for preRemoveKey
+    app_key_ctrl.o(i.key_MainFunction) refers to app_sdwe_ctrl.o(.data) for g_sdwe
     app_key_ctrl.o(i.key_filter) refers to hal_gpio.o(i.hal_di_get) for hal_di_get
     app_key_ctrl.o(i.key_filter) refers to app_key_ctrl.o(.bss) for SysKey
     app_key_ctrl.o(i.key_init) refers to app_key_ctrl.o(.bss) for SysKey
@@ -445,18 +515,21 @@ Section Cross References
 
 Removing Unused input sections from the image.
 
+    Removing app_main_task.o(i.test), (116 bytes).
+    Removing app_main_task.o(.bss), (800 bytes).
     Removing app_led_ctrl.o(i.LedSysTest), (84 bytes).
-    Removing app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor), (366 bytes).
-    Removing app_hx711_ctrl.o(i.getSampleWeightValue), (44 bytes).
+    Removing app_led_ctrl.o(i.useWeightUpdataOutColor_3030), (864 bytes).
+    Removing app_led_ctrl.o(i.useWeightUpdateLedAndSdweColor), (396 bytes).
+    Removing app_hx711_ctrl.o(i.getSampleWeightValue), (48 bytes).
     Removing app_hx711_ctrl.o(i.hx711_PowerOff), (30 bytes).
     Removing app_hx711_ctrl.o(i.hx711_PowerOn), (24 bytes).
     Removing app_hx711_ctrl.o(i.sampleBubbleSort), (78 bytes).
-    Removing app_hx711_ctrl.o(i.setSampleValue), (36 bytes).
+    Removing app_hx711_ctrl.o(i.setSampleValue), (40 bytes).
     Removing app_sdwe_ctrl.o(i.clrSdwePointTriger), (28 bytes).
     Removing app_sdwe_ctrl.o(i.clrSdwePointTrigerAll), (44 bytes).
     Removing app_sdwe_ctrl.o(i.getSdwePointTriger), (36 bytes).
     Removing app_sdwe_ctrl.o(i.getSysPara), (20 bytes).
-    Removing app_sdwe_ctrl.o(i.readSysParaFromFlsh), (84 bytes).
+    Removing app_sdwe_ctrl.o(i.readSysParaFromFlsh), (88 bytes).
     Removing app_sdwe_ctrl.o(i.sdwePointTrigerUpdata), (36 bytes).
     Removing app_sdwe_ctrl.o(i.sdweReadRegister), (136 bytes).
     Removing app_sdwe_ctrl.o(i.sdweReadVarible), (156 bytes).
@@ -466,6 +539,7 @@ Removing Unused input sections from the image.
     Removing app_sdwe_ctrl.o(i.sdwe_MainFunctionTest), (268 bytes).
     Removing app_sdwe_ctrl.o(i.setSysPara), (16 bytes).
     Removing app_sdwe_ctrl.o(i.storeSysParaFromFlsh), (124 bytes).
+    Removing app_sdwe_ctrl.o(i.storeSysPara_3030), (88 bytes).
     Removing drv_delay.o(i.drv_delay), (12 bytes).
     Removing drv_flash.o(i.drv_flash_clear_flag_status), (12 bytes).
     Removing drv_flash.o(i.drv_flash_erase_all_sector), (68 bytes).
@@ -618,7 +692,7 @@ Removing Unused input sections from the image.
     Removing drv_uart.o(i.drv_uart_tx_disable), (10 bytes).
     Removing drv_uart.o(i.drv_uart_tx_enable), (12 bytes).
 
-172 unused section(s) (total 6904 bytes) removed from the image.
+176 unused section(s) (total 8814 bytes) removed from the image.
 
 ==============================================================================
 
@@ -628,24 +702,24 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit3.o ABSOLUTE
-    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
     ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit2.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardshut.o ABSOLUTE
+    ../clib/angel/boardlib.s                 0x00000000   Number         0  boardinit1.o ABSOLUTE
     ../clib/angel/dczerorl2.s                0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/angel/handlers.s                 0x00000000   Number         0  __scatter_zi.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit2.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry.o ABSOLUTE
-    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry4.o ABSOLUTE
     ../clib/angel/kernel.s                   0x00000000   Number         0  rtexit.o ABSOLUTE
+    ../clib/angel/kernel.s                   0x00000000   Number         0  __rtentry2.o ABSOLUTE
     ../clib/angel/rt.s                       0x00000000   Number         0  rt_raise.o ABSOLUTE
     ../clib/angel/scatter.s                  0x00000000   Number         0  __scatter.o ABSOLUTE
     ../clib/angel/startup.s                  0x00000000   Number         0  __main.o ABSOLUTE
+    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  libspace.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  sys_stackheap_outer.o ABSOLUTE
     ../clib/angel/sys.s                      0x00000000   Number         0  use_no_semi.o ABSOLUTE
-    ../clib/angel/sys.s                      0x00000000   Number         0  indicate_semi.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_exit.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_command.o ABSOLUTE
     ../clib/angel/sysapp.c                   0x00000000   Number         0  sys_wrch.o ABSOLUTE
@@ -655,25 +729,25 @@ Image Symbol Table
     ../clib/armsys.c                         0x00000000   Number         0  _get_argv_nomalloc.o ABSOLUTE
     ../clib/heapalloc.c                      0x00000000   Number         0  hrguard.o ABSOLUTE
     ../clib/heapaux.c                        0x00000000   Number         0  heapauxi.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libshutdown.o ABSOLUTE
-    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libshutdown2.o ABSOLUTE
     ../clib/libinit.s                        0x00000000   Number         0  libinit.o ABSOLUTE
+    ../clib/libinit.s                        0x00000000   Number         0  libinit2.o ABSOLUTE
     ../clib/memcpset.s                       0x00000000   Number         0  rt_memclr_w.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_cppl_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_formal.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_outer.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_rtmem_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  __raise.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_segv_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_general.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_exit.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_other.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_fpe_inner.o ABSOLUTE
     ../clib/signal.c                         0x00000000   Number         0  defsig_rtred_inner.o ABSOLUTE
-    ../clib/signal.c                         0x00000000   Number         0  defsig_abrt_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_pvfn_inner.o ABSOLUTE
+    ../clib/signal.c                         0x00000000   Number         0  defsig_stak_inner.o ABSOLUTE
     ../clib/signal.s                         0x00000000   Number         0  defsig.o ABSOLUTE
     ../clib/stdlib.c                         0x00000000   Number         0  exit.o ABSOLUTE
     ../fplib/fpinit.s                        0x00000000   Number         0  fpinit.o ABSOLUTE
@@ -762,190 +836,218 @@ Image Symbol Table
     i.LedCtrlSendPulse                       0x0800047c   Section        0  app_led_ctrl.o(i.LedCtrlSendPulse)
     i.LedDataSet                             0x080004d4   Section        0  app_led_ctrl.o(i.LedDataSet)
     i.Led_delay                              0x0800055c   Section        0  app_led_ctrl.o(i.Led_delay)
-    i.TIM6_DAC_IRQHandler                    0x08000568   Section        0  hal_timer.o(i.TIM6_DAC_IRQHandler)
-    i.USART1_IRQHandler                      0x0800057c   Section        0  hal_uart.o(i.USART1_IRQHandler)
-    i.USART2_IRQHandler                      0x080006c8   Section        0  hal_uart.o(i.USART2_IRQHandler)
-    i.app_main_task                          0x080007c0   Section        0  app_main_task.o(i.app_main_task)
-    i.app_uart_extern_msg_packet_process     0x08000814   Section        0  app_sdwe_ctrl.o(i.app_uart_extern_msg_packet_process)
-    i.cal_crc16                              0x08000818   Section        0  app_crc.o(i.cal_crc16)
-    i.chanelChangedTrigerDeal                0x08000860   Section        0  app_sdwe_ctrl.o(i.chanelChangedTrigerDeal)
-    i.clearLocalCalibrationKAndBAndSample    0x08000a88   Section        0  app_sdwe_ctrl.o(i.clearLocalCalibrationKAndBAndSample)
-    i.clearLocalCalibrationRecordData        0x08000b48   Section        0  app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData)
-    i.drv_debug_apb1_stop                    0x08000bc8   Section        0  drv_dbgmcu.o(i.drv_debug_apb1_stop)
-    i.drv_delay_init                         0x08000bd8   Section        0  drv_delay.o(i.drv_delay_init)
-    i.drv_delay_ms                           0x08000c24   Section        0  drv_delay.o(i.drv_delay_ms)
-    i.drv_delay_us                           0x08000c68   Section        0  drv_delay.o(i.drv_delay_us)
-    i.drv_dma_set_mem_addr_length            0x08000cac   Section        0  drv_dma.o(i.drv_dma_set_mem_addr_length)
-    i.drv_dma_stream_clear_flag_status       0x08000cb8   Section        0  drv_dma.o(i.drv_dma_stream_clear_flag_status)
-    i.drv_dma_stream_clear_it_pending_bit    0x08000ce0   Section        0  drv_dma.o(i.drv_dma_stream_clear_it_pending_bit)
-    i.drv_dma_stream_deinit                  0x08000cfc   Section        0  drv_dma.o(i.drv_dma_stream_deinit)
-    i.drv_dma_stream_disable                 0x08000e00   Section        0  drv_dma.o(i.drv_dma_stream_disable)
-    i.drv_dma_stream_enable                  0x08000e0a   Section        0  drv_dma.o(i.drv_dma_stream_enable)
-    i.drv_dma_stream_get_it_status           0x08000e18   Section        0  drv_dma.o(i.drv_dma_stream_get_it_status)
-    i.drv_dma_stream_get_left_length         0x08000e7c   Section        0  drv_dma.o(i.drv_dma_stream_get_left_length)
-    i.drv_dma_stream_init                    0x08000e8a   Section        0  drv_dma.o(i.drv_dma_stream_init)
-    i.drv_dma_stream_it_enable               0x08000ef6   Section        0  drv_dma.o(i.drv_dma_stream_it_enable)
-    i.drv_dma_stream_start_mem_to_periph     0x08000efe   Section        0  drv_dma.o(i.drv_dma_stream_start_mem_to_periph)
-    i.drv_dma_stream_start_periph_to_mem     0x08000f32   Section        0  drv_dma.o(i.drv_dma_stream_start_periph_to_mem)
-    i.drv_flash_erase_sector                 0x08000f68   Section        0  drv_flash.o(i.drv_flash_erase_sector)
-    i.drv_flash_get_status                   0x08000fb0   Section        0  drv_flash.o(i.drv_flash_get_status)
-    i.drv_flash_lock                         0x08000fdc   Section        0  drv_flash.o(i.drv_flash_lock)
-    i.drv_flash_read_words                   0x08000ff0   Section        0  drv_flash.o(i.drv_flash_read_words)
-    i.drv_flash_unlock                       0x08001010   Section        0  drv_flash.o(i.drv_flash_unlock)
-    i.drv_flash_wait_last_operation          0x08001034   Section        0  drv_flash.o(i.drv_flash_wait_last_operation)
-    i.drv_flash_write_words                  0x0800105c   Section        0  drv_flash.o(i.drv_flash_write_words)
-    i.drv_gpio_alternate_function_connect    0x080010dc   Section        0  drv_gpio.o(i.drv_gpio_alternate_function_connect)
-    i.drv_gpio_alternate_function_init       0x0800111e   Section        0  drv_gpio.o(i.drv_gpio_alternate_function_init)
-    i.drv_gpio_input_init                    0x080011fa   Section        0  drv_gpio.o(i.drv_gpio_input_init)
-    i.drv_gpio_output_init                   0x0800125a   Section        0  drv_gpio.o(i.drv_gpio_output_init)
-    i.drv_gpio_set_pins_high                 0x08001336   Section        0  hal_uart.o(i.drv_gpio_set_pins_high)
-    i.drv_nvic_enable                        0x0800133e   Section        0  drv_nvic.o(i.drv_nvic_enable)
-    i.drv_nvic_init                          0x08001354   Section        0  drv_nvic.o(i.drv_nvic_init)
-    i.drv_rcc_ahb1_clk_enable                0x08001394   Section        0  drv_rcc.o(i.drv_rcc_ahb1_clk_enable)
-    i.drv_rcc_apb1_clk_enable                0x080013a4   Section        0  drv_rcc.o(i.drv_rcc_apb1_clk_enable)
-    i.drv_rcc_apb1_periph_reset_disable      0x080013b4   Section        0  drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable)
-    i.drv_rcc_apb1_periph_reset_enable       0x080013c4   Section        0  drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable)
-    i.drv_rcc_apb2_clk_enable                0x080013d4   Section        0  drv_rcc.o(i.drv_rcc_apb2_clk_enable)
-    i.drv_rcc_apb2_periph_reset_disable      0x080013e4   Section        0  drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable)
-    i.drv_rcc_apb2_periph_reset_enable       0x080013f4   Section        0  drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable)
-    i.drv_rcc_get_clocks_freq                0x08001404   Section        0  drv_rcc.o(i.drv_rcc_get_clocks_freq)
-    i.drv_rcc_init                           0x08001508   Section        0  drv_rcc.o(i.drv_rcc_init)
-    i.drv_timer_base_init                    0x080017e8   Section        0  drv_timer.o(i.drv_timer_base_init)
-    i.drv_timer_clear_it_pending_bit         0x08001868   Section        0  drv_timer.o(i.drv_timer_clear_it_pending_bit)
-    i.drv_timer_deinit                       0x08001870   Section        0  drv_timer.o(i.drv_timer_deinit)
-    i.drv_timer_enable                       0x0800196c   Section        0  drv_timer.o(i.drv_timer_enable)
-    i.drv_timer_it_enable                    0x08001978   Section        0  drv_timer.o(i.drv_timer_it_enable)
-    i.drv_uart_clear_flag_status             0x08001980   Section        0  drv_uart.o(i.drv_uart_clear_flag_status)
-    i.drv_uart_clear_it_pending_bit          0x08001984   Section        0  drv_uart.o(i.drv_uart_clear_it_pending_bit)
-    i.drv_uart_deinit                        0x08001998   Section        0  drv_uart.o(i.drv_uart_deinit)
-    i.drv_uart_dma_rx_enable                 0x08001a28   Section        0  drv_uart.o(i.drv_uart_dma_rx_enable)
-    i.drv_uart_dma_tx_enable                 0x08001a34   Section        0  drv_uart.o(i.drv_uart_dma_tx_enable)
-    i.drv_uart_get_flag_status               0x08001a40   Section        0  drv_uart.o(i.drv_uart_get_flag_status)
-    i.drv_uart_init                          0x08001a50   Section        0  drv_uart.o(i.drv_uart_init)
-    i.drv_uart_it_disable                    0x08001b0e   Section        0  drv_uart.o(i.drv_uart_it_disable)
-    i.drv_uart_it_enable                     0x08001b42   Section        0  drv_uart.o(i.drv_uart_it_enable)
-    i.drv_uart_put_bytes                     0x08001b76   Section        0  drv_uart.o(i.drv_uart_put_bytes)
-    i.drv_uart_set_baudrate                  0x08001b98   Section        0  drv_uart.o(i.drv_uart_set_baudrate)
-    i.getChanelStruct                        0x08001c14   Section        0  app_hx711_ctrl.o(i.getChanelStruct)
-    i.hal_clock_init                         0x08001c2c   Section        0  hal_clock.o(i.hal_clock_init)
-    i.hal_delay_init                         0x08001c44   Section        0  hal_delay.o(i.hal_delay_init)
-    i.hal_delay_ms                           0x08001c4c   Section        0  app_sdwe_ctrl.o(i.hal_delay_ms)
-    i.hal_delay_us                           0x08001c58   Section        0  app_hx711_ctrl.o(i.hal_delay_us)
-    i.hal_di_get                             0x08001c64   Section        0  hal_gpio.o(i.hal_di_get)
-    i.hal_gpio_set_do_high                   0x08001c90   Section        0  hal_gpio.o(i.hal_gpio_set_do_high)
-    i.hal_gpio_set_do_low                    0x08001cb0   Section        0  hal_gpio.o(i.hal_gpio_set_do_low)
-    i.hal_timer_init                         0x08001cd0   Section        0  hal_timer.o(i.hal_timer_init)
-    i.hal_uart_dma_rx_start                  0x08001d1c   Section        0  hal_uart.o(i.hal_uart_dma_rx_start)
-    i.hal_uart_gpio_init                     0x08001d74   Section        0  hal_uart.o(i.hal_uart_gpio_init)
-    i.hal_uart_port_init                     0x080020cc   Section        0  hal_uart.o(i.hal_uart_port_init)
-    i.hal_uart_rx_irq_disable                0x08002334   Section        0  hal_uart.o(i.hal_uart_rx_irq_disable)
-    i.hal_uart_rx_irq_enable                 0x08002370   Section        0  hal_uart.o(i.hal_uart_rx_irq_enable)
-    i.hal_uart_set_braudrate                 0x080023ac   Section        0  hal_uart.o(i.hal_uart_set_braudrate)
-    i.hal_uart_set_rx_mode                   0x080023d8   Section        0  hal_uart.o(i.hal_uart_set_rx_mode)
-    i.hal_uart_set_timeout                   0x080023fc   Section        0  hal_uart.o(i.hal_uart_set_timeout)
-    i.hal_uart_set_tx_mode                   0x08002400   Section        0  hal_uart.o(i.hal_uart_set_tx_mode)
-    i.hal_uart_tx_bytes                      0x08002420   Section        0  hal_uart.o(i.hal_uart_tx_bytes)
-    i.hx711_AllChanelSample                  0x08002528   Section        0  app_hx711_ctrl.o(i.hx711_AllChanelSample)
-    i.hx711_DataSampleCtrl                   0x08002600   Section        0  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
-    i.hx711_MainFunction                     0x08002628   Section        0  app_hx711_ctrl.o(i.hx711_MainFunction)
-    i.hx711_SigChanelAvrgAndWeightCalc       0x08002704   Section        0  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
-    i.hx711_getAvgSample                     0x080027e8   Section        0  app_hx711_ctrl.o(i.hx711_getAvgSample)
-    i.hx711_getWeight                        0x08002804   Section        0  app_hx711_ctrl.o(i.hx711_getWeight)
-    i.hx711_init                             0x0800283c   Section        0  app_hx711_ctrl.o(i.hx711_init)
-    i.hx711_setAllRemoveWeight               0x08002968   Section        0  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
-    i.key_FilterGet                          0x08002998   Section        0  app_key_ctrl.o(i.key_FilterGet)
-    i.key_MainFunction                       0x080029bc   Section        0  app_key_ctrl.o(i.key_MainFunction)
-    i.key_filter                             0x080029f8   Section        0  app_key_ctrl.o(i.key_filter)
-    i.key_init                               0x08002aa4   Section        0  app_key_ctrl.o(i.key_init)
-    i.led_MainFunction                       0x08002afc   Section        0  app_led_ctrl.o(i.led_MainFunction)
-    i.led_init                               0x08002b8c   Section        0  app_led_ctrl.o(i.led_init)
-    i.main                                   0x08002bca   Section        0  app_main.o(i.main)
-    i.pointSampleTrigerDataSet               0x08002be8   Section        0  app_sdwe_ctrl.o(i.pointSampleTrigerDataSet)
-    i.pointTrigerDataSet                     0x08002c0c   Section        0  app_sdwe_ctrl.o(i.pointTrigerDataSet)
-    i.pointTrigerDeal                        0x08002c50   Section        0  app_sdwe_ctrl.o(i.pointTrigerDeal)
-    i.pointWeightTrigerDataSet               0x08002d98   Section        0  app_sdwe_ctrl.o(i.pointWeightTrigerDataSet)
-    i.readSysDataFromFlash                   0x08002dbc   Section        0  app_sdwe_ctrl.o(i.readSysDataFromFlash)
-    i.resetCalibrationTrigerDeal             0x08002f20   Section        0  app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal)
-    i.sampleDataPush                         0x08003068   Section        0  app_hx711_ctrl.o(i.sampleDataPush)
-    i.sdweAskRegData                         0x080030a4   Section        0  app_sdwe_ctrl.o(i.sdweAskRegData)
-    i.sdweAskVaribleData                     0x080030bc   Section        0  app_sdwe_ctrl.o(i.sdweAskVaribleData)
-    i.sdweSetWeightBackColor                 0x080032c0   Section        0  app_sdwe_ctrl.o(i.sdweSetWeightBackColor)
-    i.sdweWriteVarible                       0x080032d4   Section        0  app_sdwe_ctrl.o(i.sdweWriteVarible)
-    i.sdwe_MainFunction                      0x080033c0   Section        0  app_sdwe_ctrl.o(i.sdwe_MainFunction)
-    i.sdwe_RxFunction                        0x080033e0   Section        0  app_sdwe_ctrl.o(i.sdwe_RxFunction)
-    i.sdwe_TxFunction                        0x0800352c   Section        0  app_sdwe_ctrl.o(i.sdwe_TxFunction)
-    i.sdwe_init                              0x08003588   Section        0  app_sdwe_ctrl.o(i.sdwe_init)
-    i.sendBalancingModelData                 0x0800361c   Section        0  app_sdwe_ctrl.o(i.sendBalancingModelData)
-    i.setSampleWeightValue                   0x080036e4   Section        0  app_hx711_ctrl.o(i.setSampleWeightValue)
-    i.storeSysDataToFlash                    0x08003708   Section        0  app_sdwe_ctrl.o(i.storeSysDataToFlash)
-    i.system_init                            0x0800386c   Section        0  app_main.o(i.system_init)
-    i.trigerCalcKB                           0x0800388c   Section        0  app_hx711_ctrl.o(i.trigerCalcKB)
-    i.useWeightUpdataOutColor                0x08003a88   Section        0  app_led_ctrl.o(i.useWeightUpdataOutColor)
-    i.wm_hal_gpio_init                       0x08003f00   Section        0  hal_gpio.o(i.wm_hal_gpio_init)
-    x$fpl$fpinit                             0x08003f70   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x08003f70   Number         0  fpinit.o(x$fpl$fpinit)
-    .constdata                               0x08003f7c   Section       40  app_hx711_ctrl.o(.constdata)
-    .constdata                               0x08003fa4   Section      512  app_crc.o(.constdata)
-    .constdata                               0x080041a4   Section      164  hal_gpio.o(.constdata)
-    .constdata                               0x08004248   Section      124  hal_uart.o(.constdata)
-    .data                                    0x20000000   Section        9  app_main_task.o(.data)
-    g_sys_ms_tick                            0x20000004   Data           4  app_main_task.o(.data)
-    removeWeight                             0x20000008   Data           1  app_main_task.o(.data)
-    .data                                    0x2000000a   Section       16  app_led_ctrl.o(.data)
-    colorLock                                0x2000000e   Data           5  app_led_ctrl.o(.data)
-    l_led_test_cycle                         0x20000014   Data           2  app_led_ctrl.o(.data)
-    color                                    0x20000016   Data           1  app_led_ctrl.o(.data)
-    led_data                                 0x20000017   Data           3  app_led_ctrl.o(.data)
-    .data                                    0x2000001a   Section        2  app_hx711_ctrl.o(.data)
-    status                                   0x2000001a   Data           1  app_hx711_ctrl.o(.data)
-    l_max_wait_time                          0x2000001b   Data           1  app_hx711_ctrl.o(.data)
-    .data                                    0x2000001c   Section      622  app_sdwe_ctrl.o(.data)
-    inerStatus                               0x2000026c   Data           1  app_sdwe_ctrl.o(.data)
-    localChanel                              0x2000026d   Data           1  app_sdwe_ctrl.o(.data)
-    storeTick                                0x2000026e   Data           2  app_sdwe_ctrl.o(.data)
-    storeTick                                0x20000270   Data           2  app_sdwe_ctrl.o(.data)
-    inerStatus                               0x20000272   Data           1  app_sdwe_ctrl.o(.data)
-    localChanel                              0x20000273   Data           1  app_sdwe_ctrl.o(.data)
-    inerStatus                               0x20000274   Data           1  app_sdwe_ctrl.o(.data)
-    localChanel                              0x20000275   Data           1  app_sdwe_ctrl.o(.data)
-    ticks                                    0x20000276   Data           2  app_sdwe_ctrl.o(.data)
-    need_send                                0x20000278   Data           1  app_sdwe_ctrl.o(.data)
-    chanelTestEn                             0x20000279   Data           1  app_sdwe_ctrl.o(.data)
-    cnt                                      0x2000027c   Data           4  app_sdwe_ctrl.o(.data)
-    chanelDataEn                             0x20000280   Data           1  app_sdwe_ctrl.o(.data)
-    chanelDataAddress                        0x20000282   Data           2  app_sdwe_ctrl.o(.data)
-    chanelColorEn                            0x20000284   Data           1  app_sdwe_ctrl.o(.data)
-    chanelColorAddress                       0x20000286   Data           2  app_sdwe_ctrl.o(.data)
-    chanelDataLen                            0x20000288   Data           2  app_sdwe_ctrl.o(.data)
-    .data                                    0x2000028a   Section        1  app_key_ctrl.o(.data)
-    preRemoveKey                             0x2000028a   Data           1  app_key_ctrl.o(.data)
-    .data                                    0x2000028c   Section        4  drv_delay.o(.data)
-    g_DelayUsFac                             0x2000028c   Data           2  drv_delay.o(.data)
-    g_DelayMsFac                             0x2000028e   Data           2  drv_delay.o(.data)
-    .data                                    0x20000290   Section      108  hal_gpio.o(.data)
-    .data                                    0x200002fc   Section      176  hal_uart.o(.data)
-    .data                                    0x200003ac   Section       28  drv_rcc.o(.data)
-    l_AhbPrescTable                          0x200003ac   Data          16  drv_rcc.o(.data)
-    l_ApbPrescTable                          0x200003bc   Data           8  drv_rcc.o(.data)
-    .bss                                     0x200003c8   Section       12  app_led_ctrl.o(.bss)
-    chanelCompareInfo                        0x200003c8   Data          12  app_led_ctrl.o(.bss)
-    .bss                                     0x200003d4   Section     1488  app_hx711_ctrl.o(.bss)
-    .bss                                     0x200009a4   Section     1908  app_sdwe_ctrl.o(.bss)
-    g_sdwe_triger_data                       0x20000dc8   Data          80  app_sdwe_ctrl.o(.bss)
-    g_dmg_triger_data                        0x20000e30   Data         560  app_sdwe_ctrl.o(.bss)
-    sysPara                                  0x20001060   Data          20  app_sdwe_ctrl.o(.bss)
-    flashSysParaStoreDataBuf                 0x20001074   Data          24  app_sdwe_ctrl.o(.bss)
-    weightPre                                0x2000108c   Data          12  app_sdwe_ctrl.o(.bss)
-    chanelDataTest                           0x20001098   Data          64  app_sdwe_ctrl.o(.bss)
-    chanelColorTest                          0x200010d8   Data          64  app_sdwe_ctrl.o(.bss)
-    .bss                                     0x20001118   Section       12  app_key_ctrl.o(.bss)
-    .bss                                     0x20001124   Section       36  drv_rcc.o(.bss)
-    .bss                                     0x20001148   Section       96  libspace.o(.bss)
-    HEAP                                     0x200011a8   Section     2048  startup_stm32f30x.o(HEAP)
-    Heap_Mem                                 0x200011a8   Data        2048  startup_stm32f30x.o(HEAP)
-    STACK                                    0x200019a8   Section     2048  startup_stm32f30x.o(STACK)
-    Stack_Mem                                0x200019a8   Data        2048  startup_stm32f30x.o(STACK)
-    __initial_sp                             0x200021a8   Data           0  startup_stm32f30x.o(STACK)
+    i.STM32CheckPassWord                     0x08000568   Section        0  app_main.o(i.STM32CheckPassWord)
+    i.STM32MCUIDGet                          0x080005b4   Section        0  app_main.o(i.STM32MCUIDGet)
+    i.TIM6_DAC_IRQHandler                    0x080005dc   Section        0  hal_timer.o(i.TIM6_DAC_IRQHandler)
+    i.USART1_IRQHandler                      0x080005f0   Section        0  hal_uart.o(i.USART1_IRQHandler)
+    i.USART2_IRQHandler                      0x0800073c   Section        0  hal_uart.o(i.USART2_IRQHandler)
+    i.app_main_task                          0x08000834   Section        0  app_main_task.o(i.app_main_task)
+    i.app_uart_extern_msg_packet_process     0x08000888   Section        0  app_sdwe_ctrl.o(i.app_uart_extern_msg_packet_process)
+    i.cal_crc16                              0x0800088c   Section        0  app_crc.o(i.cal_crc16)
+    i.chanelChangedTrigerDeal                0x080008d4   Section        0  app_sdwe_ctrl.o(i.chanelChangedTrigerDeal)
+    i.clearLocalCalibrationKAndBAndSample    0x08000afc   Section        0  app_sdwe_ctrl.o(i.clearLocalCalibrationKAndBAndSample)
+    i.clearLocalCalibrationRecordData        0x08000bbc   Section        0  app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData)
+    i.color_clearAllColor                    0x08000c3c   Section        0  app_sdwe_ctrl.o(i.color_clearAllColor)
+    i.drv_debug_apb1_stop                    0x08000c5c   Section        0  drv_dbgmcu.o(i.drv_debug_apb1_stop)
+    i.drv_delay_init                         0x08000c6c   Section        0  drv_delay.o(i.drv_delay_init)
+    i.drv_delay_ms                           0x08000cb8   Section        0  drv_delay.o(i.drv_delay_ms)
+    i.drv_delay_us                           0x08000cfc   Section        0  drv_delay.o(i.drv_delay_us)
+    i.drv_dma_set_mem_addr_length            0x08000d40   Section        0  drv_dma.o(i.drv_dma_set_mem_addr_length)
+    i.drv_dma_stream_clear_flag_status       0x08000d4c   Section        0  drv_dma.o(i.drv_dma_stream_clear_flag_status)
+    i.drv_dma_stream_clear_it_pending_bit    0x08000d74   Section        0  drv_dma.o(i.drv_dma_stream_clear_it_pending_bit)
+    i.drv_dma_stream_deinit                  0x08000d90   Section        0  drv_dma.o(i.drv_dma_stream_deinit)
+    i.drv_dma_stream_disable                 0x08000e94   Section        0  drv_dma.o(i.drv_dma_stream_disable)
+    i.drv_dma_stream_enable                  0x08000e9e   Section        0  drv_dma.o(i.drv_dma_stream_enable)
+    i.drv_dma_stream_get_it_status           0x08000eac   Section        0  drv_dma.o(i.drv_dma_stream_get_it_status)
+    i.drv_dma_stream_get_left_length         0x08000f10   Section        0  drv_dma.o(i.drv_dma_stream_get_left_length)
+    i.drv_dma_stream_init                    0x08000f1e   Section        0  drv_dma.o(i.drv_dma_stream_init)
+    i.drv_dma_stream_it_enable               0x08000f8a   Section        0  drv_dma.o(i.drv_dma_stream_it_enable)
+    i.drv_dma_stream_start_mem_to_periph     0x08000f92   Section        0  drv_dma.o(i.drv_dma_stream_start_mem_to_periph)
+    i.drv_dma_stream_start_periph_to_mem     0x08000fc6   Section        0  drv_dma.o(i.drv_dma_stream_start_periph_to_mem)
+    i.drv_flash_erase_sector                 0x08000ffc   Section        0  drv_flash.o(i.drv_flash_erase_sector)
+    i.drv_flash_get_status                   0x08001044   Section        0  drv_flash.o(i.drv_flash_get_status)
+    i.drv_flash_lock                         0x08001070   Section        0  drv_flash.o(i.drv_flash_lock)
+    i.drv_flash_read_words                   0x08001084   Section        0  drv_flash.o(i.drv_flash_read_words)
+    i.drv_flash_unlock                       0x080010a4   Section        0  drv_flash.o(i.drv_flash_unlock)
+    i.drv_flash_wait_last_operation          0x080010c8   Section        0  drv_flash.o(i.drv_flash_wait_last_operation)
+    i.drv_flash_write_words                  0x080010f0   Section        0  drv_flash.o(i.drv_flash_write_words)
+    i.drv_gpio_alternate_function_connect    0x08001170   Section        0  drv_gpio.o(i.drv_gpio_alternate_function_connect)
+    i.drv_gpio_alternate_function_init       0x080011b2   Section        0  drv_gpio.o(i.drv_gpio_alternate_function_init)
+    i.drv_gpio_input_init                    0x0800128e   Section        0  drv_gpio.o(i.drv_gpio_input_init)
+    i.drv_gpio_output_init                   0x080012ee   Section        0  drv_gpio.o(i.drv_gpio_output_init)
+    i.drv_gpio_set_pins_high                 0x080013ca   Section        0  hal_uart.o(i.drv_gpio_set_pins_high)
+    i.drv_nvic_enable                        0x080013d2   Section        0  drv_nvic.o(i.drv_nvic_enable)
+    i.drv_nvic_init                          0x080013e8   Section        0  drv_nvic.o(i.drv_nvic_init)
+    i.drv_rcc_ahb1_clk_enable                0x08001428   Section        0  drv_rcc.o(i.drv_rcc_ahb1_clk_enable)
+    i.drv_rcc_apb1_clk_enable                0x08001438   Section        0  drv_rcc.o(i.drv_rcc_apb1_clk_enable)
+    i.drv_rcc_apb1_periph_reset_disable      0x08001448   Section        0  drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable)
+    i.drv_rcc_apb1_periph_reset_enable       0x08001458   Section        0  drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable)
+    i.drv_rcc_apb2_clk_enable                0x08001468   Section        0  drv_rcc.o(i.drv_rcc_apb2_clk_enable)
+    i.drv_rcc_apb2_periph_reset_disable      0x08001478   Section        0  drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable)
+    i.drv_rcc_apb2_periph_reset_enable       0x08001488   Section        0  drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable)
+    i.drv_rcc_get_clocks_freq                0x08001498   Section        0  drv_rcc.o(i.drv_rcc_get_clocks_freq)
+    i.drv_rcc_init                           0x0800159c   Section        0  drv_rcc.o(i.drv_rcc_init)
+    i.drv_timer_base_init                    0x0800187c   Section        0  drv_timer.o(i.drv_timer_base_init)
+    i.drv_timer_clear_it_pending_bit         0x080018fc   Section        0  drv_timer.o(i.drv_timer_clear_it_pending_bit)
+    i.drv_timer_deinit                       0x08001904   Section        0  drv_timer.o(i.drv_timer_deinit)
+    i.drv_timer_enable                       0x08001a00   Section        0  drv_timer.o(i.drv_timer_enable)
+    i.drv_timer_it_enable                    0x08001a0c   Section        0  drv_timer.o(i.drv_timer_it_enable)
+    i.drv_uart_clear_flag_status             0x08001a14   Section        0  drv_uart.o(i.drv_uart_clear_flag_status)
+    i.drv_uart_clear_it_pending_bit          0x08001a18   Section        0  drv_uart.o(i.drv_uart_clear_it_pending_bit)
+    i.drv_uart_deinit                        0x08001a2c   Section        0  drv_uart.o(i.drv_uart_deinit)
+    i.drv_uart_dma_rx_enable                 0x08001abc   Section        0  drv_uart.o(i.drv_uart_dma_rx_enable)
+    i.drv_uart_dma_tx_enable                 0x08001ac8   Section        0  drv_uart.o(i.drv_uart_dma_tx_enable)
+    i.drv_uart_get_flag_status               0x08001ad4   Section        0  drv_uart.o(i.drv_uart_get_flag_status)
+    i.drv_uart_init                          0x08001ae4   Section        0  drv_uart.o(i.drv_uart_init)
+    i.drv_uart_it_disable                    0x08001ba2   Section        0  drv_uart.o(i.drv_uart_it_disable)
+    i.drv_uart_it_enable                     0x08001bd6   Section        0  drv_uart.o(i.drv_uart_it_enable)
+    i.drv_uart_put_bytes                     0x08001c0a   Section        0  drv_uart.o(i.drv_uart_put_bytes)
+    i.drv_uart_set_baudrate                  0x08001c2c   Section        0  drv_uart.o(i.drv_uart_set_baudrate)
+    i.getChanelStruct                        0x08001ca8   Section        0  app_hx711_ctrl.o(i.getChanelStruct)
+    i.hal_clock_init                         0x08001cc4   Section        0  hal_clock.o(i.hal_clock_init)
+    i.hal_delay_init                         0x08001cdc   Section        0  hal_delay.o(i.hal_delay_init)
+    i.hal_delay_ms                           0x08001ce4   Section        0  app_sdwe_ctrl.o(i.hal_delay_ms)
+    i.hal_delay_us                           0x08001cf0   Section        0  app_hx711_ctrl.o(i.hal_delay_us)
+    i.hal_di_get                             0x08001cfc   Section        0  hal_gpio.o(i.hal_di_get)
+    i.hal_gpio_set_do_high                   0x08001d28   Section        0  hal_gpio.o(i.hal_gpio_set_do_high)
+    i.hal_gpio_set_do_low                    0x08001d48   Section        0  hal_gpio.o(i.hal_gpio_set_do_low)
+    i.hal_timer_init                         0x08001d68   Section        0  hal_timer.o(i.hal_timer_init)
+    i.hal_uart_dma_rx_start                  0x08001db4   Section        0  hal_uart.o(i.hal_uart_dma_rx_start)
+    i.hal_uart_gpio_init                     0x08001e0c   Section        0  hal_uart.o(i.hal_uart_gpio_init)
+    i.hal_uart_port_init                     0x08002164   Section        0  hal_uart.o(i.hal_uart_port_init)
+    i.hal_uart_rx_irq_disable                0x080023cc   Section        0  hal_uart.o(i.hal_uart_rx_irq_disable)
+    i.hal_uart_rx_irq_enable                 0x08002408   Section        0  hal_uart.o(i.hal_uart_rx_irq_enable)
+    i.hal_uart_set_braudrate                 0x08002444   Section        0  hal_uart.o(i.hal_uart_set_braudrate)
+    i.hal_uart_set_rx_mode                   0x08002470   Section        0  hal_uart.o(i.hal_uart_set_rx_mode)
+    i.hal_uart_set_timeout                   0x08002494   Section        0  hal_uart.o(i.hal_uart_set_timeout)
+    i.hal_uart_set_tx_mode                   0x08002498   Section        0  hal_uart.o(i.hal_uart_set_tx_mode)
+    i.hal_uart_tx_bytes                      0x080024b8   Section        0  hal_uart.o(i.hal_uart_tx_bytes)
+    i.hx711_AllChanelSample                  0x080025c0   Section        0  app_hx711_ctrl.o(i.hx711_AllChanelSample)
+    i.hx711_DataSampleCtrl                   0x0800269c   Section        0  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
+    i.hx711_MainFunction                     0x080026c8   Section        0  app_hx711_ctrl.o(i.hx711_MainFunction)
+    i.hx711_SigChanelAvrgAndWeightCalc       0x080027a4   Section        0  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
+    i.hx711_getAvgSample                     0x08002884   Section        0  app_hx711_ctrl.o(i.hx711_getAvgSample)
+    i.hx711_getWeight                        0x080028a4   Section        0  app_hx711_ctrl.o(i.hx711_getWeight)
+    i.hx711_init                             0x0800290c   Section        0  app_hx711_ctrl.o(i.hx711_init)
+    i.hx711_setAllRemoveWeight               0x08002a74   Section        0  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
+    i.jumpToActivePage                       0x08002ab0   Section        0  app_sdwe_ctrl.o(i.jumpToActivePage)
+    i.jumpToBanlingPage                      0x08002b18   Section        0  app_sdwe_ctrl.o(i.jumpToBanlingPage)
+    i.jumpToCalibrationPage                  0x08002b80   Section        0  app_sdwe_ctrl.o(i.jumpToCalibrationPage)
+    i.jumpToHomePage                         0x08002be8   Section        0  app_sdwe_ctrl.o(i.jumpToHomePage)
+    i.key_FilterGet                          0x08002c50   Section        0  app_key_ctrl.o(i.key_FilterGet)
+    i.key_MainFunction                       0x08002c74   Section        0  app_key_ctrl.o(i.key_MainFunction)
+    i.key_filter                             0x08002d14   Section        0  app_key_ctrl.o(i.key_filter)
+    i.key_init                               0x08002dc0   Section        0  app_key_ctrl.o(i.key_init)
+    i.led_MainFunction                       0x08002e18   Section        0  app_led_ctrl.o(i.led_MainFunction)
+    i.led_init                               0x08002eb4   Section        0  app_led_ctrl.o(i.led_init)
+    i.main                                   0x08002ef4   Section        0  app_main.o(i.main)
+    i.pointSampleTrigerDataSet               0x08002f2c   Section        0  app_sdwe_ctrl.o(i.pointSampleTrigerDataSet)
+    i.pointTrigerDataSet                     0x08002f50   Section        0  app_sdwe_ctrl.o(i.pointTrigerDataSet)
+    i.pointTrigerDeal                        0x08002f94   Section        0  app_sdwe_ctrl.o(i.pointTrigerDeal)
+    i.pointWeightTrigerDataSet               0x080030dc   Section        0  app_sdwe_ctrl.o(i.pointWeightTrigerDataSet)
+    i.readSysDataFromFlash                   0x08003100   Section        0  app_sdwe_ctrl.o(i.readSysDataFromFlash)
+    i.readSysDataFromFlash_3030              0x08003280   Section        0  app_sdwe_ctrl.o(i.readSysDataFromFlash_3030)
+    i.removeWeightTrigerDeal                 0x08003360   Section        0  app_sdwe_ctrl.o(i.removeWeightTrigerDeal)
+    i.resetCalibrationTrigerDeal             0x08003478   Section        0  app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal)
+    i.sampleDataPush                         0x080035c0   Section        0  app_hx711_ctrl.o(i.sampleDataPush)
+    i.sdweAskRegData                         0x080035fc   Section        0  app_sdwe_ctrl.o(i.sdweAskRegData)
+    i.sdweAskVaribleData                     0x08003614   Section        0  app_sdwe_ctrl.o(i.sdweAskVaribleData)
+    i.sdweSetWeightBackColor                 0x08003968   Section        0  app_sdwe_ctrl.o(i.sdweSetWeightBackColor)
+    i.sdweWriteVarible                       0x0800397c   Section        0  app_sdwe_ctrl.o(i.sdweWriteVarible)
+    i.sdwe_MainFunction                      0x08003a68   Section        0  app_sdwe_ctrl.o(i.sdwe_MainFunction)
+    i.sdwe_RxFunction                        0x08003a98   Section        0  app_sdwe_ctrl.o(i.sdwe_RxFunction)
+    i.sdwe_TxFunction                        0x08003bf0   Section        0  app_sdwe_ctrl.o(i.sdwe_TxFunction)
+    i.sdwe_init                              0x08003cf8   Section        0  app_sdwe_ctrl.o(i.sdwe_init)
+    i.sendBalancingModelData                 0x08003d94   Section        0  app_sdwe_ctrl.o(i.sendBalancingModelData)
+    i.sendSysParaDataToDiwen                 0x08003ee4   Section        0  app_sdwe_ctrl.o(i.sendSysParaDataToDiwen)
+    i.setSampleWeightValue                   0x080041fc   Section        0  app_hx711_ctrl.o(i.setSampleWeightValue)
+    i.storeSysDataToFlash                    0x08004224   Section        0  app_sdwe_ctrl.o(i.storeSysDataToFlash)
+    i.storeSysDataToFlash_3030               0x08004388   Section        0  app_sdwe_ctrl.o(i.storeSysDataToFlash_3030)
+    i.system_init                            0x080044ec   Section        0  app_main.o(i.system_init)
+    i.trigerCalcKB                           0x0800450c   Section        0  app_hx711_ctrl.o(i.trigerCalcKB)
+    i.useWeightUpdataOutColor                0x0800470c   Section        0  app_led_ctrl.o(i.useWeightUpdataOutColor)
+    i.wm_hal_gpio_init                       0x08004bbc   Section        0  hal_gpio.o(i.wm_hal_gpio_init)
+    x$fpl$fpinit                             0x08004c2c   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x08004c2c   Number         0  fpinit.o(x$fpl$fpinit)
+    .constdata                               0x08004c38   Section       40  app_hx711_ctrl.o(.constdata)
+    .constdata                               0x08004c60   Section       16  app_sdwe_ctrl.o(.constdata)
+    .constdata                               0x08004c70   Section      512  app_crc.o(.constdata)
+    .constdata                               0x08004e70   Section      164  hal_gpio.o(.constdata)
+    .constdata                               0x08004f14   Section      124  hal_uart.o(.constdata)
+    .data                                    0x20000000   Section       52  app_main.o(.data)
+    .data                                    0x20000034   Section       62  app_main_task.o(.data)
+    g_sys_ms_tick                            0x20000038   Data           4  app_main_task.o(.data)
+    i                                        0x20000070   Data           1  app_main_task.o(.data)
+    removeWeight                             0x20000071   Data           1  app_main_task.o(.data)
+    .data                                    0x20000072   Section       20  app_led_ctrl.o(.data)
+    colorLock                                0x20000076   Data           5  app_led_ctrl.o(.data)
+    colorLock                                0x2000007b   Data           5  app_led_ctrl.o(.data)
+    l_led_test_cycle                         0x20000080   Data           2  app_led_ctrl.o(.data)
+    color                                    0x20000082   Data           1  app_led_ctrl.o(.data)
+    led_data                                 0x20000083   Data           3  app_led_ctrl.o(.data)
+    .data                                    0x20000086   Section        2  app_hx711_ctrl.o(.data)
+    status                                   0x20000086   Data           1  app_hx711_ctrl.o(.data)
+    l_max_wait_time                          0x20000087   Data           1  app_hx711_ctrl.o(.data)
+    .data                                    0x20000088   Section      666  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x200002e4   Data           1  app_sdwe_ctrl.o(.data)
+    localChanel                              0x200002e5   Data           1  app_sdwe_ctrl.o(.data)
+    storeTick                                0x200002e6   Data           2  app_sdwe_ctrl.o(.data)
+    storeTick                                0x200002e8   Data           2  app_sdwe_ctrl.o(.data)
+    storeTick                                0x200002ea   Data           2  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x200002ec   Data           1  app_sdwe_ctrl.o(.data)
+    localChanel                              0x200002ed   Data           1  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x200002ee   Data           1  app_sdwe_ctrl.o(.data)
+    localChanel                              0x200002ef   Data           1  app_sdwe_ctrl.o(.data)
+    ticks                                    0x200002f0   Data           2  app_sdwe_ctrl.o(.data)
+    weightPre                                0x200002f2   Data          12  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x200002fe   Data           1  app_sdwe_ctrl.o(.data)
+    localChanel                              0x200002ff   Data           1  app_sdwe_ctrl.o(.data)
+    ticks                                    0x20000300   Data           2  app_sdwe_ctrl.o(.data)
+    need_send                                0x20000302   Data           1  app_sdwe_ctrl.o(.data)
+    weightPre                                0x20000304   Data          12  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x20000310   Data           1  app_sdwe_ctrl.o(.data)
+    localChanel                              0x20000311   Data           1  app_sdwe_ctrl.o(.data)
+    inerStatus                               0x20000312   Data           1  app_sdwe_ctrl.o(.data)
+    chanelTestEn                             0x20000313   Data           1  app_sdwe_ctrl.o(.data)
+    cnt                                      0x20000314   Data           4  app_sdwe_ctrl.o(.data)
+    chanelDataEn                             0x20000318   Data           1  app_sdwe_ctrl.o(.data)
+    chanelDataAddress                        0x2000031a   Data           2  app_sdwe_ctrl.o(.data)
+    chanelColorEn                            0x2000031c   Data           1  app_sdwe_ctrl.o(.data)
+    chanelColorAddress                       0x2000031e   Data           2  app_sdwe_ctrl.o(.data)
+    chanelDataLen                            0x20000320   Data           2  app_sdwe_ctrl.o(.data)
+    .data                                    0x20000322   Section        3  app_key_ctrl.o(.data)
+    preRemoveKey                             0x20000322   Data           1  app_key_ctrl.o(.data)
+    preHomeAndCalibrateKey                   0x20000323   Data           1  app_key_ctrl.o(.data)
+    preHomeAndCalibrateStatus                0x20000324   Data           1  app_key_ctrl.o(.data)
+    .data                                    0x20000326   Section        4  drv_delay.o(.data)
+    g_DelayUsFac                             0x20000326   Data           2  drv_delay.o(.data)
+    g_DelayMsFac                             0x20000328   Data           2  drv_delay.o(.data)
+    .data                                    0x2000032c   Section      108  hal_gpio.o(.data)
+    .data                                    0x20000398   Section      176  hal_uart.o(.data)
+    .data                                    0x20000448   Section       28  drv_rcc.o(.data)
+    l_AhbPrescTable                          0x20000448   Data          16  drv_rcc.o(.data)
+    l_ApbPrescTable                          0x20000458   Data           8  drv_rcc.o(.data)
+    .bss                                     0x20000464   Section       12  app_main.o(.bss)
+    .bss                                     0x20000470   Section       96  app_led_ctrl.o(.bss)
+    tWeightUpdateColorArr                    0x20000470   Data          72  app_led_ctrl.o(.bss)
+    chanelCompareInfo                        0x200004b8   Data          12  app_led_ctrl.o(.bss)
+    chanelCompareInfo                        0x200004c4   Data          12  app_led_ctrl.o(.bss)
+    .bss                                     0x200004d0   Section     1368  app_hx711_ctrl.o(.bss)
+    .bss                                     0x20000a28   Section     2004  app_sdwe_ctrl.o(.bss)
+    g_sdwe_triger_data                       0x20000e80   Data          80  app_sdwe_ctrl.o(.bss)
+    g_dmg_triger_data                        0x20000ee8   Data         560  app_sdwe_ctrl.o(.bss)
+    sysPara                                  0x20001118   Data          48  app_sdwe_ctrl.o(.bss)
+    flashSysParaStoreDataBuf                 0x20001148   Data          52  app_sdwe_ctrl.o(.bss)
+    chanelDataTest                           0x2000117c   Data          64  app_sdwe_ctrl.o(.bss)
+    chanelColorTest                          0x200011bc   Data          64  app_sdwe_ctrl.o(.bss)
+    .bss                                     0x200011fc   Section       12  app_key_ctrl.o(.bss)
+    .bss                                     0x20001208   Section       36  drv_rcc.o(.bss)
+    .bss                                     0x2000122c   Section       96  libspace.o(.bss)
+    HEAP                                     0x20001290   Section     2048  startup_stm32f30x.o(HEAP)
+    Heap_Mem                                 0x20001290   Data        2048  startup_stm32f30x.o(HEAP)
+    STACK                                    0x20001a90   Section     2048  startup_stm32f30x.o(STACK)
+    Stack_Mem                                0x20001a90   Data        2048  startup_stm32f30x.o(STACK)
+    __initial_sp                             0x20002290   Data           0  startup_stm32f30x.o(STACK)
 
     Global Symbols
 
@@ -1127,177 +1229,195 @@ Image Symbol Table
     LedCtrlSendPulse                         0x0800047d   Thumb Code    88  app_led_ctrl.o(i.LedCtrlSendPulse)
     LedDataSet                               0x080004d5   Thumb Code   132  app_led_ctrl.o(i.LedDataSet)
     Led_delay                                0x0800055d   Thumb Code    10  app_led_ctrl.o(i.Led_delay)
-    TIM6_DAC_IRQHandler                      0x08000569   Thumb Code    16  hal_timer.o(i.TIM6_DAC_IRQHandler)
-    USART1_IRQHandler                        0x0800057d   Thumb Code   302  hal_uart.o(i.USART1_IRQHandler)
-    USART2_IRQHandler                        0x080006c9   Thumb Code   226  hal_uart.o(i.USART2_IRQHandler)
-    app_main_task                            0x080007c1   Thumb Code    74  app_main_task.o(i.app_main_task)
-    app_uart_extern_msg_packet_process       0x08000815   Thumb Code     2  app_sdwe_ctrl.o(i.app_uart_extern_msg_packet_process)
-    cal_crc16                                0x08000819   Thumb Code    62  app_crc.o(i.cal_crc16)
-    chanelChangedTrigerDeal                  0x08000861   Thumb Code   530  app_sdwe_ctrl.o(i.chanelChangedTrigerDeal)
-    clearLocalCalibrationKAndBAndSample      0x08000a89   Thumb Code   188  app_sdwe_ctrl.o(i.clearLocalCalibrationKAndBAndSample)
-    clearLocalCalibrationRecordData          0x08000b49   Thumb Code   122  app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData)
-    drv_debug_apb1_stop                      0x08000bc9   Thumb Code    12  drv_dbgmcu.o(i.drv_debug_apb1_stop)
-    drv_delay_init                           0x08000bd9   Thumb Code    60  drv_delay.o(i.drv_delay_init)
-    drv_delay_ms                             0x08000c25   Thumb Code    64  drv_delay.o(i.drv_delay_ms)
-    drv_delay_us                             0x08000c69   Thumb Code    64  drv_delay.o(i.drv_delay_us)
-    drv_dma_set_mem_addr_length              0x08000cad   Thumb Code    12  drv_dma.o(i.drv_dma_set_mem_addr_length)
-    drv_dma_stream_clear_flag_status         0x08000cb9   Thumb Code    30  drv_dma.o(i.drv_dma_stream_clear_flag_status)
-    drv_dma_stream_clear_it_pending_bit      0x08000ce1   Thumb Code    18  drv_dma.o(i.drv_dma_stream_clear_it_pending_bit)
-    drv_dma_stream_deinit                    0x08000cfd   Thumb Code   252  drv_dma.o(i.drv_dma_stream_deinit)
-    drv_dma_stream_disable                   0x08000e01   Thumb Code    10  drv_dma.o(i.drv_dma_stream_disable)
-    drv_dma_stream_enable                    0x08000e0b   Thumb Code    12  drv_dma.o(i.drv_dma_stream_enable)
-    drv_dma_stream_get_it_status             0x08000e19   Thumb Code    90  drv_dma.o(i.drv_dma_stream_get_it_status)
-    drv_dma_stream_get_left_length           0x08000e7d   Thumb Code    14  drv_dma.o(i.drv_dma_stream_get_left_length)
-    drv_dma_stream_init                      0x08000e8b   Thumb Code   108  drv_dma.o(i.drv_dma_stream_init)
-    drv_dma_stream_it_enable                 0x08000ef7   Thumb Code     8  drv_dma.o(i.drv_dma_stream_it_enable)
-    drv_dma_stream_start_mem_to_periph       0x08000eff   Thumb Code    52  drv_dma.o(i.drv_dma_stream_start_mem_to_periph)
-    drv_dma_stream_start_periph_to_mem       0x08000f33   Thumb Code    52  drv_dma.o(i.drv_dma_stream_start_periph_to_mem)
-    drv_flash_erase_sector                   0x08000f69   Thumb Code    66  drv_flash.o(i.drv_flash_erase_sector)
-    drv_flash_get_status                     0x08000fb1   Thumb Code    40  drv_flash.o(i.drv_flash_get_status)
-    drv_flash_lock                           0x08000fdd   Thumb Code    16  drv_flash.o(i.drv_flash_lock)
-    drv_flash_read_words                     0x08000ff1   Thumb Code    32  drv_flash.o(i.drv_flash_read_words)
-    drv_flash_unlock                         0x08001011   Thumb Code    22  drv_flash.o(i.drv_flash_unlock)
-    drv_flash_wait_last_operation            0x08001035   Thumb Code    40  drv_flash.o(i.drv_flash_wait_last_operation)
-    drv_flash_write_words                    0x0800105d   Thumb Code   122  drv_flash.o(i.drv_flash_write_words)
-    drv_gpio_alternate_function_connect      0x080010dd   Thumb Code    66  drv_gpio.o(i.drv_gpio_alternate_function_connect)
-    drv_gpio_alternate_function_init         0x0800111f   Thumb Code   220  drv_gpio.o(i.drv_gpio_alternate_function_init)
-    drv_gpio_input_init                      0x080011fb   Thumb Code    96  drv_gpio.o(i.drv_gpio_input_init)
-    drv_gpio_output_init                     0x0800125b   Thumb Code   220  drv_gpio.o(i.drv_gpio_output_init)
-    drv_gpio_set_pins_high                   0x08001337   Thumb Code     8  hal_uart.o(i.drv_gpio_set_pins_high)
-    drv_nvic_enable                          0x0800133f   Thumb Code    22  drv_nvic.o(i.drv_nvic_enable)
-    drv_nvic_init                            0x08001355   Thumb Code    56  drv_nvic.o(i.drv_nvic_init)
-    drv_rcc_ahb1_clk_enable                  0x08001395   Thumb Code    12  drv_rcc.o(i.drv_rcc_ahb1_clk_enable)
-    drv_rcc_apb1_clk_enable                  0x080013a5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_clk_enable)
-    drv_rcc_apb1_periph_reset_disable        0x080013b5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable)
-    drv_rcc_apb1_periph_reset_enable         0x080013c5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable)
-    drv_rcc_apb2_clk_enable                  0x080013d5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_clk_enable)
-    drv_rcc_apb2_periph_reset_disable        0x080013e5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable)
-    drv_rcc_apb2_periph_reset_enable         0x080013f5   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable)
-    drv_rcc_get_clocks_freq                  0x08001405   Thumb Code   238  drv_rcc.o(i.drv_rcc_get_clocks_freq)
-    drv_rcc_init                             0x08001509   Thumb Code   694  drv_rcc.o(i.drv_rcc_init)
-    drv_timer_base_init                      0x080017e9   Thumb Code   104  drv_timer.o(i.drv_timer_base_init)
-    drv_timer_clear_it_pending_bit           0x08001869   Thumb Code     8  drv_timer.o(i.drv_timer_clear_it_pending_bit)
-    drv_timer_deinit                         0x08001871   Thumb Code   216  drv_timer.o(i.drv_timer_deinit)
-    drv_timer_enable                         0x0800196d   Thumb Code    12  drv_timer.o(i.drv_timer_enable)
-    drv_timer_it_enable                      0x08001979   Thumb Code     8  drv_timer.o(i.drv_timer_it_enable)
-    drv_uart_clear_flag_status               0x08001981   Thumb Code     4  drv_uart.o(i.drv_uart_clear_flag_status)
-    drv_uart_clear_it_pending_bit            0x08001985   Thumb Code    18  drv_uart.o(i.drv_uart_clear_it_pending_bit)
-    drv_uart_deinit                          0x08001999   Thumb Code   124  drv_uart.o(i.drv_uart_deinit)
-    drv_uart_dma_rx_enable                   0x08001a29   Thumb Code    12  drv_uart.o(i.drv_uart_dma_rx_enable)
-    drv_uart_dma_tx_enable                   0x08001a35   Thumb Code    12  drv_uart.o(i.drv_uart_dma_tx_enable)
-    drv_uart_get_flag_status                 0x08001a41   Thumb Code    16  drv_uart.o(i.drv_uart_get_flag_status)
-    drv_uart_init                            0x08001a51   Thumb Code   190  drv_uart.o(i.drv_uart_init)
-    drv_uart_it_disable                      0x08001b0f   Thumb Code    52  drv_uart.o(i.drv_uart_it_disable)
-    drv_uart_it_enable                       0x08001b43   Thumb Code    52  drv_uart.o(i.drv_uart_it_enable)
-    drv_uart_put_bytes                       0x08001b77   Thumb Code    32  drv_uart.o(i.drv_uart_put_bytes)
-    drv_uart_set_baudrate                    0x08001b99   Thumb Code   116  drv_uart.o(i.drv_uart_set_baudrate)
-    getChanelStruct                          0x08001c15   Thumb Code    20  app_hx711_ctrl.o(i.getChanelStruct)
-    hal_clock_init                           0x08001c2d   Thumb Code    24  hal_clock.o(i.hal_clock_init)
-    hal_delay_init                           0x08001c45   Thumb Code     8  hal_delay.o(i.hal_delay_init)
-    hal_delay_ms                             0x08001c4d   Thumb Code    12  app_sdwe_ctrl.o(i.hal_delay_ms)
-    hal_delay_us                             0x08001c59   Thumb Code    12  app_hx711_ctrl.o(i.hal_delay_us)
-    hal_di_get                               0x08001c65   Thumb Code    36  hal_gpio.o(i.hal_di_get)
-    hal_gpio_set_do_high                     0x08001c91   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_high)
-    hal_gpio_set_do_low                      0x08001cb1   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_low)
-    hal_timer_init                           0x08001cd1   Thumb Code    66  hal_timer.o(i.hal_timer_init)
-    hal_uart_dma_rx_start                    0x08001d1d   Thumb Code    70  hal_uart.o(i.hal_uart_dma_rx_start)
-    hal_uart_gpio_init                       0x08001d75   Thumb Code   806  hal_uart.o(i.hal_uart_gpio_init)
-    hal_uart_port_init                       0x080020cd   Thumb Code   560  hal_uart.o(i.hal_uart_port_init)
-    hal_uart_rx_irq_disable                  0x08002335   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_disable)
-    hal_uart_rx_irq_enable                   0x08002371   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_enable)
-    hal_uart_set_braudrate                   0x080023ad   Thumb Code    34  hal_uart.o(i.hal_uart_set_braudrate)
-    hal_uart_set_rx_mode                     0x080023d9   Thumb Code    26  hal_uart.o(i.hal_uart_set_rx_mode)
-    hal_uart_set_timeout                     0x080023fd   Thumb Code     2  hal_uart.o(i.hal_uart_set_timeout)
-    hal_uart_set_tx_mode                     0x08002401   Thumb Code    24  hal_uart.o(i.hal_uart_set_tx_mode)
-    hal_uart_tx_bytes                        0x08002421   Thumb Code   246  hal_uart.o(i.hal_uart_tx_bytes)
-    hx711_AllChanelSample                    0x08002529   Thumb Code   212  app_hx711_ctrl.o(i.hx711_AllChanelSample)
-    hx711_DataSampleCtrl                     0x08002601   Thumb Code    36  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
-    hx711_MainFunction                       0x08002629   Thumb Code   212  app_hx711_ctrl.o(i.hx711_MainFunction)
-    hx711_SigChanelAvrgAndWeightCalc         0x08002705   Thumb Code   222  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
-    hx711_getAvgSample                       0x080027e9   Thumb Code    22  app_hx711_ctrl.o(i.hx711_getAvgSample)
-    hx711_getWeight                          0x08002805   Thumb Code    48  app_hx711_ctrl.o(i.hx711_getWeight)
-    hx711_init                               0x0800283d   Thumb Code   280  app_hx711_ctrl.o(i.hx711_init)
-    hx711_setAllRemoveWeight                 0x08002969   Thumb Code    42  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
-    key_FilterGet                            0x08002999   Thumb Code    30  app_key_ctrl.o(i.key_FilterGet)
-    key_MainFunction                         0x080029bd   Thumb Code    56  app_key_ctrl.o(i.key_MainFunction)
-    key_filter                               0x080029f9   Thumb Code   168  app_key_ctrl.o(i.key_filter)
-    key_init                                 0x08002aa5   Thumb Code    84  app_key_ctrl.o(i.key_init)
-    led_MainFunction                         0x08002afd   Thumb Code   136  app_led_ctrl.o(i.led_MainFunction)
-    led_init                                 0x08002b8d   Thumb Code    62  app_led_ctrl.o(i.led_init)
-    main                                     0x08002bcb   Thumb Code    28  app_main.o(i.main)
-    pointSampleTrigerDataSet                 0x08002be9   Thumb Code    32  app_sdwe_ctrl.o(i.pointSampleTrigerDataSet)
-    pointTrigerDataSet                       0x08002c0d   Thumb Code    62  app_sdwe_ctrl.o(i.pointTrigerDataSet)
-    pointTrigerDeal                          0x08002c51   Thumb Code   312  app_sdwe_ctrl.o(i.pointTrigerDeal)
-    pointWeightTrigerDataSet                 0x08002d99   Thumb Code    32  app_sdwe_ctrl.o(i.pointWeightTrigerDataSet)
-    readSysDataFromFlash                     0x08002dbd   Thumb Code   352  app_sdwe_ctrl.o(i.readSysDataFromFlash)
-    resetCalibrationTrigerDeal               0x08002f21   Thumb Code   310  app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal)
-    sampleDataPush                           0x08003069   Thumb Code    58  app_hx711_ctrl.o(i.sampleDataPush)
-    sdweAskRegData                           0x080030a5   Thumb Code    18  app_sdwe_ctrl.o(i.sdweAskRegData)
-    sdweAskVaribleData                       0x080030bd   Thumb Code   510  app_sdwe_ctrl.o(i.sdweAskVaribleData)
-    sdweSetWeightBackColor                   0x080032c1   Thumb Code    14  app_sdwe_ctrl.o(i.sdweSetWeightBackColor)
-    sdweWriteVarible                         0x080032d5   Thumb Code   226  app_sdwe_ctrl.o(i.sdweWriteVarible)
-    sdwe_MainFunction                        0x080033c1   Thumb Code    28  app_sdwe_ctrl.o(i.sdwe_MainFunction)
-    sdwe_RxFunction                          0x080033e1   Thumb Code   328  app_sdwe_ctrl.o(i.sdwe_RxFunction)
-    sdwe_TxFunction                          0x0800352d   Thumb Code    86  app_sdwe_ctrl.o(i.sdwe_TxFunction)
-    sdwe_init                                0x08003589   Thumb Code   130  app_sdwe_ctrl.o(i.sdwe_init)
-    sendBalancingModelData                   0x0800361d   Thumb Code   182  app_sdwe_ctrl.o(i.sendBalancingModelData)
-    setSampleWeightValue                     0x080036e5   Thumb Code    32  app_hx711_ctrl.o(i.setSampleWeightValue)
-    storeSysDataToFlash                      0x08003709   Thumb Code   342  app_sdwe_ctrl.o(i.storeSysDataToFlash)
-    system_init                              0x0800386d   Thumb Code    32  app_main.o(i.system_init)
-    trigerCalcKB                             0x0800388d   Thumb Code   498  app_hx711_ctrl.o(i.trigerCalcKB)
-    useWeightUpdataOutColor                  0x08003a89   Thumb Code  1144  app_led_ctrl.o(i.useWeightUpdataOutColor)
-    wm_hal_gpio_init                         0x08003f01   Thumb Code    86  hal_gpio.o(i.wm_hal_gpio_init)
-    _fp_init                                 0x08003f71   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x08003f79   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x08003f79   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    defaultChanelSamplePoint                 0x08003f7c   Data          40  app_hx711_ctrl.o(.constdata)
-    g_CrcHTable                              0x08003fa4   Data         256  app_crc.o(.constdata)
-    g_CrcLTable                              0x080040a4   Data         256  app_crc.o(.constdata)
-    DO_GPIO_CLK                              0x080041a4   Data          52  hal_gpio.o(.constdata)
-    DO_GPIO_PIN                              0x080041d8   Data          26  hal_gpio.o(.constdata)
-    DI_GPIO_CLK                              0x080041f4   Data          56  hal_gpio.o(.constdata)
-    DI_GPIO_PIN                              0x0800422c   Data          28  hal_gpio.o(.constdata)
-    UART_PORT_CLK                            0x08004248   Data           8  hal_uart.o(.constdata)
-    UART_PORT_IRQn                           0x08004250   Data           2  hal_uart.o(.constdata)
-    UART_PORT_GPIO_AF                        0x08004252   Data           2  hal_uart.o(.constdata)
-    UART_TX_GPIO_CLK                         0x08004254   Data           8  hal_uart.o(.constdata)
-    UART_TX_GPIO_PIN                         0x0800425c   Data           4  hal_uart.o(.constdata)
-    UART_TX_PIN_SOURCE                       0x08004260   Data           4  hal_uart.o(.constdata)
-    UART_RX_GPIO_CLK                         0x08004264   Data           8  hal_uart.o(.constdata)
-    UART_RX_GPIO_PIN                         0x0800426c   Data           4  hal_uart.o(.constdata)
-    UART_RX_PIN_SOURCE                       0x08004270   Data           4  hal_uart.o(.constdata)
-    UART_DEA_GPIO_CLK                        0x08004274   Data           8  hal_uart.o(.constdata)
-    UART_DEA_GPIO_PIN                        0x0800427c   Data           4  hal_uart.o(.constdata)
-    UART_TX_DMA_CLK                          0x08004280   Data           8  hal_uart.o(.constdata)
-    UART_TX_DMA_IRQn                         0x08004288   Data           2  hal_uart.o(.constdata)
-    UART_TX_DMA_IT_TCIF                      0x0800428c   Data           8  hal_uart.o(.constdata)
-    UART_RX_DMA_CLK                          0x08004294   Data           8  hal_uart.o(.constdata)
-    g_UartBaudTab                            0x0800429c   Data          40  hal_uart.o(.constdata)
-    Region$$Table$$Base                      0x080042c4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080042e4   Number         0  anon$$obj.o(Region$$Table)
-    mainTaskStatus                           0x20000000   Data           1  app_main_task.o(.data)
-    g_led_ctrl_data                          0x2000000a   Data           3  app_led_ctrl.o(.data)
-    led_test_flag                            0x2000000d   Data           1  app_led_ctrl.o(.data)
-    g_sdwe                                   0x2000001c   Data         592  app_sdwe_ctrl.o(.data)
-    DO_GPIO_PORT                             0x20000290   Data          52  hal_gpio.o(.data)
-    DI_GPIO_PORT                             0x200002c4   Data          56  hal_gpio.o(.data)
-    UART_PORT                                0x200002fc   Data           8  hal_uart.o(.data)
-    UART_TX_GPIO_PORT                        0x20000304   Data           8  hal_uart.o(.data)
-    UART_RX_GPIO_PORT                        0x2000030c   Data           8  hal_uart.o(.data)
-    UART_DEA_GPIO_PORT                       0x20000314   Data           8  hal_uart.o(.data)
-    UART_TX_DMA                              0x2000031c   Data           8  hal_uart.o(.data)
-    UART_TX_DMA_CHANNEL                      0x20000324   Data           8  hal_uart.o(.data)
-    UART_RX_DMA                              0x2000032c   Data           8  hal_uart.o(.data)
-    UART_RX_DMA_CHANNEL                      0x20000334   Data           8  hal_uart.o(.data)
-    g_UartDevice                             0x2000033c   Data         112  hal_uart.o(.data)
-    l_RccWiteTimeOut                         0x200003c4   Data           4  drv_rcc.o(.data)
-    HX711Chanel                              0x200003d4   Data        1488  app_hx711_ctrl.o(.bss)
-    flashStoreDataBuf                        0x200009a4   Data        1060  app_sdwe_ctrl.o(.bss)
-    g_sdwe_dis_data                          0x20000e18   Data          24  app_sdwe_ctrl.o(.bss)
-    SysKey                                   0x20001118   Data          12  app_key_ctrl.o(.bss)
-    g_ClockFrequency                         0x20001124   Data          36  drv_rcc.o(.bss)
-    __libspace_start                         0x20001148   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x200011a8   Data           0  libspace.o(.bss)
+    STM32CheckPassWord                       0x08000569   Thumb Code    58  app_main.o(i.STM32CheckPassWord)
+    STM32MCUIDGet                            0x080005b5   Thumb Code    34  app_main.o(i.STM32MCUIDGet)
+    TIM6_DAC_IRQHandler                      0x080005dd   Thumb Code    16  hal_timer.o(i.TIM6_DAC_IRQHandler)
+    USART1_IRQHandler                        0x080005f1   Thumb Code   302  hal_uart.o(i.USART1_IRQHandler)
+    USART2_IRQHandler                        0x0800073d   Thumb Code   226  hal_uart.o(i.USART2_IRQHandler)
+    app_main_task                            0x08000835   Thumb Code    74  app_main_task.o(i.app_main_task)
+    app_uart_extern_msg_packet_process       0x08000889   Thumb Code     2  app_sdwe_ctrl.o(i.app_uart_extern_msg_packet_process)
+    cal_crc16                                0x0800088d   Thumb Code    62  app_crc.o(i.cal_crc16)
+    chanelChangedTrigerDeal                  0x080008d5   Thumb Code   530  app_sdwe_ctrl.o(i.chanelChangedTrigerDeal)
+    clearLocalCalibrationKAndBAndSample      0x08000afd   Thumb Code   188  app_sdwe_ctrl.o(i.clearLocalCalibrationKAndBAndSample)
+    clearLocalCalibrationRecordData          0x08000bbd   Thumb Code   122  app_sdwe_ctrl.o(i.clearLocalCalibrationRecordData)
+    color_clearAllColor                      0x08000c3d   Thumb Code    26  app_sdwe_ctrl.o(i.color_clearAllColor)
+    drv_debug_apb1_stop                      0x08000c5d   Thumb Code    12  drv_dbgmcu.o(i.drv_debug_apb1_stop)
+    drv_delay_init                           0x08000c6d   Thumb Code    60  drv_delay.o(i.drv_delay_init)
+    drv_delay_ms                             0x08000cb9   Thumb Code    64  drv_delay.o(i.drv_delay_ms)
+    drv_delay_us                             0x08000cfd   Thumb Code    64  drv_delay.o(i.drv_delay_us)
+    drv_dma_set_mem_addr_length              0x08000d41   Thumb Code    12  drv_dma.o(i.drv_dma_set_mem_addr_length)
+    drv_dma_stream_clear_flag_status         0x08000d4d   Thumb Code    30  drv_dma.o(i.drv_dma_stream_clear_flag_status)
+    drv_dma_stream_clear_it_pending_bit      0x08000d75   Thumb Code    18  drv_dma.o(i.drv_dma_stream_clear_it_pending_bit)
+    drv_dma_stream_deinit                    0x08000d91   Thumb Code   252  drv_dma.o(i.drv_dma_stream_deinit)
+    drv_dma_stream_disable                   0x08000e95   Thumb Code    10  drv_dma.o(i.drv_dma_stream_disable)
+    drv_dma_stream_enable                    0x08000e9f   Thumb Code    12  drv_dma.o(i.drv_dma_stream_enable)
+    drv_dma_stream_get_it_status             0x08000ead   Thumb Code    90  drv_dma.o(i.drv_dma_stream_get_it_status)
+    drv_dma_stream_get_left_length           0x08000f11   Thumb Code    14  drv_dma.o(i.drv_dma_stream_get_left_length)
+    drv_dma_stream_init                      0x08000f1f   Thumb Code   108  drv_dma.o(i.drv_dma_stream_init)
+    drv_dma_stream_it_enable                 0x08000f8b   Thumb Code     8  drv_dma.o(i.drv_dma_stream_it_enable)
+    drv_dma_stream_start_mem_to_periph       0x08000f93   Thumb Code    52  drv_dma.o(i.drv_dma_stream_start_mem_to_periph)
+    drv_dma_stream_start_periph_to_mem       0x08000fc7   Thumb Code    52  drv_dma.o(i.drv_dma_stream_start_periph_to_mem)
+    drv_flash_erase_sector                   0x08000ffd   Thumb Code    66  drv_flash.o(i.drv_flash_erase_sector)
+    drv_flash_get_status                     0x08001045   Thumb Code    40  drv_flash.o(i.drv_flash_get_status)
+    drv_flash_lock                           0x08001071   Thumb Code    16  drv_flash.o(i.drv_flash_lock)
+    drv_flash_read_words                     0x08001085   Thumb Code    32  drv_flash.o(i.drv_flash_read_words)
+    drv_flash_unlock                         0x080010a5   Thumb Code    22  drv_flash.o(i.drv_flash_unlock)
+    drv_flash_wait_last_operation            0x080010c9   Thumb Code    40  drv_flash.o(i.drv_flash_wait_last_operation)
+    drv_flash_write_words                    0x080010f1   Thumb Code   122  drv_flash.o(i.drv_flash_write_words)
+    drv_gpio_alternate_function_connect      0x08001171   Thumb Code    66  drv_gpio.o(i.drv_gpio_alternate_function_connect)
+    drv_gpio_alternate_function_init         0x080011b3   Thumb Code   220  drv_gpio.o(i.drv_gpio_alternate_function_init)
+    drv_gpio_input_init                      0x0800128f   Thumb Code    96  drv_gpio.o(i.drv_gpio_input_init)
+    drv_gpio_output_init                     0x080012ef   Thumb Code   220  drv_gpio.o(i.drv_gpio_output_init)
+    drv_gpio_set_pins_high                   0x080013cb   Thumb Code     8  hal_uart.o(i.drv_gpio_set_pins_high)
+    drv_nvic_enable                          0x080013d3   Thumb Code    22  drv_nvic.o(i.drv_nvic_enable)
+    drv_nvic_init                            0x080013e9   Thumb Code    56  drv_nvic.o(i.drv_nvic_init)
+    drv_rcc_ahb1_clk_enable                  0x08001429   Thumb Code    12  drv_rcc.o(i.drv_rcc_ahb1_clk_enable)
+    drv_rcc_apb1_clk_enable                  0x08001439   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_clk_enable)
+    drv_rcc_apb1_periph_reset_disable        0x08001449   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable)
+    drv_rcc_apb1_periph_reset_enable         0x08001459   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable)
+    drv_rcc_apb2_clk_enable                  0x08001469   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_clk_enable)
+    drv_rcc_apb2_periph_reset_disable        0x08001479   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable)
+    drv_rcc_apb2_periph_reset_enable         0x08001489   Thumb Code    12  drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable)
+    drv_rcc_get_clocks_freq                  0x08001499   Thumb Code   238  drv_rcc.o(i.drv_rcc_get_clocks_freq)
+    drv_rcc_init                             0x0800159d   Thumb Code   694  drv_rcc.o(i.drv_rcc_init)
+    drv_timer_base_init                      0x0800187d   Thumb Code   104  drv_timer.o(i.drv_timer_base_init)
+    drv_timer_clear_it_pending_bit           0x080018fd   Thumb Code     8  drv_timer.o(i.drv_timer_clear_it_pending_bit)
+    drv_timer_deinit                         0x08001905   Thumb Code   216  drv_timer.o(i.drv_timer_deinit)
+    drv_timer_enable                         0x08001a01   Thumb Code    12  drv_timer.o(i.drv_timer_enable)
+    drv_timer_it_enable                      0x08001a0d   Thumb Code     8  drv_timer.o(i.drv_timer_it_enable)
+    drv_uart_clear_flag_status               0x08001a15   Thumb Code     4  drv_uart.o(i.drv_uart_clear_flag_status)
+    drv_uart_clear_it_pending_bit            0x08001a19   Thumb Code    18  drv_uart.o(i.drv_uart_clear_it_pending_bit)
+    drv_uart_deinit                          0x08001a2d   Thumb Code   124  drv_uart.o(i.drv_uart_deinit)
+    drv_uart_dma_rx_enable                   0x08001abd   Thumb Code    12  drv_uart.o(i.drv_uart_dma_rx_enable)
+    drv_uart_dma_tx_enable                   0x08001ac9   Thumb Code    12  drv_uart.o(i.drv_uart_dma_tx_enable)
+    drv_uart_get_flag_status                 0x08001ad5   Thumb Code    16  drv_uart.o(i.drv_uart_get_flag_status)
+    drv_uart_init                            0x08001ae5   Thumb Code   190  drv_uart.o(i.drv_uart_init)
+    drv_uart_it_disable                      0x08001ba3   Thumb Code    52  drv_uart.o(i.drv_uart_it_disable)
+    drv_uart_it_enable                       0x08001bd7   Thumb Code    52  drv_uart.o(i.drv_uart_it_enable)
+    drv_uart_put_bytes                       0x08001c0b   Thumb Code    32  drv_uart.o(i.drv_uart_put_bytes)
+    drv_uart_set_baudrate                    0x08001c2d   Thumb Code   116  drv_uart.o(i.drv_uart_set_baudrate)
+    getChanelStruct                          0x08001ca9   Thumb Code    24  app_hx711_ctrl.o(i.getChanelStruct)
+    hal_clock_init                           0x08001cc5   Thumb Code    24  hal_clock.o(i.hal_clock_init)
+    hal_delay_init                           0x08001cdd   Thumb Code     8  hal_delay.o(i.hal_delay_init)
+    hal_delay_ms                             0x08001ce5   Thumb Code    12  app_sdwe_ctrl.o(i.hal_delay_ms)
+    hal_delay_us                             0x08001cf1   Thumb Code    12  app_hx711_ctrl.o(i.hal_delay_us)
+    hal_di_get                               0x08001cfd   Thumb Code    36  hal_gpio.o(i.hal_di_get)
+    hal_gpio_set_do_high                     0x08001d29   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_high)
+    hal_gpio_set_do_low                      0x08001d49   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_low)
+    hal_timer_init                           0x08001d69   Thumb Code    66  hal_timer.o(i.hal_timer_init)
+    hal_uart_dma_rx_start                    0x08001db5   Thumb Code    70  hal_uart.o(i.hal_uart_dma_rx_start)
+    hal_uart_gpio_init                       0x08001e0d   Thumb Code   806  hal_uart.o(i.hal_uart_gpio_init)
+    hal_uart_port_init                       0x08002165   Thumb Code   560  hal_uart.o(i.hal_uart_port_init)
+    hal_uart_rx_irq_disable                  0x080023cd   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_disable)
+    hal_uart_rx_irq_enable                   0x08002409   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_enable)
+    hal_uart_set_braudrate                   0x08002445   Thumb Code    34  hal_uart.o(i.hal_uart_set_braudrate)
+    hal_uart_set_rx_mode                     0x08002471   Thumb Code    26  hal_uart.o(i.hal_uart_set_rx_mode)
+    hal_uart_set_timeout                     0x08002495   Thumb Code     2  hal_uart.o(i.hal_uart_set_timeout)
+    hal_uart_set_tx_mode                     0x08002499   Thumb Code    24  hal_uart.o(i.hal_uart_set_tx_mode)
+    hal_uart_tx_bytes                        0x080024b9   Thumb Code   246  hal_uart.o(i.hal_uart_tx_bytes)
+    hx711_AllChanelSample                    0x080025c1   Thumb Code   216  app_hx711_ctrl.o(i.hx711_AllChanelSample)
+    hx711_DataSampleCtrl                     0x0800269d   Thumb Code    40  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
+    hx711_MainFunction                       0x080026c9   Thumb Code   212  app_hx711_ctrl.o(i.hx711_MainFunction)
+    hx711_SigChanelAvrgAndWeightCalc         0x080027a5   Thumb Code   220  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
+    hx711_getAvgSample                       0x08002885   Thumb Code    26  app_hx711_ctrl.o(i.hx711_getAvgSample)
+    hx711_getWeight                          0x080028a5   Thumb Code    88  app_hx711_ctrl.o(i.hx711_getWeight)
+    hx711_init                               0x0800290d   Thumb Code   340  app_hx711_ctrl.o(i.hx711_init)
+    hx711_setAllRemoveWeight                 0x08002a75   Thumb Code    56  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
+    jumpToActivePage                         0x08002ab1   Thumb Code    96  app_sdwe_ctrl.o(i.jumpToActivePage)
+    jumpToBanlingPage                        0x08002b19   Thumb Code    96  app_sdwe_ctrl.o(i.jumpToBanlingPage)
+    jumpToCalibrationPage                    0x08002b81   Thumb Code    96  app_sdwe_ctrl.o(i.jumpToCalibrationPage)
+    jumpToHomePage                           0x08002be9   Thumb Code    96  app_sdwe_ctrl.o(i.jumpToHomePage)
+    key_FilterGet                            0x08002c51   Thumb Code    30  app_key_ctrl.o(i.key_FilterGet)
+    key_MainFunction                         0x08002c75   Thumb Code   142  app_key_ctrl.o(i.key_MainFunction)
+    key_filter                               0x08002d15   Thumb Code   168  app_key_ctrl.o(i.key_filter)
+    key_init                                 0x08002dc1   Thumb Code    84  app_key_ctrl.o(i.key_init)
+    led_MainFunction                         0x08002e19   Thumb Code   144  app_led_ctrl.o(i.led_MainFunction)
+    led_init                                 0x08002eb5   Thumb Code    62  app_led_ctrl.o(i.led_init)
+    main                                     0x08002ef5   Thumb Code    48  app_main.o(i.main)
+    pointSampleTrigerDataSet                 0x08002f2d   Thumb Code    32  app_sdwe_ctrl.o(i.pointSampleTrigerDataSet)
+    pointTrigerDataSet                       0x08002f51   Thumb Code    62  app_sdwe_ctrl.o(i.pointTrigerDataSet)
+    pointTrigerDeal                          0x08002f95   Thumb Code   312  app_sdwe_ctrl.o(i.pointTrigerDeal)
+    pointWeightTrigerDataSet                 0x080030dd   Thumb Code    32  app_sdwe_ctrl.o(i.pointWeightTrigerDataSet)
+    readSysDataFromFlash                     0x08003101   Thumb Code   378  app_sdwe_ctrl.o(i.readSysDataFromFlash)
+    readSysDataFromFlash_3030                0x08003281   Thumb Code   210  app_sdwe_ctrl.o(i.readSysDataFromFlash_3030)
+    removeWeightTrigerDeal                   0x08003361   Thumb Code   268  app_sdwe_ctrl.o(i.removeWeightTrigerDeal)
+    resetCalibrationTrigerDeal               0x08003479   Thumb Code   310  app_sdwe_ctrl.o(i.resetCalibrationTrigerDeal)
+    sampleDataPush                           0x080035c1   Thumb Code    58  app_hx711_ctrl.o(i.sampleDataPush)
+    sdweAskRegData                           0x080035fd   Thumb Code    18  app_sdwe_ctrl.o(i.sdweAskRegData)
+    sdweAskVaribleData                       0x08003615   Thumb Code   844  app_sdwe_ctrl.o(i.sdweAskVaribleData)
+    sdweSetWeightBackColor                   0x08003969   Thumb Code    14  app_sdwe_ctrl.o(i.sdweSetWeightBackColor)
+    sdweWriteVarible                         0x0800397d   Thumb Code   226  app_sdwe_ctrl.o(i.sdweWriteVarible)
+    sdwe_MainFunction                        0x08003a69   Thumb Code    42  app_sdwe_ctrl.o(i.sdwe_MainFunction)
+    sdwe_RxFunction                          0x08003a99   Thumb Code   340  app_sdwe_ctrl.o(i.sdwe_RxFunction)
+    sdwe_TxFunction                          0x08003bf1   Thumb Code   256  app_sdwe_ctrl.o(i.sdwe_TxFunction)
+    sdwe_init                                0x08003cf9   Thumb Code   138  app_sdwe_ctrl.o(i.sdwe_init)
+    sendBalancingModelData                   0x08003d95   Thumb Code   316  app_sdwe_ctrl.o(i.sendBalancingModelData)
+    sendSysParaDataToDiwen                   0x08003ee5   Thumb Code   772  app_sdwe_ctrl.o(i.sendSysParaDataToDiwen)
+    setSampleWeightValue                     0x080041fd   Thumb Code    36  app_hx711_ctrl.o(i.setSampleWeightValue)
+    storeSysDataToFlash                      0x08004225   Thumb Code   342  app_sdwe_ctrl.o(i.storeSysDataToFlash)
+    storeSysDataToFlash_3030                 0x08004389   Thumb Code   336  app_sdwe_ctrl.o(i.storeSysDataToFlash_3030)
+    system_init                              0x080044ed   Thumb Code    32  app_main.o(i.system_init)
+    trigerCalcKB                             0x0800450d   Thumb Code   502  app_hx711_ctrl.o(i.trigerCalcKB)
+    useWeightUpdataOutColor                  0x0800470d   Thumb Code  1194  app_led_ctrl.o(i.useWeightUpdataOutColor)
+    wm_hal_gpio_init                         0x08004bbd   Thumb Code    86  hal_gpio.o(i.wm_hal_gpio_init)
+    _fp_init                                 0x08004c2d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x08004c35   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x08004c35   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    defaultChanelSamplePoint                 0x08004c38   Data          40  app_hx711_ctrl.o(.constdata)
+    g_CrcHTable                              0x08004c70   Data         256  app_crc.o(.constdata)
+    g_CrcLTable                              0x08004d70   Data         256  app_crc.o(.constdata)
+    DO_GPIO_CLK                              0x08004e70   Data          52  hal_gpio.o(.constdata)
+    DO_GPIO_PIN                              0x08004ea4   Data          26  hal_gpio.o(.constdata)
+    DI_GPIO_CLK                              0x08004ec0   Data          56  hal_gpio.o(.constdata)
+    DI_GPIO_PIN                              0x08004ef8   Data          28  hal_gpio.o(.constdata)
+    UART_PORT_CLK                            0x08004f14   Data           8  hal_uart.o(.constdata)
+    UART_PORT_IRQn                           0x08004f1c   Data           2  hal_uart.o(.constdata)
+    UART_PORT_GPIO_AF                        0x08004f1e   Data           2  hal_uart.o(.constdata)
+    UART_TX_GPIO_CLK                         0x08004f20   Data           8  hal_uart.o(.constdata)
+    UART_TX_GPIO_PIN                         0x08004f28   Data           4  hal_uart.o(.constdata)
+    UART_TX_PIN_SOURCE                       0x08004f2c   Data           4  hal_uart.o(.constdata)
+    UART_RX_GPIO_CLK                         0x08004f30   Data           8  hal_uart.o(.constdata)
+    UART_RX_GPIO_PIN                         0x08004f38   Data           4  hal_uart.o(.constdata)
+    UART_RX_PIN_SOURCE                       0x08004f3c   Data           4  hal_uart.o(.constdata)
+    UART_DEA_GPIO_CLK                        0x08004f40   Data           8  hal_uart.o(.constdata)
+    UART_DEA_GPIO_PIN                        0x08004f48   Data           4  hal_uart.o(.constdata)
+    UART_TX_DMA_CLK                          0x08004f4c   Data           8  hal_uart.o(.constdata)
+    UART_TX_DMA_IRQn                         0x08004f54   Data           2  hal_uart.o(.constdata)
+    UART_TX_DMA_IT_TCIF                      0x08004f58   Data           8  hal_uart.o(.constdata)
+    UART_RX_DMA_CLK                          0x08004f60   Data           8  hal_uart.o(.constdata)
+    g_UartBaudTab                            0x08004f68   Data          40  hal_uart.o(.constdata)
+    Region$$Table$$Base                      0x08004f90   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08004fb0   Number         0  anon$$obj.o(Region$$Table)
+    idAddr                                   0x20000000   Data          40  app_main.o(.data)
+    g_passWordId                             0x20000028   Data           4  app_main.o(.data)
+    g_passWordStore                          0x2000002c   Data           4  app_main.o(.data)
+    g_sysLocked                              0x20000030   Data           4  app_main.o(.data)
+    mainTaskStatus                           0x20000034   Data           1  app_main_task.o(.data)
+    gSystemPara                              0x2000003c   Data          52  app_main_task.o(.data)
+    g_led_ctrl_data                          0x20000072   Data           3  app_led_ctrl.o(.data)
+    led_test_flag                            0x20000075   Data           1  app_led_ctrl.o(.data)
+    g_sdwe                                   0x20000088   Data         604  app_sdwe_ctrl.o(.data)
+    DO_GPIO_PORT                             0x2000032c   Data          52  hal_gpio.o(.data)
+    DI_GPIO_PORT                             0x20000360   Data          56  hal_gpio.o(.data)
+    UART_PORT                                0x20000398   Data           8  hal_uart.o(.data)
+    UART_TX_GPIO_PORT                        0x200003a0   Data           8  hal_uart.o(.data)
+    UART_RX_GPIO_PORT                        0x200003a8   Data           8  hal_uart.o(.data)
+    UART_DEA_GPIO_PORT                       0x200003b0   Data           8  hal_uart.o(.data)
+    UART_TX_DMA                              0x200003b8   Data           8  hal_uart.o(.data)
+    UART_TX_DMA_CHANNEL                      0x200003c0   Data           8  hal_uart.o(.data)
+    UART_RX_DMA                              0x200003c8   Data           8  hal_uart.o(.data)
+    UART_RX_DMA_CHANNEL                      0x200003d0   Data           8  hal_uart.o(.data)
+    g_UartDevice                             0x200003d8   Data         112  hal_uart.o(.data)
+    l_RccWiteTimeOut                         0x20000460   Data           4  drv_rcc.o(.data)
+    STM32McuId                               0x20000464   Data          12  app_main.o(.bss)
+    HX711Chanel                              0x200004d0   Data        1368  app_hx711_ctrl.o(.bss)
+    flashStoreDataBuf_3030                   0x20000a28   Data          52  app_sdwe_ctrl.o(.bss)
+    flashStoreDataBuf                        0x20000a5c   Data        1060  app_sdwe_ctrl.o(.bss)
+    g_sdwe_dis_data                          0x20000ed0   Data          24  app_sdwe_ctrl.o(.bss)
+    SysKey                                   0x200011fc   Data          12  app_key_ctrl.o(.bss)
+    g_ClockFrequency                         0x20001208   Data          36  drv_rcc.o(.bss)
+    __libspace_start                         0x2000122c   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x2000128c   Data           0  libspace.o(.bss)
 
 
 
@@ -1307,237 +1427,252 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000046ac, Max: 0x00030000, ABSOLUTE, COMPRESSED[0x00004370])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005414, Max: 0x00030000, ABSOLUTE, COMPRESSED[0x00005078])
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000042e4, Max: 0x00030000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00004fb0, Max: 0x00030000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x00000188   Data   RO          619    RESET               startup_stm32f30x.o
-    0x08000188   0x00000008   Code   RO         2303  * !!!main             c_w.l(__main.o)
-    0x08000190   0x00000034   Code   RO         2462    !!!scatter          c_w.l(__scatter.o)
-    0x080001c4   0x0000005a   Code   RO         2460    !!dczerorl2         c_w.l(__dczerorl2.o)
+    0x08000000   0x00000188   Data   RO          722    RESET               startup_stm32f30x.o
+    0x08000188   0x00000008   Code   RO         2406  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         2565    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000005a   Code   RO         2563    !!dczerorl2         c_w.l(__dczerorl2.o)
     0x0800021e   0x00000002   PAD
-    0x08000220   0x0000001c   Code   RO         2464    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x0800023c   0x00000002   Code   RO         2330    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x0800023e   0x00000004   Code   RO         2336    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2339    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2342    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2344    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2346    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2349    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2351    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2353    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2355    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2357    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2359    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2361    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2363    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2365    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2367    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2369    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2373    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2375    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2377    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2379    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x08000242   0x00000002   Code   RO         2380    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x08000244   0x00000002   Code   RO         2400    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x08000246   0x00000000   Code   RO         2413    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2415    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2418    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2421    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2423    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2426    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x08000246   0x00000002   Code   RO         2427    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x08000248   0x00000000   Code   RO         2305    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x08000248   0x00000000   Code   RO         2307    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x08000248   0x00000006   Code   RO         2319    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0800024e   0x00000000   Code   RO         2309    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0800024e   0x00000004   Code   RO         2310    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x08000252   0x00000000   Code   RO         2312    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x08000252   0x00000008   Code   RO         2313    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0800025a   0x00000002   Code   RO         2334    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0800025c   0x00000000   Code   RO         2382    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0800025c   0x00000004   Code   RO         2383    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000260   0x00000006   Code   RO         2384    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000220   0x0000001c   Code   RO         2567    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x0800023c   0x00000002   Code   RO         2433    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x0800023e   0x00000004   Code   RO         2439    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2442    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2445    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2447    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2449    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2452    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2454    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2456    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2458    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2460    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2462    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2464    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2466    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2468    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2470    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2472    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2476    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2478    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2480    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2482    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x08000242   0x00000002   Code   RO         2483    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000244   0x00000002   Code   RO         2503    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000246   0x00000000   Code   RO         2516    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2518    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2521    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2524    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2526    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2529    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000246   0x00000002   Code   RO         2530    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x08000248   0x00000000   Code   RO         2408    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000248   0x00000000   Code   RO         2410    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000248   0x00000006   Code   RO         2422    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800024e   0x00000000   Code   RO         2412    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800024e   0x00000004   Code   RO         2413    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x08000252   0x00000000   Code   RO         2415    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x08000252   0x00000008   Code   RO         2416    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0800025a   0x00000002   Code   RO         2437    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0800025c   0x00000000   Code   RO         2485    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0800025c   0x00000004   Code   RO         2486    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000260   0x00000006   Code   RO         2487    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x08000266   0x00000002   PAD
-    0x08000268   0x00000048   Code   RO          620    .text               startup_stm32f30x.o
-    0x080002b0   0x0000004e   Code   RO         2299    .text               c_w.l(rt_memclr_w.o)
-    0x080002fe   0x00000006   Code   RO         2301    .text               c_w.l(heapauxi.o)
-    0x08000304   0x0000004a   Code   RO         2321    .text               c_w.l(sys_stackheap_outer.o)
-    0x0800034e   0x00000012   Code   RO         2323    .text               c_w.l(exit.o)
-    0x08000360   0x00000008   Code   RO         2331    .text               c_w.l(libspace.o)
-    0x08000368   0x0000000c   Code   RO         2392    .text               c_w.l(sys_exit.o)
-    0x08000374   0x00000002   Code   RO         2403    .text               c_w.l(use_no_semi.o)
-    0x08000376   0x00000000   Code   RO         2405    .text               c_w.l(indicate_semi.o)
+    0x08000268   0x00000048   Code   RO          723    .text               startup_stm32f30x.o
+    0x080002b0   0x0000004e   Code   RO         2402    .text               c_w.l(rt_memclr_w.o)
+    0x080002fe   0x00000006   Code   RO         2404    .text               c_w.l(heapauxi.o)
+    0x08000304   0x0000004a   Code   RO         2424    .text               c_w.l(sys_stackheap_outer.o)
+    0x0800034e   0x00000012   Code   RO         2426    .text               c_w.l(exit.o)
+    0x08000360   0x00000008   Code   RO         2434    .text               c_w.l(libspace.o)
+    0x08000368   0x0000000c   Code   RO         2495    .text               c_w.l(sys_exit.o)
+    0x08000374   0x00000002   Code   RO         2506    .text               c_w.l(use_no_semi.o)
+    0x08000376   0x00000000   Code   RO         2508    .text               c_w.l(indicate_semi.o)
     0x08000376   0x00000002   PAD
-    0x08000378   0x0000008c   Code   RO          137    i.BubbleSort        app_led_ctrl.o
-    0x08000404   0x0000003c   Code   RO          987    i.DMA1_Channel4_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08000440   0x0000003c   Code   RO          988    i.DMA1_Channel7_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x0800047c   0x00000058   Code   RO          138    i.LedCtrlSendPulse  app_led_ctrl.o
-    0x080004d4   0x00000088   Code   RO          139    i.LedDataSet        app_led_ctrl.o
-    0x0800055c   0x0000000a   Code   RO          141    i.Led_delay         app_led_ctrl.o
+    0x08000378   0x0000008c   Code   RO          166    i.BubbleSort        app_led_ctrl.o
+    0x08000404   0x0000003c   Code   RO         1090    i.DMA1_Channel4_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08000440   0x0000003c   Code   RO         1091    i.DMA1_Channel7_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x0800047c   0x00000058   Code   RO          167    i.LedCtrlSendPulse  app_led_ctrl.o
+    0x080004d4   0x00000088   Code   RO          168    i.LedDataSet        app_led_ctrl.o
+    0x0800055c   0x0000000a   Code   RO          170    i.Led_delay         app_led_ctrl.o
     0x08000566   0x00000002   PAD
-    0x08000568   0x00000014   Code   RO          902    i.TIM6_DAC_IRQHandler  firmware_wm_00_hal.lib(hal_timer.o)
-    0x0800057c   0x0000014c   Code   RO          989    i.USART1_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080006c8   0x000000f8   Code   RO          990    i.USART2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080007c0   0x00000054   Code   RO          119    i.app_main_task     app_main_task.o
-    0x08000814   0x00000002   Code   RO          336    i.app_uart_extern_msg_packet_process  app_sdwe_ctrl.o
-    0x08000816   0x00000002   PAD
-    0x08000818   0x00000048   Code   RO          602    i.cal_crc16         app_crc.o
-    0x08000860   0x00000228   Code   RO          337    i.chanelChangedTrigerDeal  app_sdwe_ctrl.o
-    0x08000a88   0x000000c0   Code   RO          338    i.clearLocalCalibrationKAndBAndSample  app_sdwe_ctrl.o
-    0x08000b48   0x00000080   Code   RO          339    i.clearLocalCalibrationRecordData  app_sdwe_ctrl.o
-    0x08000bc8   0x00000010   Code   RO         1115    i.drv_debug_apb1_stop  STM32F303DriverLib.lib(drv_dbgmcu.o)
-    0x08000bd8   0x0000004c   Code   RO          626    i.drv_delay_init    STM32F303DriverLib.lib(drv_delay.o)
-    0x08000c24   0x00000044   Code   RO          627    i.drv_delay_ms      STM32F303DriverLib.lib(drv_delay.o)
-    0x08000c68   0x00000044   Code   RO          628    i.drv_delay_us      STM32F303DriverLib.lib(drv_delay.o)
-    0x08000cac   0x0000000c   Code   RO         1150    i.drv_dma_set_mem_addr_length  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000cb8   0x00000028   Code   RO         1151    i.drv_dma_stream_clear_flag_status  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000ce0   0x0000001c   Code   RO         1152    i.drv_dma_stream_clear_it_pending_bit  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000cfc   0x00000104   Code   RO         1153    i.drv_dma_stream_deinit  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000e00   0x0000000a   Code   RO         1154    i.drv_dma_stream_disable  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000e0a   0x0000000c   Code   RO         1155    i.drv_dma_stream_enable  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000e16   0x00000002   PAD
-    0x08000e18   0x00000064   Code   RO         1158    i.drv_dma_stream_get_it_status  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000e7c   0x0000000e   Code   RO         1159    i.drv_dma_stream_get_left_length  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000e8a   0x0000006c   Code   RO         1160    i.drv_dma_stream_init  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000ef6   0x00000008   Code   RO         1162    i.drv_dma_stream_it_enable  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000efe   0x00000034   Code   RO         1163    i.drv_dma_stream_start_mem_to_periph  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000f32   0x00000034   Code   RO         1164    i.drv_dma_stream_start_periph_to_mem  STM32F303DriverLib.lib(drv_dma.o)
-    0x08000f66   0x00000002   PAD
-    0x08000f68   0x00000048   Code   RO          681    i.drv_flash_erase_sector  STM32F303DriverLib.lib(drv_flash.o)
-    0x08000fb0   0x0000002c   Code   RO          683    i.drv_flash_get_status  STM32F303DriverLib.lib(drv_flash.o)
-    0x08000fdc   0x00000014   Code   RO          684    i.drv_flash_lock    STM32F303DriverLib.lib(drv_flash.o)
-    0x08000ff0   0x00000020   Code   RO          686    i.drv_flash_read_words  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001010   0x00000024   Code   RO          687    i.drv_flash_unlock  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001034   0x00000028   Code   RO          688    i.drv_flash_wait_last_operation  STM32F303DriverLib.lib(drv_flash.o)
-    0x0800105c   0x00000080   Code   RO          692    i.drv_flash_write_words  STM32F303DriverLib.lib(drv_flash.o)
-    0x080010dc   0x00000042   Code   RO         1258    i.drv_gpio_alternate_function_connect  STM32F303DriverLib.lib(drv_gpio.o)
-    0x0800111e   0x000000dc   Code   RO         1259    i.drv_gpio_alternate_function_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x080011fa   0x00000060   Code   RO         1262    i.drv_gpio_input_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x0800125a   0x000000dc   Code   RO         1263    i.drv_gpio_output_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x08001336   0x00000008   Code   RO         1072    i.drv_gpio_set_pins_high  firmware_wm_00_hal.lib(hal_uart.o)
-    0x0800133e   0x00000016   Code   RO         1308    i.drv_nvic_enable   STM32F303DriverLib.lib(drv_nvic.o)
-    0x08001354   0x00000040   Code   RO         1309    i.drv_nvic_init     STM32F303DriverLib.lib(drv_nvic.o)
-    0x08001394   0x00000010   Code   RO         1343    i.drv_rcc_ahb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013a4   0x00000010   Code   RO         1347    i.drv_rcc_apb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013b4   0x00000010   Code   RO         1348    i.drv_rcc_apb1_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013c4   0x00000010   Code   RO         1349    i.drv_rcc_apb1_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013d4   0x00000010   Code   RO         1351    i.drv_rcc_apb2_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013e4   0x00000010   Code   RO         1352    i.drv_rcc_apb2_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080013f4   0x00000010   Code   RO         1353    i.drv_rcc_apb2_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08001404   0x00000104   Code   RO         1354    i.drv_rcc_get_clocks_freq  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08001508   0x000002e0   Code   RO         1355    i.drv_rcc_init      STM32F303DriverLib.lib(drv_rcc.o)
-    0x080017e8   0x00000080   Code   RO         1452    i.drv_timer_base_init  STM32F303DriverLib.lib(drv_timer.o)
-    0x08001868   0x00000008   Code   RO         1476    i.drv_timer_clear_it_pending_bit  STM32F303DriverLib.lib(drv_timer.o)
-    0x08001870   0x000000fc   Code   RO         1477    i.drv_timer_deinit  STM32F303DriverLib.lib(drv_timer.o)
-    0x0800196c   0x0000000c   Code   RO         1479    i.drv_timer_enable  STM32F303DriverLib.lib(drv_timer.o)
-    0x08001978   0x00000008   Code   RO         1507    i.drv_timer_it_enable  STM32F303DriverLib.lib(drv_timer.o)
-    0x08001980   0x00000004   Code   RO         2140    i.drv_uart_clear_flag_status  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001984   0x00000012   Code   RO         2141    i.drv_uart_clear_it_pending_bit  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001996   0x00000002   PAD
-    0x08001998   0x00000090   Code   RO         2142    i.drv_uart_deinit   STM32F303DriverLib.lib(drv_uart.o)
-    0x08001a28   0x0000000c   Code   RO         2145    i.drv_uart_dma_rx_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001a34   0x0000000c   Code   RO         2147    i.drv_uart_dma_tx_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001a40   0x00000010   Code   RO         2152    i.drv_uart_get_flag_status  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001a50   0x000000be   Code   RO         2154    i.drv_uart_init     STM32F303DriverLib.lib(drv_uart.o)
-    0x08001b0e   0x00000034   Code   RO         2155    i.drv_uart_it_disable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001b42   0x00000034   Code   RO         2156    i.drv_uart_it_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001b76   0x00000020   Code   RO         2157    i.drv_uart_put_bytes  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001b96   0x00000002   PAD
-    0x08001b98   0x0000007c   Code   RO         2161    i.drv_uart_set_baudrate  STM32F303DriverLib.lib(drv_uart.o)
-    0x08001c14   0x00000018   Code   RO          208    i.getChanelStruct   app_hx711_ctrl.o
-    0x08001c2c   0x00000018   Code   RO          772    i.hal_clock_init    firmware_wm_00_hal.lib(hal_clock.o)
-    0x08001c44   0x00000008   Code   RO          803    i.hal_delay_init    firmware_wm_00_hal.lib(hal_delay.o)
-    0x08001c4c   0x0000000c   Code   RO          547    i.hal_delay_ms      app_sdwe_ctrl.o
-    0x08001c58   0x0000000c   Code   RO          318    i.hal_delay_us      app_hx711_ctrl.o
-    0x08001c64   0x0000002c   Code   RO          825    i.hal_di_get        firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08001c90   0x00000020   Code   RO          826    i.hal_gpio_set_do_high  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08001cb0   0x00000020   Code   RO          827    i.hal_gpio_set_do_low  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08001cd0   0x0000004c   Code   RO          906    i.hal_timer_init    firmware_wm_00_hal.lib(hal_timer.o)
-    0x08001d1c   0x00000058   Code   RO          991    i.hal_uart_dma_rx_start  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08001d74   0x00000358   Code   RO          992    i.hal_uart_gpio_init  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080020cc   0x00000268   Code   RO          993    i.hal_uart_port_init  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002334   0x0000003c   Code   RO          994    i.hal_uart_rx_irq_disable  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002370   0x0000003c   Code   RO          995    i.hal_uart_rx_irq_enable  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080023ac   0x0000002c   Code   RO          996    i.hal_uart_set_braudrate  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080023d8   0x00000024   Code   RO         1066    i.hal_uart_set_rx_mode  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080023fc   0x00000002   Code   RO          997    i.hal_uart_set_timeout  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080023fe   0x00000002   PAD
-    0x08002400   0x00000020   Code   RO         1077    i.hal_uart_set_tx_mode  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002420   0x00000108   Code   RO          998    i.hal_uart_tx_bytes  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002528   0x000000d8   Code   RO          210    i.hx711_AllChanelSample  app_hx711_ctrl.o
-    0x08002600   0x00000028   Code   RO          211    i.hx711_DataSampleCtrl  app_hx711_ctrl.o
-    0x08002628   0x000000dc   Code   RO          212    i.hx711_MainFunction  app_hx711_ctrl.o
-    0x08002704   0x000000e4   Code   RO          215    i.hx711_SigChanelAvrgAndWeightCalc  app_hx711_ctrl.o
-    0x080027e8   0x0000001c   Code   RO          216    i.hx711_getAvgSample  app_hx711_ctrl.o
-    0x08002804   0x00000038   Code   RO          217    i.hx711_getWeight   app_hx711_ctrl.o
-    0x0800283c   0x0000012c   Code   RO          218    i.hx711_init        app_hx711_ctrl.o
-    0x08002968   0x00000030   Code   RO          219    i.hx711_setAllRemoveWeight  app_hx711_ctrl.o
-    0x08002998   0x00000024   Code   RO          568    i.key_FilterGet     app_key_ctrl.o
-    0x080029bc   0x0000003c   Code   RO          569    i.key_MainFunction  app_key_ctrl.o
-    0x080029f8   0x000000ac   Code   RO          570    i.key_filter        app_key_ctrl.o
-    0x08002aa4   0x00000058   Code   RO          571    i.key_init          app_key_ctrl.o
-    0x08002afc   0x00000090   Code   RO          142    i.led_MainFunction  app_led_ctrl.o
-    0x08002b8c   0x0000003e   Code   RO          143    i.led_init          app_led_ctrl.o
-    0x08002bca   0x0000001c   Code   RO            1    i.main              app_main.o
-    0x08002be6   0x00000002   PAD
-    0x08002be8   0x00000024   Code   RO          344    i.pointSampleTrigerDataSet  app_sdwe_ctrl.o
-    0x08002c0c   0x00000044   Code   RO          345    i.pointTrigerDataSet  app_sdwe_ctrl.o
-    0x08002c50   0x00000148   Code   RO          346    i.pointTrigerDeal   app_sdwe_ctrl.o
-    0x08002d98   0x00000024   Code   RO          347    i.pointWeightTrigerDataSet  app_sdwe_ctrl.o
-    0x08002dbc   0x00000164   Code   RO          348    i.readSysDataFromFlash  app_sdwe_ctrl.o
-    0x08002f20   0x00000148   Code   RO          350    i.resetCalibrationTrigerDeal  app_sdwe_ctrl.o
-    0x08003068   0x0000003a   Code   RO          221    i.sampleDataPush    app_hx711_ctrl.o
-    0x080030a2   0x00000002   PAD
-    0x080030a4   0x00000018   Code   RO          351    i.sdweAskRegData    app_sdwe_ctrl.o
-    0x080030bc   0x00000204   Code   RO          352    i.sdweAskVaribleData  app_sdwe_ctrl.o
-    0x080032c0   0x00000014   Code   RO          357    i.sdweSetWeightBackColor  app_sdwe_ctrl.o
-    0x080032d4   0x000000ec   Code   RO          359    i.sdweWriteVarible  app_sdwe_ctrl.o
-    0x080033c0   0x00000020   Code   RO          361    i.sdwe_MainFunction  app_sdwe_ctrl.o
-    0x080033e0   0x0000014c   Code   RO          363    i.sdwe_RxFunction   app_sdwe_ctrl.o
-    0x0800352c   0x0000005c   Code   RO          364    i.sdwe_TxFunction   app_sdwe_ctrl.o
-    0x08003588   0x00000094   Code   RO          365    i.sdwe_init         app_sdwe_ctrl.o
-    0x0800361c   0x000000c8   Code   RO          366    i.sendBalancingModelData  app_sdwe_ctrl.o
-    0x080036e4   0x00000024   Code   RO          223    i.setSampleWeightValue  app_hx711_ctrl.o
-    0x08003708   0x00000164   Code   RO          368    i.storeSysDataToFlash  app_sdwe_ctrl.o
-    0x0800386c   0x00000020   Code   RO            2    i.system_init       app_main.o
-    0x0800388c   0x000001fc   Code   RO          224    i.trigerCalcKB      app_hx711_ctrl.o
-    0x08003a88   0x00000478   Code   RO          144    i.useWeightUpdataOutColor  app_led_ctrl.o
-    0x08003f00   0x00000070   Code   RO          828    i.wm_hal_gpio_init  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08003f70   0x0000000a   Code   RO         2390    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x08003f7a   0x00000002   PAD
-    0x08003f7c   0x00000028   Data   RO          226    .constdata          app_hx711_ctrl.o
-    0x08003fa4   0x00000200   Data   RO          603    .constdata          app_crc.o
-    0x080041a4   0x000000a4   Data   RO          829    .constdata          firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08004248   0x0000007c   Data   RO          999    .constdata          firmware_wm_00_hal.lib(hal_uart.o)
-    0x080042c4   0x00000020   Data   RO         2458    Region$$Table       anon$$obj.o
+    0x08000568   0x0000004c   Code   RO            1    i.STM32CheckPassWord  app_main.o
+    0x080005b4   0x00000028   Code   RO            2    i.STM32MCUIDGet     app_main.o
+    0x080005dc   0x00000014   Code   RO         1005    i.TIM6_DAC_IRQHandler  firmware_wm_00_hal.lib(hal_timer.o)
+    0x080005f0   0x0000014c   Code   RO         1092    i.USART1_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x0800073c   0x000000f8   Code   RO         1093    i.USART2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08000834   0x00000054   Code   RO          140    i.app_main_task     app_main_task.o
+    0x08000888   0x00000002   Code   RO          375    i.app_uart_extern_msg_packet_process  app_sdwe_ctrl.o
+    0x0800088a   0x00000002   PAD
+    0x0800088c   0x00000048   Code   RO          705    i.cal_crc16         app_crc.o
+    0x080008d4   0x00000228   Code   RO          376    i.chanelChangedTrigerDeal  app_sdwe_ctrl.o
+    0x08000afc   0x000000c0   Code   RO          377    i.clearLocalCalibrationKAndBAndSample  app_sdwe_ctrl.o
+    0x08000bbc   0x00000080   Code   RO          378    i.clearLocalCalibrationRecordData  app_sdwe_ctrl.o
+    0x08000c3c   0x00000020   Code   RO          381    i.color_clearAllColor  app_sdwe_ctrl.o
+    0x08000c5c   0x00000010   Code   RO         1218    i.drv_debug_apb1_stop  STM32F303DriverLib.lib(drv_dbgmcu.o)
+    0x08000c6c   0x0000004c   Code   RO          729    i.drv_delay_init    STM32F303DriverLib.lib(drv_delay.o)
+    0x08000cb8   0x00000044   Code   RO          730    i.drv_delay_ms      STM32F303DriverLib.lib(drv_delay.o)
+    0x08000cfc   0x00000044   Code   RO          731    i.drv_delay_us      STM32F303DriverLib.lib(drv_delay.o)
+    0x08000d40   0x0000000c   Code   RO         1253    i.drv_dma_set_mem_addr_length  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000d4c   0x00000028   Code   RO         1254    i.drv_dma_stream_clear_flag_status  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000d74   0x0000001c   Code   RO         1255    i.drv_dma_stream_clear_it_pending_bit  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000d90   0x00000104   Code   RO         1256    i.drv_dma_stream_deinit  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000e94   0x0000000a   Code   RO         1257    i.drv_dma_stream_disable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000e9e   0x0000000c   Code   RO         1258    i.drv_dma_stream_enable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000eaa   0x00000002   PAD
+    0x08000eac   0x00000064   Code   RO         1261    i.drv_dma_stream_get_it_status  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000f10   0x0000000e   Code   RO         1262    i.drv_dma_stream_get_left_length  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000f1e   0x0000006c   Code   RO         1263    i.drv_dma_stream_init  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000f8a   0x00000008   Code   RO         1265    i.drv_dma_stream_it_enable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000f92   0x00000034   Code   RO         1266    i.drv_dma_stream_start_mem_to_periph  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000fc6   0x00000034   Code   RO         1267    i.drv_dma_stream_start_periph_to_mem  STM32F303DriverLib.lib(drv_dma.o)
+    0x08000ffa   0x00000002   PAD
+    0x08000ffc   0x00000048   Code   RO          784    i.drv_flash_erase_sector  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001044   0x0000002c   Code   RO          786    i.drv_flash_get_status  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001070   0x00000014   Code   RO          787    i.drv_flash_lock    STM32F303DriverLib.lib(drv_flash.o)
+    0x08001084   0x00000020   Code   RO          789    i.drv_flash_read_words  STM32F303DriverLib.lib(drv_flash.o)
+    0x080010a4   0x00000024   Code   RO          790    i.drv_flash_unlock  STM32F303DriverLib.lib(drv_flash.o)
+    0x080010c8   0x00000028   Code   RO          791    i.drv_flash_wait_last_operation  STM32F303DriverLib.lib(drv_flash.o)
+    0x080010f0   0x00000080   Code   RO          795    i.drv_flash_write_words  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001170   0x00000042   Code   RO         1361    i.drv_gpio_alternate_function_connect  STM32F303DriverLib.lib(drv_gpio.o)
+    0x080011b2   0x000000dc   Code   RO         1362    i.drv_gpio_alternate_function_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x0800128e   0x00000060   Code   RO         1365    i.drv_gpio_input_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x080012ee   0x000000dc   Code   RO         1366    i.drv_gpio_output_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x080013ca   0x00000008   Code   RO         1175    i.drv_gpio_set_pins_high  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080013d2   0x00000016   Code   RO         1411    i.drv_nvic_enable   STM32F303DriverLib.lib(drv_nvic.o)
+    0x080013e8   0x00000040   Code   RO         1412    i.drv_nvic_init     STM32F303DriverLib.lib(drv_nvic.o)
+    0x08001428   0x00000010   Code   RO         1446    i.drv_rcc_ahb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001438   0x00000010   Code   RO         1450    i.drv_rcc_apb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001448   0x00000010   Code   RO         1451    i.drv_rcc_apb1_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001458   0x00000010   Code   RO         1452    i.drv_rcc_apb1_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001468   0x00000010   Code   RO         1454    i.drv_rcc_apb2_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001478   0x00000010   Code   RO         1455    i.drv_rcc_apb2_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001488   0x00000010   Code   RO         1456    i.drv_rcc_apb2_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08001498   0x00000104   Code   RO         1457    i.drv_rcc_get_clocks_freq  STM32F303DriverLib.lib(drv_rcc.o)
+    0x0800159c   0x000002e0   Code   RO         1458    i.drv_rcc_init      STM32F303DriverLib.lib(drv_rcc.o)
+    0x0800187c   0x00000080   Code   RO         1555    i.drv_timer_base_init  STM32F303DriverLib.lib(drv_timer.o)
+    0x080018fc   0x00000008   Code   RO         1579    i.drv_timer_clear_it_pending_bit  STM32F303DriverLib.lib(drv_timer.o)
+    0x08001904   0x000000fc   Code   RO         1580    i.drv_timer_deinit  STM32F303DriverLib.lib(drv_timer.o)
+    0x08001a00   0x0000000c   Code   RO         1582    i.drv_timer_enable  STM32F303DriverLib.lib(drv_timer.o)
+    0x08001a0c   0x00000008   Code   RO         1610    i.drv_timer_it_enable  STM32F303DriverLib.lib(drv_timer.o)
+    0x08001a14   0x00000004   Code   RO         2243    i.drv_uart_clear_flag_status  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001a18   0x00000012   Code   RO         2244    i.drv_uart_clear_it_pending_bit  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001a2a   0x00000002   PAD
+    0x08001a2c   0x00000090   Code   RO         2245    i.drv_uart_deinit   STM32F303DriverLib.lib(drv_uart.o)
+    0x08001abc   0x0000000c   Code   RO         2248    i.drv_uart_dma_rx_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001ac8   0x0000000c   Code   RO         2250    i.drv_uart_dma_tx_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001ad4   0x00000010   Code   RO         2255    i.drv_uart_get_flag_status  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001ae4   0x000000be   Code   RO         2257    i.drv_uart_init     STM32F303DriverLib.lib(drv_uart.o)
+    0x08001ba2   0x00000034   Code   RO         2258    i.drv_uart_it_disable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001bd6   0x00000034   Code   RO         2259    i.drv_uart_it_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001c0a   0x00000020   Code   RO         2260    i.drv_uart_put_bytes  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001c2a   0x00000002   PAD
+    0x08001c2c   0x0000007c   Code   RO         2264    i.drv_uart_set_baudrate  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001ca8   0x0000001c   Code   RO          247    i.getChanelStruct   app_hx711_ctrl.o
+    0x08001cc4   0x00000018   Code   RO          875    i.hal_clock_init    firmware_wm_00_hal.lib(hal_clock.o)
+    0x08001cdc   0x00000008   Code   RO          906    i.hal_delay_init    firmware_wm_00_hal.lib(hal_delay.o)
+    0x08001ce4   0x0000000c   Code   RO          647    i.hal_delay_ms      app_sdwe_ctrl.o
+    0x08001cf0   0x0000000c   Code   RO          357    i.hal_delay_us      app_hx711_ctrl.o
+    0x08001cfc   0x0000002c   Code   RO          928    i.hal_di_get        firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08001d28   0x00000020   Code   RO          929    i.hal_gpio_set_do_high  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08001d48   0x00000020   Code   RO          930    i.hal_gpio_set_do_low  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08001d68   0x0000004c   Code   RO         1009    i.hal_timer_init    firmware_wm_00_hal.lib(hal_timer.o)
+    0x08001db4   0x00000058   Code   RO         1094    i.hal_uart_dma_rx_start  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08001e0c   0x00000358   Code   RO         1095    i.hal_uart_gpio_init  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002164   0x00000268   Code   RO         1096    i.hal_uart_port_init  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080023cc   0x0000003c   Code   RO         1097    i.hal_uart_rx_irq_disable  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002408   0x0000003c   Code   RO         1098    i.hal_uart_rx_irq_enable  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002444   0x0000002c   Code   RO         1099    i.hal_uart_set_braudrate  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002470   0x00000024   Code   RO         1169    i.hal_uart_set_rx_mode  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002494   0x00000002   Code   RO         1100    i.hal_uart_set_timeout  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002496   0x00000002   PAD
+    0x08002498   0x00000020   Code   RO         1180    i.hal_uart_set_tx_mode  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080024b8   0x00000108   Code   RO         1101    i.hal_uart_tx_bytes  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080025c0   0x000000dc   Code   RO          249    i.hx711_AllChanelSample  app_hx711_ctrl.o
+    0x0800269c   0x0000002c   Code   RO          250    i.hx711_DataSampleCtrl  app_hx711_ctrl.o
+    0x080026c8   0x000000dc   Code   RO          251    i.hx711_MainFunction  app_hx711_ctrl.o
+    0x080027a4   0x000000e0   Code   RO          254    i.hx711_SigChanelAvrgAndWeightCalc  app_hx711_ctrl.o
+    0x08002884   0x00000020   Code   RO          255    i.hx711_getAvgSample  app_hx711_ctrl.o
+    0x080028a4   0x00000068   Code   RO          256    i.hx711_getWeight   app_hx711_ctrl.o
+    0x0800290c   0x00000168   Code   RO          257    i.hx711_init        app_hx711_ctrl.o
+    0x08002a74   0x0000003c   Code   RO          258    i.hx711_setAllRemoveWeight  app_hx711_ctrl.o
+    0x08002ab0   0x00000068   Code   RO          384    i.jumpToActivePage  app_sdwe_ctrl.o
+    0x08002b18   0x00000068   Code   RO          385    i.jumpToBanlingPage  app_sdwe_ctrl.o
+    0x08002b80   0x00000068   Code   RO          386    i.jumpToCalibrationPage  app_sdwe_ctrl.o
+    0x08002be8   0x00000068   Code   RO          387    i.jumpToHomePage    app_sdwe_ctrl.o
+    0x08002c50   0x00000024   Code   RO          671    i.key_FilterGet     app_key_ctrl.o
+    0x08002c74   0x000000a0   Code   RO          672    i.key_MainFunction  app_key_ctrl.o
+    0x08002d14   0x000000ac   Code   RO          673    i.key_filter        app_key_ctrl.o
+    0x08002dc0   0x00000058   Code   RO          674    i.key_init          app_key_ctrl.o
+    0x08002e18   0x0000009c   Code   RO          171    i.led_MainFunction  app_led_ctrl.o
+    0x08002eb4   0x0000003e   Code   RO          172    i.led_init          app_led_ctrl.o
+    0x08002ef2   0x00000002   PAD
+    0x08002ef4   0x00000038   Code   RO            3    i.main              app_main.o
+    0x08002f2c   0x00000024   Code   RO          388    i.pointSampleTrigerDataSet  app_sdwe_ctrl.o
+    0x08002f50   0x00000044   Code   RO          389    i.pointTrigerDataSet  app_sdwe_ctrl.o
+    0x08002f94   0x00000148   Code   RO          390    i.pointTrigerDeal   app_sdwe_ctrl.o
+    0x080030dc   0x00000024   Code   RO          391    i.pointWeightTrigerDataSet  app_sdwe_ctrl.o
+    0x08003100   0x00000180   Code   RO          392    i.readSysDataFromFlash  app_sdwe_ctrl.o
+    0x08003280   0x000000e0   Code   RO          393    i.readSysDataFromFlash_3030  app_sdwe_ctrl.o
+    0x08003360   0x00000118   Code   RO          395    i.removeWeightTrigerDeal  app_sdwe_ctrl.o
+    0x08003478   0x00000148   Code   RO          396    i.resetCalibrationTrigerDeal  app_sdwe_ctrl.o
+    0x080035c0   0x0000003a   Code   RO          260    i.sampleDataPush    app_hx711_ctrl.o
+    0x080035fa   0x00000002   PAD
+    0x080035fc   0x00000018   Code   RO          397    i.sdweAskRegData    app_sdwe_ctrl.o
+    0x08003614   0x00000354   Code   RO          398    i.sdweAskVaribleData  app_sdwe_ctrl.o
+    0x08003968   0x00000014   Code   RO          403    i.sdweSetWeightBackColor  app_sdwe_ctrl.o
+    0x0800397c   0x000000ec   Code   RO          405    i.sdweWriteVarible  app_sdwe_ctrl.o
+    0x08003a68   0x00000030   Code   RO          407    i.sdwe_MainFunction  app_sdwe_ctrl.o
+    0x08003a98   0x00000158   Code   RO          409    i.sdwe_RxFunction   app_sdwe_ctrl.o
+    0x08003bf0   0x00000108   Code   RO          410    i.sdwe_TxFunction   app_sdwe_ctrl.o
+    0x08003cf8   0x0000009c   Code   RO          411    i.sdwe_init         app_sdwe_ctrl.o
+    0x08003d94   0x00000150   Code   RO          412    i.sendBalancingModelData  app_sdwe_ctrl.o
+    0x08003ee4   0x00000318   Code   RO          413    i.sendSysParaDataToDiwen  app_sdwe_ctrl.o
+    0x080041fc   0x00000028   Code   RO          262    i.setSampleWeightValue  app_hx711_ctrl.o
+    0x08004224   0x00000164   Code   RO          415    i.storeSysDataToFlash  app_sdwe_ctrl.o
+    0x08004388   0x00000164   Code   RO          416    i.storeSysDataToFlash_3030  app_sdwe_ctrl.o
+    0x080044ec   0x00000020   Code   RO            4    i.system_init       app_main.o
+    0x0800450c   0x00000200   Code   RO          263    i.trigerCalcKB      app_hx711_ctrl.o
+    0x0800470c   0x000004b0   Code   RO          173    i.useWeightUpdataOutColor  app_led_ctrl.o
+    0x08004bbc   0x00000070   Code   RO          931    i.wm_hal_gpio_init  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08004c2c   0x0000000a   Code   RO         2493    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x08004c36   0x00000002   PAD
+    0x08004c38   0x00000028   Data   RO          265    .constdata          app_hx711_ctrl.o
+    0x08004c60   0x00000010   Data   RO          420    .constdata          app_sdwe_ctrl.o
+    0x08004c70   0x00000200   Data   RO          706    .constdata          app_crc.o
+    0x08004e70   0x000000a4   Data   RO          932    .constdata          firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08004f14   0x0000007c   Data   RO         1102    .constdata          firmware_wm_00_hal.lib(hal_uart.o)
+    0x08004f90   0x00000020   Data   RO         2561    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000021a8, Max: 0x0000c000, ABSOLUTE, COMPRESSED[0x0000008c])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00002290, Max: 0x0000c000, ABSOLUTE, COMPRESSED[0x000000c8])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000009   Data   RW          120    .data               app_main_task.o
-    0x20000009   0x00000001   PAD
-    0x2000000a   0x00000010   Data   RW          147    .data               app_led_ctrl.o
-    0x2000001a   0x00000002   Data   RW          227    .data               app_hx711_ctrl.o
-    0x2000001c   0x0000026e   Data   RW          371    .data               app_sdwe_ctrl.o
-    0x2000028a   0x00000001   Data   RW          573    .data               app_key_ctrl.o
-    0x2000028b   0x00000001   PAD
-    0x2000028c   0x00000004   Data   RW          629    .data               STM32F303DriverLib.lib(drv_delay.o)
-    0x20000290   0x0000006c   Data   RW          830    .data               firmware_wm_00_hal.lib(hal_gpio.o)
-    0x200002fc   0x000000b0   Data   RW         1000    .data               firmware_wm_00_hal.lib(hal_uart.o)
-    0x200003ac   0x0000001c   Data   RW         1357    .data               STM32F303DriverLib.lib(drv_rcc.o)
-    0x200003c8   0x0000000c   Zero   RW          146    .bss                app_led_ctrl.o
-    0x200003d4   0x000005d0   Zero   RW          225    .bss                app_hx711_ctrl.o
-    0x200009a4   0x00000774   Zero   RW          370    .bss                app_sdwe_ctrl.o
-    0x20001118   0x0000000c   Zero   RW          572    .bss                app_key_ctrl.o
-    0x20001124   0x00000024   Zero   RW         1356    .bss                STM32F303DriverLib.lib(drv_rcc.o)
-    0x20001148   0x00000060   Zero   RW         2332    .bss                c_w.l(libspace.o)
-    0x200011a8   0x00000800   Zero   RW          618    HEAP                startup_stm32f30x.o
-    0x200019a8   0x00000800   Zero   RW          617    STACK               startup_stm32f30x.o
+    0x20000000   0x00000034   Data   RW            6    .data               app_main.o
+    0x20000034   0x0000003e   Data   RW          143    .data               app_main_task.o
+    0x20000072   0x00000014   Data   RW          177    .data               app_led_ctrl.o
+    0x20000086   0x00000002   Data   RW          266    .data               app_hx711_ctrl.o
+    0x20000088   0x0000029a   Data   RW          421    .data               app_sdwe_ctrl.o
+    0x20000322   0x00000003   Data   RW          676    .data               app_key_ctrl.o
+    0x20000325   0x00000001   PAD
+    0x20000326   0x00000004   Data   RW          732    .data               STM32F303DriverLib.lib(drv_delay.o)
+    0x2000032a   0x00000002   PAD
+    0x2000032c   0x0000006c   Data   RW          933    .data               firmware_wm_00_hal.lib(hal_gpio.o)
+    0x20000398   0x000000b0   Data   RW         1103    .data               firmware_wm_00_hal.lib(hal_uart.o)
+    0x20000448   0x0000001c   Data   RW         1460    .data               STM32F303DriverLib.lib(drv_rcc.o)
+    0x20000464   0x0000000c   Zero   RW            5    .bss                app_main.o
+    0x20000470   0x00000060   Zero   RW          176    .bss                app_led_ctrl.o
+    0x200004d0   0x00000558   Zero   RW          264    .bss                app_hx711_ctrl.o
+    0x20000a28   0x000007d4   Zero   RW          419    .bss                app_sdwe_ctrl.o
+    0x200011fc   0x0000000c   Zero   RW          675    .bss                app_key_ctrl.o
+    0x20001208   0x00000024   Zero   RW         1459    .bss                STM32F303DriverLib.lib(drv_rcc.o)
+    0x2000122c   0x00000060   Zero   RW         2435    .bss                c_w.l(libspace.o)
+    0x2000128c   0x00000004   PAD
+    0x20001290   0x00000800   Zero   RW          721    HEAP                startup_stm32f30x.o
+    0x20001a90   0x00000800   Zero   RW          720    STACK               startup_stm32f30x.o
 
 
 ==============================================================================
@@ -1548,18 +1683,18 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
         72         10        512          0          0       1298   app_crc.o
-      1774         86         40          2       1488      11785   app_hx711_ctrl.o
-       356         18          0          1         12       2856   app_key_ctrl.o
-      1724         24          0         16         12       9901   app_led_ctrl.o
-        60          0          0          0          0      30939   app_main.o
-        84         10          0          9          0       1409   app_main_task.o
-      3994        176          0        622       1908      19590   app_sdwe_ctrl.o
+      1914         90         40          2       1368      11877   app_hx711_ctrl.o
+       456         32          0          3         12       3012   app_key_ctrl.o
+      1792         38          0         20         96      11912   app_led_ctrl.o
+       204         32          0         52         12      28973   app_main.o
+        84         10          0         62          0       2715   app_main_task.o
+      6802        296         16        666       2004      32964   app_sdwe_ctrl.o
         72         28        392          0       4096        900   startup_stm32f30x.o
 
     ----------------------------------------------------------------------
-      8144        352        976        652       7516      78678   Object Totals
+     11404        536        992        806       7588      93651   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         8          0          0          2          0          0   (incl. Padding)
+         8          0          0          1          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1603,8 +1738,8 @@ Image component sizes
         10          0          0          0          0        116   fpinit.o
 
     ----------------------------------------------------------------------
-      7716        658        288        316        132     136916   Library Totals
-        18          0          0          0          0          0   (incl. Padding)
+      7716        658        288        318        136     136916   Library Totals
+        18          0          0          2          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1616,7 +1751,7 @@ Image component sizes
         10          0          0          0          0        116   fz_wm.l
 
     ----------------------------------------------------------------------
-      7716        658        288        316        132     136916   Library Totals
+      7716        658        288        318        136     136916   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1625,15 +1760,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     15860       1010       1264        968       7648     203786   Grand Totals
-     15860       1010       1264        140       7648     203786   ELF Image Totals (compressed)
-     15860       1010       1264        140          0          0   ROM Totals
+     19120       1194       1280       1124       7724     217559   Grand Totals
+     19120       1194       1280        200       7724     217559   ELF Image Totals (compressed)
+     19120       1194       1280        200          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                17124 (  16.72kB)
-    Total RW  Size (RW Data + ZI Data)              8616 (   8.41kB)
-    Total ROM Size (Code + RO Data + RW Data)      17264 (  16.86kB)
+    Total RO  Size (Code + RO Data)                20400 (  19.92kB)
+    Total RW  Size (RW Data + ZI Data)              8848 (   8.64kB)
+    Total ROM Size (Code + RO Data + RW Data)      20600 (  20.12kB)
 
 ==============================================================================
 

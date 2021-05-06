@@ -14,6 +14,7 @@
  ******************************************************************************/
 SdweType g_sdwe = SdweDefault;
 //store flash data : 8 * (sample value , weight value , k , b , remove value ) , last one is crc
+unionFloatInt32 flashStoreDataBuf_3030[FLASH_SYS_PARA_STORE_MAX_LEN]={0};
 unionFloatInt32 flashStoreDataBuf[FLASH_STORE_MAX_LEN]={0};
 //sdwe 10 point triger color data:arr0 is triger flag ,arr1 is color ,arr2 is sample data
 static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
@@ -53,8 +54,11 @@ void sdwe_init(void)
 	g_sdwe.sdweSetData = 0;/**< 数据 */
 
 	g_sdwe.sdweColorClen=FALSE;/**< 通道切换SDWE颜色清除 */
-	g_sdwe.sdweCalChanel=0;/**< 通道 */
+	g_sdwe.sdweCalChanel=88;/**< 通道 */
 	g_sdwe.sdweCalPoint=0;/**< 校准点 */
+
+
+	g_sdwe.sdweResetTrigerValid = FALSE;
 	//
 	for(i=0;i<CHANEL_POINT_NUM;i++)
 	{
@@ -528,7 +532,7 @@ void readSysDataFromFlash(void)
 				for(;start_i<end_i;start_i++)
 				{
 					*pInt32++ = readflashDataBuf[start_i].i_value;
-					pointSampleTrigerDataSet(chanel_i,(point_i++),readflashDataBuf[start_i].i_value);
+					pointSampleTrigerDataSet(chanel_i,(point_i++),(readflashDataBuf[start_i].i_value/512));
 				}
 				//==point weight value
 				point_i = 0;
@@ -575,6 +579,143 @@ void readSysDataFromFlash(void)
 			}
 		}
 }
+
+
+//=======================v3.0
+void readSysDataFromFlash_3030(void)
+{
+	ChanelType *pChanel = 0;	
+	unionFloatInt32 readflashDataBuf[FLASH_SYS_PARA_STORE_MAX_LEN]={0};
+	INT32 *pInt32 = 0;
+	float *pFloat = 0;
+	UINT32 crc = 0 ;
+	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
+	UINT8 point_i = 0 ;
+	//read data from flash
+	drv_flash_read_words( FLASH_SYS_PARA_STORE_ADDRESS_START, (UINT32 *)(&readflashDataBuf[0].i_value), FLASH_SYS_PARA_STORE_MAX_LEN);
+
+	//crc
+	crc = readflashDataBuf[FLASH_SYS_PARA_STORE_MAX_LEN-1].i_value;
+	if(crc == cal_crc16(((UINT8 *)&readflashDataBuf[0].u_value),(4*(FLASH_SYS_PARA_STORE_MAX_LEN-1)))) 
+	{
+		start_i = 0 ;
+		g_passWordStore = readflashDataBuf[start_i++].i_value;/**< 密码 */
+		gSystemPara.uint = readflashDataBuf[start_i++].i_value;/**< 单位 */
+		gSystemPara.minWeight = readflashDataBuf[start_i++].i_value;/**< 最小量程 */
+		gSystemPara.maxWeight = readflashDataBuf[start_i++].i_value;/**< 最大量程 */
+		gSystemPara.errRange = readflashDataBuf[start_i++].f_value;/**< 误差范围 */
+		gSystemPara.isCascade = readflashDataBuf[start_i++].i_value;/**< 是否级联 */
+		gSystemPara.isLedIndicate = readflashDataBuf[start_i++].i_value;/**< 是否LED指示 */
+		end_i = start_i+SYS_COLOR_GROUP_NUM;
+		for(point_i=0;start_i<end_i;start_i++)
+		{
+			gSystemPara.userColorSet[point_i++] = readflashDataBuf[start_i].i_value;/**< 配平色1~4 */
+		}
+		gSystemPara.zeroRange = readflashDataBuf[start_i++].f_value;/**< 零点范围 */
+	}
+}
+
+//==store set data to flash 3030
+void storeSysDataToFlash_3030()
+{
+	static UINT16 storeTick = 0 ; 
+	ChanelType *pChanel = 0;	
+	unionFloatInt32 *pWordInt32Float=&flashStoreDataBuf_3030[0];
+	UINT8 *pChar = 0 ;
+	INT32 *pInt32 = 0 ;
+	float *pFloat = 0;
+	UINT32 crc = 0 ;
+	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
+
+	//0
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(g_passWordStore);/**< 密码 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//1
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.uint);/**< 单位 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//2
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.minWeight);/**< 最小量程 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//3
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.maxWeight);/**< 最大量程 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//4
+	start_i = end_i ;
+	end_i = start_i+1;
+	pFloat = (float *)&(gSystemPara.errRange);/**< 误差范围 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].f_value = *pFloat++;
+	}
+	//5
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.isCascade);/**< 是否级联 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//6
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.isLedIndicate);/**< 是否LED指示 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//7~10
+	start_i = end_i ;
+	end_i = start_i+SYS_COLOR_GROUP_NUM;
+	pInt32 = (INT32 *)&(gSystemPara.userColorSet[0]);/**< 配平色1~4 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//11
+	start_i = end_i ;
+	end_i = start_i+1;
+	pFloat = (float *)&(gSystemPara.zeroRange);/**< 零点范围 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].f_value = *pFloat++;
+	}
+
+	//
+	pChar = (UINT8 *)(&pWordInt32Float[0].u_value[0]);
+	crc = cal_crc16(pChar,(4*start_i));
+	pWordInt32Float[start_i].i_value = crc;
+	start_i++;
+	//write flash
+	if(start_i <= FLASH_SYS_PARA_STORE_MAX_LEN)
+	{	
+		storeTick++;
+		drv_flash_unlock();
+		drv_flash_erase_sector(FLASH_SYS_PARA_STORE_ADDRESS_START);
+		drv_flash_write_words( FLASH_SYS_PARA_STORE_ADDRESS_START, (UINT32 *)(&pWordInt32Float[0].i_value), (start_i) );
+		drv_flash_lock();
+	}
+}
+
 
 //=======================sys parameter read :unit min max....
 #ifdef FLASH_SYS_PARA_STORE_MAX_LEN
@@ -669,6 +810,14 @@ void sdweSetWeightBackColor(UINT8 seq,UINT8 color)
 		g_sdwe_dis_data[HX711_CHANEL_NUM+seq] = color;
 	}
 }
+void color_clearAllColor()
+{
+	UINT8 seq = HX711Chanel_1;
+	for(seq=HX711Chanel_1;seq<HX711_CHANEL_NUM;seq++)
+	{
+		g_sdwe_dis_data[HX711_CHANEL_NUM+seq] = LED_COLOR_NONE;
+	}
+}
 //==recv sdwe register ask deal
 UINT8 sdweAskRegData(UINT8 regAdd, UINT8 regData)
 {
@@ -761,7 +910,34 @@ void clearLocalCalibrationKAndBAndSample(UINT8 sreen_chanel)
 	}	
 }
 
+void storeSysPara_3030(UINT16 varAdd, UINT16 varData)
+{
+	switch(varAdd)
+	{
+		case DMG_FUNC_SET_UNIT_ADDRESS://		(0X1000)//0x1000
+			gSystemPara.uint = varData;
+		break;
+		case DMG_FUNC_SET_MIN_RANGE_ADDRESS://		(0X100A)//0x100A
+		break;
+		case  DMG_FUNC_SET_MAX_RANGE_ADDRESS://		(0X100B)//0x100B
+		break;
+		case DMG_FUNC_SET_ERR_RANGE_ADDRESS://		(0X100C)//0x100C
+		break;
+		case  DMG_FUNC_SET_isCascade_ADDRESS://		(0X100D)//0x100D
+		break;
+		case  DMG_FUNC_SET_isLedIndicate_ADDRESS://	(0X100E)//0x100E
+		break;
+		case  DMG_FUNC_SET_COLOR_START_ADDRESS://	(0X100F)//0x100F
+		break;
+		case DMG_FUNC_SET_COLOR_END_ADDRESS://		(0X1012)//0x1012
+		break;
+		case DMG_FUNC_SET_ZERO_RANGE_ADDRESS://		(0X1013)//0x1013
+		break;
+		default:
+		break;
+	}
 
+}
 
 //==recv sdwe variable ask deal
 UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
@@ -776,9 +952,50 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 	//receive address from SDWE
 	if(0xffff != pSdwe->sdweSetAdd)
 	{
+		//==(update:20210411):sys para
+		if(((pSdwe->sdweSetAdd >= DMG_FUNC_SET_UNIT_ADDRESS)&&(pSdwe->sdweSetAdd <= (DMG_FUNC_SET_ZERO_RANGE_ADDRESS)))
+			|| (pSdwe->sdweSetAdd == DMG_FUNC_PASSORD_SET_ADDRESS))
+		{	
+			switch(pSdwe->sdweSetAdd)
+			{
+				case DMG_FUNC_PASSORD_SET_ADDRESS:
+					STM32CheckPassWord(pSdwe->sdweSetData);/**< 密码 */
+				break;
+				case DMG_FUNC_SET_UNIT_ADDRESS://			(0X1000)//0x1000
+					gSystemPara.uint = pSdwe->sdweSetData;/**< 单位 */
+				break;
+				case DMG_FUNC_SET_MIN_RANGE_ADDRESS://		(0X100A)//0x100A
+					gSystemPara.minWeight = pSdwe->sdweSetData;/**< 最小量程 */
+				break;
+				case  DMG_FUNC_SET_MAX_RANGE_ADDRESS://		(0X100B)//0x100B
+					gSystemPara.maxWeight = pSdwe->sdweSetData;/**< 最大量程 */
+				break;
+				case  DMG_FUNC_SET_ERR_RANGE_ADDRESS://		(0X100C)//0x100C
+					gSystemPara.errRange = pSdwe->sdweSetData;/**< 误差范围 */
+				break;
+				case  DMG_FUNC_SET_isCascade_ADDRESS://		(0X100D)//0x100D
+					gSystemPara.isCascade = pSdwe->sdweSetData;/**< 是否级联 */
+				break;
+				case  DMG_FUNC_SET_isLedIndicate_ADDRESS://	(0X100E)//0x100E
+					gSystemPara.isLedIndicate = pSdwe->sdweSetData;/**< 是否LED指示 */
+				break;
+				case  DMG_FUNC_SET_ZERO_RANGE_ADDRESS://		(0X1013)//0x1013
+					gSystemPara.zeroRange = pSdwe->sdweSetData;/**< 零点范围 */
+				break;
+				default:
+					if((pSdwe->sdweSetAdd >= DMG_FUNC_SET_COLOR_START_ADDRESS)&&(pSdwe->sdweSetAdd <= (DMG_FUNC_SET_COLOR_END_ADDRESS)))
+					{
+						gSystemPara.userColorSet[pSdwe->sdweSetAdd-DMG_FUNC_SET_COLOR_START_ADDRESS] = pSdwe->sdweSetData;/**< 颜色1~4 */
+					}
+				break;
+			}
+			//
+			needStore |= DMG_TRIGER_SAVE_SECOTOR_2 ;
+		}
 		//==(update:20210328):chanel choice:0->all chanel , 1~8:single chanel
-		if(DMG_FUNC_SET_CHANEL_NUM == pSdwe->sdweSetAdd)
+		else if(DMG_FUNC_SET_CHANEL_NUM == pSdwe->sdweSetAdd)
 		{
+			pSdwe->sdweResetTrigerValid = FALSE;/*重新校准取消*/
 			if(pSdwe->sdweCalChanel != pSdwe->sdweSetData)
 			{
 				pSdwe->sdweChanelChanged = TRUE;
@@ -793,8 +1010,20 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			if(DMG_FUNC_RESET_CALIBRATION_VAL == (UINT16)pSdwe->sdweSetData)
 			{
 				pSdwe->sdweResetTriger = TRUE;
+				pSdwe->sdweResetTrigerValid = TRUE;
 				clearLocalCalibrationRecordData(pSdwe->sdweCalChanel);
 				clearLocalCalibrationKAndBAndSample(pSdwe->sdweCalChanel);
+			}
+		}//==(update:20210428):reset calibration
+		else if(DMG_FUNC_JUNPTO_CALIBRATION_ADDRESS == pSdwe->sdweSetAdd)
+		{
+			if(DMG_FUNC_JUNPTO_CALIBRATION_VAL == (UINT16)pSdwe->sdweSetData)
+			{
+				pSdwe->sdweJumpToCalitrationPage = TRUE;
+			}
+			else if(DMG_FUNC_JUNPTO_ACTIVE_VAL == (UINT16)pSdwe->sdweSetData)
+			{
+				pSdwe->sdweJumpToActivePage = TRUE;
 			}
 		}//==(update:20210328):remove all weight value
 		else if(DMG_FUNC_REMOVE_WEIGHT_ADDRESS == pSdwe->sdweSetAdd)
@@ -802,11 +1031,12 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			if(DMG_FUNC_REMOVE_WEIGHT_VAL == (UINT16)pSdwe->sdweSetData)
 			{
 				hx711_setAllRemoveWeight();
+				pSdwe->sdweRemoveWeightTriger = TRUE;
 			}
 		}//==(update:20210328):chanel point weight value set
 		else if((pSdwe->sdweSetAdd >= DMG_FUNC_SET_CHANEL_POINT_ADDRESS)&&(pSdwe->sdweSetAdd < (DMG_FUNC_SET_CHANEL_POINT_ADDRESS + CHANEL_POINT_NUM )))
 		{
-			needStore = 1 ;
+			needStore = DMG_TRIGER_SAVE_SECOTOR_1 ;
 			//point
 			pSdwe->sdweCalPoint = (pSdwe->sdweSetAdd -DMG_FUNC_SET_CHANEL_POINT_ADDRESS) ;//point
 			point = pSdwe->sdweCalPoint;
@@ -829,7 +1059,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				pointWeightTrigerDataSet((pSdwe->sdweCalChanel-1),point,weight);
 			}
 		}//triger calculate
-		else if((pSdwe->sdweSetAdd >= DMG_FUNC_SET_CHANEL_POINT_TRIG_ADDRESS)&&(pSdwe->sdweSetAdd < (DMG_FUNC_SET_CHANEL_POINT_TRIG_ADDRESS + CHANEL_POINT_NUM )))
+		else if((TRUE == pSdwe->sdweResetTrigerValid)&&(pSdwe->sdweSetAdd >= DMG_FUNC_SET_CHANEL_POINT_TRIG_ADDRESS)&&(pSdwe->sdweSetAdd < (DMG_FUNC_SET_CHANEL_POINT_TRIG_ADDRESS + CHANEL_POINT_NUM )))
 		{
 			//value = 0x12fe
 			if(DMG_FUNC_SET_CHANEL_POINT_TRIG_VAL == pSdwe->sdweSetData)
@@ -837,7 +1067,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				//	
 				pSdwe->sdwePointTriger = TRUE;
 				//
-				needStore = 1 ;
+				needStore = DMG_TRIGER_SAVE_SECOTOR_1 ;
 				point = ( pSdwe->sdweSetAdd - DMG_FUNC_SET_CHANEL_POINT_TRIG_ADDRESS );
 				
 				if(0 == pSdwe->sdweCalChanel)//all chanel caculate	K & B
@@ -865,6 +1095,64 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 		pSdwe->sdweSetAdd = 0xffff;
 	}
 	return needStore;
+}
+
+//if need jump to active page 
+UINT8 jumpToActivePage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,56};//56 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+
+//if need jump to calibration page 
+UINT8 jumpToCalibrationPage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,53};//53 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+//if need jump to home page 
+UINT8 jumpToHomePage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,54};//54 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+//if need jump to Banling page 
+UINT8 jumpToBanlingPage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,49};//49 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
 }
 
 
@@ -1008,15 +1296,69 @@ UINT8 chanelChangedTrigerDeal()
 }
 
 
-void sendBalancingModelData(void)
+UINT8 removeWeightTrigerDeal()
+{
+	static UINT16 ticks = 0 ;
+	INT16 *pSendData= &g_sdwe_dis_data[0];
+	INT16 weight[HX711_CHANEL_NUM]; 
+	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
+	enumHX711ChanelType chanel = HX711Chanel_1;
+	
+	UINT8 result = 0 ;
+	static UINT8 inerStatus = 0 , localChanel = 0 ; 
+
+	//=============================================================weight value and color
+	pSendData= &g_sdwe_dis_data[0];
+	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	{
+		weight[chanel] = (INT16)(hx711_getWeight(chanel)+0.5f);
+		pSendData[chanel] = weight[chanel];
+	}
+
+	switch(inerStatus)
+	{
+		case 0:
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+				//
+				inerStatus=1;
+				//
+				//inerStatus=0;
+				//need_send = FALSE;
+			}
+		break;
+		case 1:
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+			
+				pSendData= &g_sdwe_dis_data[HX711_CHANEL_NUM];
+				sdweWriteVarible(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+				//
+				inerStatus=2;
+			}
+		break;
+		default:
+			inerStatus = 0 ;
+			result = TRUE;
+		break;
+	}
+	return result;
+}
+
+
+void sendBalancingModelData()
 {
 	static UINT16 ticks = 0 ;
 	static UINT8 need_send = 0;
 	INT16 *pSendData= &g_sdwe_dis_data[0];
 	INT16 weight[HX711_CHANEL_NUM];	
-	static INT16 weightPre[HX711_CHANEL_NUM]; 
+	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
 	enumHX711ChanelType chanel = HX711Chanel_1;
-
+	
+	static UINT8 inerStatus = 0 , localChanel = 0 ;	
 
 	//=============================================================weight value and color
 	pSendData= &g_sdwe_dis_data[0];
@@ -1029,34 +1371,189 @@ void sendBalancingModelData(void)
 		{
 			weightPre[chanel] = weight[chanel];
 			need_send = TRUE ;
+			inerStatus = 0 ;
 		}
 	}
 
 	//
 	if(TRUE == need_send)
 	{
-		if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-			((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+
+		switch(inerStatus)
 		{
-			sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
-			//
-			need_send = FALSE;
+			case 0:
+				if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+				{
+					sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+					//
+					inerStatus=1;
+					//
+					//inerStatus=0;
+					//need_send = FALSE;
+				}
+			break;
+			case 1:
+				if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+				{
+				
+					pSendData= &g_sdwe_dis_data[HX711_CHANEL_NUM];
+					sdweWriteVarible(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+					//
+					inerStatus=2;
+					//
+					need_send = FALSE;
+				}
+			break;
+			default:
+				inerStatus = 0 ;
+				need_send = FALSE;
+			break;
 		}
 	}
 }
 
 
+//if sreen chanel changed
+UINT8 sendSysParaDataToDiwen()
+{
+	static UINT8 inerStatus = 0;	
+	INT16 sendData[20],len=0;
+	UINT8 result = 0 ;
+	
+	//0x1000	4096	10	单位
+	//0X100A	4106	1	最小量程
+	//0X100B	4107	1	最大量程
+	//0X100C	4108	1	误差范围
+	//0X100D	4109	1	是否级联
+	//0X100E	4110	1	LED开关
+	//0X100F	4111	1	配平色1
+	//0X1010	4112	1	配平色2
+	//0X1011	4113	1	配平色3
+	//0X1012	4114	1	配平色4
+	//0X1013	4115	1	零点范围
+	//0X1501				MCU设备ID
+	//0X1510				密码
+
+	switch(inerStatus)
+	{
+		case 0://send 0x1000 单位
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				sendData[len++] = gSystemPara.uint;
+				sdweWriteVarible((0x1000),sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 1://send 0X100A~0X1013
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len = 0 ;
+				sendData[len++] = gSystemPara.minWeight;/**< 最小量程 */
+				sendData[len++] = gSystemPara.maxWeight;/**< 最大量程 */
+				sendData[len++] = gSystemPara.errRange;/**< 误差范围 */
+				sendData[len++] = gSystemPara.isCascade;/**< 是否级联 */
+				sendData[len++] = gSystemPara.isLedIndicate;/**< 是否LED指示 */
+				sendData[len++] = gSystemPara.userColorSet[0];/**< 配平色1 */
+				sendData[len++] = gSystemPara.userColorSet[1];/**< 配平色2 */
+				sendData[len++] = gSystemPara.userColorSet[2];/**< 配平色3 */
+				sendData[len++] = gSystemPara.userColorSet[3];/**< 配平色4 */
+				sendData[len++] = gSystemPara.zeroRange;/**< 零点范围 */
+				sdweWriteVarible((0x100A),sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 2://send 0X1501
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				sendData[len++] = g_passWordId&0XFFFF;
+				sdweWriteVarible((0x1500),sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 3://send 1510
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				sendData[len++] = g_passWordStore&0XFFFF;
+				sdweWriteVarible((0x1510),sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 4://send 2100 DMG_FUNC_SET_CHANEL_NUM
+			if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				sendData[len++] = g_sdwe.sdweCalChanel;
+				sdweWriteVarible(DMG_FUNC_SET_CHANEL_NUM,sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		default:
+			result = 1;
+		break;
+	}
+	return result;
+}
 
 
 //==prepare TX data
 void sdwe_TxFunction(void)
 {
+	//send data to DIWEN
+	if(FALSE == g_sdwe.sendSdweInit)
+	{
+		if(0!= sendSysParaDataToDiwen())
+		{
+			g_sdwe.sendSdweInit = 123;
+		}
+	}
 	//==if calibration page: chanel changed trigerd
-	if(TRUE == g_sdwe.sdweChanelChanged)
+	else if(TRUE == g_sdwe.sdweChanelChanged)
 	{
 		if(0 != chanelChangedTrigerDeal())
 		{
 			 g_sdwe.sdweChanelChanged = FALSE;
+		}
+	}
+	//==if need junp to active page
+	else if(TRUE == g_sdwe.sdweJumpToActivePage)
+	{
+		if(0 != jumpToActivePage())
+		{
+			g_sdwe.sdweJumpToActivePage = FALSE;
+		}
+	}
+	//==if need junp to calibration page
+	else if(TRUE == g_sdwe.sdweJumpToCalitrationPage)
+	{
+		if(0 != jumpToCalibrationPage())
+		{
+			g_sdwe.sdweJumpToCalitrationPage = FALSE;
+		}
+	}
+	//==if need junp to calibration page
+	else if(TRUE == g_sdwe.sdweJumpToHomePage)
+	{
+		if(0 != jumpToHomePage())
+		{
+			g_sdwe.sdweJumpToHomePage = FALSE;
+		}
+	}
+	//==if need junp to calibration page
+	else if(TRUE == g_sdwe.sdweJumpToBanlingPage)
+	{
+		if(0 != jumpToBanlingPage())
+		{
+			g_sdwe.sdweJumpToBanlingPage = FALSE;
 		}
 	}
 	//==if calibration page: reset calibration trigerd
@@ -1075,7 +1572,15 @@ void sdwe_TxFunction(void)
 			g_sdwe.sdwePointTriger = FALSE;
 		}
 	}
-	else 
+	//==if cali page: remove weight trigerd
+	else if(TRUE == g_sdwe.sdweRemoveWeightTriger)
+	{
+		if(0 != removeWeightTrigerDeal())
+		{
+			g_sdwe.sdweRemoveWeightTriger = FALSE;
+		}
+	}
+	else if(g_sysLocked == STM32MCU_UNLOCKED)
 	{
 		sendBalancingModelData();
 	}	
@@ -1216,10 +1721,19 @@ void sdwe_RxFunction(void)
 					break;
 				}
 			}
+
 			//store in flash
-			if((TRUE == needStore) && (g_sdwe.sdweTick > 5000 ))
+			if(g_sdwe.sdweTick > 5000)
 			{
-				storeSysDataToFlash();
+				if(0 != (DMG_TRIGER_SAVE_SECOTOR_1&needStore))
+				{
+					storeSysDataToFlash();
+				}
+				//store in flash
+				else if(0 != (DMG_TRIGER_SAVE_SECOTOR_2&needStore))
+				{
+					storeSysDataToFlash_3030();
+				}
 			}
 		}
 		//
@@ -1338,13 +1852,16 @@ void sdwe_MainFunctionTest(void)
 void sdwe_MainFunction(UINT8 hx711DataUpgrade)
 {
 	g_sdwe.sdweTick++;
-	//deal rx data from SDWE
-	sdwe_RxFunction();
-	
-	//prepare data and send to SDWE
-	sdwe_TxFunction();
+	if(g_sdwe.sdweTick > 3000)
+	{
+		//deal rx data from SDWE
+		sdwe_RxFunction();
+		
+		//prepare data and send to SDWE
+		sdwe_TxFunction();
 
-	//test
-	//sdwe_MainFunctionTest();	
+		//test
+		//sdwe_MainFunctionTest();	
+	}
 }
 

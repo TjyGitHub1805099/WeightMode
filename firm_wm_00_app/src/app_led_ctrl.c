@@ -153,6 +153,166 @@ void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
         }
     }          
 }
+//===================v3.0 color compare start
+typedef struct
+{
+	enumHX711ChanelType curChanel;
+	enumHX711ChanelType lockedChanel;//used for if locked not push compare arr
+	UINT8	lockedColor;
+	float 	lockedWeight;//recode locked weight , used for 
+	float	curWeight;
+} tWeightUpdateColorType;
+static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM]={0};
+
+
+#define COLOR_LOCKED_GROUP_NUM	(HX711_CHANEL_NUM/2)
+#define COLOR_LOCKED_ERR_RANGE	(2)
+
+
+
+void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
+{
+	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
+	float curWeight[HX711_CHANEL_NUM]={0.0};
+	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0};
+	static UINT8  colorLock[LED_COLOR_NUM]={FALSE};
+	enumLedColorType color_i = LED_COLOR_REG,color;
+
+	UINT8 sortArry_num = 0;
+	enumHX711ChanelType sortArry[HX711_CHANEL_NUM];
+	float sortWeight[HX711_CHANEL_NUM]={0.0};
+	UINT8 compare_i = 0 ,compare_a = 0 ,compare_b = 0 ;
+	float curWeightBuf,lockedWeightBuf;
+	
+	UINT8 colorGet_i;
+	enumLedColorType colorGet_color = LED_COLOR_NONE;
+	tWeightUpdateColorType *pWeightUpdateColorArr = &tWeightUpdateColorArr[0];
+
+	
+	if((TRUE == hx711DataUpgrade) && (0 != pWeightUpdateColorArr))
+	{
+		//1.get current weight
+		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+		{
+			pWeightUpdateColorArr[chanel].curChanel = chanel;
+			pWeightUpdateColorArr[chanel].curWeight = hx711_getWeight(chanel);
+		}
+
+		//2.already locked judge if not remove lock
+		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+		{
+			//2.1
+			if(HX711_CHANEL_LOCKED == pWeightUpdateColorArr[chanel].lockedChanel)
+			{
+				curWeightBuf = pWeightUpdateColorArr[chanel].curWeight;
+				lockedWeightBuf = pWeightUpdateColorArr[chanel].lockedWeight;
+				//2.1.1.at zero range , such as take out
+				if(( curWeightBuf >= -gSystemPara.zeroRange) && ( curWeightBuf <= gSystemPara.zeroRange))
+				{
+					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
+				}//2.1.2.cur weight and pre weight out of errRange , such as weight changed
+				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.errRange ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.errRange ))
+				{
+					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
+				}
+			}
+			//2.2if judge locked is not locked ,prepare Sort
+			if(HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel].lockedChanel)
+			{
+				//clear color
+				LedDataSet(chanel, LED_COLOR_NONE);
+				sdweSetWeightBackColor(chanel, LED_COLOR_NONE);
+				//push to sortArry
+				sortArry[sortArry_num] = pWeightUpdateColorArr[chanel].curChanel;
+				sortWeight[sortArry_num] = pWeightUpdateColorArr[chanel].curWeight;
+				sortArry_num++;	
+			}
+		}
+
+		//3.Sort
+		BubbleSort(sortWeight,sortArry,sortArry_num);
+		
+		//4.compare
+		for(compare_i=0;compare_i<(sortArry_num-1);compare_i++)
+		{
+			//4.1.get used color
+			for(colorGet_i=0;colorGet_i<SYS_COLOR_GROUP_NUM;colorGet_i++)
+			{
+				//4.1.1.already used color , check if not release
+				if(FALSE != gSystemPara.userColorUsed[colorGet_i])
+				{
+					//4.1.1.1.get locked chanel
+					chanel_a = (gSystemPara.userColorUsed[colorGet_i]>>8)&0xff;
+					chanel_b = (gSystemPara.userColorUsed[colorGet_i]>>0)&0xff;
+					//4.1.1.2.if 2 chanel not locked
+					if((HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel_a].lockedChanel)
+						&& (HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel_b].lockedChanel))
+					{
+						gSystemPara.userColorUsed[colorGet_i] = FALSE;//clear color locked
+					}
+				}
+				//4.1.2.if color is not none and not used
+				if((FALSE == gSystemPara.userColorUsed[colorGet_i]) 
+					&& (LED_COLOR_NONE != gSystemPara.userColorSet[colorGet_i]))
+				{
+					//colorGet_color = gSystemPara.userColorSet[colorGet_i];
+					break;
+				}
+			}
+
+			//4.2.not avaliable color
+			if(colorGet_i >= SYS_COLOR_GROUP_NUM)
+			{
+				break;
+			}
+			//4.3.get avaliable color
+			colorGet_color = gSystemPara.userColorSet[colorGet_i];
+
+			//4.4 get compare chanel
+			compare_a = compare_i;
+			compare_b = compare_i+1;
+			//4.5.1.compare_i out of zeroRange
+			if((sortWeight[compare_a] < -gSystemPara.zeroRange) || (sortWeight[compare_a] > gSystemPara.zeroRange))
+			{
+				//4.5.2.compare_i+1 out of zeroRange
+				if((sortWeight[compare_b] < -gSystemPara.zeroRange) || (sortWeight[compare_b] > gSystemPara.zeroRange))
+				{
+					//4.5.3.compare_i+1 - compare_i at of errRange
+					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
+						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+					{
+						//4.2.3.1.compare success,ger chanel
+						chanel_a = sortArry[compare_a];
+						chanel_b = sortArry[compare_b];
+						//4.2.3.2.get avaliable color
+						colorGet_color = gSystemPara.userColorSet[colorGet_i];
+						gSystemPara.userColorUsed[colorGet_i] = ((chanel_a<<8)&0xff00)+chanel_b;
+						//4.2.3.3.set same color
+						LedDataSet(chanel_a, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+						LedDataSet(chanel_b, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
+						//4.2.3.4.set lockedChanel flag and recode locked weight
+						pWeightUpdateColorArr[chanel_a].lockedChanel = HX711_CHANEL_LOCKED;
+						pWeightUpdateColorArr[chanel_a].lockedWeight = sortWeight[chanel_a];
+						pWeightUpdateColorArr[chanel_b].lockedChanel = HX711_CHANEL_LOCKED;
+						pWeightUpdateColorArr[chanel_b].lockedWeight = sortWeight[chanel_b];
+
+						//
+						compare_i++;
+					}
+				}
+			}
+		}
+	}
+}
+//===================v3.0 color compare end
+
+
+
+
+
+
 
 #define CHANEL_COMPARED_FLAG_MASK	0XF000
 #define CHANEL_COMPARED_OTHER_MASK	0X0F00
@@ -191,15 +351,15 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			//is lock
 			if(chanelCompareInfo[chanel] & CHANEL_COMPARED_FLAG_MASK)//0xFxxx
 			{
-				//if a or b changed lager than CHANEL_MAX_ERR_RANGE
+				//if a or b changed lager than gSystemPara.errRange
 				#if 0
-				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) ||
-					((curWeight[chanel_a] - curWeight[chanel_b]) < -CHANEL_MAX_ERR_RANGE) )
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.errRange) ||
+					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.errRange) )
 				#else
-				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > CHANEL_MAX_ERR_RANGE) ||
-					((curWeight[chanel_a] - curWeight[chanel_b]) < -CHANEL_MAX_ERR_RANGE) ||
-					((curWeight[chanel_a] > -CHANEL_MAX_ERR_RANGE) && (curWeight[chanel_a] < CHANEL_MAX_ERR_RANGE)) ||
-					((curWeight[chanel_b] > -CHANEL_MAX_ERR_RANGE) && (curWeight[chanel_b] < CHANEL_MAX_ERR_RANGE)) )
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.errRange) ||
+					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.errRange) ||
+					((curWeight[chanel_a] > -gSystemPara.errRange) && (curWeight[chanel_a] < gSystemPara.errRange)) ||
+					((curWeight[chanel_b] > -gSystemPara.errRange) && (curWeight[chanel_b] < gSystemPara.errRange)) )
 				#endif
 				{
 					//chanel unlock,other..,color unlock
@@ -264,9 +424,9 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			chanel_a = sortArry[compare_i];
 			chanel_b = sortArry[compare_i+1];
 			//is equal
-			if(	((curWeight[chanel_a] < -CHANEL_MAX_ERR_RANGE) || (curWeight[chanel_a] > CHANEL_MAX_ERR_RANGE)) &&
-				((curWeight[chanel_b] < -CHANEL_MAX_ERR_RANGE) || (curWeight[chanel_b] > CHANEL_MAX_ERR_RANGE)) &&
-				(((curWeight[chanel_b] - curWeight[chanel_a]) > -CHANEL_MAX_ERR_RANGE) && ((curWeight[chanel_b] - curWeight[chanel_a]) < CHANEL_MAX_ERR_RANGE) ) )
+			if(	((curWeight[chanel_a] < -gSystemPara.errRange) || (curWeight[chanel_a] > gSystemPara.errRange)) &&
+				((curWeight[chanel_b] < -gSystemPara.errRange) || (curWeight[chanel_b] > gSystemPara.errRange)) &&
+				(((curWeight[chanel_b] - curWeight[chanel_a]) > -gSystemPara.errRange) && ((curWeight[chanel_b] - curWeight[chanel_a]) < gSystemPara.errRange) ) )
 			{
 				//set color
 				//find color
@@ -348,10 +508,10 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 		//
 		for(ledSeq = LED_SEQ_1;ledSeq<(LED_SEQ_NUM-1);ledSeq++)
 		{
-			if(((weight[ledSeq+1] - weight[ledSeq]) < CHANEL_MAX_ERR_RANGE) &&
-				((weight[ledSeq+1] - weight[ledSeq]) > -CHANEL_MAX_ERR_RANGE) &&
-				((weight[ledSeq] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq] > CHANEL_MAX_ERR_RANGE)) &&
-				((weight[ledSeq+1] < -CHANEL_MAX_ERR_RANGE) || (weight[ledSeq+1] > CHANEL_MAX_ERR_RANGE)) )
+			if(((weight[ledSeq+1] - weight[ledSeq]) < gSystemPara.errRange) &&
+				((weight[ledSeq+1] - weight[ledSeq]) > -gSystemPara.errRange) &&
+				((weight[ledSeq] < -gSystemPara.errRange) || (weight[ledSeq] > gSystemPara.errRange)) &&
+				((weight[ledSeq+1] < -gSystemPara.errRange) || (weight[ledSeq+1] > gSystemPara.errRange)) )
 			{
 				LedDataSet((enumLedSeqType)arry[ledSeq], color);//light same color
 				sdweSetWeightBackColor(arry[ledSeq], color);
@@ -373,6 +533,7 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 		}
 	}
 }
+
 //==led test
 UINT8 led_test_flag = 0 ;
 void LedSysTest(UINT32 ms_tick)
@@ -403,48 +564,606 @@ void led_MainFunction(UINT8 hx711DataUpgrade)
 	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
 	UINT8 *pData=&g_led_ctrl_data[0];
 	UINT8 i = 0,j = 0,set = 0,l_data = 0;
-
-	//if weight data changed
-	if(1 == hx711DataUpgrade)
-	{	
-		//check data change and store g_led_ctrl_data
-		for(i=0;i<LED_CTRL_DATA_LEN;i++)
-		{
-			if(led_data[i] != pData[i])
+	
+	if(1 == gSystemPara.isLedIndicate)
+	{
+		//if weight data changed
+		if(1 == hx711DataUpgrade)
+		{	
+			//check data change and store g_led_ctrl_data
+			for(i=0;i<LED_CTRL_DATA_LEN;i++)
 			{
-				led_data[i] = pData[i];
-				set = 1;
+				if(led_data[i] != pData[i])
+				{
+					led_data[i] = pData[i];
+					set = 1;
+				}
+			}
+			
+			//if data changed
+			if(1 == set)
+			{
+				for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
+				{
+					l_data = led_data[i];	
+					for(j=0;j<8;j++)//8 bit
+					{		
+						//set SER
+						if(0x01 == (l_data&0x01))
+						{
+							hal_gpio_set_do_high( LED_DO_SER0 );
+						}
+						else
+						{
+							hal_gpio_set_do_low( LED_DO_SER0 );
+						}
+						l_data>>=1;
+			
+						//send SCK shift data
+						LedCtrlSendPulse( LED_DO_SRCLK ,1); 
+					}		
+				}
+				
+				//send RCK lock data
+				LedCtrlSendPulse( LED_DO_RCLK ,1);	
 			}
 		}
-		
-		//if data changed
-		if(1 == set)
+	}
+}
+
+
+
+
+
+#if(COLOR_ALT_20210414_DEFINE)
+void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade)
+{
+#if 0
+	UINT8 chanel_a=0,chanel_b=0;
+	if((TRUE == hx711DataUpgrade) && (0 != sortWeight))
+	{
+		for(chanel_a=0;chanel_a<num;chanel_a++)
 		{
-			for(i=0;i<LED_CTRL_DATA_LEN;i++)//byte
+			if((sortWeight[chanel_a] < -gSystemPara.zeroRange) || (sortWeight[chanel_a] > gSystemPara.zeroRange))
 			{
-				l_data = led_data[i];	
-				for(j=0;j<8;j++)//8 bit
-				{		
-					//set SER
-					if(0x01 == (l_data&0x01))
+				for(chanel_b=1;chanel_b<num;chanel_b++)
+				{
+					if((sortWeight[chanel_b] < -gSystemPara.zeroRange) || (sortWeight[chanel_b] > gSystemPara.zeroRange))
 					{
-						hal_gpio_set_do_high( LED_DO_SER0 );
+						//4.5.3.compare_i+1 - compare_i at of errRange
+						if(((sortWeight[chanel_a] - sortWeight[chanel_b]) > -gSystemPara.errRange) 
+							&& ((sortWeight[chanel_a] - sortWeight[chanel_b]) < gSystemPara.errRange) )
+						{
+							//4.1.get used color
+							for(colorGet_i=0;colorGet_i<SYS_COLOR_GROUP_NUM;colorGet_i++)
+							{
+								//4.1.2.if color is not none and not used
+								if((FALSE == gSystemPara.userColorUsed[colorGet_i]) 
+									&& (LED_COLOR_NONE != gSystemPara.userColorSet[colorGet_i]))
+								{
+									colorGet_color = gSystemPara.userColorSet[colorGet_i];
+									break;
+								}
+							}
+							
+							//4.2.not avaliable color
+							if(colorGet_i >= SYS_COLOR_GROUP_NUM)
+							{
+								break;
+							}
+							//
+							gSystemPara.userColorUsed[colorGet_i] = TRUE;
+							//4.3.get avaliable color
+							colorGet_color = gSystemPara.userColorSet[colorGet_i];
+							//4.2.3.3.set same color
+							LedDataSet(chanel_a, colorGet_color);//led
+							sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+							LedDataSet(chanel_b, colorGet_color);//led
+							sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
+						}
+						else
+						{
+							colorGet_color = LED_COLOR_NONE;
+							//4.2.3.3.set same color to NONE
+							LedDataSet(chanel_a, colorGet_color);//led
+							sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+							LedDataSet(chanel_b, colorGet_color);//led
+							sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
+						}
 					}
 					else
 					{
-						hal_gpio_set_do_low( LED_DO_SER0 );
+						colorGet_color = LED_COLOR_NONE;
+						//4.2.3.3.set same color to NONE
+						LedDataSet(chanel_b, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_b, colorGet_color);//screen
 					}
-					l_data>>=1;
-		
-					//send SCK shift data
-					LedCtrlSendPulse( LED_DO_SRCLK ,1); 
-				}		
+				}
 			}
-			
-			//send RCK lock data
-			LedCtrlSendPulse( LED_DO_RCLK ,1);	
+			else
+			{
+				colorGet_color = LED_COLOR_NONE;
+				//4.2.3.3.set same color to NONE
+				LedDataSet(chanel_a, colorGet_color);//led
+				sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+			}
+
+
+
+
+		
+			{
+				if((sortWeight[chanel_a] < -gSystemPara.zeroRange) || (sortWeight[chanel_a] > gSystemPara.zeroRange))
+				{
+					//4.5.2.compare_i+1 out of zeroRange
+					if((sortWeight[chanel_b] < -gSystemPara.zeroRange) || (sortWeight[chanel_b] > gSystemPara.zeroRange))
+					{
+						//4.5.3.compare_i+1 - compare_i at of errRange
+						if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
+							&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+							{}
+					}
+				}
+				else
+				{
+				}
+			}
 		}
+
+
+
+	}
+
+#endif
+
+	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
+	float curWeight[HX711_CHANEL_NUM]={0.0};
+	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0};
+	static UINT8  colorLock[LED_COLOR_NUM]={FALSE};
+	enumLedColorType color_i = LED_COLOR_REG,color;
+
+	UINT8 sortArry_num = 0;
+	enumHX711ChanelType sortArry[HX711_CHANEL_NUM];
+	float sortWeight[HX711_CHANEL_NUM]={0.0};
+	UINT8 compare_i = 0 ,compare_a = 0 ,compare_b = 0 ;
+	float curWeightBuf,lockedWeightBuf;
 	
+	UINT8 colorGet_i;
+	enumLedColorType colorGet_color = LED_COLOR_NONE;
+	tWeightUpdateColorType *pWeightUpdateColorArr = &tWeightUpdateColorArr[0];
+
+	if((TRUE == hx711DataUpgrade) && (0 != pWeightUpdateColorArr))
+	{
+		//1.get current weight
+		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+		{
+			pWeightUpdateColorArr[chanel].curChanel = chanel;
+			pWeightUpdateColorArr[chanel].curWeight = hx711_getWeight(chanel);
+		}
+		//2.already locked judge if not remove lock
+		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+		{
+			//2.1
+			if(HX711_CHANEL_LOCKED == pWeightUpdateColorArr[chanel].lockedChanel)
+			{
+				curWeightBuf = pWeightUpdateColorArr[chanel].curWeight;
+				lockedWeightBuf = pWeightUpdateColorArr[chanel].lockedWeight;
+				//2.1.1.at zero range , such as take out
+				if(( curWeightBuf >= -gSystemPara.zeroRange) && ( curWeightBuf <= gSystemPara.zeroRange))
+				{
+					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
+				}//2.1.2.cur weight and pre weight out of errRange , such as weight changed
+				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.errRange ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.errRange ))
+				{
+					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
+				}
+			}
+			//2.2if judge locked is not locked ,prepare Sort
+			if(HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel].lockedChanel)
+			{
+				//clear color
+				LedDataSet(chanel, LED_COLOR_NONE);
+				sdweSetWeightBackColor(chanel, LED_COLOR_NONE);
+				//push to sortArry
+				sortArry[sortArry_num] = pWeightUpdateColorArr[chanel].curChanel;
+				sortWeight[sortArry_num] = pWeightUpdateColorArr[chanel].curWeight;
+				sortArry_num++; 
+			}
+		}
+
+		//3.Sort
+		BubbleSort(sortWeight,sortArry,sortArry_num);
+		
+		//4.compare
+		for(compare_i=0;compare_i<(sortArry_num-1);compare_i++)
+		{
+			//4.1.get used color
+			for(colorGet_i=0;colorGet_i<SYS_COLOR_GROUP_NUM;colorGet_i++)
+			{
+				//4.1.1.already used color , check if not release
+				if(FALSE != gSystemPara.userColorUsed[colorGet_i])
+				{
+					//4.1.1.1.get locked chanel
+					chanel_a = (gSystemPara.userColorUsed[colorGet_i]>>8)&0xff;
+					chanel_b = (gSystemPara.userColorUsed[colorGet_i]>>0)&0xff;
+					//4.1.1.2.if 2 chanel take out 
+					if((HX711_CHANEL_UNLOCKED == pWeightUpdateColorArr[chanel_a].lockedChanel)
+						&& (HX711_CHANEL_UNLOCKED == pWeightUpdateColorArr[chanel_b].lockedChanel))
+					{
+						gSystemPara.userColorUsed[colorGet_i] = FALSE;//clear color locked
+					}
+				}
+				//4.1.2.if color is not none and not used
+				if((FALSE == gSystemPara.userColorUsed[colorGet_i]) 
+					&& (LED_COLOR_NONE != gSystemPara.userColorSet[colorGet_i]))
+				{
+					colorGet_color = gSystemPara.userColorSet[colorGet_i];
+					break;
+				}
+			}
+
+			//4.2.not avaliable color
+			if(colorGet_i >= SYS_COLOR_GROUP_NUM)
+			{
+				break;
+			}
+			//4.3.get avaliable color
+			colorGet_color = gSystemPara.userColorSet[colorGet_i];
+
+			//4.4 get compare chanel
+			compare_a = compare_i;
+			compare_b = compare_i+1;
+			//
+			chanel_a = sortArry[compare_a]%HX711_CHANEL_NUM;
+			chanel_b = sortArry[compare_b]%HX711_CHANEL_NUM;
+			//4.5.1.compare_i out of zeroRange
+			if((sortWeight[compare_a] < -gSystemPara.zeroRange) || (sortWeight[compare_a] > gSystemPara.zeroRange))
+			{
+				//4.5.2.compare_i+1 out of zeroRange
+				if((sortWeight[compare_b] < -gSystemPara.zeroRange) || (sortWeight[compare_b] > gSystemPara.zeroRange))
+				{
+					//4.5.3.compare_i+1 - compare_i at of errRange
+					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
+						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+					{
+						//4.2.3.1.compare success,ger chanel
+						chanel_a = sortArry[compare_a];
+						chanel_b = sortArry[compare_b];
+						//4.2.3.2.get avaliable color
+						colorGet_color = gSystemPara.userColorSet[colorGet_i];
+						gSystemPara.userColorUsed[colorGet_i] = ((chanel_a<<8)&0xff00)+chanel_b;
+						//4.2.3.3.set same color
+						LedDataSet(chanel_a, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+						LedDataSet(chanel_b, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
+						//4.2.3.4.set lockedChanel flag and recode locked weight
+						pWeightUpdateColorArr[chanel_a].lockedChanel = HX711_CHANEL_LOCKED;
+						pWeightUpdateColorArr[chanel_a].lockedWeight = sortWeight[chanel_a];
+						pWeightUpdateColorArr[chanel_b].lockedChanel = HX711_CHANEL_LOCKED;
+						pWeightUpdateColorArr[chanel_b].lockedWeight = sortWeight[chanel_b];
+						//
+						compare_i++;
+					}
+					else
+					{
+						colorGet_color = LED_COLOR_NONE;
+						//4.2.3.3.set same color to NONE
+						LedDataSet(chanel_a, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+						LedDataSet(chanel_b, colorGet_color);//led
+						sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
+					}
+				}
+				else
+				{
+					colorGet_color = LED_COLOR_NONE;
+					//4.2.3.3.set same color to NONE
+					LedDataSet(chanel_b, colorGet_color);//led
+					sdweSetWeightBackColor(chanel_b, colorGet_color);//screen
+				}
+			}
+			else
+			{
+				colorGet_color = LED_COLOR_NONE;
+				//4.2.3.3.set same color to NONE
+				LedDataSet(chanel_a, colorGet_color);//led
+				sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
+			}		
+		}
 	}
 }
+#endif
+
+
+
+#if(TRUE == COLOR_ALT_20210427_DEFINE)
+//num of need balaning
+#define BALANCING_NUM	(6)
+//balaning judge status
+typedef enum
+{
+	eBalaningJudgeStatus_FAILD = 0 ,
+	eBalaningJudgeStatus_SUCCESS = 1 ,
+	eBalaningJudgeStatus_Curent_MOVED = 2 ,
+	eBalaningJudgeStatus_Other_MOVED = 3 ,
+	eBalaningJudgeStatus_MAX = 4
+}eBalaningJudgeStatus_t;
+
+//each need balaning info
+typedef struct
+{
+	float 	preWight;//pre weight
+	float 	curWight;//current weight
+	enumLedColorType disColor;//current dis color
+	UINT16	otherChanel;//balaning chanel
+	eBalaningJudgeStatus_t balaningStatus;
+}tBalaningInfo_t;
+//balaning management
+typedef struct
+{
+	tBalaningInfo_t tBalaningInfo[BALANCING_NUM];
+	INT32	userColorSet[SYS_COLOR_GROUP_NUM];/**< 配平色1~4 */
+	UINT16	userColorUsed[SYS_COLOR_GROUP_NUM];/**< */
+	float 	fWightA;//weight A
+	float 	fWightB;//weight B
+}tBalaningManager_t;
+//
+static tBalaningManager_t tBalaningManager;
+//get balaning weight
+float balaningWeightGet(UINT8 chanel)
+{
+	float weight;
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		weight = pBalaning->tBalaningInfo[chanel].curWight;
+	}
+	return weight;
+}
+//set balaning weight
+void balaningWeightSet(UINT8 chanel,float weight)
+{
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		pBalaning->tBalaningInfo[chanel].preWight = pBalaning->tBalaningInfo[chanel].curWight;
+		pBalaning->tBalaningInfo[chanel].curWight = weight;
+	}
+}
+//get balaning color
+enumLedColorType balaningColorGet(UINT8 chanel)
+{
+	enumLedColorType disColor;
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		disColor = pBalaning->tBalaningInfo[chanel].disColor;
+	}
+	return disColor;
+}
+//set balaning weight
+void balaningColorSet(UINT8 chanel,enumLedColorType disColor)
+{
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		pBalaning->tBalaningInfo[chanel].disColor = disColor;
+	}
+}
+//get balaning other chanel
+UINT16 balaningOtherChanelGet(UINT8 chanel)
+{
+	UINT16 otherChanel=BALANCING_NUM;
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		otherChanel = pBalaning->tBalaningInfo[chanel].otherChanel;
+	}
+	return otherChanel;
+}
+//set balaning other chanel
+void balaningOtherChanelSet(UINT8 chanel,UINT16 otherChanel)
+{
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		pBalaning->tBalaningInfo[chanel].otherChanel = otherChanel;
+	}
+}
+//get balaning status
+eBalaningJudgeStatus_t balaningChanelStatusGet(UINT8 chanel)
+{
+	eBalaningJudgeStatus_t balaningStatus;
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		balaningStatus = pBalaning->tBalaningInfo[chanel].balaningStatus;
+	}
+	return balaningStatus;
+}
+//set balaning status
+void balaningChanelStatusSet(UINT8 chanel,eBalaningJudgeStatus_t balaningStatus)
+{
+	tBalaningManager_t *pBalaning=&tBalaningManager;
+	if(chanel < BALANCING_NUM)
+	{
+		pBalaning->tBalaningInfo[chanel].balaningStatus = balaningStatus;
+	}
+}
+
+//balaning init
+void balaningInit()
+{
+	UINT8 chanel;
+	enumLedColorType color = LED_COLOR_NONE;
+	UINT8 user_i=0;
+	gSystemParaType *pSysPara = &gSystemPara;
+	for(chanel=0;chanel<BALANCING_NUM;chanel++)
+	{
+		balaningWeightSet(chanel,0);
+		balaningColorSet(chanel,LED_COLOR_NONE);
+		balaningOtherChanelSet(chanel,BALANCING_NUM);
+		balaningChanelStatusSet(chanel,eBalaningJudgeStatus_FAILD);
+	}
+
+	//
+	tBalaningManager.fWightA = 0 ;
+	tBalaningManager.fWightB = 0 ;
+	for(user_i=0;user_i<SYS_COLOR_GROUP_NUM;user_i++)
+	{
+		tBalaningManager.userColorUsed = 0;//not used
+		tBalaningManager.userColorSet[user_i] = pSysPara->userColorSet[user_i];
+	}
+}
+//balaning
+eBalaningJudgeStatus_t balaningJudge(tBalaningInfo_t *pA,tBalaningInfo_t *pB)
+{
+	eBalaningJudgeStatus_t balaningStatus = eBalaningJudgeStatus_FAILD;
+	float curWeight,otherWeight;
+
+	if((NULL != pA) && (NULL != pB)) 
+	{
+		curWeight = pA->curWight;
+		otherWeight = pB->curWight;
+		//
+		if((curWeight < -gSystemPara.zeroRange) || (curWeight > gSystemPara.zeroRange))
+		{
+			//4.5.2.compare_i+1 out of zeroRange
+			if((otherWeight < -gSystemPara.zeroRange) || (otherWeight > gSystemPara.zeroRange))
+			{
+				//4.5.3.compare_i+1 - compare_i at of errRange
+				if(((curWeight - otherWeight) > -gSystemPara.errRange) 
+					&& ((curWeight - otherWeight) < gSystemPara.errRange) )
+				{
+					balaningStatus = eBalaningJudgeStatus_SUCCESS;
+				}
+				else
+				{
+					balaningStatus = eBalaningJudgeStatus_FAILD;
+				}
+			}
+			else
+			{
+				balaningStatus = eBalaningJudgeStatus_Other_MOVED;
+			}
+		}
+		else
+		{
+			balaningStatus = eBalaningJudgeStatus_Curent_MOVED;
+		}
+	}
+
+	return balaningStatus;
+}
+
+
+//balanind mainfunction
+void balaningMainfuction()
+{
+	tBalaningManager_t *pBalaningManager = &tBalaningManager;
+	UINT8 curChanel,otherChanel;
+	enumLedColorType disColor,otherDisColor;
+	float curWeight,otherWeight;
+	eBalaningJudgeStatus_t balaningStatus = eBalaningJudgeStatus_FAILD;
+	for(curChanel=0;curChanel<BALANCING_NUM;curChanel++)
+	{
+		//chanel was at dis color status
+		disColor = balaningColorGet(curChanel);
+		curWeight = balaningWeightGet(curChanel);
+		if(LED_COLOR_NONE != disColor)
+		{
+			//judge weight if not exchanegd
+			otherChanel = balaningOtherChanelGet(curChanel);
+			if(otherChanel < BALANCING_NUM)
+			{
+				//normal:other chanel was exist
+				otherDisColor = balaningColorGet(otherChanel);
+				otherWeight = balaningWeightGet(otherChanel);
+				if((LED_COLOR_NONE != otherDisColor) && (disColor == otherDisColor))
+				{
+					//normal:color was the same color
+					//balaning juge again
+					balaningStatus = balaningJudge(&pBalaningManager->tBalaningInfo[curChanel],&pBalaningManager->tBalaningInfo[otherChanel])		
+					
+
+
+				}
+				else
+				{
+					//clear chanel color
+					balaningColorSet(curChanel,LED_COLOR_NONE);
+					balaningColorSet(otherChanel,LED_COLOR_NONE);
+					//clear chanel other chanel
+					balaningOtherChanelSet(curChanel,BALANCING_NUM);
+					balaningOtherChanelSet(otherChanel,BALANCING_NUM);
+				}
+			}
+			else//err:if curent chanel have dis color but other chanel not exist
+			{
+				//clear chanel color
+				balaningColorSet(curChanel,LED_COLOR_NONE);
+				//clear chanel other chanel
+				balaningOtherChanelSet(curChanel,BALANCING_NUM);
+			}
+			
+		}
+	}
+}
+
+enumLedColorType balaningFinoutUseableColor()
+{
+	enumLedColorType color = LED_COLOR_NONE;
+	gSystemParaType *pSystemPara = &gSystemPara;
+	UINT8	i = 0 ;
+	for(i=0;i<SYS_COLOR_GROUP_NUM;i++)
+	{
+		if(FALSE == pSystemPara->userColorUsed[i])
+		{
+			color = pSystemPara->userColorSet[i];
+			pSystemPara->userColorUsed[i] = TRUE;
+			break;
+		}
+	}
+	return color;
+}
+void balaningColorClear()
+{
+
+}
+
+//balanind mainfunction
+void balaningMainfuction222()
+{
+	tBalaningManager_t *pBalaningManager = &tBalaningManager;
+	UINT8 curChanel,otherChanel;
+	enumLedColorType disColor,otherDisColor;
+	float curWeight,otherWeight;
+	eBalaningJudgeStatus_t balaningStatus = eBalaningJudgeStatus_FAILD;
+	for(curChanel=0;curChanel<BALANCING_NUM;curChanel++)
+	{	
+		for(otherChanel=(curChanel+1);otherChanel<BALANCING_NUM;otherChanel++)
+		{
+			balaningStatus = balaningJudge(&pBalaningManager->tBalaningInfo[curChanel],&pBalaningManager->tBalaningInfo[otherChanel]);
+			if(eBalaningJudgeStatus_SUCCESS == balaningStatus)
+			{
+				//clear chanel color
+				
+				balaningColorSet(curChanel,LED_COLOR_NONE);
+				//update balaning chanel
+				balaningOtherChanelSet(curChanel,otherChanel);
+				balaningOtherChanelSet(otherChanel,curChanel);
+			}
+			else
+			{
+				//clear color
+			}
+		}
+
+	}
+
+
+}
+
+#endif
 

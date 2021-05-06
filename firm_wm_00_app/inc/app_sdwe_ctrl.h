@@ -20,12 +20,12 @@
 
 
 
-
-
+#define DMG_TRIGER_SAVE_SECOTOR_1			(0X01)
+#define DMG_TRIGER_SAVE_SECOTOR_2			(0X02)
 
 
 //==(update:20210328):DIWEN reserve (uodate to v3:2021.03.26)
-#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER			(100)//ms
+#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER			(10)//ms
 
 
 //==(update:20210328):address of set chanel number : 0->all chanel set  ; (1~8)->single chanel set
@@ -34,11 +34,16 @@
 //==(update:20210328):address of reset calibration of choice chanel number : 0->all chanel set  ; (1~x)->single chanel set
 #define DMG_FUNC_RESET_CALIBRATION_ADDRESS		(0X2101)
 //==(update:20210328):value of reset calibration of choice chanel number:0XAEEA reset calibration
-#define DMG_FUNC_RESET_CALIBRATION_VAL	 		(0XAEEA)
+#define DMG_FUNC_RESET_CALIBRATION_VAL	 		(2021)//(0XAEEA)
 
 //==(update:20210328):address of remove weight
 #define DMG_FUNC_REMOVE_WEIGHT_ADDRESS			(0X2102)
 #define DMG_FUNC_REMOVE_WEIGHT_VAL				(0XA55A)
+
+//==(update:20210428):address of remove weight
+#define DMG_FUNC_JUNPTO_CALIBRATION_ADDRESS		(0X2103)
+#define DMG_FUNC_JUNPTO_CALIBRATION_VAL			(2021)
+#define DMG_FUNC_JUNPTO_ACTIVE_VAL				(1202)
 
 //==(update:20210328):address of set point(weight value) of chanel : (0~9)-> point of chanel set (:g)
 #define DMG_FUNC_SET_CHANEL_POINT_ADDRESS		(0X2200)//0x2200~0x2209
@@ -56,11 +61,23 @@
 
 //==(update:20210328):address of weight back to DMG : (0~5)-> weight of chanel(val:g)
 #define DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS		(0X3000)//0x3000~0x3005
+//==(update:20210328):address of color back to DMG : (0~5)-> color of chanel(val:g)
+#define DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS		(0X3100)//0x3100~0x3105
 
 
+//==(update:20210411):address of unit min max ...
+#define DMG_FUNC_SET_UNIT_ADDRESS			(0X1000)//0x1000
+#define DMG_FUNC_SET_MIN_RANGE_ADDRESS		(0X100A)//0x100A
+#define DMG_FUNC_SET_MAX_RANGE_ADDRESS		(0X100B)//0x100B
+#define DMG_FUNC_SET_ERR_RANGE_ADDRESS		(0X100C)//0x100C
+#define DMG_FUNC_SET_isCascade_ADDRESS		(0X100D)//0x100D
+#define DMG_FUNC_SET_isLedIndicate_ADDRESS	(0X100E)//0x100E
+#define DMG_FUNC_SET_COLOR_START_ADDRESS	(0X100F)//0x100F
+#define DMG_FUNC_SET_COLOR_END_ADDRESS		(0X1012)//0x1012
+#define DMG_FUNC_SET_ZERO_RANGE_ADDRESS		(0X1013)//0x1013
 
-
-
+#define DMG_FUNC_MCUID_ADDRESS				(0X1500)//0x1500
+#define DMG_FUNC_PASSORD_SET_ADDRESS		(0X1510)//0x1510
 
 //system parameter
 typedef enum HX711SystemParaType
@@ -70,6 +87,12 @@ typedef enum HX711SystemParaType
 	HX711SystemPara_MAX_RANGE = 2,  /**< HX711  系统设置-最大量程 */
 	HX711SystemPara_ERR_RANGE = 3,	/**< HX711	系统设置-误差 */
 	HX711SystemPara_CASCADE = 4,  	/**< HX711  系统设置-级联 */	
+	HX711SystemPara_LED_DIS_EN = 5,		/**< HX711	系统设置-LED指示 */
+	HX711SystemPara_COLOR1 = 6,	/**< HX711	系统设置-颜色1 */
+	HX711SystemPara_COLOR2 = 7,	/**< HX711	系统设置-颜色2 */
+	HX711SystemPara_COLOR3 = 8,	/**< HX711	系统设置-颜色3 */
+	HX711SystemPara_COLOR4 = 9,	/**< HX711	系统设置-颜色4 */	
+	HX711SystemPara_ZERO_RANGE = 10, /**< HX711	零点范围 */ 
 	HX711SystemPara_NUM  			/**< HX711  系统设置-最大长度 */
 }enumHX711SystemParaType;
 
@@ -94,16 +117,18 @@ typedef enum CalibrationAskParaType
 //0X0803E000 ~ 0X0803E7FF
 //start of on board sys para flash store address
 #define FLASH_SYS_PARA_STORE_ADDRESS_START				(0X0803E000)
-
+#define FLASH_SYS_PASSWORD_ADDRESS_START	FLASH_SYS_PARA_STORE_ADDRESS_START
+#define FLASH_SYS_PASSWORD_ADDRESS_LED		(4)
+#define FLASH_SYS_PASSWORD_ADDRESS_END		(FLASH_SYS_PASSWORD_ADDRESS_START+FLASH_SYS_PASSWORD_ADDRESS_LED)
 //unit:g or ml
-#define FLASH_SYS_UNIT_ADDRESS_START	FLASH_SYS_PARA_STORE_ADDRESS_START
+#define FLASH_SYS_UNIT_ADDRESS_START	FLASH_SYS_PASSWORD_ADDRESS_END
 #define FLASH_SYS_UNIT_LEN				(HX711SystemPara_NUM*4)
 #define FLASH_SYS_UNIT_ADDRESS_END		(FLASH_SYS_UNIT_ADDRESS_START+FLASH_SYS_UNIT_LEN)
 
 //end of on board sys para flash store address
 #define FLASH_SYS_PARA_STORE_ADDRESS_END					(FLASH_SYS_UNIT_ADDRESS_END)
 
-//store flash data : unit , min , max , cascade , crc
+//store flash data : PASSWORD unit , min , max , cascade ,... , crc
 #define FLASH_SYS_PARA_STORE_MAX_LEN						(((FLASH_SYS_PARA_STORE_ADDRESS_END-FLASH_SYS_PARA_STORE_ADDRESS_START)/4)+1)
 
 //==========================================================================================================================
@@ -205,6 +230,7 @@ typedef enum
 /** 定义从机串口设备类型 */
 typedef struct structSdweType
 {
+	UINT8 	sendSdweInit;
 	UINT8 	readSdweInit;
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
 	UINT8 	version;//SDWE version
@@ -218,8 +244,10 @@ typedef struct structSdweType
 	INT16  	sdwetDataLen;/**< 数据长度 */
 	INT16  	sdweSetData;/**< 数据 */
 
+	UINT16 	sdweRemoveWeightTriger;/**< 去皮 */
 	UINT16 	sdwePointTriger;/**< 点触发校准 */
 	UINT16 	sdweResetTriger;/**< 重新校准 */
+	UINT16 	sdweResetTrigerValid;/**< 重新校准有效 */
 	UINT16 	sdweChanelChanged;/**< 通道改变 */
 	UINT16 	sdweColorClen;/**< 通道改变时清颜色 */
 	UINT16 	sdweCalChanel;/**< 通道 */
@@ -227,10 +255,15 @@ typedef struct structSdweType
 	INT32 	sdweCalPointArry[CHANEL_POINT_NUM];/**< 校准点数组 */
 	UINT32	sdweTick;
 	UINT32	sdweLastSendTick;
+	UINT16 	sdweJumpToCalitrationPage;/**< 跳转至校准页面 */
+	UINT16 	sdweJumpToActivePage;/**< 跳转至激活码 */
+	UINT16	sdweJumpToHomePage;
+	UINT16	sdweJumpToBanlingPage;
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
-#define SdweDefault             { \
+#define SdweDefault   { \
+	0,\
 	0,\
 	&g_UartDevice[UART_EXTERN], \
 	0,\
@@ -248,7 +281,13 @@ typedef struct structSdweType
 	0,\
 	0,\
 	0,\
+	88,\
+	0,\
 	{0},\
+	0,\
+	0,\
+	0,\
+	0,\
 	0,\
 	0,\
 	}
@@ -271,4 +310,12 @@ extern UINT32 getSysPara(enumHX711SystemParaType offset);
 extern void setSysPara(enumHX711SystemParaType offset,UINT32 val);
 extern void readSysParaFromFlsh(void);
 extern void storeSysParaFromFlsh(void);
+extern void readSysParaFromFlsh_3030(void);
+extern void storeSysParaFromFlsh_3030(void);
+
+extern void color_clearAllColor();
+
+
+extern SdweType g_sdwe;
+
 #endif

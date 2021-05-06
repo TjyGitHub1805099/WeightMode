@@ -162,32 +162,42 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_sdwe_dis_data,0x0A</ItemText>
+          <ItemText>weight,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>HX711Chanel[0],0x0A</ItemText>
+          <ItemText>ticks,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
-          <ItemText>g_dmg_triger_data[0][2]</ItemText>
+          <ItemText>weight,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>need_send</ItemText>
+          <ItemText>g_sysLocked</ItemText>
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>pSendData</ItemText>
+          <ItemText>g_passWordId,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
-          <ItemText>led_data</ItemText>
+          <ItemText>passwordBase,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>passwordIn,0x10</ItemText>
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_passWordStore</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>

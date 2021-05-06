@@ -6,6 +6,13 @@
 #define LED_CTRL_TEST	(0)//0:close test 1:open test
 #define LED_CTRL_DATA_LEN 3
 
+#define COLOR_ALT_20210328_DEFINE	(TRUE)
+
+#define COLOR_ALT_20210414_DEFINE	(FALSE)
+
+#define COLOR_ALT_20210427_DEFINE	(FALSE)
+
+
 //main task status
 typedef enum LedSeqType
 {
@@ -36,7 +43,20 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color);
 void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade);
 void useWeightCompareOutColor(UINT8 hx711DataUpgrade);
 extern void useWeightUpdataOutColor(UINT8 hx711DataUpgrade);
+extern void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade);
 void LedSysTest(UINT32 ms_tick);
 extern UINT8 led_test_flag ;
+
+
+
+
+
+#if(COLOR_ALT_20210414_DEFINE)
+extern void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade);
+#endif
+
+
+
+
 #endif
 
