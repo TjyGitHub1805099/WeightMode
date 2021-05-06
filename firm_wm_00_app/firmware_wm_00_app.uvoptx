@@ -193,6 +193,14 @@
           <count>6</count>
           <WinNumber>1</WinNumber>
           <ItemText>passwordIn,0x10</ItemText>
+<<<<<<< HEAD
+=======
+        </Ww>
+        <Ww>
+          <count>7</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_passWordStore</ItemText>
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
         </Ww>
       </WatchWindow1>
       <Tracepoint>

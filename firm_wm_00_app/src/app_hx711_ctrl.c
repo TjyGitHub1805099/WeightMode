@@ -330,19 +330,29 @@ INT32 hx711_getAvgSample(enumHX711ChanelType chanel)
 //==get weight-remove weight
 float hx711_getWeight(enumHX711ChanelType chanel)
 {
+<<<<<<< HEAD
 	float ret = 0 ,max = 1.1*gSystemPara.maxWeight;
+=======
+	float ret = 0 ,max = (float)(1.1)*gSystemPara.maxWeight;
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 	ChanelType *pChanel=&HX711Chanel[0];
 	if( chanel < HX711_CHANEL_NUM )
 	{
 		//this is allready remove weight
 		ret = pChanel[chanel].weight - pChanel[chanel].weightRemove;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 	if(ret >= max)
 	{
 		ret = max;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 	return ret;
 }
 //==set all remove weight

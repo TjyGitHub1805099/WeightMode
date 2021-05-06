@@ -1154,6 +1154,64 @@ UINT8 jumpToBanlingPage()
 	return result;
 }
 
+//if need jump to active page 
+UINT8 jumpToActivePage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,56};//56 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+
+//if need jump to calibration page 
+UINT8 jumpToCalibrationPage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,53};//53 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+//if need jump to home page 
+UINT8 jumpToHomePage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,54};//54 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+//if need jump to Banling page 
+UINT8 jumpToBanlingPage()
+{
+	UINT8 result = 0 ;
+	//5A A5 07 82 0084 5A01 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,49};//49 page
+	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	{
+		sdweWriteVarible((0X0084),pageChangeOrderAndData,2,0);
+		result = 1;
+	}
+	return result;
+}
+
 
 
 
@@ -1523,7 +1581,11 @@ void sdwe_TxFunction(void)
 			 g_sdwe.sdweChanelChanged = FALSE;
 		}
 	}
+<<<<<<< HEAD
 	//==if need junp to calibration page
+=======
+	//==if need junp to active page
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 	else if(TRUE == g_sdwe.sdweJumpToActivePage)
 	{
 		if(0 != jumpToActivePage())

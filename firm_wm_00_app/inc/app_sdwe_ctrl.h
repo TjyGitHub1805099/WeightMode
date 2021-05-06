@@ -45,8 +45,11 @@
 #define DMG_FUNC_JUNPTO_CALIBRATION_VAL			(2021)
 #define DMG_FUNC_JUNPTO_ACTIVE_VAL				(1202)
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 //==(update:20210328):address of set point(weight value) of chanel : (0~9)-> point of chanel set (:g)
 #define DMG_FUNC_SET_CHANEL_POINT_ADDRESS		(0X2200)//0x2200~0x2209
 
@@ -258,9 +261,15 @@ typedef struct structSdweType
 	UINT32	sdweTick;
 	UINT32	sdweLastSendTick;
 	UINT16 	sdweJumpToCalitrationPage;/**< 跳转至校准页面 */
+<<<<<<< HEAD
 	UINT16	sdweJumpToHomePage;
 	UINT16	sdweJumpToBanlingPage;
 	UINT16 	sdweJumpToActivePage;/**< 跳转至激活界面 */
+=======
+	UINT16 	sdweJumpToActivePage;/**< 跳转至激活码 */
+	UINT16	sdweJumpToHomePage;
+	UINT16	sdweJumpToBanlingPage;
+>>>>>>> 1cea0e2fea91edc540f4538cdd162cbac04c019b
 }SdweType;
 
 /** ModbusRtu设备默认配置 */
