@@ -129,6 +129,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -161,42 +162,94 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>weight</ItemText>
+=======
           <ItemText>test,0x0A</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>chanleArry</ItemText>
+=======
           <ItemText>1</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>2</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>i16Minus</ItemText>
+=======
           <ItemText>g_sdwe.txData,0x10</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>chanel</ItemText>
+=======
           <ItemText>pageChangeOrderAndData</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>i16Number1</ItemText>
+=======
           <ItemText>pageChangeOrderAndData</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>5</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>i16Number2</ItemText>
+=======
           <ItemText>pageChangeOrderAndData</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>i16Min</ItemText>
+=======
           <ItemText>total_len</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
+<<<<<<< HEAD
+          <ItemText>si16Number1</ItemText>
+        </Ww>
+        <Ww>
+          <count>8</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>si16Number2</ItemText>
+        </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>si16Min</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_sdwe_dis_data_buff</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>g_sdwe_dis_data_buff</ItemText>
+=======
           <ItemText>pageChangeOrderAndData,0x0A</ItemText>
+>>>>>>> c329165403469ba272073cf2650f101295d9dcfe
         </Ww>
       </WatchWindow1>
       <Tracepoint>

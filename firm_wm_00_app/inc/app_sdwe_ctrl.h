@@ -89,6 +89,8 @@
 #define DMG_FUNC_Balancing_CLEARPAGE_SET_ADDRESS	(0X1103)//0x1103
 #define DMG_FUNC_Balancing_CLEARPAGE_SET_VALUE	(0X1103)//0x1103
 
+#define DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS	(0X1201)//0x1201
+
 #define DMG_FUNC_Balancing_6_PAGE 			(49)
 #define DMG_FUNC_Balancing_6_HOME_PAGE 		(57)
 #define DMG_FUNC_Balancing_12_PAGE 			(55)

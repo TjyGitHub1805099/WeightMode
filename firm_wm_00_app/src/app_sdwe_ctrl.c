@@ -20,6 +20,7 @@ unionFloatInt32 flashStoreDataBuf[FLASH_STORE_MAX_LEN]={0};
 static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
 //sdwe 8 weight data + 8 color data	
 INT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
+INT16 g_sdwe_dis_data_buff[SDWE_WEIGHR_DATA_LEN]={0};
 
 //1.chanel num :0~x HX711_CHANEL_NUM
 //2.trigerStarus , back color , point avg Sample , point set weight
@@ -1225,7 +1226,12 @@ UINT8 jumpToBanlingPage()
 {
 	UINT8 result = 0 ;
 	//5A A5 07 82 0084 5A01 page
-	INT16 pageChangeOrderAndData[2]={0x5A01,49};//49 page
+	INT16 pageChangeOrderAndData[2]={0x5A01,DMG_FUNC_Balancing_6_PAGE};//49 page
+
+	if(TRUE == gSystemPara.isCascade)
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
+	}
 	if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 		((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 	{
@@ -1415,6 +1421,7 @@ UINT8 removeWeightTrigerDeal()
 			{
 			
 				pSendData= &g_sdwe_dis_data[HX711_CHANEL_NUM];
+				
 				sdweWriteVarible(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
 				//
 				inerStatus=2;
@@ -1428,6 +1435,140 @@ UINT8 removeWeightTrigerDeal()
 	return result;
 }
 
+#define DIFF_JUDGE_GROUP_NUM	(2)	
+#define DIFF_JUDGE_DATA_NUM		(3)//num1 num2 minus
+
+void sendHelpDataDiff()
+{
+	//===================================================================
+	enumHX711ChanelType chanel = HX711Chanel_1;
+	float weight[HX711_CHANEL_NUM];	
+	enumHX711ChanelType chanleArry[HX711_CHANEL_NUM];
+	//JUDGE
+	INT16 i16Minus=0;
+	INT16 i16Number1[DIFF_JUDGE_GROUP_NUM]={0,0};
+	INT16 i16Number2[DIFF_JUDGE_GROUP_NUM]={0,0};
+	INT16 i16Min[DIFF_JUDGE_GROUP_NUM]={0,0};
+	INT16 i16Min_i=0;
+	//
+	UINT8 i = 0;
+	//locate
+	static INT16 si16Number1[DIFF_JUDGE_GROUP_NUM]={0,0};
+	static INT16 si16Number2[DIFF_JUDGE_GROUP_NUM]={0,0};
+	static INT16 si16Min[DIFF_JUDGE_GROUP_NUM]={0,0};
+	//
+	static UINT8 need_send = 0;
+	
+	INT16 sendData[DIFF_JUDGE_GROUP_NUM*DIFF_JUDGE_DATA_NUM];
+	
+	//get weight and chanel num
+	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	{
+		//weight[chanel] = hx711_getWeight(chanel);
+		weight[chanel] = g_sdwe_dis_data_buff[chanel];
+		chanleArry[chanel] = chanel;
+	}
+
+	//remove peiping
+	#if 0
+		BubbleSort(weight,chanleArry,HX711_CHANEL_NUM);
+		for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
+		{
+			//judge allready peiping
+			i16Minus = weight[chanel+1] - weight[chanel];
+			if(i16Minus <= gSystemPara.errRange)
+			{
+				weight[chanel+1] = 0 ;
+				weight[chanel] = 0 ;
+				//
+				chanel++;
+			}
+		}
+	#else
+		for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM);chanel++)
+		{
+			if(g_sdwe_dis_data_buff[HX711_CHANEL_NUM+chanel] != LED_COLOR_NONE)
+			{
+				weight[chanel] = 0 ;
+			}
+		}
+	#endif	
+
+	//Sort
+	BubbleSort(weight,chanleArry,HX711_CHANEL_NUM);
+	
+	//
+	for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
+	{
+		//judge allready peiping
+		i16Minus = (weight[chanel+1] - weight[chanel]+0.5);
+		if(i16Minus <= gSystemPara.errRange)
+		{
+			chanel++;
+		}
+		else
+		{
+			if((weight[chanel+1] >= gSystemPara.zeroRange) || 
+				(weight[chanel+1] <= -gSystemPara.zeroRange) )
+			{
+				if((weight[chanel] >= gSystemPara.zeroRange) || 
+					(weight[chanel] <= -gSystemPara.zeroRange) )
+				{
+					i16Minus = weight[chanel+1] - weight[chanel];
+					if(i16Minus > gSystemPara.errRange)
+					{
+						i16Number1[i16Min_i] = chanleArry[chanel+1]+1;
+						i16Number2[i16Min_i] = chanleArry[chanel]+1;
+						i16Min[i16Min_i] = i16Minus;
+						//
+						chanel++;
+						//
+						i16Min_i++;
+						if(i16Min_i>=DIFF_JUDGE_GROUP_NUM)
+						{
+							break;
+						}
+					}
+				}
+			
+			}
+		}
+	}
+	
+	//compare help data if equal
+	for(i=0;i<DIFF_JUDGE_GROUP_NUM;i++)
+	{
+		if((i16Number1[i]!=si16Number1[i])||
+			(i16Number2[i]!=si16Number2[i])||
+			(i16Min[i]!=si16Min[i]))
+		{
+			si16Number1[i] = i16Number1[i];
+			si16Number2[i] = i16Number2[i];
+			si16Min[i] = i16Min[i];
+			need_send = 1 ;
+		}
+	}
+
+	if(1 == need_send)
+	{
+		if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+			((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+		{
+			//
+			for(i=0;i<DIFF_JUDGE_GROUP_NUM;i++)
+			{
+				sendData[i*DIFF_JUDGE_DATA_NUM+0] = si16Number1[i];
+				sendData[i*DIFF_JUDGE_DATA_NUM+1] = si16Number2[i];
+				sendData[i*DIFF_JUDGE_DATA_NUM+2] = si16Min[i];
+			}
+			//
+			sdweWriteVarible(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,sendData,(DIFF_JUDGE_GROUP_NUM*DIFF_JUDGE_DATA_NUM),0);
+			need_send = FALSE;
+		}
+	}
+
+}
+
 
 void sendBalancingModelData()
 {
@@ -1439,6 +1580,7 @@ void sendBalancingModelData()
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	
 	static UINT8 inerStatus = 0 , localChanel = 0 ;	
+	UINT8 i = 0;
 
 	//=============================================================weight value and color
 	pSendData= &g_sdwe_dis_data[0];
@@ -1465,6 +1607,10 @@ void sendBalancingModelData()
 				if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 				{
+					for(chanel=0;chanel<HX711_CHANEL_NUM;chanel++)
+					{
+						g_sdwe_dis_data_buff[chanel] = g_sdwe_dis_data[chanel];
+					}
 					sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
 					//
 					inerStatus=1;
@@ -1477,8 +1623,12 @@ void sendBalancingModelData()
 				if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 				{
-				
+					//
 					pSendData= &g_sdwe_dis_data[HX711_CHANEL_NUM];
+					for(i=0;i<HX711_CHANEL_NUM;i++)
+					{
+						g_sdwe_dis_data_buff[HX711_CHANEL_NUM+i] = g_sdwe_dis_data[HX711_CHANEL_NUM+i];
+					}
 					sdweWriteVarible(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
 					//
 					inerStatus=2;
@@ -1715,6 +1865,7 @@ void sdwe_TxFunction(void)
 	else if(g_sysLocked == STM32MCU_UNLOCKED)
 	{
 		sendBalancingModelData();
+		sendHelpDataDiff();
 	}	
 
 #if 0

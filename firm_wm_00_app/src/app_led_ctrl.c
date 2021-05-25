@@ -321,7 +321,7 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 #define CHANEL_COMPARED_FLAG_BIT	(12)
 #define CHANEL_COMPARED_OTHER_BIT	(8)
 #define CHANEL_COMPARED_COLOR_BIT	(4)
-
+//extern float g_sdwe_dis_data_diff[SDWE_WEIGHR_DATA_LEN];
 void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
@@ -340,6 +340,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 		{
 			curWeight[chanel] = hx711_getWeight(chanel);
+			//g_sdwe_dis_data_diff[chanel] = curWeight[chanel];
 		}
 		//check allready equal chanel,judge again
 		for(chanel = HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
