@@ -1166,5 +1166,32 @@ void balaningMainfuction222()
 
 }
 
+
+
+#if(COLOR_ALT_20210606_DEFINE)
+sBalancingGroupDataType sBalancingData;
+void balancingDataPush(void)
+{
+	sBalancingGroupDataType *pBlcData=sBalancingData;
+	UINT8 chanel_i = 0 ;
+	
+	//=master data push
+	pBlcData->u8MasterDataLen = MATER_WEIGHT_CHANEL_NUM;
+	for(chanel_i = 0 ; chanel_i < MATER_WEIGHT_CHANEL_NUM ; chanel_i++)
+	{
+		pBlcData->fMaster[chanel_i] = hx711_getWeight(chanel_i);
+	}
+
+	//==slave data push
+}
+void useWeightUpdataOutColor_20210606(sBalancingGroupDataType *pBlcData)
+{
+	if(NULL != pBlcData)
+	{
+		
+	}
+}
+#endif
+
 #endif
 

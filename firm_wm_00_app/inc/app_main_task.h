@@ -7,6 +7,11 @@
 #define TRUE 1
 #define FALSE 0
 
+#define COLOR_ALT_20210328_DEFINE	(TRUE)
+#define COLOR_ALT_20210414_DEFINE	(FALSE)
+#define COLOR_ALT_20210427_DEFINE	(FALSE)
+#define COLOR_ALT_20210606_DEFINE	(FALSE)
+
 
 //main task status
 typedef enum MainTaskCtrlType

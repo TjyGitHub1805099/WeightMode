@@ -29,33 +29,39 @@
 
 
 /* 硬件端口资源定义 */
-// UART1 实际是UART5 无DMA 接调试串口
-#define UART1_PORT							UART5
-#define UART1_PORT_CLK						RCC_APB1ENR_UART5EN
-#define UART1_PORT_IRQn						UART5_IRQn
-#define UART1_PORT_GPIO_AF					GPIO_AF5_USART5
+// UART1 接485总线 , 实际是 STM32F303 UASRT3 , 带DMA功能
+#define UART1_PORT							USART3
+#define UART1_PORT_CLK						RCC_APB1ENR_USART3EN
+#define UART1_PORT_IRQn						USART3_IRQn
+#define UART1_PORT_GPIO_AF					GPIO_AF7_USART3
 
-#define UART1_TX_GPIO_PORT					GPIOC
-#define UART1_TX_GPIO_CLK					RCC_AHBENR_GPIOCEN
-#define UART1_TX_GPIO_PIN					GPIO_PIN_12
-#define UART1_TX_PIN_SOURCE					GPIO_PINSOURCE12
+#define UART1_TX_GPIO_PORT					GPIOB
+#define UART1_TX_GPIO_CLK					RCC_AHBENR_GPIOBEN
+#define UART1_TX_GPIO_PIN					GPIO_PIN_10
+#define UART1_TX_PIN_SOURCE					GPIO_PINSOURCE10
 
-#define UART1_RX_GPIO_PORT					GPIOD
-#define UART1_RX_GPIO_CLK					RCC_AHBENR_GPIODEN
-#define UART1_RX_GPIO_PIN					GPIO_PIN_2
-#define UART1_RX_PIN_SOURCE					GPIO_PINSOURCE2
+#define UART1_RX_GPIO_PORT					GPIOB
+#define UART1_RX_GPIO_CLK					RCC_AHBENR_GPIOBEN
+#define UART1_RX_GPIO_PIN					GPIO_PIN_11
+#define UART1_RX_PIN_SOURCE					GPIO_PINSOURCE11
 
 #define UART1_TX_DMA						DMA1
 #define UART1_TX_DMA_CLK					RCC_AHBENR_DMA1EN
-#define UART1_TX_DMA_CHANNEL            	DMA1_Channel4
-#define UART1_TX_DMA_IRQn              	 	DMA1_Channel4_IRQn
-#define UART1_TX_DMA_IT_TCIF				DMA1_IT_TC4
+#define UART1_TX_DMA_CHANNEL            	DMA1_Channel2
+#define UART1_TX_DMA_IRQn              	 	DMA1_Channel2_IRQn
+#define UART1_TX_DMA_IT_TCIF				DMA1_IT_TC2
 
 #define UART1_RX_DMA						DMA1
 #define UART1_RX_DMA_CLK					RCC_AHBENR_DMA1EN
-#define UART1_RX_DMA_CHANNEL            	DMA1_Channel5
+#define UART1_RX_DMA_CHANNEL            	DMA1_Channel3
 
-// UART2  实际是 UART3 带DMA 接显示屏
+/** RS485总线使能口线定义 */
+#define UART1_DEA_GPIO_PORT					GPIOB
+#define UART1_DEA_GPIO_CLK					RCC_AHBENR_GPIOBEN
+#define UART1_DEA_GPIO_PIN					GPIO_PIN_2
+
+
+// UART2 接DIWEN显示屏 , 实际是 STM32F303 UASRT2 , 带DMA功能
 #define UART2_PORT							USART2
 #define UART2_PORT_CLK						RCC_APB1ENR_USART2EN
 #define UART2_PORT_IRQn						USART2_IRQn
@@ -82,13 +88,13 @@
 #define UART2_RX_DMA_CHANNEL            	DMA1_Channel6
 
 /** RS485总线使能口线定义 */
-#define UART2_DEA_GPIO_PORT					GPIOB
-#define UART2_DEA_GPIO_CLK					RCC_AHBENR_GPIOBEN
-#define UART2_DEA_GPIO_PIN					GPIO_PIN_10
+#define UART2_DEA_GPIO_PORT					(0)//GPIOB
+#define UART2_DEA_GPIO_CLK					(0)//RCC_AHBENR_GPIOBEN
+#define UART2_DEA_GPIO_PIN					(0)//GPIO_PIN_10
 
 /** 重新定义中断 */
-#define uart_3048_isr						USART1_IRQHandler
-#define uart_3048_tx_dma_isr				DMA1_Channel4_IRQHandler
+#define uart_com_isr						USART3_IRQHandler
+#define uart_com_tx_dma_isr					DMA1_Channel2_IRQHandler
 
 #define uart_extern_isr						USART2_IRQHandler
 #define uart_extern_tx_dma_isr				DMA1_Channel7_IRQHandler
@@ -96,7 +102,7 @@
 /** UART硬件端口定义 */
 typedef enum UartPortType
 {
-	UART_3048 = 0,
+	UART_COM = 0,
 	UART_EXTERN,
 	UART_NUMBER
 }enumUartPortType;
@@ -166,12 +172,12 @@ typedef struct structUartDeviceType
 }UartDeviceType;
 
 #define UartDevice1Default { \
-    UART_3048, \
-	UART_LINK_RX_TX_FULL, \
-	UART_BAUD_9600, \
-	UART_DATABIT_9, \
+    UART_COM, \
+	UART_LINK_RX_TX_HALF_ENABE, \
+	UART_BAUD_115200, \
+	UART_DATABIT_8, \
 	UART_STOPBIT_1, \
-	UART_PARITY_EVEN, \
+	UART_PARITY_NONE, \
 	UART_RX_TX_MODE_DMA, \
 	0, \
 	0, \
@@ -191,7 +197,7 @@ typedef struct structUartDeviceType
 
 #define UartDevice2Default { \
     UART_EXTERN, \
-	UART_LINK_RX_TX_HALF_ENABE, \
+	UART_LINK_RX_TX_FULL, \
 	UART_BAUD_115200, \
 	UART_DATABIT_8, \
 	UART_STOPBIT_1, \

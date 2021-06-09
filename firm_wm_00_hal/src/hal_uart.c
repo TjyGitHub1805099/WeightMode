@@ -34,9 +34,9 @@ const UINT32 UART_RX_GPIO_CLK[] = { UART1_RX_GPIO_CLK, UART2_RX_GPIO_CLK };
 const UINT16 UART_RX_GPIO_PIN[] = { UART1_RX_GPIO_PIN, UART2_RX_GPIO_PIN };
 const UINT16 UART_RX_PIN_SOURCE[] = { UART1_RX_PIN_SOURCE, UART2_RX_PIN_SOURCE };
 // UART 发送使能引脚
-GpioType* UART_DEA_GPIO_PORT[] = { 0, UART2_DEA_GPIO_PORT };
-const UINT32 UART_DEA_GPIO_CLK[] = { 0, UART2_DEA_GPIO_CLK };
-const UINT16 UART_DEA_GPIO_PIN[] = { 0, UART2_DEA_GPIO_PIN };
+GpioType* UART_DEA_GPIO_PORT[] = { UART1_DEA_GPIO_PORT, UART2_DEA_GPIO_PORT };
+const UINT32 UART_DEA_GPIO_CLK[] = { UART1_DEA_GPIO_CLK, UART2_DEA_GPIO_CLK };
+const UINT16 UART_DEA_GPIO_PIN[] = { UART1_DEA_GPIO_PIN, UART2_DEA_GPIO_PIN };
 //// UART 接收使能引脚
 //GpioType* UART_REA_GPIO_PORT[] = { UART1_REA_GPIO_PORT };
 //const UINT32 UART_REA_GPIO_CLK[] = { UART1_REA_GPIO_CLK };
@@ -464,13 +464,13 @@ void hal_uart_rx_irq_disable( UartDeviceType *pUartDevice )
 * @brief  串口1 DMA发送中断服务函数
 * @retval 无
 */
-void uart_3048_tx_dma_isr()
+void uart_com_tx_dma_isr()
 {
-	if( drv_dma_stream_get_it_status( UART_TX_DMA_CHANNEL[UART_3048], UART_TX_DMA_IT_TCIF[UART_3048] ) )
+	if( drv_dma_stream_get_it_status( UART_TX_DMA_CHANNEL[UART_COM], UART_TX_DMA_IT_TCIF[UART_COM] ) )
 	{
-		drv_dma_stream_disable( UART_TX_DMA_CHANNEL[UART_3048] );
-		drv_uart_it_enable( UART_PORT[UART_3048], USART_IT_TC );
-		drv_dma_stream_clear_it_pending_bit( UART_TX_DMA_IT_TCIF[UART_3048] );
+		drv_dma_stream_disable( UART_TX_DMA_CHANNEL[UART_COM] );
+		drv_uart_it_enable( UART_PORT[UART_COM], USART_IT_TC );
+		drv_dma_stream_clear_it_pending_bit( UART_TX_DMA_IT_TCIF[UART_COM] );
 	}
 }
 
@@ -478,65 +478,66 @@ void uart_3048_tx_dma_isr()
 * @brief  串口1中断服务函数
 * @retval 无
 */
-void uart_3048_isr( void )
+void uart_com_isr( void )
 {
 	UsartIsrType l_Sr;
-	l_Sr.all = UART_PORT[UART_3048]->ISR.all;
+	l_Sr.all = UART_PORT[UART_COM]->ISR.all;
 
 	if( l_Sr.bit.RTOF == 1 )		//接收超时中断
 	{
-		drv_uart_clear_it_pending_bit( UART_PORT[UART_3048], USART_IT_RTO );
-		drv_dma_stream_disable( UART_RX_DMA_CHANNEL[UART_3048] );
+		drv_uart_clear_it_pending_bit( UART_PORT[UART_COM], USART_IT_RTO );
+		drv_dma_stream_disable( UART_RX_DMA_CHANNEL[UART_COM] );
 
 		// 处理数据
-		*g_UartDevice[UART_3048].pRxLength = g_UartDevice[UART_3048].RxBytesMax - drv_dma_stream_get_left_length( UART_RX_DMA_CHANNEL[UART_3048] );
-		*(g_UartDevice[UART_3048].pRxFinishFlag) = 1;
-		//      hal_3048_msg_packet_process( &g_UartDevice[UART_3048] );
-			  //*g_UartDevice[ UART_3048 ].pRxFinishFlag = 0;
-			  //*g_UartDevice[ UART_3048 ].pRxLength = 0;
+		*g_UartDevice[UART_COM].pRxLength = g_UartDevice[UART_COM].RxBytesMax - drv_dma_stream_get_left_length( UART_RX_DMA_CHANNEL[UART_COM] );
+		*(g_UartDevice[UART_COM].pRxFinishFlag) = 1;
+		//      hal_3048_msg_packet_process( &g_UartDevice[UART_COM] );
+			  //*g_UartDevice[ UART_COM ].pRxFinishFlag = 0;
+			  //*g_UartDevice[ UART_COM ].pRxLength = 0;
 
 			  // 重新设置接收地址和长度，并启动DMA接收
-		drv_dma_set_mem_addr_length( UART_RX_DMA_CHANNEL[UART_3048], (UINT32)g_UartDevice[UART_3048].pRxBuffer, g_UartDevice[UART_3048].RxBytesMax );
-		drv_dma_stream_enable( UART_RX_DMA_CHANNEL[UART_3048] );
+		drv_dma_set_mem_addr_length( UART_RX_DMA_CHANNEL[UART_COM], (UINT32)g_UartDevice[UART_COM].pRxBuffer, g_UartDevice[UART_COM].RxBytesMax );
+		drv_dma_stream_enable( UART_RX_DMA_CHANNEL[UART_COM] );
 	}
 	else if( l_Sr.bit.RXNE == 1 )	// 接收数据中断
 	{
-		drv_uart_clear_it_pending_bit( UART_PORT[UART_3048], USART_IT_RXNE );
-		g_UartDevice[UART_3048].pRxBuffer[*g_UartDevice[UART_3048].pRxLength++] = drv_uart_rx_byte( UART_PORT[UART_3048] );
+		drv_uart_clear_it_pending_bit( UART_PORT[UART_COM], USART_IT_RXNE );
+		g_UartDevice[UART_COM].pRxBuffer[*g_UartDevice[UART_COM].pRxLength++] = drv_uart_rx_byte( UART_PORT[UART_COM] );
 
-		//drv_uart_it_enable(UART_PORT[ UART_3048 ], USART_IT_RTO );
+		//drv_uart_it_enable(UART_PORT[ UART_COM ], USART_IT_RTO );
 	}
 	else if( (l_Sr.bit.TXE == 1) || (l_Sr.bit.TC == 1) )
 	{
 		if( l_Sr.bit.TC == 1 )
 		{
-			drv_uart_clear_it_pending_bit( UART_PORT[UART_3048], USART_IT_TC );
-			g_UartDevice[UART_3048].TxBusyFlag = 0;
+			drv_uart_clear_it_pending_bit( UART_PORT[UART_COM], USART_IT_TC );
+			g_UartDevice[UART_COM].TxBusyFlag = 0;
 			// 方式完成，根据配置切换到接收模式
-			if( (g_UartDevice[UART_3048].LinkType == UART_LINK_RX_TX_HALF) || (g_UartDevice[UART_3048].LinkType == UART_LINK_RX_TX_HALF_ENABE) )
+			if( (g_UartDevice[UART_COM].LinkType == UART_LINK_RX_TX_HALF) || (g_UartDevice[UART_COM].LinkType == UART_LINK_RX_TX_HALF_ENABE) )
 			{
-				hal_uart_set_rx_mode( &(g_UartDevice[UART_3048]) );
+				hal_uart_set_rx_mode( &(g_UartDevice[UART_COM]) );
 			}
 		}
 		else if( l_Sr.bit.TXE == 1 )
 		{
-			drv_uart_clear_it_pending_bit( UART_PORT[UART_3048], USART_IT_TXE );
-			if( g_UartDevice[UART_3048].TxCounter >= g_UartDevice[UART_3048].TxLength )
+			drv_uart_clear_it_pending_bit( UART_PORT[UART_COM], USART_IT_TXE );
+			if( g_UartDevice[UART_COM].TxCounter >= g_UartDevice[UART_COM].TxLength )
 			{
-				drv_uart_it_disable( UART_PORT[UART_3048], USART_IT_TXE );
+				drv_uart_it_disable( UART_PORT[UART_COM], USART_IT_TXE );
 				// 清发送完成中断标志，并打开发送完成中断
-				drv_uart_clear_it_pending_bit( UART_PORT[UART_3048], USART_IT_TC );
-				drv_uart_it_enable( UART_PORT[UART_3048], USART_IT_TC );
+				drv_uart_clear_it_pending_bit( UART_PORT[UART_COM], USART_IT_TC );
+				drv_uart_it_enable( UART_PORT[UART_COM], USART_IT_TC );
 			}
 			else
 			{
-				drv_uart_tx_byte( UART_PORT[UART_3048], g_UartDevice[UART_3048].pTxBuffer[g_UartDevice[UART_3048].TxCounter++] );
+				drv_uart_tx_byte( UART_PORT[UART_COM], g_UartDevice[UART_COM].pTxBuffer[g_UartDevice[UART_COM].TxCounter++] );
 			}
 		}
 	}
 	else if( (l_Sr.bit.PE == 1) || (l_Sr.bit.FE == 1) || (l_Sr.bit.NF == 1) || (l_Sr.bit.ORE == 1) || (l_Sr.bit.LBDF == 1) )
 	{
 		//错误处理
+		hal_uart_port_init( &g_UartDevice[UART_COM] );
 	}
 }
 
@@ -589,7 +590,7 @@ void uart_extern_isr( void )
  //       {
  //           drv_uart_clear_it_pending_bit( UART_PORT[UART_EXTERN], USART_IT_RXNE );
  //           g_UartDevice[UART_EXTERN].pRxBuffer[*g_UartDevice[UART_EXTERN].pRxLength++] = drv_uart_rx_byte( UART_PORT[UART_EXTERN] );
-	//	    //drv_uart_it_enable(UART_PORT[ UART_3048 ], USART_IT_RTO );
+	//	    //drv_uart_it_enable(UART_PORT[ UART_COM ], USART_IT_RTO );
  //       }
 	//}
 //	else if( ( l_Sr.bit.TXE == 1 ) || ( l_Sr.bit.TC == 1 ) )

@@ -466,6 +466,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\app_crc.c</FilePath>
             </File>
+            <File>
+              <FileName>app_modbus_rtu_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_modbus_rtu_ctrl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -500,6 +505,11 @@
               <FileName>app_crc.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\inc\app_crc.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_modbus_rtu_ctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_modbus_rtu_ctrl.h</FilePath>
             </File>
           </Files>
         </Group>

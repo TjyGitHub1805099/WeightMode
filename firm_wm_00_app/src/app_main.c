@@ -11,6 +11,7 @@
 #include "app_sdwe_ctrl.h"
 #include "app_hx711_ctrl.h"
 #include "app_key_ctrl.h"
+#include "app_modbus_rtu_ctrl.h"
 
 /*定义STM32 MCU的类型*/
 typedef enum{
@@ -107,6 +108,7 @@ int main(void)
 	led_init();
 	hx711_init();
 	sdwe_init();
+	ModbusRtu_init();
 	readSysDataFromFlash();
 	readSysDataFromFlash_3030();
 	STM32MCUIDGet(&STM32McuId[0],STM32F1);

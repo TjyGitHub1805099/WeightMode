@@ -13,28 +13,26 @@
 //address of COLOR back to SDWE : (0~7)-> COLOR of chanel(val=0x00:white,val=0x01:red,val=0x02:green,val=0x03:blue,val=0x04:yellowWhite)
 #define SDWE_FUNC_ASK_CHANEL_WEIGHT_COLOR	(0X0168)//0x0168~0x016F
 
-
-
 //address of COLOR back to SDWE : (0~9)-> COLOR of point of chanel set triger(val=0x00:white(not triger),val=0x01green(triger))
 #define SDWE_FUNC_ASK_CHANEL_POINT_TRIG		(0X020A)//0x020A~0x0213
 
 
 
+//==(update:20210606):the SYS data need store : SECTOR1 and SECTOR2
 #define DMG_TRIGER_SAVE_SECOTOR_1			(0X01)
 #define DMG_TRIGER_SAVE_SECOTOR_2			(0X02)
 
 
 //==(update:20210328):DIWEN reserve (uodate to v3:2021.03.26)
-#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER			(10)//ms
+#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER		(10)//10ms 
 
 
 //==(update:20210328):address of set chanel number : 0->all chanel set  ; (1~8)->single chanel set
 #define DMG_FUNC_SET_CHANEL_NUM					(0X2100)
-
 //==(update:20210328):address of reset calibration of choice chanel number : 0->all chanel set  ; (1~x)->single chanel set
 #define DMG_FUNC_RESET_CALIBRATION_ADDRESS		(0X2101)
-//==(update:20210328):value of reset calibration of choice chanel number:0XAEEA reset calibration
-#define DMG_FUNC_RESET_CALIBRATION_VAL	 		(2021)//(0XAEEA)
+//==(update:20210328):value of reset calibration of choice chanel number:2021 reset calibration
+#define DMG_FUNC_RESET_CALIBRATION_VAL	 		(2021)
 
 //==(update:20210328):address of remove weight
 #define DMG_FUNC_REMOVE_WEIGHT_ADDRESS			(0X2102)
@@ -67,6 +65,7 @@
 
 //==(update:20210411):address of unit min max ...
 #define DMG_FUNC_SET_UNIT_ADDRESS			(0X1000)//0x1000
+
 #define DMG_FUNC_SET_MIN_RANGE_ADDRESS		(0X100A)//0x100A
 #define DMG_FUNC_SET_MAX_RANGE_ADDRESS		(0X100B)//0x100B
 #define DMG_FUNC_SET_ERR_RANGE_ADDRESS		(0X100C)//0x100C
@@ -77,6 +76,7 @@
 #define DMG_FUNC_SET_ZERO_RANGE_ADDRESS		(0X1013)//0x1013
 
 #define DMG_FUNC_MCUID_ADDRESS				(0X1500)//0x1500
+
 #define DMG_FUNC_PASSORD_SET_ADDRESS		(0X1510)//0x1510
 
 
@@ -87,14 +87,18 @@
 #define DMG_FUNC_Balancing_HOME_SET_VALUE	(0X1102)//0x1102
 
 #define DMG_FUNC_Balancing_CLEARPAGE_SET_ADDRESS	(0X1103)//0x1103
-#define DMG_FUNC_Balancing_CLEARPAGE_SET_VALUE	(0X1103)//0x1103
+#define DMG_FUNC_Balancing_CLEARPAGE_SET_VALUE		(0X1103)//0x1103
 
 #define DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS	(0X1201)//0x1201
 
-#define DMG_FUNC_Balancing_6_PAGE 			(49)
-#define DMG_FUNC_Balancing_6_HOME_PAGE 		(57)
-#define DMG_FUNC_Balancing_12_PAGE 			(55)
-#define DMG_FUNC_Balancing_12_HOME_PAGE 	(58)
+//DMG PageType
+typedef enum DMGPageType
+{
+	DMG_FUNC_Balancing_6_PAGE = 49,
+	DMG_FUNC_Balancing_6_HOME_PAGE = 57,
+	DMG_FUNC_Balancing_12_PAGE = 55,
+	DMG_FUNC_Balancing_12_HOME_PAGE =58
+}enumDMGPageType;
 
 
 //system parameter
@@ -130,7 +134,7 @@ typedef enum CalibrationAskParaType
 //0x0800 0000 ~ 0x0803 0000
 
 //===================================important:each need store data need 4 byte=============================================
-//==================parameter1:system control of unit , min , max , err , cascade
+//==================SECTOR1:system control of unit , min , max , err , cascade
 //start of on board flash store address
 //0X0803E000 ~ 0X0803E7FF
 //start of on board sys para flash store address
@@ -144,13 +148,13 @@ typedef enum CalibrationAskParaType
 #define FLASH_SYS_UNIT_ADDRESS_END		(FLASH_SYS_UNIT_ADDRESS_START+FLASH_SYS_UNIT_LEN)
 
 //end of on board sys para flash store address
-#define FLASH_SYS_PARA_STORE_ADDRESS_END					(FLASH_SYS_UNIT_ADDRESS_END)
+#define FLASH_SYS_PARA_STORE_ADDRESS_END		(FLASH_SYS_UNIT_ADDRESS_END)
 
 //store flash data : PASSWORD unit , min , max , cascade ,... , crc
-#define FLASH_SYS_PARA_STORE_MAX_LEN						(((FLASH_SYS_PARA_STORE_ADDRESS_END-FLASH_SYS_PARA_STORE_ADDRESS_START)/4)+1)
+#define FLASH_SYS_PARA_STORE_MAX_LEN			(((FLASH_SYS_PARA_STORE_ADDRESS_END-FLASH_SYS_PARA_STORE_ADDRESS_START)/4)+1)
 
 //==========================================================================================================================
-//==================parameter2:HX711 point sample , weight value , K ,B ,weightRemove,weightDir
+//==================SECTOR2:HX711 point sample , weight value , K ,B , weightRemove , weightDir
 //start of on board flash store address
 //0X0803F000 ~ 0X0803F7FF
 //start of on board flash store address
@@ -324,9 +328,6 @@ extern void sdwe_test(void);
 extern void sdweSetWeightBackColor(UINT8 seq,UINT8 color);
 extern void sdwe_MainFunction(UINT8 hx711DataUpgrade);
 extern void readSysDataFromFlash(void);
-
-
-
 
 
 //===================sys para functions

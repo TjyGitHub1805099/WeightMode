@@ -8,6 +8,7 @@
 ".\objects\app_sdwe_ctrl.o"
 ".\objects\app_key_ctrl.o"
 ".\objects\app_crc.o"
+".\objects\app_modbus_rtu_ctrl.o"
 ".\objects\startup_stm32f30x.o"
 --strict --scatter ".\Objects\firmware_wm_00_app.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

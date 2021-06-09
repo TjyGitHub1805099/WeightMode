@@ -62,6 +62,10 @@ void app_main_task( void )
 	useWeightUpdataOutColor_20210414(hx711DataUpgrade);
 #endif
 
+#if(COLOR_ALT_20210606_DEFINE)
+	useWeightUpdataOutColor_20210606(hx711DataUpgrade);
+#endif
+
 	//LED control
 	#if LED_CTRL_TEST//test
 		LedSysTest(g_sys_ms_tick);
@@ -74,6 +78,8 @@ void app_main_task( void )
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);
 
+	ModbusRtu_MainFunction();
+	//after power up 3 seconds clear all weight
 	if((TRUE == removeWeight)&&(g_sys_ms_tick >= 3000))
 	{
 		removeWeight = FALSE;

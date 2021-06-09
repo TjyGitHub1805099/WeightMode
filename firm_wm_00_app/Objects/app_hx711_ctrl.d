@@ -9,4 +9,5 @@
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_systick.h
 .\objects\app_hx711_ctrl.o: .\inc\app_main_task.h
 .\objects\app_hx711_ctrl.o: .\inc\app_led_ctrl.h
+.\objects\app_hx711_ctrl.o: .\inc\app_main_task.h
 .\objects\app_hx711_ctrl.o: .\inc\app_hx711_ctrl.h

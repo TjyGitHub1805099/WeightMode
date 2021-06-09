@@ -1435,7 +1435,12 @@ UINT8 removeWeightTrigerDeal()
 	return result;
 }
 
-#define DIFF_JUDGE_GROUP_NUM	(2)	
+//at BALANCING Page , auto to judge the remaining chanel weight minus
+//to help user to caculate
+//1.find out the remaining chanel
+//2.find out the closed group(minus was smallest)
+//3.send to DIWEN Screen to display
+#define DIFF_JUDGE_GROUP_NUM	(2)//2 group display 
 #define DIFF_JUDGE_DATA_NUM		(3)//num1 num2 minus
 
 void sendHelpDataDiff()
@@ -1755,12 +1760,8 @@ UINT8 trigerVoice(UINT8 test_id)
 //==prepare TX data
 void sdwe_TxFunction(void)
 {
-	
-		static UINT16 test = 0 ,test_id;
+	static UINT16 test = 0 ,test_id;
 
-	
-	
-	
 	if(1==(test++%3000))
 	{
 		//if(TRUE == trigerVoice(test_id))
@@ -1769,92 +1770,84 @@ void sdwe_TxFunction(void)
 		}
 	}
 	
-	//send data to DIWEN
+	//==send initial data to DIWEN to display
 	if(FALSE == g_sdwe.sendSdweInit)
 	{
 		if(0!= sendSysParaDataToDiwen())
 		{
 			g_sdwe.sendSdweInit = 123;
 		}
-	}
-	else if(TRUE == g_sdwe.sdweJumpBalancing_cleanpagee)
-	{
-		if(0!= jumpToBalancingCleanPage())
-		{
-			g_sdwe.sdweJumpBalancing_cleanpagee = FALSE;
-		}
-	}
-	else if(TRUE == g_sdwe.sdweJumpBalancing_home)
-	{
-		if(0!= jumpToBalancingHomePage())
-		{
-			g_sdwe.sdweJumpBalancing_home = FALSE;
-		}
-	}
-	else if(TRUE == g_sdwe.sdweJumpBalancing)
-	{
-		if(0!= jumpToBalancingPage())
-		{
-			g_sdwe.sdweJumpBalancing = FALSE;
-		}
-	}
-	//==if calibration page: chanel changed trigerd
-	else if(TRUE == g_sdwe.sdweChanelChanged)
-	{
-		if(0 != chanelChangedTrigerDeal())
-		{
-			 g_sdwe.sdweChanelChanged = FALSE;
-		}
-	}
-	//==if need junp to active page
-	else if(TRUE == g_sdwe.sdweJumpActivePage)
-	{
-		if(0 != jumpToActivePage())
-		{
-			g_sdwe.sdweJumpActivePage = FALSE;
-		}
-	}
-	//==if need junp to calibration page
-	else if(TRUE == g_sdwe.sdweJumpToCalitrationPage)
-	{
-		if(0 != jumpToCalibrationPage())
-		{
-			g_sdwe.sdweJumpToCalitrationPage = FALSE;
-		}
-	}
-	//==if need junp to calibration page
+	}//==M1 event arrive:jump to HOME Page
 	else if(TRUE == g_sdwe.sdweJumpToHomePage)
 	{
 		if(0 != jumpToHomePage())
 		{
 			g_sdwe.sdweJumpToHomePage = FALSE;
 		}
-	}
-	//==if need junp to calibration page
+	}//==M2 event arrive:jump to BALANCING Page
 	else if(TRUE == g_sdwe.sdweJumpToBanlingPage)
 	{
 		if(0 != jumpToBanlingPage())
 		{
 			g_sdwe.sdweJumpToBanlingPage = FALSE;
 		}
-	}
-	//==if calibration page: reset calibration trigerd
+	}//==M3 event arrive:jump to CALITRATION Page
+	else if(TRUE == g_sdwe.sdweJumpToCalitrationPage)
+	{
+		if(0 != jumpToCalibrationPage())
+		{
+			g_sdwe.sdweJumpToCalitrationPage = FALSE;
+		}
+	}//==M4 event arrive:jump to ACTIVE Page
+	else if(TRUE == g_sdwe.sdweJumpActivePage)
+	{
+		if(0 != jumpToActivePage())
+		{
+			g_sdwe.sdweJumpActivePage = FALSE;
+		}
+	}//==M2-1 event arrive: jump to BALANCING Page
+	else if(TRUE == g_sdwe.sdweJumpBalancing)
+	{
+		if(0!= jumpToBalancingPage())
+		{
+			g_sdwe.sdweJumpBalancing = FALSE;
+		}
+	}//==M2-2 event arrive:jump to BALANCING (clean)page
+	else if(TRUE == g_sdwe.sdweJumpBalancing_cleanpagee)
+	{
+		if(0!= jumpToBalancingCleanPage())
+		{
+			g_sdwe.sdweJumpBalancing_cleanpagee = FALSE;
+		}
+	}//==M2-3 event arrive:jump to BALANCING (home)page
+	else if(TRUE == g_sdwe.sdweJumpBalancing_home)
+	{
+		if(0!= jumpToBalancingHomePage())
+		{
+			g_sdwe.sdweJumpBalancing_home = FALSE;
+		}
+	}//==C1 event arrive:At Calibration Page , chanel changed trigerd
+	else if(TRUE == g_sdwe.sdweChanelChanged)
+	{
+		if(0 != chanelChangedTrigerDeal())
+		{
+			 g_sdwe.sdweChanelChanged = FALSE;
+		}
+	}//==C2 event arrive:At Calibration Page , calibration reset trigerd 
 	else if(TRUE == g_sdwe.sdweResetTriger)
 	{
 		if(0 != resetCalibrationTrigerDeal())
 		{
 			g_sdwe.sdweResetTriger = FALSE;
 		}
-	}
-	//==if calibration page: point trigerd
+	}//==C3 event arrive:At Calibration Page , point trigerd
 	else if(TRUE == g_sdwe.sdwePointTriger)
 	{
 		if(0 != pointTrigerDeal())
 		{
 			g_sdwe.sdwePointTriger = FALSE;
 		}
-	}
-	//==if cali page: remove weight trigerd
+	}//==B1 event arrive:At Balancing Page , remove weight trigerd
 	else if(TRUE == g_sdwe.sdweRemoveWeightTriger)
 	{
 		if(0 != removeWeightTrigerDeal())
@@ -1862,74 +1855,13 @@ void sdwe_TxFunction(void)
 			g_sdwe.sdweRemoveWeightTriger = FALSE;
 		}
 	}
+	//==SYS LOCK CHARGE
 	else if(g_sysLocked == STM32MCU_UNLOCKED)
 	{
 		sendBalancingModelData();
 		sendHelpDataDiff();
 	}	
 
-#if 0
-
-	if( (TRUE == getSdwePointTriger() ) || (TRUE == g_sdwe.sdweColorClen) )
-	{
-		if(TRUE == g_sdwe.sdweColorClen)
-		{
-
-
-		}
-	
-		#if 0
-		//=============================================================point triger ask
-		//clr
-		//clear triger
-		if(TRUE == getSdwePointTriger())
-		{
-			clrSdwePointTriger();
-		}
-		//clr triger ,color, avg sample value
-		if(TRUE == g_sdwe.sdweColorClen)
-		{
-			//if chanel changed set SDWE back color to white
-			clrSdwePointTrigerAll();
-			g_sdwe.sdweColorClen = FALSE;
-		}
-		//color get
-		pSendData = &g_sdwe_triger_data[1][0];//color:1 green 0:white
-		if(0 == g_sdwe.sdweCalChanel)
-		{
-			sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,(3*CHANEL_POINT_NUM),0);
-		}
-		else
-		{
-			sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_POINT_TRIG,pSendData,(2*CHANEL_POINT_NUM),0);
-		}
-		#else
-		
-
-		
-		#endif
-	}
-	else if((ticks%1000) == 0 )
-	{
-		//============================================================sdwe version and chanel and weight read
-		if(FALSE == g_sdwe.readSdweInit)
-		{
-			sdweReadRegister(0x00,1 ,FALSE);//version read
-		}
-		else if(TRUE == g_sdwe.readSdweInit)//if version was read , readSdweInit = TRUE
-		{
-			sdweReadVarible(0X01FF,11,FALSE);//read sdwe : chanel num and 10 point weight value
-			g_sdwe.readSdweInit = 2;
-		}
-	}	
-	else if(1 == need_send)
-	{
-		//============================================================if weight changed , send weight and color value to SDWE
-		need_send = 0 ;
-		//color was set at useWeightUpdateLedAndSdweColor 
-		sdweWriteVarible(SDWE_FUNC_ASK_CHANEL_WEIGHT,pSendData,SDWE_WEIGHR_DATA_LEN,0);
-	}	
-	#endif
 }
 
 //==SDWE UART data deal

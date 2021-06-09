@@ -93,6 +93,11 @@ typedef union
 }unionFloatInt32;
 
 
+
+
+
+
+
 extern const INT32 defaultChanelSamplePoint[CHANEL_POINT_NUM];
 
 extern void hx711_init(void);

@@ -5,6 +5,8 @@
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\typedefine.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_address.h
 .\objects\app_led_ctrl.o: .\inc\app_led_ctrl.h
+.\objects\app_led_ctrl.o: .\inc\app_main_task.h
+.\objects\app_led_ctrl.o: .\inc\app_led_ctrl.h
 .\objects\app_led_ctrl.o: .\inc\app_hx711_ctrl.h
 .\objects\app_led_ctrl.o: .\inc\app_sdwe_ctrl.h
 .\objects\app_led_ctrl.o: ..\firm_wm_00_hal\inc\hal_uart.h
@@ -22,4 +24,3 @@
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
-.\objects\app_led_ctrl.o: .\inc\app_main_task.h
