@@ -1,4 +1,5 @@
 #include "typedefine.h"
+#include "app_hx711_ctrl.h"
 
 const UINT8 g_CrcHTable[] =// CRC 高位字节值表
 {
@@ -82,3 +83,34 @@ UINT16 cal_crc16(UINT8 *pData, UINT32 Length)
 	return CRC_data;
 }
 
+//==冒泡排序
+void BubbleSort(float a[],enumHX711ChanelType arry[] ,UINT8 n)
+{
+	UINT8	flag = 0;
+    UINT8 	i = 0, j = 0;
+	float 	temp = 0.0;
+	enumHX711ChanelType chanelTemp = HX711Chanel_1;
+    for( i = 0 ; i < n ; i++ )
+	{
+        flag=0;              //表示本趟冒泡是否发生交换的标志
+        for( j = 1 ; j < n-i ; j++)
+		{         //j的起始位置为1，终止位置为n-i  
+            if(a[j]<a[j-1])
+			{
+				temp = a[j-1];
+				a[j-1] = a[j];
+				a[j] = temp;
+
+				chanelTemp = arry[j-1];
+				arry[j-1] = arry[j];
+				arry[j] = chanelTemp;
+				
+               	flag=1;
+            }
+        }
+        if(flag==0)             //未交换，说明已经有序，停止排序
+        {
+            return;
+        }
+    }          
+}

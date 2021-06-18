@@ -22,6 +22,12 @@ static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
 INT16 g_sdwe_dis_data[SDWE_WEIGHR_DATA_LEN]={0};
 INT16 g_sdwe_dis_data_buff[SDWE_WEIGHR_DATA_LEN]={0};
 
+
+//other
+INT16 g_sdwe_dis_data2[SDWE_WEIGHR_DATA_LEN]={0};
+INT16 g_sdwe_dis_data_buff2[SDWE_WEIGHR_DATA_LEN]={0};
+
+
 //1.chanel num :0~x HX711_CHANEL_NUM
 //2.trigerStarus , back color , point avg Sample , point set weight
 //3.point num
@@ -585,12 +591,9 @@ void readSysDataFromFlash(void)
 //=======================v3.0
 void readSysDataFromFlash_3030(void)
 {
-	ChanelType *pChanel = 0;	
 	unionFloatInt32 readflashDataBuf[FLASH_SYS_PARA_STORE_MAX_LEN]={0};
-	INT32 *pInt32 = 0;
-	float *pFloat = 0;
 	UINT32 crc = 0 ;
-	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
+	UINT16 start_i = 0 , end_i = 0;
 	UINT8 point_i = 0 ;
 	//read data from flash
 	drv_flash_read_words( FLASH_SYS_PARA_STORE_ADDRESS_START, (UINT32 *)(&readflashDataBuf[0].i_value), FLASH_SYS_PARA_STORE_MAX_LEN);
@@ -620,13 +623,12 @@ void readSysDataFromFlash_3030(void)
 void storeSysDataToFlash_3030()
 {
 	static UINT16 storeTick = 0 ; 
-	ChanelType *pChanel = 0;	
 	unionFloatInt32 *pWordInt32Float=&flashStoreDataBuf_3030[0];
 	UINT8 *pChar = 0 ;
 	INT32 *pInt32 = 0 ;
 	float *pFloat = 0;
 	UINT32 crc = 0 ;
-	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
+	UINT16 start_i = 0 , end_i = 0;
 
 	//0
 	start_i = end_i ;
@@ -742,7 +744,6 @@ void readSysParaFromFlsh(void)
 {
 	unionFloatInt32 readflashDataBuf[FLASH_SYS_PARA_STORE_MAX_LEN]={0};
 	INT32 *pInt32 = 0;
-	float *pFloat = 0;
 	UINT32 crc = 0 ;
 	UINT16 start_i = 0 , end_i = 0;
 	//read data from flash
@@ -754,7 +755,7 @@ void readSysParaFromFlsh(void)
 	{
 		start_i = 0 ;
 		end_i = FLASH_SYS_PARA_STORE_MAX_LEN-1;
-		pInt32 = &(sysPara[0]);
+		pInt32 = (INT32 *)&(sysPara[0]);
 		for(;start_i<end_i;start_i++)
 		{
 			*pInt32++ = readflashDataBuf[start_i].i_value;
@@ -767,14 +768,13 @@ void storeSysParaFromFlsh(void)
 	unionFloatInt32 *pWordInt32Float=&flashSysParaStoreDataBuf[0];
 	UINT8 *pChar = 0 ;
 	INT32 *pInt32 = 0 ;
-	float *pFloat = 0;
 	UINT32 crc = 0 ;
 	UINT16 start_i = 0 , end_i = 0;
 
 	//get ram buf
 	start_i = 0 ;
 	end_i = FLASH_SYS_PARA_STORE_MAX_LEN-1;
-	pInt32 = &(sysPara[0]);
+	pInt32 = (INT32 *)(&(sysPara[0]));
 	for(;start_i<end_i;start_i++)
 	{
 		if(start_i < (FLASH_SYS_PARA_STORE_MAX_LEN-1))
@@ -811,7 +811,7 @@ void sdweSetWeightBackColor(UINT8 seq,UINT8 color)
 		g_sdwe_dis_data[HX711_CHANEL_NUM+seq] = color;
 	}
 }
-void color_clearAllColor()
+void color_clearAllColor(void)
 {
 	UINT8 seq = HX711Chanel_1;
 	for(seq=HX711Chanel_1;seq<HX711_CHANEL_NUM;seq++)
@@ -944,7 +944,7 @@ void storeSysPara_3030(UINT16 varAdd, UINT16 varData)
 UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 {
 	UINT8 needStore = FALSE ;
-	UINT8 i = 0 , point = 0 , point_i = 0;
+	UINT8 i = 0 , point = 0;
 	INT32 weight=0,avgSampleValue=0;
 	SdweType *pSdwe = &g_sdwe;
 	//
@@ -1100,7 +1100,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 					//avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel)/512;
 					for(i=0;i<HX711_CHANEL_NUM;i++)//eight chanel
 					{
-						avgSampleValue = hx711_getAvgSample(i)/512;
+						avgSampleValue = hx711_getAvgSample((enumHX711ChanelType)i)/512;
 						trigerCalcKB(i,point);
 						pointTrigerDataSet(i,point,1,avgSampleValue);
 					}
@@ -1109,7 +1109,7 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				}
 				else if(HX711_CHANEL_NUM >= pSdwe->sdweCalChanel)//single chanel caculate  K & B
 				{
-					avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
+					avgSampleValue = hx711_getAvgSample((enumHX711ChanelType)(pSdwe->sdweCalChanel-1))/512;
 					trigerCalcKB((pSdwe->sdweCalChanel-1),point);
 					pointTrigerDataSet((pSdwe->sdweCalChanel-1),point,1,avgSampleValue);
 				}
@@ -1364,7 +1364,7 @@ UINT8 chanelChangedTrigerDeal()
 					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 				{
 
-					pSendData = &(g_sdwe.sdweCalChanel);		
+					pSendData = (INT16 *)&(g_sdwe.sdweCalChanel);		
 					sdweWriteVarible(DMG_FUNC_SET_CHANEL_NUM,pSendData,1,0);
 					//
 					inerStatus++ ;
@@ -1384,14 +1384,12 @@ UINT8 chanelChangedTrigerDeal()
 
 UINT8 removeWeightTrigerDeal()
 {
-	static UINT16 ticks = 0 ;
 	INT16 *pSendData= &g_sdwe_dis_data[0];
 	INT16 weight[HX711_CHANEL_NUM]; 
-	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	
 	UINT8 result = 0 ;
-	static UINT8 inerStatus = 0 , localChanel = 0 ; 
+	static UINT8 inerStatus = 0 ; 
 
 	//=============================================================weight value and color
 	pSendData= &g_sdwe_dis_data[0];
@@ -1450,11 +1448,11 @@ void sendHelpDataDiff()
 	float weight[HX711_CHANEL_NUM];	
 	enumHX711ChanelType chanleArry[HX711_CHANEL_NUM];
 	//JUDGE
-	INT16 i16Minus=0;
+	float fMinus=0;
 	INT16 i16Number1[DIFF_JUDGE_GROUP_NUM]={0,0};
 	INT16 i16Number2[DIFF_JUDGE_GROUP_NUM]={0,0};
 	INT16 i16Min[DIFF_JUDGE_GROUP_NUM]={0,0};
-	INT16 i16Min_i=0;
+	UINT8 u8Min_i=0;
 	//
 	UINT8 i = 0;
 	//locate
@@ -1480,8 +1478,8 @@ void sendHelpDataDiff()
 		for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
 		{
 			//judge allready peiping
-			i16Minus = weight[chanel+1] - weight[chanel];
-			if(i16Minus <= gSystemPara.errRange)
+			fMinus = weight[chanel+1] - weight[chanel];
+			if(fMinus <= gSystemPara.errRange)
 			{
 				weight[chanel+1] = 0 ;
 				weight[chanel] = 0 ;
@@ -1500,14 +1498,14 @@ void sendHelpDataDiff()
 	#endif	
 
 	//Sort
-	BubbleSort(weight,chanleArry,HX711_CHANEL_NUM);
+	BubbleSort(weight,chanleArry,(UINT8)HX711_CHANEL_NUM);
 	
 	//
 	for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
 	{
 		//judge allready peiping
-		i16Minus = (weight[chanel+1] - weight[chanel]+0.5);
-		if(i16Minus <= gSystemPara.errRange)
+		fMinus = weight[chanel+1] - weight[chanel];
+		if(fMinus <= gSystemPara.errRange)
 		{
 			chanel++;
 		}
@@ -1519,17 +1517,17 @@ void sendHelpDataDiff()
 				if((weight[chanel] >= gSystemPara.zeroRange) || 
 					(weight[chanel] <= -gSystemPara.zeroRange) )
 				{
-					i16Minus = weight[chanel+1] - weight[chanel];
-					if(i16Minus > gSystemPara.errRange)
+					fMinus = weight[chanel+1] - weight[chanel];
+					if(fMinus > gSystemPara.errRange)
 					{
-						i16Number1[i16Min_i] = chanleArry[chanel+1]+1;
-						i16Number2[i16Min_i] = chanleArry[chanel]+1;
-						i16Min[i16Min_i] = i16Minus;
+						i16Number1[u8Min_i] = chanleArry[chanel+1]+1;
+						i16Number2[u8Min_i] = chanleArry[chanel]+1;
+						i16Min[u8Min_i] = (INT16)fMinus;
 						//
 						chanel++;
 						//
-						i16Min_i++;
-						if(i16Min_i>=DIFF_JUDGE_GROUP_NUM)
+						u8Min_i++;
+						if(u8Min_i>=DIFF_JUDGE_GROUP_NUM)
 						{
 							break;
 						}
@@ -1577,14 +1575,14 @@ void sendHelpDataDiff()
 
 void sendBalancingModelData()
 {
-	static UINT16 ticks = 0 ;
 	static UINT8 need_send = 0;
 	INT16 *pSendData= &g_sdwe_dis_data[0];
 	INT16 weight[HX711_CHANEL_NUM];	
 	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	
-	static UINT8 inerStatus = 0 , localChanel = 0 ;	
+	static UINT8 inerStatus = 0 ;	
+	
 	UINT8 i = 0;
 
 	//=============================================================weight value and color
@@ -1612,11 +1610,22 @@ void sendBalancingModelData()
 				if(((g_sdwe.sdweLastSendTick > g_sdwe.sdweTick)&&((g_sdwe.sdweLastSendTick-g_sdwe.sdweTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 					((g_sdwe.sdweLastSendTick < g_sdwe.sdweTick)&&((g_sdwe.sdweTick - g_sdwe.sdweLastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 				{
-					for(chanel=0;chanel<HX711_CHANEL_NUM;chanel++)
+					if(0 == gSystemPara.isCascade)
 					{
-						g_sdwe_dis_data_buff[chanel] = g_sdwe_dis_data[chanel];
+						for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+						{
+							g_sdwe_dis_data_buff[chanel] = g_sdwe_dis_data[chanel];
+						}
+						sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
 					}
-					sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+					else
+					{
+						for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+						{
+							g_sdwe_dis_data_buff[chanel] = g_sdwe_dis_data[chanel];
+						}
+						sdweWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pSendData,HX711_CHANEL_NUM,0);
+					}
 					//
 					inerStatus=1;
 					//

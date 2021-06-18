@@ -31,7 +31,6 @@ typedef enum LedColorType
 }enumLedColorType;
 
 
-
 #if(COLOR_ALT_20210606_DEFINE)
 
 #define MATER_WEIGHT_CHANEL_NUM	HX711_CHANEL_NUM
@@ -52,7 +51,6 @@ typedef struct BalancingGroupDataType
 }sBalancingGroupDataType;
 
 #endif
-
 
 void led_init(void);
 void led_MainFunction(UINT8 hx711DataUpgrade);
@@ -75,6 +73,4 @@ extern void useWeightUpdataOutColor_20210606(UINT8 hx711DataUpgrade);
 
 
 
-
 #endif
-

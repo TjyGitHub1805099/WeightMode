@@ -6,6 +6,7 @@
 #include "app_main_task.h"
 #include "app_hx711_ctrl.h"
 #include "app_led_ctrl.h"
+#include "app_sdwe_ctrl.h"
 
 /*******************************************************************************
  * Definitions

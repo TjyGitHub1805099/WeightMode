@@ -27,146 +27,19 @@ Project File Date:  06/09/2021
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 (build 20)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Rebuild Project 'firmware_wm_00_app' - Target 'app'
-compiling app_main_task.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(341): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(27): warning:  #188-D: enumerated type mixed with another type
-  		weight[i++%100] = (INT16)(hx711_getWeight(0)+0.5f);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(22): warning:  #550-D: variable "weight" was set but never used
-  	static float weight[100];
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(23): warning:  #550-D: variable "ticks" was set but never used
-  	static UINT32 ticks[100];
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main_task.c(81): warning:  #223-D: function "ModbusRtu_MainFunction" declared implicitly
-  	ModbusRtu_MainFunction();
-src\app_main_task.c: 5 warnings, 0 errors
-compiling app_hx711_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_hx711_ctrl.c(358): warning:  #223-D: function "color_clearAllColor" declared implicitly
-  	color_clearAllColor();
-src\app_hx711_ctrl.c: 1 warning, 0 errors
 compiling app_main.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(341): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_main.c(113): warning:  #223-D: function "readSysDataFromFlash_3030" declared implicitly
-  	readSysDataFromFlash_3030();
-src\app_main.c: 2 warnings, 0 errors
+compiling app_main_task.c...
+compiling app_hx711_ctrl.c...
 compiling app_led_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(341): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(165): warning:  #188-D: enumerated type mixed with another type
-  static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM]={0};
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(223): warning:  #188-D: enumerated type mixed with another type
-  				LedDataSet(chanel, LED_COLOR_NONE);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(245): warning:  #188-D: enumerated type mixed with another type
-  					chanel_a = (gSystemPara.userColorUsed[colorGet_i]>>8)&0xff;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(246): warning:  #188-D: enumerated type mixed with another type
-  					chanel_b = (gSystemPara.userColorUsed[colorGet_i]>>0)&0xff;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(269): warning:  #188-D: enumerated type mixed with another type
-  			colorGet_color = gSystemPara.userColorSet[colorGet_i];
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(288): warning:  #188-D: enumerated type mixed with another type
-  						colorGet_color = gSystemPara.userColorSet[colorGet_i];
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(291): warning:  #188-D: enumerated type mixed with another type
-  						LedDataSet(chanel_a, colorGet_color);//led
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(293): warning:  #188-D: enumerated type mixed with another type
-  						LedDataSet(chanel_b, colorGet_color);//led
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(176): warning:  #177-D: variable "curWeight" was declared but never referenced
-  	float curWeight[HX711_CHANEL_NUM]={0.0};
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(177): warning:  #177-D: variable "chanelCompareInfo" was declared but never referenced
-  	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0};
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(178): warning:  #177-D: variable "colorLock" was declared but never referenced
-  	static UINT8  colorLock[LED_COLOR_NUM]={FALSE};
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(179): warning:  #177-D: variable "color_i" was declared but never referenced
-  	enumLedColorType color_i = LED_COLOR_REG,color;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(179): warning:  #177-D: variable "color" was declared but never referenced
-  	enumLedColorType color_i = LED_COLOR_REG,color;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(350): warning:  #188-D: enumerated type mixed with another type
-  			chanel_b = ((chanelCompareInfo[chanel]&
-HANEL_COMPARED_OTHER_MASK)>>
-HANEL_COMPARED_OTHER_BIT)%HX711_CHANEL_NUM;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(351): warning:  #188-D: enumerated type mixed with another type
-  			color_i = ((chanelCompareInfo[chanel]&
-HANEL_COMPARED_COLOR_MASK)>>
-HANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(372): warning:  #188-D: enumerated type mixed with another type
-  					LedDataSet(chanel_a, LED_COLOR_NONE);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(375): warning:  #188-D: enumerated type mixed with another type
-  					LedDataSet(chanel_b, LED_COLOR_NONE);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(391): warning:  #188-D: enumerated type mixed with another type
-  					LedDataSet(chanel_a, color_i);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(394): warning:  #188-D: enumerated type mixed with another type
-  					LedDataSet(chanel_b, color_i);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(406): warning:  #188-D: enumerated type mixed with another type
-  				LedDataSet(chanel, LED_COLOR_NONE);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(458): warning:  #188-D: enumerated type mixed with another type
-  						LedDataSet(chanel_a, color);//light same color
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(460): warning:  #188-D: enumerated type mixed with another type
-  						LedDataSet(chanel_b, color);//light same color
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(474): warning:  #188-D: enumerated type mixed with another type
-  				LedDataSet(chanel_a, LED_COLOR_NONE);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_led_ctrl.c(482): warning:  #188-D: enumerated type mixed with another type
-  					LedDataSet(chanel_b, LED_COLOR_NONE);
-src\app_led_ctrl.c: 25 warnings, 0 errors
 compiling app_sdwe_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(341): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(588): warning:  #177-D: variable "pChanel" was declared but never referenced
-  	ChanelType *pChanel = 0;	
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(590): warning:  #177-D: variable "pInt32" was declared but never referenced
-  	INT32 *pInt32 = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(591): warning:  #177-D: variable "pFloat" was declared but never referenced
-  	float *pFloat = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(593): warning:  #177-D: variable "chanel_i" was declared but never referenced
-  	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(623): warning:  #177-D: variable "pChanel" was declared but never referenced
-  	ChanelType *pChanel = 0;	
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(629): warning:  #177-D: variable "chanel_i" was declared but never referenced
-  	UINT16 chanel_i = 0 ,start_i = 0 , end_i = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(757): warning:  #513-D: a value of type "UINT32 *" cannot be assigned to an entity of type "INT32 *"
-  		pInt32 = &(sysPara[0]);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(745): warning:  #177-D: variable "pFloat" was declared but never referenced
-  	float *pFloat = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(777): warning:  #513-D: a value of type "UINT32 *" cannot be assigned to an entity of type "INT32 *"
-  	pInt32 = &(sysPara[0]);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(770): warning:  #177-D: variable "pFloat" was declared but never referenced
-  	float *pFloat = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1103): warning:  #188-D: enumerated type mixed with another type
-  						avgSampleValue = hx711_getAvgSample(i)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1112): warning:  #188-D: enumerated type mixed with another type
-  					avgSampleValue = hx711_getAvgSample(pSdwe->sdweCalChanel-1)/512;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(947): warning:  #177-D: variable "point_i" was declared but never referenced
-  	UINT8 i = 0 , point = 0 , point_i = 0;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1367): warning:  #513-D: a value of type "UINT16 *" cannot be assigned to an entity of type "INT16 *"
-  					pSendData = &(g_sdwe.sdweCalChanel);		
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1387): warning:  #177-D: variable "ticks" was declared but never referenced
-  	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1390): warning:  #177-D: variable "weightPre" was declared but never referenced
-  	static INT16 weightPre[HX711_CHANEL_NUM]={1,1,1,1,1,1}; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1394): warning:  #177-D: variable "localChanel" was declared but never referenced
-  	static UINT8 inerStatus = 0 , localChanel = 0 ; 
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1503): warning:  #223-D: function "BubbleSort" declared implicitly
-  	BubbleSort(weight,chanleArry,HX711_CHANEL_NUM);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1509): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		i16Minus = (weight[chanel+1] - weight[chanel]+0.5);
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1615): warning:  #188-D: enumerated type mixed with another type
-  					for(chanel=0;chanel<HX711_CHANEL_NUM;chanel++)
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1580): warning:  #177-D: variable "ticks" was declared but never referenced
-  	static UINT16 ticks = 0 ;
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_sdwe_ctrl.c(1587): warning:  #177-D: variable "localChanel" was declared but never referenced
-  	static UINT8 inerStatus = 0 , localChanel = 0 ;	
-src\app_sdwe_ctrl.c: 23 warnings, 0 errors
-compiling app_key_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\inc\app_sdwe_ctrl.h(341): warning:  #1295-D: Deprecated declaration color_clearAllColor - give arg types
-  extern void color_clearAllColor();
-src\app_key_ctrl.c: 1 warning, 0 errors
-compiling app_crc.c...
-compiling app_modbus_rtu_ctrl.c...
-D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\src\app_modbus_rtu_ctrl.c(23): warning:  #177-D: variable "i" was declared but never referenced
-  	UINT8 i = 0 ;
-src\app_modbus_rtu_ctrl.c: 1 warning, 0 errors
 assembling startup_stm32f30x.s...
+compiling app_crc.c...
+compiling app_key_ctrl.c...
+compiling app_modbus_rtu_ctrl.c...
 linking...
-Program Size: Code=22612 RO-data=1296 RW-data=1684 ZI-data=7748  
+Program Size: Code=23340 RO-data=1296 RW-data=1724 ZI-data=7780  
 FromELF: creating hex file...
-".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 58 Warning(s).
+".\Objects\firmware_wm_00_app.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Collection of Component include folders:</h2>
   D:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_app\RTE

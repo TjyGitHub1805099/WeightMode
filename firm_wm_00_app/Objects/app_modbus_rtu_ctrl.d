@@ -28,3 +28,4 @@
 .\objects\app_modbus_rtu_ctrl.o: ..\firm_wm_00_hal\inc\hal_delay.h
 .\objects\app_modbus_rtu_ctrl.o: ..\STM32F303DriverLib\inc\drv_delay.h
 .\objects\app_modbus_rtu_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_systick.h
+.\objects\app_modbus_rtu_ctrl.o: .\inc\app_sdwe_ctrl.h

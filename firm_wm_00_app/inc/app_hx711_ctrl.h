@@ -45,6 +45,13 @@ typedef enum HX711ChanelType
 #define WEIGHT_DIRECTION_FW	(0)
 #define WEIGHT_DIRECTION_BW	(1)
 
+typedef union
+{
+	UINT8 u_value[4];
+	INT32 i_value;
+	float f_value;
+}unionFloatInt32;
+
 typedef struct
 {
 	enumLedSeqType ledType;
@@ -83,14 +90,6 @@ typedef enum HX711CtrlType
 	HX711_CTRL_SAMPLE,		/**< HX711  采样控制 */
 	HX711_CTRL_NUM
 }enumHX711CtrlType;
-
-
-typedef union
-{
-	UINT8 u_value[4];
-	INT32 i_value;
-	float f_value;
-}unionFloatInt32;
 
 
 

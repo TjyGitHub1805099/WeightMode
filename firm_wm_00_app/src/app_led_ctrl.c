@@ -6,6 +6,7 @@
 #include "app_hx711_ctrl.h"
 #include "app_sdwe_ctrl.h"
 #include "app_main_task.h"
+#include "app_crc.h"
 
 /*******************************************************************************
  * Definitions
@@ -122,47 +123,16 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 	}
 	return ret;
 }
-//==冒泡排序
-void BubbleSort(float a[],enumHX711ChanelType arry[] ,int n)
-{
-	UINT8	flag = 0;
-    int 	i = 0, j = 0;
-	float 	temp = 0.0;
-	enumHX711ChanelType chanelTemp = HX711Chanel_1;
-    for( i = 0 ; i < n ; i++ )
-	{
-        flag=0;              //表示本趟冒泡是否发生交换的标志
-        for( j = 1 ; j < n-i ; j++)
-		{         //j的起始位置为1，终止位置为n-i  
-            if(a[j]<a[j-1])
-			{
-				temp = a[j-1];
-				a[j-1] = a[j];
-				a[j] = temp;
-
-				chanelTemp = arry[j-1];
-				arry[j-1] = arry[j];
-				arry[j] = chanelTemp;
-				
-               	flag=1;
-            }
-        }
-        if(flag==0)             //未交换，说明已经有序，停止排序
-        {
-            return;
-        }
-    }          
-}
 //===================v3.0 color compare start
-typedef struct
+typedef struct WeightUpdateColorType
 {
 	enumHX711ChanelType curChanel;
 	enumHX711ChanelType lockedChanel;//used for if locked not push compare arr
 	UINT8	lockedColor;
 	float 	lockedWeight;//recode locked weight , used for 
 	float	curWeight;
-} tWeightUpdateColorType;
-static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM]={0};
+}tWeightUpdateColorType;
+static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM];
 
 
 #define COLOR_LOCKED_GROUP_NUM	(HX711_CHANEL_NUM/2)
@@ -173,10 +143,6 @@ static tWeightUpdateColorType tWeightUpdateColorArr[HX711_CHANEL_NUM]={0};
 void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
-	float curWeight[HX711_CHANEL_NUM]={0.0};
-	static UINT16 chanelCompareInfo[HX711_CHANEL_NUM]={0};
-	static UINT8  colorLock[LED_COLOR_NUM]={FALSE};
-	enumLedColorType color_i = LED_COLOR_REG,color;
 
 	UINT8 sortArry_num = 0;
 	enumHX711ChanelType sortArry[HX711_CHANEL_NUM];
@@ -220,7 +186,7 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 			if(HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel].lockedChanel)
 			{
 				//clear color
-				LedDataSet(chanel, LED_COLOR_NONE);
+				LedDataSet((enumLedSeqType)chanel, LED_COLOR_NONE);
 				sdweSetWeightBackColor(chanel, LED_COLOR_NONE);
 				//push to sortArry
 				sortArry[sortArry_num] = pWeightUpdateColorArr[chanel].curChanel;
@@ -242,8 +208,8 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 				if(FALSE != gSystemPara.userColorUsed[colorGet_i])
 				{
 					//4.1.1.1.get locked chanel
-					chanel_a = (gSystemPara.userColorUsed[colorGet_i]>>8)&0xff;
-					chanel_b = (gSystemPara.userColorUsed[colorGet_i]>>0)&0xff;
+					chanel_a = (enumHX711ChanelType)((gSystemPara.userColorUsed[colorGet_i]>>8)&0xff);
+					chanel_b = (enumHX711ChanelType)((gSystemPara.userColorUsed[colorGet_i]>>0)&0xff);
 					//4.1.1.2.if 2 chanel not locked
 					if((HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel_a].lockedChanel)
 						&& (HX711_CHANEL_LOCKED != pWeightUpdateColorArr[chanel_b].lockedChanel))
@@ -266,7 +232,7 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 				break;
 			}
 			//4.3.get avaliable color
-			colorGet_color = gSystemPara.userColorSet[colorGet_i];
+			colorGet_color = (enumLedColorType)gSystemPara.userColorSet[colorGet_i];
 
 			//4.4 get compare chanel
 			compare_a = compare_i;
@@ -285,12 +251,12 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 						chanel_a = sortArry[compare_a];
 						chanel_b = sortArry[compare_b];
 						//4.2.3.2.get avaliable color
-						colorGet_color = gSystemPara.userColorSet[colorGet_i];
+						colorGet_color = (enumLedColorType)gSystemPara.userColorSet[colorGet_i];
 						gSystemPara.userColorUsed[colorGet_i] = ((chanel_a<<8)&0xff00)+chanel_b;
 						//4.2.3.3.set same color
-						LedDataSet(chanel_a, colorGet_color);//led
+						LedDataSet((enumLedSeqType)chanel_a, colorGet_color);//led
 						sdweSetWeightBackColor(chanel_a, colorGet_color);//screen
-						LedDataSet(chanel_b, colorGet_color);//led
+						LedDataSet((enumLedSeqType)chanel_b, colorGet_color);//led
 						sdweSetWeightBackColor(chanel_b, colorGet_color);//screen	
 						//4.2.3.4.set lockedChanel flag and recode locked weight
 						pWeightUpdateColorArr[chanel_a].lockedChanel = HX711_CHANEL_LOCKED;
@@ -347,8 +313,8 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 		{
 			//get a(self_chanel) and b(other_chanel) chanel
 			chanel_a = chanel;
-			chanel_b = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_OTHER_MASK)>>CHANEL_COMPARED_OTHER_BIT)%HX711_CHANEL_NUM;
-			color_i = ((chanelCompareInfo[chanel]&CHANEL_COMPARED_COLOR_MASK)>>CHANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM;
+			chanel_b = (enumHX711ChanelType)(((chanelCompareInfo[chanel]&CHANEL_COMPARED_OTHER_MASK)>>CHANEL_COMPARED_OTHER_BIT)%HX711_CHANEL_NUM);
+			color_i = (enumLedColorType)(((chanelCompareInfo[chanel]&CHANEL_COMPARED_COLOR_MASK)>>CHANEL_COMPARED_COLOR_BIT)%LED_COLOR_NUM);
 			//is lock
 			if(chanelCompareInfo[chanel] & CHANEL_COMPARED_FLAG_MASK)//0xFxxx
 			{
@@ -369,10 +335,10 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 					colorLock[color_i] = 0 ;
 					
 					//clear chanel_a color
-					LedDataSet(chanel_a, LED_COLOR_NONE);
+					LedDataSet((enumLedSeqType)chanel_a, LED_COLOR_NONE);
 					sdweSetWeightBackColor(chanel_a, LED_COLOR_NONE);
 					//clear chanel_b color
-					LedDataSet(chanel_b, LED_COLOR_NONE);
+					LedDataSet((enumLedSeqType)chanel_b, LED_COLOR_NONE);
 					sdweSetWeightBackColor(chanel_b, LED_COLOR_NONE);
 				}
 				else
@@ -388,10 +354,10 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 					colorLock[color_i] = TRUE ;
 					
 					//set chanel_a color
-					LedDataSet(chanel_a, color_i);
+					LedDataSet((enumLedSeqType)chanel_a, color_i);
 					sdweSetWeightBackColor(chanel_a, color_i);
 					//set chanel_b color
-					LedDataSet(chanel_b, color_i);
+					LedDataSet((enumLedSeqType)chanel_b, color_i);
 					sdweSetWeightBackColor(chanel_b, color_i);
 				}
 			}
@@ -403,7 +369,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 				colorLock[color_i] = 0 ;
 				
 				//clear self color
-				LedDataSet(chanel, LED_COLOR_NONE);
+				LedDataSet((enumLedSeqType)chanel, LED_COLOR_NONE);
 				sdweSetWeightBackColor(chanel, LED_COLOR_NONE);
 			}
 		}
@@ -455,9 +421,9 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 						chanelCompareInfo[chanel_b] <<= 4;
 
 						//light color
-						LedDataSet(chanel_a, color);//light same color
+						LedDataSet((enumLedSeqType)chanel_a, color);//light same color
 						sdweSetWeightBackColor(chanel_a, color);//light same color
-						LedDataSet(chanel_b, color);//light same color
+						LedDataSet((enumLedSeqType)chanel_b, color);//light same color
 						sdweSetWeightBackColor(chanel_b, color);//light same color
 
 						//
@@ -471,7 +437,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 				//chanel unlock,other..,color unlock
 				chanelCompareInfo[chanel_a] = 0;
 				//clear self color
-				LedDataSet(chanel_a, LED_COLOR_NONE);
+				LedDataSet((enumLedSeqType)chanel_a, LED_COLOR_NONE);
 				sdweSetWeightBackColor(chanel_a, LED_COLOR_NONE);
 
 				if((sortArry_num-2) == compare_i)
@@ -479,7 +445,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 					//chanel unlock,other..,color unlock
 					chanelCompareInfo[chanel_b] = 0;
 					//clear self color
-					LedDataSet(chanel_b, LED_COLOR_NONE);
+					LedDataSet((enumLedSeqType)chanel_b, LED_COLOR_NONE);
 					sdweSetWeightBackColor(chanel_b, LED_COLOR_NONE);
 				}
 			}

@@ -323,6 +323,12 @@ typedef struct structSdweType
 #define SDWE_WEIGHR_DATA_LEN (2*HX711_CHANEL_NUM)//8 weight data + 8 color data	
 
 
+
+extern INT16 g_sdwe_dis_data2[SDWE_WEIGHR_DATA_LEN];
+extern INT16 g_sdwe_dis_data_buff2[SDWE_WEIGHR_DATA_LEN];
+
+
+extern void color_clearAllColor(void);
 extern void sdwe_init(void);
 extern void sdwe_test(void);
 extern void sdweSetWeightBackColor(UINT8 seq,UINT8 color);
@@ -337,10 +343,7 @@ extern void readSysParaFromFlsh(void);
 extern void storeSysParaFromFlsh(void);
 extern void readSysParaFromFlsh_3030(void);
 extern void storeSysParaFromFlsh_3030(void);
-
-extern void color_clearAllColor();
-
-
+extern void readSysDataFromFlash_3030(void);
 extern SdweType g_sdwe;
 
 #endif

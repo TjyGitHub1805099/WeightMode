@@ -7,6 +7,7 @@
 #include "app_main_task.h"
 #include "app_key_ctrl.h"
 #include "app_sdwe_ctrl.h"
+#include "app_modbus_rtu_ctrl.h"
 
 /*******************************************************************************
  * Definitions
@@ -15,20 +16,6 @@
 enumMainTaskCtrlType mainTaskStatus = MainTask_IDLE;
 static UINT32 g_sys_ms_tick = 0 ;
 gSystemParaType gSystemPara = gSystemParaDefault;
-
-
-void test(UINT8 hx711DataUpgrade,UINT32 tick)
-{
-	static float weight[100];
-	static UINT32 ticks[100];
-	static UINT8 i = 0 ;
-	if(hx711DataUpgrade == 1)
-	{
-		weight[i++%100] = (INT16)(hx711_getWeight(0)+0.5f);
-		ticks[i++%100] = tick;
-	}
-}
-
 
 /*******************************************************************************
  * Functions
@@ -78,7 +65,9 @@ void app_main_task( void )
 	//SDWE RX/TX deal
 	sdwe_MainFunction(hx711DataUpgrade);
 
+	//bus comm
 	ModbusRtu_MainFunction();
+	
 	//after power up 3 seconds clear all weight
 	if((TRUE == removeWeight)&&(g_sys_ms_tick >= 3000))
 	{
