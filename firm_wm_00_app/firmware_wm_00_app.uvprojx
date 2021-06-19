@@ -471,6 +471,26 @@
               <FileType>1</FileType>
               <FilePath>.\src\app_modbus_rtu_ctrl.c</FilePath>
             </File>
+            <File>
+              <FileName>app_password.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_password.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_syspara.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_syspara.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_systest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_systest.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_t5l_ctrl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_t5l_ctrl.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -510,6 +530,26 @@
               <FileName>app_modbus_rtu_ctrl.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\inc\app_modbus_rtu_ctrl.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_password.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_password.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_syspara.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_syspara.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_systest.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_systest.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_t5l_ctrl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_t5l_ctrl.h</FilePath>
             </File>
           </Files>
         </Group>

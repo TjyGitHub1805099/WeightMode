@@ -7,6 +7,8 @@
 #include "app_hx711_ctrl.h"
 #include "app_led_ctrl.h"
 #include "app_sdwe_ctrl.h"
+#include "app_syspara.h"
+#include "app_t5l_ctrl.h"
 
 /*******************************************************************************
  * Definitions

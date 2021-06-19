@@ -10,6 +10,7 @@
 .\objects\app_main_task.o: .\inc\app_hx711_ctrl.h
 .\objects\app_main_task.o: .\inc\app_key_ctrl.h
 .\objects\app_main_task.o: .\inc\app_sdwe_ctrl.h
+.\objects\app_main_task.o: .\inc\app_modbus_rtu_ctrl.h
 .\objects\app_main_task.o: ..\firm_wm_00_hal\inc\hal_uart.h
 .\objects\app_main_task.o: ..\STM32F303DriverLib\inc\drv_rcc.h
 .\objects\app_main_task.o: ..\STM32F303DriverLib\reg\reg_stm32f303_rcc.h
@@ -25,4 +26,4 @@
 .\objects\app_main_task.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_main_task.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_main_task.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
-.\objects\app_main_task.o: .\inc\app_modbus_rtu_ctrl.h
+.\objects\app_main_task.o: .\inc\app_t5l_ctrl.h

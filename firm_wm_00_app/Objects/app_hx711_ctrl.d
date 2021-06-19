@@ -12,6 +12,8 @@
 .\objects\app_hx711_ctrl.o: .\inc\app_main_task.h
 .\objects\app_hx711_ctrl.o: .\inc\app_hx711_ctrl.h
 .\objects\app_hx711_ctrl.o: .\inc\app_sdwe_ctrl.h
+.\objects\app_hx711_ctrl.o: .\inc\app_syspara.h
+.\objects\app_hx711_ctrl.o: .\inc\app_t5l_ctrl.h
 .\objects\app_hx711_ctrl.o: ..\firm_wm_00_hal\inc\hal_uart.h
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\inc\drv_rcc.h
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_rcc.h

@@ -9,6 +9,7 @@
 #include "app_crc.h"
 #include "hal_delay.h"
 #include "app_sdwe_ctrl.h"
+#include "app_syspara.h"
 
 /*******************************************************************************
  * Definitions
@@ -192,10 +193,10 @@ void ModbusRtu_MasterRxMainFunction(ModbusRtuType *pContex)
 						//recv data
 						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
 						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
 						}
 					}
 				break;
@@ -205,14 +206,14 @@ void ModbusRtu_MasterRxMainFunction(ModbusRtuType *pContex)
 						//recv data
 						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
 						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value = 0 ;
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Slave_1][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value = 0 ;
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
+							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
 						}
 					}
 				break;

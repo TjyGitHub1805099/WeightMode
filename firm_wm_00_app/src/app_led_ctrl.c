@@ -7,6 +7,8 @@
 #include "app_sdwe_ctrl.h"
 #include "app_main_task.h"
 #include "app_crc.h"
+#include "app_syspara.h"
+#include "app_t5l_ctrl.h"
 
 /*******************************************************************************
  * Definitions
@@ -196,7 +198,7 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 		}
 
 		//3.Sort
-		BubbleSort(sortWeight,sortArry,sortArry_num);
+		BubbleSort(sortWeight,(INT16 *)sortArry,sortArry_num);
 		
 		//4.compare
 		for(compare_i=0;compare_i<(sortArry_num-1);compare_i++)
@@ -287,7 +289,7 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 #define CHANEL_COMPARED_FLAG_BIT	(12)
 #define CHANEL_COMPARED_OTHER_BIT	(8)
 #define CHANEL_COMPARED_COLOR_BIT	(4)
-//extern float g_sdwe_dis_data_diff[SDWE_WEIGHR_DATA_LEN];
+//extern float g_sdwe_dis_data_diff[T5L_WEIGHT_DATA_LEN];
 void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 {
 	enumHX711ChanelType chanel = HX711Chanel_1,chanel_a,chanel_b;
@@ -385,7 +387,7 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			}
 		}
 		//sequence 
-		BubbleSort(sortWeight,sortArry,sortArry_num);
+		BubbleSort(sortWeight,(INT16 *)sortArry,sortArry_num);
 		for(compare_i=0;compare_i<(sortArry_num-1);compare_i++)
 		{
 			chanel_a = sortArry[compare_i];
@@ -471,7 +473,7 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 			weight[chanel] = hx711_getWeight(chanel);
 		}
 		//sequence
-		BubbleSort(weight,arry,HX711_CHANEL_NUM);
+		BubbleSort(weight,(INT16 *)arry,HX711_CHANEL_NUM);
 		//
 		for(ledSeq = LED_SEQ_1;ledSeq<(LED_SEQ_NUM-1);ledSeq++)
 		{
@@ -501,41 +503,18 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 	}
 }
 
-//==led test
-UINT8 led_test_flag = 0 ;
-void LedSysTest(UINT32 ms_tick)
-{
-	static UINT16 l_led_test_cycle = 1000;
-	static enumLedColorType color = LED_COLOR_REG;
-	enumLedSeqType seq = LED_SEQ_1;
-	
-	//every 1s change color:reg->yellow->blue->green
-	if(0 == (ms_tick%l_led_test_cycle))
-	{
-		led_test_flag=1;
-		for(seq = LED_SEQ_1 ; seq < LED_SEQ_NUM ; seq++)
-		{
-			LedDataSet(seq,color);
-		}
-		
-		color++;
-		if( color >= LED_COLOR_NUM )
-		{
-			color = LED_COLOR_REG;
-		}
-	}
-}
+
 //==led cycle contrl
-void led_MainFunction(UINT8 hx711DataUpgrade)
+void led_MainFunction(void)
 {
 	static UINT8 led_data[LED_CTRL_DATA_LEN]={0};
 	UINT8 *pData=&g_led_ctrl_data[0];
 	UINT8 i = 0,j = 0,set = 0,l_data = 0;
-	
+	//led indicate was open
 	if(1 == gSystemPara.isLedIndicate)
 	{
 		//if weight data changed
-		if(1 == hx711DataUpgrade)
+		//if(1 == hx711DataUpgrade)
 		{	
 			//check data change and store g_led_ctrl_data
 			for(i=0;i<LED_CTRL_DATA_LEN;i++)
@@ -1160,4 +1139,10 @@ void useWeightUpdataOutColor_20210606(sBalancingGroupDataType *pBlcData)
 #endif
 
 #endif
+
+
+
+
+
+
 

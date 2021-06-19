@@ -5,6 +5,7 @@
 #include "app_key_ctrl.h"
 #include "app_hx711_ctrl.h"
 #include "app_sdwe_ctrl.h"
+#include "app_t5l_ctrl.h"
 
 /*******************************************************************************
  * Definitions
@@ -80,7 +81,7 @@ void key_MainFunction(void)
 		{
 			preRemoveKey = SYS_KEY_VALUED;
 			//
-			g_sdwe.sdweRemoveWeightTriger = TRUE;
+			g_T5L.sdweRemoveWeightTriger = TRUE;
 			hx711_setAllRemoveWeight();
 		}
 	}
@@ -102,10 +103,10 @@ void key_MainFunction(void)
 			switch((preHomeAndCalibrateStatus++)%2)
 			{
 				case 0://切主页
-						g_sdwe.sdweJumpToHomePage = TRUE;
+						g_T5L.sdweJumpToHomePage = TRUE;
 				break;
 				case 1://切配平
-						g_sdwe.sdweJumpToBanlingPage = TRUE;
+						g_T5L.sdweJumpToBanlingPage = TRUE;
 				break;
 				default:
 				break;

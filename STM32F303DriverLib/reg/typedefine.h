@@ -156,4 +156,12 @@ typedef struct
 	void( *write_bytes )( UINT8 StartAddr, UINT8 *pDat, UINT16 Length );
 }MemDeviceType;
 
+#ifndef TRUE
+#define TRUE	(1)
+#endif
+
+#ifndef FALSE
+#define FALSE	(0)
+#endif
+
 #endif

@@ -4,8 +4,10 @@
 #include "typedefine.h"
 #include "app_main_task.h"
 
-#define LED_CTRL_TEST		(0)//0:close test 1:open test
 #define LED_CTRL_DATA_LEN 	(3)
+
+#define SYS_COLOR_GROUP_NUM		(4)//sys max color num
+#define SYS_COLOR_USED_FLAG		(0X123)//color if not used
 
 //main task status
 typedef enum LedSeqType
@@ -53,7 +55,7 @@ typedef struct BalancingGroupDataType
 #endif
 
 void led_init(void);
-void led_MainFunction(UINT8 hx711DataUpgrade);
+extern void led_MainFunction(void);
 UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color);
 void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade);
 void useWeightCompareOutColor(UINT8 hx711DataUpgrade);

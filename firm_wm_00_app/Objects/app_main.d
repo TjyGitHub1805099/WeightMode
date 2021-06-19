@@ -32,3 +32,6 @@
 .\objects\app_main.o: .\inc\app_hx711_ctrl.h
 .\objects\app_main.o: .\inc\app_key_ctrl.h
 .\objects\app_main.o: .\inc\app_modbus_rtu_ctrl.h
+.\objects\app_main.o: .\inc\app_password.h
+.\objects\app_main.o: .\inc\app_syspara.h
+.\objects\app_main.o: .\inc\app_t5l_ctrl.h

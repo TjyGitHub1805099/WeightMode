@@ -84,12 +84,12 @@ UINT16 cal_crc16(UINT8 *pData, UINT32 Length)
 }
 
 //==冒泡排序
-void BubbleSort(float a[],enumHX711ChanelType arry[] ,UINT8 n)
+void BubbleSort(float a[],INT16 arry[] ,UINT8 n)
 {
 	UINT8	flag = 0;
     UINT8 	i = 0, j = 0;
 	float 	temp = 0.0;
-	enumHX711ChanelType chanelTemp = HX711Chanel_1;
+	INT16 chanelTemp = HX711Chanel_1;
     for( i = 0 ; i < n ; i++ )
 	{
         flag=0;              //表示本趟冒泡是否发生交换的标志
