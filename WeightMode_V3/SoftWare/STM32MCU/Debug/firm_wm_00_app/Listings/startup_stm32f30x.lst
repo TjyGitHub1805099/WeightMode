@@ -800,11 +800,11 @@ ARM Macro Assembler    Page 13
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=.\objects\startup_stm32f30x.d -o.\objects\startup_stm32f30x.o -
-ID:\WorkSpace\GitWorkSpace\WeightModeGit\mcu_firmware_v3\WeightMode\firm_wm_00_
-app\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include -IC:\Keil
-_v5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 516" --predefine="STM
-32F303xC SETA 1" --list=.\listings\startup_stm32f30x.lst startup\startup_stm32f
-30x.s
+ID:\WorkSpace\GitWorkSpace\WeightMode\WeightMode_V3\SoftWare\STM32MCU\Debug\fir
+m_wm_00_app\RTE -IC:\Keil_v5\ARM\PACK\Keil\STM32F3xx_DFP\1.3.0\Device\Include -
+IC:\Keil_v5\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 516" --predef
+ine="STM32F303xC SETA 1" --list=.\listings\startup_stm32f30x.lst startup\startu
+p_stm32f30x.s
 
 
 

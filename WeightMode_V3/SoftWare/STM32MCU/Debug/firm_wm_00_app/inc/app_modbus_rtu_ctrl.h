@@ -35,50 +35,62 @@ typedef enum ModbusAddType
 //function code def address type
 typedef enum ModbusFuncCodeType
 {
-	MFC_Mater_Ask_Weight_Float = 0x01 ,
-	MFC_Mater_Ask_Weight_INT = 0x02 ,
-	MFC_Mater_Ask_Weight_Remove = 0x03 ,
-	MFC_Mater_Ask_Weight_Float_WriteHelpData = 0x04 ,
-	MFC_Slave_Ans_Weight_Float = 0x81 ,
-	MFC_Slave_Ans_Weight_INT = 0x82 ,
-	MFC_Slave_Ans_Weight_Remove = 0x83 ,
-	MFC_Slave_Ans_Weight_Float_WriteHelpData = 0x04 ,
+	MFC_Mater_Ask_1 = 0x01 ,//: CycleReadWeightFloat
+	MFC_Slave_Ans_1 = 0x81 ,
+	
+	MFC_Mater_Ask_2 = 0x02 ,//: CycleReadWeightInit
+	MFC_Slave_Ans_2 = 0x82 ,
+	
+	MFC_Mater_Ask_3 = 0x03 ,//: CycleReadWeightFloat + SetHelpDataToSlave1
+	MFC_Slave_Ans_3 = 0x83 ,
+	
+	MFC_Mater_Ask_4 = 0x04 ,//: CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag 
+	MFC_Slave_Ans_4 = 0x84 
 }enumModbusFuncCodeType;
 	
-#define MODBUS_FUNCTION_CODE_MASTER_ASK1_DATA_LEN	(1)
+//======MasterTimer
+#define MasterTimer_TxOrderDlay			(15)//15ms   : the diff time of two order Dlay
+#define MasterTimer_RxTimeOut			(60)//50ms   : the timeout of master recv slave ans data
+#define MasterTimer_EventTriger_TX_T1	(200)//200ms : CycleReadWeightFloat
+#define MasterTimer_EventTriger_TX_T2	(200)//200ms : CycleReadWeightInit
+#define MasterTimer_EventTriger_TX_T3	(200)//200ms : CycleReadWeightFloat + SetHelpDataToSlave1
+#define MasterTimer_EventTriger_TX_T4	(200)//200ms : CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
 
-#define MasterTimer_TxOrderDlay						(15)//15ms
-#define MasterTimer_RxTimeOut						(60)//50ms
-#define MasterTimer_CycleRead_Weight_Float			(200)//200ms
-#define MasterTimer_CycleRead_Weight_Float_AndSetHelpDataToSlave1			(200)//200ms
-
-#define SlaveTimer_TxOrderDlay						(MasterTimer_TxOrderDlay)//20ms
-
-
-//master tx mask
-typedef UINT16 MasterTxMaskType;
-#define MasterTxMask_IDLE						(MasterTxMaskType)(0x0000)
-#define MasterTxMask_CycleRead_Weight_Float		(MasterTxMaskType)(0x0001)
-#define MasterTxMask_CycleRead_Weight_Int32		(MasterTxMaskType)(0x0002)
-#define MasterTxMask_CycleRead_Weight_Float_AndSetHelpDataToSlave1		(MasterTxMaskType)(0x0004)
-//master rx mask
-typedef UINT16 MasterRxMaskType;
-#define MasterRxMask_IDLE						(MasterRxMaskType)(0x0000)
-
-//slave tx mask
-typedef UINT16 SlaveTxMaskType;
-#define SlaveTxMask_IDLE						(SlaveTxMaskType)(0x0000)
-#define SlaveTxMask_CycleRead_Weight_Float		(SlaveTxMaskType)(0x0001)
-#define SlaveTxMask_CycleRead_Weight_Int32		(SlaveTxMaskType)(0x0002)
-#define SlaveTxMask_RemoveWeight				(SlaveTxMaskType)(0x0004)
+//======SlaveTimer
+#define SlaveTimer_TxOrderDlay			(15)//15ms
+#define SlaveTimer_RxTimeOut			(60)//60ms
 
 
-//slave rx mask
-typedef UINT16 SlaveRxMaskType;
-#define SlaveRxMask_Idle						(SlaveRxMaskType)(0x0000)
-#define SlaveRxMask_CycleRead_Weight_Float		(SlaveTxMaskType)(0x0001)
-#define SlaveRxMask_CycleRead_Weight_Int32		(SlaveTxMaskType)(0x0002)
-#define SlaveRxMask_RemoveWeight				(SlaveRxMaskType)(0x0004)
+#define MFC_ASK_MAJID_LEN				(1)
+
+
+//======MasterEvent:TX
+typedef UINT16 MasterEventTxMaskType;
+#define MasterEvent_Tx_IDLE	(MasterEventTxMaskType)(0x0000)
+#define MasterEvent_Tx_E1	(MasterEventTxMaskType)(0x0001)//ReadWeightFloat
+#define MasterEvent_Tx_E2	(MasterEventTxMaskType)(0x0002)//ReadWeightInt32
+#define MasterEvent_Tx_E3	(MasterEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
+#define MasterEvent_Tx_E4	(MasterEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+
+//======MasterEvent:RX
+typedef UINT16 MasterEventRxMaskType;
+#define MasterEvent_Rx_IDLE	(MasterEventRxMaskType)(0x0000)
+
+//======SlaveEvent:TX
+typedef UINT16 SlaveEventTxMaskType;
+#define SlaveEvent_Tx_IDLE	(SlaveEventTxMaskType)(0x0000)
+#define SlaveEvent_Tx_E1	(SlaveEventTxMaskType)(0x0001)//ReadWeightFloat
+#define SlaveEvent_Tx_E2	(SlaveEventTxMaskType)(0x0002)//ReadWeightInt32
+#define SlaveEvent_Tx_E3	(SlaveEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
+#define SlaveEvent_Tx_E4	(SlaveEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+
+//======SlaveEvent:RX
+typedef UINT16 SlaveEventRxMaskType;
+#define SlaveEvent_Rx_Idle	(SlaveEventRxMaskType)(0x0000)
+#define SlaveEvent_Rx_E1	(SlaveEventTxMaskType)(0x0001)//ReadWeightFloat
+#define SlaveEvent_Rx_E2	(SlaveEventTxMaskType)(0x0002)//ReadWeightInt32
+#define SlaveEvent_Rx_E3	(SlaveEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
+#define SlaveEvent_Rx_E4	(SlaveEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
 
 
 typedef enum MasterStateType
@@ -101,29 +113,29 @@ typedef struct structModbusRtuType
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
 	UINT8 	rxData[MODBUS_RTU_UART_DATA_LEN];
 	UINT8 	txData[MODBUS_RTU_UART_DATA_LEN];
+	UINT8 	rxDataUart[MODBUS_RTU_UART_DATA_LEN];
 	UINT16	RxLength;					/**< 接收字节数 */
 	UINT8 	RxFinishFlag;				/**< 接收完成标志 */	
 	UINT32	sysTick;
 	unionFloatInt32	MultWeightData[ModbusAdd_Slave_Max - ModbusAdd_Master][MODBUS_RTU_SLAVE_CHANEL_NUM];
 	
 	//master
-	enumMasterStateType masterState;
-	MasterTxMaskType	masterTxMask;
-	MasterRxMaskType	masterRxMask;
-	UINT16 				masterTxDiffTick;
-	UINT16 				masterMaxWaitRxTick;
+	enumMasterStateType 	masterState;
+	MasterEventTxMaskType	masterTxMask;
+	MasterEventRxMaskType	masterRxMask;
+	UINT16 					masterTxDiffTick;
+	UINT16 					masterMaxWaitRxTick;
 
 	//slave
-	enumSlaveStateType	slaveState;
-	SlaveTxMaskType		slaveTxMask;
-	SlaveRxMaskType		slaveRxMask;
-	UINT16 				slaveTxDiffTick;
+	enumSlaveStateType		slaveState;
+	SlaveEventTxMaskType	slaveTxMask;
+	SlaveEventRxMaskType	slaveRxMask;
+	UINT16 					slaveTxDiffTick;
 
 	UINT8	needSendLen;
 	UINT8 	slaveID;
-	UINT8 	allowToSend;
-	//master or slave
-	
+	UINT8	removeWeight_Slef;
+	UINT8	removeWeight_Other;
 }ModbusRtuType;
 
 /** ModbusRtu设备默认配置 */
@@ -131,27 +143,31 @@ typedef struct structModbusRtuType
 	&g_UartDevice[UART_COM], \
 	{0}, \
 	{0}, \
+	{0}, \
 	0,\
 	0,\
 	0,\
 	{{0}},\
 	MasterState_Idle,\
-	MasterTxMask_IDLE,\
-	MasterRxMask_IDLE,\
+	MasterEvent_Tx_IDLE,\
+	MasterEvent_Rx_IDLE,\
 	0,\
 	0,\
 	SlaveState_Idle,\
-	SlaveTxMask_IDLE,\
-	SlaveRxMask_Idle,\
+	SlaveEvent_Tx_IDLE,\
+	SlaveEvent_Rx_Idle,\
 	0,\
 	0,\
 	0,\
-	0,\
+	FALSE,\
+	FALSE,\
 	}
 	
 extern ModbusRtuType g_ModbusRtu;
 
 extern void ModbusRtu_init(void);
 extern void ModbusRtu_MainFunction(void);
+
+extern void setModbusSelfRemoveFlag(UINT8 value);
 
 #endif

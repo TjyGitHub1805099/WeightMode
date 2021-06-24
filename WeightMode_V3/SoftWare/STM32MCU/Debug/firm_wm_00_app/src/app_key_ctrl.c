@@ -6,6 +6,7 @@
 #include "app_hx711_ctrl.h"
 #include "app_sdwe_ctrl.h"
 #include "app_t5l_ctrl.h"
+#include "app_modbus_rtu_ctrl.h"
 
 /*******************************************************************************
  * Definitions
@@ -83,6 +84,8 @@ void key_MainFunction(void)
 			//
 			g_T5L.sdweRemoveWeightTriger = TRUE;
 			hx711_setAllRemoveWeight();
+			//
+			setModbusSelfRemoveFlag(TRUE);
 		}
 	}
 	else

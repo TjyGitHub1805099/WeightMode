@@ -26,3 +26,4 @@
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_key_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
+.\objects\app_key_ctrl.o: .\inc\app_modbus_rtu_ctrl.h

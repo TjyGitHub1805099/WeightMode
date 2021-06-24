@@ -187,6 +187,11 @@ void sdwe_MainFunctionTest(void)
 
 
 /*
+//sdwe 10 point triger color data:arr0 is triger flag ,arr1 is color ,arr2 is sample data
+static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
+
+
+
 //==read SDWE version
 void sdweReadVersion()
 {

@@ -17,8 +17,6 @@
  * Definitions
  ******************************************************************************/
 T5LType g_T5L = T5LDataDefault;
-//sdwe 10 point triger color data:arr0 is triger flag ,arr1 is color ,arr2 is sample data
-static INT16 g_sdwe_triger_data[4][CHANEL_POINT_NUM]={{0},{0},{0}};
 //sdwe 8 weight data + 8 color data	
 INT16 g_t5l_dis_data[T5L_MAX_CHANEL_LEN]={0};
 INT16 g_t5l_dis_data_buff[T5L_MAX_CHANEL_LEN]={0};
