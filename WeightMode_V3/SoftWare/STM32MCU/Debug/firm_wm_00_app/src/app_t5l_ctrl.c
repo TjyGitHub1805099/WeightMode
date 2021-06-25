@@ -98,6 +98,23 @@ void screenT5L_Init(void)
 	g_T5L.pUartDevice->init(g_T5L.pUartDevice);
 }
 
+void t5lDisPlayDataClear(void)
+{
+	UINT8 i = 0 ;
+	for(i=0;i<T5L_MAX_CHANEL_LEN;i++)
+	{
+		g_i16DataBuff[i] = 0 ;
+		//g_i16DataBuffPre[i] = 0xff ;
+		g_i16ColorBuff[i] = 0 ;
+		//g_i16ColorBuffPre[i] = 0xff;
+		g_i16ColorOtherChanel[i] = T5L_CHANEL_WEIGHT_NOT_EQUAL;
+		
+		g_fDataBuffCaculate[i] = 0.0f;
+		g_i16HelpDataSort[i] = 0.0f;
+		g_i16HelpDataChnSort[i] = 0;
+	}
+}
+
 //========================================================================================check:20210619
 //==write varible data to SDWE thought UART
 void t5lWriteVarible(UINT16 varAdd, INT16 *pData ,UINT16 varlen ,UINT8 crcEn)
@@ -555,8 +572,9 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 		{
 			if(DMG_FUNC_REMOVE_WEIGHT_VAL == (UINT16)pSdwe->SetData)
 			{
-				hx711_setAllRemoveWeight();
 				pSdwe->sdweRemoveWeightTriger = TRUE;
+				//
+				setModbusSelfRemoveFlag(TRUE);
 			}
 		}//==(update:20210328):chanel point weight value set
 		else if((pSdwe->SetAdd >= DMG_FUNC_SET_CHANEL_POINT_ADDRESS)&&(pSdwe->SetAdd < (DMG_FUNC_SET_CHANEL_POINT_ADDRESS + CHANEL_POINT_NUM )))
@@ -642,9 +660,17 @@ UINT8 jumpToBalancingPage()
 	//5A A5 07 82 0084 5A01 page
 	INT16 pageChangeOrderAndData[2]={0x5A01,DMG_FUNC_Balancing_6_PAGE};//49 page
 
-	if(TRUE == gSystemPara.isCascade)
+	if(0 == gSystemPara.isCascade)
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_6_PAGE;
+	}
+	else if(ModbusAdd_Master == gSystemPara.isCascade)
 	{
 		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
+	}
+	else
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
 	}
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 		((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
@@ -728,10 +754,19 @@ UINT8 jumpToBanlingPage()
 	//5A A5 07 82 0084 5A01 page
 	INT16 pageChangeOrderAndData[2]={0x5A01,DMG_FUNC_Balancing_6_PAGE};//49 page
 
-	if(TRUE == gSystemPara.isCascade)
+	if(0 == gSystemPara.isCascade)
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_6_PAGE;
+	}
+	else if(ModbusAdd_Master == gSystemPara.isCascade)
 	{
 		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
 	}
+	else
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
+	}
+
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 		((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 	{
@@ -740,9 +775,6 @@ UINT8 jumpToBanlingPage()
 	}
 	return result;
 }
-
-
-
 
 //if reset calibration valid 
 //prepare DMG display of color and sample avg data
@@ -935,133 +967,82 @@ UINT8 removeWeightTrigerDeal()
 
 void sendHelpDataDiff(void)
 {
-	//===================================================================
-	enumHX711ChanelType chanel = HX711Chanel_1;
-	float weight[HX711_CHANEL_NUM];	
-	enumHX711ChanelType chanleArry[HX711_CHANEL_NUM];
-	//JUDGE
-	float fMinus=0;
-	INT16 i16Number1[DIFF_JUDGE_GROUP_NUM]={0,0};
-	INT16 i16Number2[DIFF_JUDGE_GROUP_NUM]={0,0};
-	INT16 i16Min[DIFF_JUDGE_GROUP_NUM]={0,0};
-	UINT8 u8Min_i=0;
+	static UINT8 needSend = FALSE;
+	UINT8 i = 0 ;
+
+	INT16 *pData = &g_i16DataBuff[0];
+	INT16 *pColorOtherCh = &g_i16ColorOtherChanel[0];
 	//
-	UINT8 i = 0;
-	//locate
-	static INT16 si16Number1[DIFF_JUDGE_GROUP_NUM]={0,0};
-	static INT16 si16Number2[DIFF_JUDGE_GROUP_NUM]={0,0};
-	static INT16 si16Min[DIFF_JUDGE_GROUP_NUM]={0,0};
+	float *sortWeight = &g_i16HelpDataSort[0];
+	INT16 *sortArry = &g_i16HelpDataChnSort[0];
+	INT16 i16Minus = 0 ;
+	UINT8 help_i = 0;
 	//
-	static UINT8 need_send = 0;
-	
-	INT16 sendData[DIFF_JUDGE_GROUP_NUM*DIFF_JUDGE_DATA_NUM];
-	
-	//get weight and chanel num
-	for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
+	INT16 *pOutData = &g_i16HelpDataBuff[0];
+	//
+	UINT8 sortArry_num = 0 ,chn_i = 0;
+
+	//2.use pColor ==  LED_COLOR_NONE , to triger need judge weight
+	sortArry_num = 0 ;
+	for(chn_i=0;chn_i<HX711_CHANEL_NUM;chn_i++)
 	{
-		//weight[chanel] = hx711_getWeight(chanel);
-		weight[chanel] = g_t5l_dis_data_buff[chanel];
-		chanleArry[chanel] = chanel;
+		if(T5L_CHANEL_WEIGHT_NOT_EQUAL == pColorOtherCh[chn_i])
+		{
+			sortWeight[sortArry_num] = pData[chn_i];
+			sortArry[sortArry_num] = chn_i;
+			sortArry_num++;
+		}
 	}
-
-	//remove peiping
-	#if 0
-		BubbleSort(weight,chanleArry,HX711_CHANEL_NUM);
-		for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
-		{
-			//judge allready peiping
-			fMinus = weight[chanel+1] - weight[chanel];
-			if(fMinus <= gSystemPara.errRange)
-			{
-				weight[chanel+1] = 0 ;
-				weight[chanel] = 0 ;
-				//
-				chanel++;
-			}
-		}
-	#else
-		for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM);chanel++)
-		{
-			if(g_t5l_dis_data_buff[HX711_CHANEL_NUM+chanel] != LED_COLOR_NONE)
-			{
-				weight[chanel] = 0 ;
-			}
-		}
-	#endif	
-
-	//Sort
-	BubbleSort(weight,(INT16 *)chanleArry,(UINT8)HX711_CHANEL_NUM);
-	
 	//
-	for(chanel=HX711Chanel_1;chanel<(HX711_CHANEL_NUM-1);chanel++)
+	if(sortArry_num > 1)
+	{	
+		BubbleSort((float *)sortWeight,sortArry,sortArry_num);
+	}
+	//
+	for(chn_i=0;chn_i<(sortArry_num-1);chn_i++)
 	{
-		//judge allready peiping
-		fMinus = weight[chanel+1] - weight[chanel];
-		if(fMinus <= gSystemPara.errRange)
+		if((sortWeight[chn_i+1] >= gSystemPara.zeroRange) || 
+			(sortWeight[chn_i+1] <= -gSystemPara.zeroRange) )
 		{
-			chanel++;
-		}
-		else
-		{
-			if((weight[chanel+1] >= gSystemPara.zeroRange) || 
-				(weight[chanel+1] <= -gSystemPara.zeroRange) )
+			if((sortWeight[chn_i] >= gSystemPara.zeroRange) || 
+				(sortWeight[chn_i] <= -gSystemPara.zeroRange) )
 			{
-				if((weight[chanel] >= gSystemPara.zeroRange) || 
-					(weight[chanel] <= -gSystemPara.zeroRange) )
-				{
-					fMinus = weight[chanel+1] - weight[chanel];
-					if(fMinus > gSystemPara.errRange)
+				i16Minus = sortWeight[chn_i+1] - sortWeight[chn_i];
+				if(i16Minus > gSystemPara.errRange)
+				{	
+					if(help_i < DIFF_JUDGE_GROUP_NUM_SLAVE1)
 					{
-						i16Number1[u8Min_i] = chanleArry[chanel+1]+1;
-						i16Number2[u8Min_i] = chanleArry[chanel]+1;
-						i16Min[u8Min_i] = (INT16)fMinus;
-						//
-						chanel++;
-						//
-						u8Min_i++;
-						if(u8Min_i>=DIFF_JUDGE_GROUP_NUM)
-						{
-							break;
-						}
+						pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 0] = sortArry[chn_i+1]+1;
+						pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 1] = sortArry[chn_i]+1;
+						pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 2] = i16Minus;
+						help_i++;
 					}
 				}
-			
+				chn_i++;//very important
 			}
 		}
 	}
-	
-	//compare help data if equal
-	for(i=0;i<DIFF_JUDGE_GROUP_NUM;i++)
+	for(;help_i<(DIFF_JUDGE_GROUP_NUM_SLAVE1);help_i++)
 	{
-		if((i16Number1[i]!=si16Number1[i])||
-			(i16Number2[i]!=si16Number2[i])||
-			(i16Min[i]!=si16Min[i]))
+		pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 0] = 0;
+		pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 1] = 0;
+		pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 2] = 0;
+	}
+	for(i=0;i<DIFF_TO_DIWEN_DATA_LEN;i++)
+	{
+		if(g_i16HelpDataBuffPre[i] != g_i16HelpDataBuff[i])
 		{
-			si16Number1[i] = i16Number1[i];
-			si16Number2[i] = i16Number2[i];
-			si16Min[i] = i16Min[i];
-			need_send = 1 ;
+			g_i16HelpDataBuffPre[i] = g_i16HelpDataBuff[i];
+			needSend = TRUE;
 		}
 	}
-
-	if(1 == need_send)
-	{
-		if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-			((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+	if(TRUE == needSend)
+	{	
+		if(TRUE == t5lWriteData(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,&g_i16HelpDataBuff[0],(DIFF_TO_DIWEN_DATA_LEN),0))
 		{
-			//
-			for(i=0;i<DIFF_JUDGE_GROUP_NUM;i++)
-			{
-				sendData[i*DIFF_JUDGE_DATA_NUM+0] = si16Number1[i];
-				sendData[i*DIFF_JUDGE_DATA_NUM+1] = si16Number2[i];
-				sendData[i*DIFF_JUDGE_DATA_NUM+2] = si16Min[i];
-			}
-			//
-			t5lWriteVarible(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,sendData,(DIFF_JUDGE_GROUP_NUM*DIFF_JUDGE_DATA_NUM),0);
-			need_send = FALSE;
+			needSend = FALSE;
 		}
 	}
-
 }
 
 void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
@@ -1105,7 +1086,7 @@ void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
 			{
 				i16Minus = sortWeight[chn_i+1] - sortWeight[chn_i];
 				if(i16Minus > gSystemPara.errRange)
-				{
+				{	
 					if(help_i < DIFF_JUDGE_GROUP_NUM_SLAVE1)
 					{
 						pOutData[DIFF_JUDGE_DATA_NUM_SLAVE1 * help_i + 0] = sortArry[chn_i+1]+1;
@@ -1114,7 +1095,7 @@ void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
 						help_i++;
 					}
 				}
-
+				chn_i++;//very important
 			}
 		}
 	}
@@ -1168,7 +1149,7 @@ void sendHelpDataDiff_AtSlave1Device(void)
 	}
 	if(TRUE == needSend)
 	{	
-		if(TRUE == t5lWriteData(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,g_i16HelpDataBuff,(DIFF_TO_DIWEN_DATA_LEN),0))
+		if(TRUE == t5lWriteData(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,&g_i16HelpDataBuff[0],(DIFF_TO_DIWEN_DATA_LEN),0))
 		{
 			needSend = FALSE;
 		}
@@ -1469,7 +1450,7 @@ void sendBalancingWeightAndColor619()
 UINT8 sendSysParaDataToDiwen(void)
 {
 	static UINT8 inerStatus = 0;	
-	INT16 sendData[20],len=0;
+	INT16 sendData[64],len=0;
 	UINT8 result = FALSE ;
 	
 	//0x1000	4096	10	单位
@@ -1498,7 +1479,7 @@ UINT8 sendSysParaDataToDiwen(void)
 				inerStatus++;
 			}
 		break;
-		case 1://send 0X100A~0X1013
+		case 1://send 0X100A~0X1013 系统参数
 			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
@@ -1517,7 +1498,7 @@ UINT8 sendSysParaDataToDiwen(void)
 				inerStatus++;
 			}
 		break;
-		case 2://send 0X1501
+		case 2://send 0X1501 password ID
 			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
@@ -1527,7 +1508,7 @@ UINT8 sendSysParaDataToDiwen(void)
 				inerStatus++;
 			}
 		break;
-		case 3://send 1510
+		case 3://send 1510 password store
 			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
@@ -1547,6 +1528,54 @@ UINT8 sendSysParaDataToDiwen(void)
 				inerStatus++;
 			}
 		break;
+		case 5://send 1201 DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				for(len=0;len<DIFF_TO_DIWEN_DATA_LEN;len++)
+				{
+					sendData[len] = 0;
+				}
+				t5lWriteVarible(DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS,sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 6://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				for(len=0;len<T5L_MAX_CHANEL_LEN;len++)
+				{
+					sendData[len] = 0;
+				}
+				t5lWriteVarible(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 7://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				for(len=0;len<T5L_MAX_CHANEL_LEN;len++)
+				{
+					sendData[len] = 0;
+				}
+				t5lWriteVarible(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,sendData,len,0);
+				inerStatus++;
+			}
+		break;
+		case 8://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				jumpToBanlingPage();
+				inerStatus++;
+			}
+		break;		
 		default:
 			result = TRUE;
 		break;
@@ -1795,11 +1824,15 @@ void screenT5L_TxFunction(void)
 			g_T5L.sdwePointTriger = FALSE;
 		}
 	}//==B1 event arrive:At Balancing Page , remove weight trigerd
-	else if(TRUE == g_T5L.sdweRemoveWeightTriger)
+	else if((TRUE == g_T5L.sdweRemoveWeightTriger)||(TRUE == getModbusOtherRemoveFlag()))
 	{
+		hx711_setAllRemoveWeight();
+		t5lDisPlayDataClear();
 		if(0 != removeWeightTrigerDeal())
 		{
 			g_T5L.sdweRemoveWeightTriger = FALSE;
+			//
+			setModbusOtherRemoveFlag(FALSE);
 		}
 	}
 	//==SYS LOCK CHARGE

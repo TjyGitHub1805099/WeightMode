@@ -169,5 +169,8 @@ extern void ModbusRtu_init(void);
 extern void ModbusRtu_MainFunction(void);
 
 extern void setModbusSelfRemoveFlag(UINT8 value);
+extern void setModbusOtherRemoveFlag(UINT8 value);
+extern void modbusRemoveAllWeightData(void);
+extern UINT8 getModbusOtherRemoveFlag(void);
 
 #endif

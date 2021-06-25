@@ -28,6 +28,7 @@ void app_main_init(void)
 	{
 		removeWeight = FALSE;
 		hx711_setAllRemoveWeight();
+		t5lDisPlayDataClear();
 	}
 }
 //==sys main function

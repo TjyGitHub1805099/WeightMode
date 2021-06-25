@@ -83,7 +83,6 @@ void key_MainFunction(void)
 			preRemoveKey = SYS_KEY_VALUED;
 			//
 			g_T5L.sdweRemoveWeightTriger = TRUE;
-			hx711_setAllRemoveWeight();
 			//
 			setModbusSelfRemoveFlag(TRUE);
 		}

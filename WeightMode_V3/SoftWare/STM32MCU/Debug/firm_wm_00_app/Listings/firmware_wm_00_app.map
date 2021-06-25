@@ -21,6 +21,7 @@ Section Cross References
     app_main.o(i.system_init) refers to hal_gpio.o(i.wm_hal_gpio_init) for wm_hal_gpio_init
     app_main.o(i.system_init) refers to hal_timer.o(i.hal_timer_init) for hal_timer_init
     app_main_task.o(i.app_main_init) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
+    app_main_task.o(i.app_main_init) refers to app_t5l_ctrl.o(i.t5lDisPlayDataClear) for t5lDisPlayDataClear
     app_main_task.o(i.app_main_init) refers to app_main_task.o(.data) for removeWeight
     app_main_task.o(i.app_main_task) refers to app_main_task.o(i.app_main_init) for app_main_init
     app_main_task.o(i.app_main_task) refers to app_key_ctrl.o(i.key_MainFunction) for key_MainFunction
@@ -97,7 +98,6 @@ Section Cross References
     app_key_ctrl.o(i.key_FilterGet) refers to app_key_ctrl.o(.bss) for SysKey
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(i.key_filter) for key_filter
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(i.key_FilterGet) for key_FilterGet
-    app_key_ctrl.o(i.key_MainFunction) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
     app_key_ctrl.o(i.key_MainFunction) refers to app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag) for setModbusSelfRemoveFlag
     app_key_ctrl.o(i.key_MainFunction) refers to app_key_ctrl.o(.data) for preRemoveKey
     app_key_ctrl.o(i.key_MainFunction) refers to app_t5l_ctrl.o(.data) for g_T5L
@@ -130,6 +130,8 @@ Section Cross References
     app_modbus_rtu_ctrl.o(i.ModbusRtu_init) refers to hal_uart.o(.data) for g_UartDevice
     app_modbus_rtu_ctrl.o(i.ModbusRtu_init) refers to app_modbus_rtu_ctrl.o(.data) for g_ModbusRtu
     app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag) refers to app_modbus_rtu_ctrl.o(.data) for g_ModbusRtu
+    app_modbus_rtu_ctrl.o(i.modbusRemoveAllWeightData) refers to app_modbus_rtu_ctrl.o(.data) for g_ModbusRtu
+    app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag) refers to app_modbus_rtu_ctrl.o(.data) for g_ModbusRtu
     app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag) refers to app_modbus_rtu_ctrl.o(.data) for g_ModbusRtu
     app_modbus_rtu_ctrl.o(.data) refers to hal_uart.o(.data) for g_UartDevice
     app_password.o(i.STM32CheckPassWord) refers to app_password.o(.bss) for STM32McuId
@@ -251,7 +253,11 @@ Section Cross References
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.chanelChangedTrigerDeal) for chanelChangedTrigerDeal
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.resetCalibrationTrigerDeal) for resetCalibrationTrigerDeal
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.pointTrigerDeal) for pointTrigerDeal
+    app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag) for getModbusOtherRemoveFlag
+    app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
+    app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.t5lDisPlayDataClear) for t5lDisPlayDataClear
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.removeWeightTrigerDeal) for removeWeightTrigerDeal
+    app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag) for setModbusOtherRemoveFlag
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.sendBalancingWeightAndColor619) for sendBalancingWeightAndColor619
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction) for screenT5L_HelpDataMainFunction
     app_t5l_ctrl.o(i.screenT5L_TxFunction) refers to app_t5l_ctrl.o(.data) for g_T5L
@@ -263,7 +269,7 @@ Section Cross References
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_password.o(i.STM32CheckPassWord) for STM32CheckPassWord
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_t5l_ctrl.o(i.clearLocalCalibrationRecordData) for clearLocalCalibrationRecordData
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_t5l_ctrl.o(i.clearLocalCalibrationKAndBAndSample) for clearLocalCalibrationKAndBAndSample
-    app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_hx711_ctrl.o(i.hx711_setAllRemoveWeight) for hx711_setAllRemoveWeight
+    app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag) for setModbusSelfRemoveFlag
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_hx711_ctrl.o(i.setSampleWeightValue) for setSampleWeightValue
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_t5l_ctrl.o(i.pointWeightTrigerDataSet) for pointWeightTrigerDataSet
     app_t5l_ctrl.o(i.sdweAskVaribleData) refers to app_hx711_ctrl.o(i.hx711_getAvgSample) for hx711_getAvgSample
@@ -283,10 +289,10 @@ Section Cross References
     app_t5l_ctrl.o(i.sendBalancingWeightAndColor619) refers to app_syspara.o(.data) for gSystemPara
     app_t5l_ctrl.o(i.sendBalancingWeightAndColor619) refers to app_t5l_ctrl.o(.data) for dataSendFlag
     app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_crc.o(i.BubbleSort) for BubbleSort
-    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(i.t5lWriteVarible) for t5lWriteVarible
-    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(.bss) for g_t5l_dis_data_buff
+    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(i.t5lWriteData) for t5lWriteData
+    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(.bss) for g_i16DataBuff
     app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_syspara.o(.data) for gSystemPara
-    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(.data) for si16Number1
+    app_t5l_ctrl.o(i.sendHelpDataDiff) refers to app_t5l_ctrl.o(.data) for needSend
     app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device) refers to app_t5l_ctrl.o(i.t5lWriteData) for t5lWriteData
     app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device) refers to app_t5l_ctrl.o(.bss) for g_i16HelpDataBuffPre
     app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device) refers to app_t5l_ctrl.o(.data) for needSend
@@ -294,10 +300,12 @@ Section Cross References
     app_t5l_ctrl.o(i.sendSysParaDataToDiwen) refers to app_t5l_ctrl.o(.data) for inerStatus
     app_t5l_ctrl.o(i.sendSysParaDataToDiwen) refers to app_syspara.o(.data) for gSystemPara
     app_t5l_ctrl.o(i.sendSysParaDataToDiwen) refers to app_password.o(.data) for g_passWordId
+    app_t5l_ctrl.o(i.sendSysParaDataToDiwen) refers to app_t5l_ctrl.o(i.jumpToBanlingPage) for jumpToBanlingPage
     app_t5l_ctrl.o(i.sreenT5L_MainFunction) refers to app_t5l_ctrl.o(i.screenT5L_RxFunction) for screenT5L_RxFunction
     app_t5l_ctrl.o(i.sreenT5L_MainFunction) refers to app_t5l_ctrl.o(i.screenT5L_TxFunction) for screenT5L_TxFunction
     app_t5l_ctrl.o(i.sreenT5L_MainFunction) refers to app_t5l_ctrl.o(.data) for g_T5L
     app_t5l_ctrl.o(i.storeSysPara_3030) refers to app_syspara.o(.data) for gSystemPara
+    app_t5l_ctrl.o(i.t5lDisPlayDataClear) refers to app_t5l_ctrl.o(.bss) for g_i16DataBuff
     app_t5l_ctrl.o(i.t5lWriteData) refers to app_crc.o(i.cal_crc16) for cal_crc16
     app_t5l_ctrl.o(i.t5lWriteData) refers to app_t5l_ctrl.o(.data) for g_T5L
     app_t5l_ctrl.o(i.t5lWriteVarible) refers to app_crc.o(i.cal_crc16) for cal_crc16
@@ -599,7 +607,7 @@ Removing Unused input sections from the image.
     Removing app_hx711_ctrl.o(i.hx711_PowerOn), (24 bytes).
     Removing app_hx711_ctrl.o(i.sampleBubbleSort), (78 bytes).
     Removing app_hx711_ctrl.o(i.setSampleValue), (40 bytes).
-    Removing app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag), (12 bytes).
+    Removing app_modbus_rtu_ctrl.o(i.modbusRemoveAllWeightData), (60 bytes).
     Removing app_t5l_ctrl.o(i.holdSysColor), (48 bytes).
     Removing app_t5l_ctrl.o(i.sdweSetWeightBackColor), (20 bytes).
     Removing app_t5l_ctrl.o(i.sdwe_VoicePrintfPush), (72 bytes).
@@ -757,7 +765,7 @@ Removing Unused input sections from the image.
     Removing drv_uart.o(i.drv_uart_tx_disable), (10 bytes).
     Removing drv_uart.o(i.drv_uart_tx_enable), (12 bytes).
 
-167 unused section(s) (total 8140 bytes) removed from the image.
+167 unused section(s) (total 8188 bytes) removed from the image.
 
 ==============================================================================
 
@@ -918,19 +926,19 @@ Image Symbol Table
     i.ModbusRtu_MasterMainFunction           0x0800059c   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMainFunction)
     i.ModbusRtu_MasterMaskDeal               0x080005b8   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMaskDeal)
     i.ModbusRtu_MasterRxMainFunction         0x080007b4   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterRxMainFunction)
-    i.ModbusRtu_MasterTxMainFunction         0x08000aec   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterTxMainFunction)
-    i.ModbusRtu_RxMainFunction               0x08000b76   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_RxMainFunction)
-    i.ModbusRtu_SlaveMainFunction            0x08000bf8   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveMainFunction)
-    i.ModbusRtu_SlaveRxMainFunction          0x08000c14   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction)
-    i.ModbusRtu_SlaveTxMainFunction          0x08000cdc   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMainFunction)
-    i.ModbusRtu_SlaveTxMaskDeal              0x08000d34   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal)
-    i.ModbusRtu_init                         0x08001218   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_init)
-    i.STM32CheckPassWord                     0x08001264   Section        0  app_password.o(i.STM32CheckPassWord)
-    i.STM32MCUIDGet                          0x080012b0   Section        0  app_password.o(i.STM32MCUIDGet)
-    i.TIM6_DAC_IRQHandler                    0x080012d8   Section        0  hal_timer.o(i.TIM6_DAC_IRQHandler)
-    i.USART2_IRQHandler                      0x080012ec   Section        0  hal_uart.o(i.USART2_IRQHandler)
-    i.USART3_IRQHandler                      0x080013e4   Section        0  hal_uart.o(i.USART3_IRQHandler)
-    i.app_main_init                          0x0800155c   Section        0  app_main_task.o(i.app_main_init)
+    i.ModbusRtu_MasterTxMainFunction         0x08000ae8   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterTxMainFunction)
+    i.ModbusRtu_RxMainFunction               0x08000b72   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_RxMainFunction)
+    i.ModbusRtu_SlaveMainFunction            0x08000bf4   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveMainFunction)
+    i.ModbusRtu_SlaveRxMainFunction          0x08000c10   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction)
+    i.ModbusRtu_SlaveTxMainFunction          0x08000cd8   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMainFunction)
+    i.ModbusRtu_SlaveTxMaskDeal              0x08000d30   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal)
+    i.ModbusRtu_init                         0x08001214   Section        0  app_modbus_rtu_ctrl.o(i.ModbusRtu_init)
+    i.STM32CheckPassWord                     0x08001260   Section        0  app_password.o(i.STM32CheckPassWord)
+    i.STM32MCUIDGet                          0x080012ac   Section        0  app_password.o(i.STM32MCUIDGet)
+    i.TIM6_DAC_IRQHandler                    0x080012d4   Section        0  hal_timer.o(i.TIM6_DAC_IRQHandler)
+    i.USART2_IRQHandler                      0x080012e8   Section        0  hal_uart.o(i.USART2_IRQHandler)
+    i.USART3_IRQHandler                      0x080013e0   Section        0  hal_uart.o(i.USART3_IRQHandler)
+    i.app_main_init                          0x08001558   Section        0  app_main_task.o(i.app_main_init)
     i.app_main_task                          0x08001588   Section        0  app_main_task.o(i.app_main_task)
     i.app_uart_extern_msg_packet_process     0x080015b8   Section        0  app_t5l_ctrl.o(i.app_uart_extern_msg_packet_process)
     i.cal_crc16                              0x080015bc   Section        0  app_crc.o(i.cal_crc16)
@@ -994,104 +1002,107 @@ Image Symbol Table
     i.drv_uart_put_bytes                     0x0800293a   Section        0  drv_uart.o(i.drv_uart_put_bytes)
     i.drv_uart_set_baudrate                  0x0800295c   Section        0  drv_uart.o(i.drv_uart_set_baudrate)
     i.getChanelStruct                        0x080029d8   Section        0  app_hx711_ctrl.o(i.getChanelStruct)
-    i.getSysColorWhichUsable                 0x080029f4   Section        0  app_t5l_ctrl.o(i.getSysColorWhichUsable)
-    i.hal_clock_init                         0x08002a28   Section        0  hal_clock.o(i.hal_clock_init)
-    i.hal_delay_init                         0x08002a40   Section        0  hal_delay.o(i.hal_delay_init)
-    i.hal_delay_us                           0x08002a48   Section        0  app_hx711_ctrl.o(i.hal_delay_us)
-    i.hal_di_get                             0x08002a54   Section        0  hal_gpio.o(i.hal_di_get)
-    i.hal_gpio_set_do_high                   0x08002a80   Section        0  hal_gpio.o(i.hal_gpio_set_do_high)
-    i.hal_gpio_set_do_low                    0x08002aa0   Section        0  hal_gpio.o(i.hal_gpio_set_do_low)
-    i.hal_timer_init                         0x08002ac0   Section        0  hal_timer.o(i.hal_timer_init)
-    i.hal_uart_dma_rx_start                  0x08002b0c   Section        0  hal_uart.o(i.hal_uart_dma_rx_start)
-    i.hal_uart_gpio_init                     0x08002b64   Section        0  hal_uart.o(i.hal_uart_gpio_init)
-    i.hal_uart_port_init                     0x08002ebc   Section        0  hal_uart.o(i.hal_uart_port_init)
-    i.hal_uart_rx_irq_disable                0x08003124   Section        0  hal_uart.o(i.hal_uart_rx_irq_disable)
-    i.hal_uart_rx_irq_enable                 0x08003160   Section        0  hal_uart.o(i.hal_uart_rx_irq_enable)
-    i.hal_uart_set_braudrate                 0x0800319c   Section        0  hal_uart.o(i.hal_uart_set_braudrate)
-    i.hal_uart_set_rx_mode                   0x080031c8   Section        0  hal_uart.o(i.hal_uart_set_rx_mode)
-    i.hal_uart_set_timeout                   0x080031ec   Section        0  hal_uart.o(i.hal_uart_set_timeout)
-    i.hal_uart_set_tx_mode                   0x080031f0   Section        0  hal_uart.o(i.hal_uart_set_tx_mode)
-    i.hal_uart_tx_bytes                      0x08003210   Section        0  hal_uart.o(i.hal_uart_tx_bytes)
-    i.hx711_AllChanelSample                  0x08003318   Section        0  app_hx711_ctrl.o(i.hx711_AllChanelSample)
-    i.hx711_DataSampleCtrl                   0x080033f4   Section        0  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
-    i.hx711_MainFunction                     0x08003420   Section        0  app_hx711_ctrl.o(i.hx711_MainFunction)
-    i.hx711_SigChanelAvrgAndWeightCalc       0x080034fc   Section        0  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
-    i.hx711_getAvgSample                     0x080035dc   Section        0  app_hx711_ctrl.o(i.hx711_getAvgSample)
-    i.hx711_getWeight                        0x080035fc   Section        0  app_hx711_ctrl.o(i.hx711_getWeight)
-    i.hx711_init                             0x08003688   Section        0  app_hx711_ctrl.o(i.hx711_init)
-    i.hx711_setAllRemoveWeight               0x080037f0   Section        0  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
-    i.jumpToActivePage                       0x0800382c   Section        0  app_t5l_ctrl.o(i.jumpToActivePage)
-    i.jumpToBalancingCleanPage               0x08003894   Section        0  app_t5l_ctrl.o(i.jumpToBalancingCleanPage)
-    i.jumpToBalancingHomePage                0x08003910   Section        0  app_t5l_ctrl.o(i.jumpToBalancingHomePage)
-    i.jumpToBalancingPage                    0x0800398c   Section        0  app_t5l_ctrl.o(i.jumpToBalancingPage)
-    i.jumpToBanlingPage                      0x08003a08   Section        0  app_t5l_ctrl.o(i.jumpToBanlingPage)
-    i.jumpToCalibrationPage                  0x08003a84   Section        0  app_t5l_ctrl.o(i.jumpToCalibrationPage)
-    i.jumpToHomePage                         0x08003aec   Section        0  app_t5l_ctrl.o(i.jumpToHomePage)
-    i.key_FilterGet                          0x08003b54   Section        0  app_key_ctrl.o(i.key_FilterGet)
-    i.key_MainFunction                       0x08003b78   Section        0  app_key_ctrl.o(i.key_MainFunction)
-    i.key_filter                             0x08003c1c   Section        0  app_key_ctrl.o(i.key_filter)
-    i.key_init                               0x08003cc8   Section        0  app_key_ctrl.o(i.key_init)
-    i.led_MainFunction                       0x08003d20   Section        0  app_led_ctrl.o(i.led_MainFunction)
-    i.led_init                               0x08003db0   Section        0  app_led_ctrl.o(i.led_init)
-    i.main                                   0x08003df0   Section        0  app_main.o(i.main)
-    i.masterCaculateHelpData                 0x08003e2c   Section        0  app_t5l_ctrl.o(i.masterCaculateHelpData)
-    i.pointSampleTrigerDataSet               0x08003fcc   Section        0  app_t5l_ctrl.o(i.pointSampleTrigerDataSet)
-    i.pointTrigerDataSet                     0x08003ff0   Section        0  app_t5l_ctrl.o(i.pointTrigerDataSet)
-    i.pointTrigerDeal                        0x08004034   Section        0  app_t5l_ctrl.o(i.pointTrigerDeal)
-    i.pointWeightTrigerDataSet               0x0800417c   Section        0  app_t5l_ctrl.o(i.pointWeightTrigerDataSet)
-    i.preColorDataAndJudgeIfNeedSend         0x080041a0   Section        0  app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend)
-    i.preWeightDataAndJudgeIfNeedSend        0x080044a0   Section        0  app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend)
-    i.readHelpDataFromSys                    0x0800459c   Section        0  app_t5l_ctrl.o(i.readHelpDataFromSys)
-    i.readSysDataFromFlash                   0x080045d4   Section        0  app_syspara.o(i.readSysDataFromFlash)
-    i.readSysDataFromFlash_3030              0x08004754   Section        0  app_syspara.o(i.readSysDataFromFlash_3030)
-    i.releaseSysColor                        0x08004824   Section        0  app_t5l_ctrl.o(i.releaseSysColor)
-    i.removeWeightTrigerDeal                 0x08004854   Section        0  app_t5l_ctrl.o(i.removeWeightTrigerDeal)
-    i.resetCalibrationTrigerDeal             0x0800496c   Section        0  app_t5l_ctrl.o(i.resetCalibrationTrigerDeal)
-    i.sampleDataPush                         0x08004ab4   Section        0  app_hx711_ctrl.o(i.sampleDataPush)
-    i.screenT5L_HelpDataMainFunction         0x08004af0   Section        0  app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction)
-    i.screenT5L_Init                         0x08004b28   Section        0  app_t5l_ctrl.o(i.screenT5L_Init)
-    i.screenT5L_OutputVoice                  0x08004bdc   Section        0  app_t5l_ctrl.o(i.screenT5L_OutputVoice)
-    i.screenT5L_RxFunction                   0x08004c5c   Section        0  app_t5l_ctrl.o(i.screenT5L_RxFunction)
-    i.screenT5L_TxFunction                   0x08004db4   Section        0  app_t5l_ctrl.o(i.screenT5L_TxFunction)
-    i.screenT5L_VoicePrintfMainfunction      0x08004f18   Section        0  app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction)
-    i.sdweAskRegData                         0x0800505c   Section        0  app_t5l_ctrl.o(i.sdweAskRegData)
-    i.sdweAskVaribleData                     0x08005074   Section        0  app_t5l_ctrl.o(i.sdweAskVaribleData)
-    i.sdwe_VoicePrintfPop                    0x08005420   Section        0  app_t5l_ctrl.o(i.sdwe_VoicePrintfPop)
-    i.sendBalancingWeightAndColor619         0x080054a8   Section        0  app_t5l_ctrl.o(i.sendBalancingWeightAndColor619)
-    i.sendHelpDataDiff                       0x08005554   Section        0  app_t5l_ctrl.o(i.sendHelpDataDiff)
-    i.sendHelpDataDiff_AtSlave1Device        0x0800580c   Section        0  app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device)
-    i.sendSysParaDataToDiwen                 0x0800586c   Section        0  app_t5l_ctrl.o(i.sendSysParaDataToDiwen)
-    i.setModbusSelfRemoveFlag                0x08005b84   Section        0  app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag)
-    i.setSampleWeightValue                   0x08005b90   Section        0  app_hx711_ctrl.o(i.setSampleWeightValue)
-    i.sreenT5L_MainFunction                  0x08005bb8   Section        0  app_t5l_ctrl.o(i.sreenT5L_MainFunction)
-    i.storeSysDataToFlash                    0x08005be4   Section        0  app_syspara.o(i.storeSysDataToFlash)
-    i.storeSysDataToFlash_3030               0x08005d48   Section        0  app_syspara.o(i.storeSysDataToFlash_3030)
-    i.system_init                            0x08005ea8   Section        0  app_main.o(i.system_init)
-    i.t5lWriteData                           0x08005ec8   Section        0  app_t5l_ctrl.o(i.t5lWriteData)
-    i.t5lWriteVarible                        0x08005ffc   Section        0  app_t5l_ctrl.o(i.t5lWriteVarible)
-    i.trigerCalcKB                           0x080060f0   Section        0  app_hx711_ctrl.o(i.trigerCalcKB)
-    i.wm_hal_gpio_init                       0x080062f0   Section        0  hal_gpio.o(i.wm_hal_gpio_init)
-    i.writeHelpDataFromCom                   0x08006360   Section        0  app_t5l_ctrl.o(i.writeHelpDataFromCom)
-    x$fpl$d2f                                0x080063c0   Section       98  d2f.o(x$fpl$d2f)
-    $v0                                      0x080063c0   Number         0  d2f.o(x$fpl$d2f)
-    x$fpl$dflt                               0x08006422   Section       46  dflt_clz.o(x$fpl$dflt)
-    $v0                                      0x08006422   Number         0  dflt_clz.o(x$fpl$dflt)
-    x$fpl$dmul                               0x08006450   Section      340  dmul.o(x$fpl$dmul)
-    $v0                                      0x08006450   Number         0  dmul.o(x$fpl$dmul)
-    x$fpl$dnaninf                            0x080065a4   Section      156  dnaninf.o(x$fpl$dnaninf)
-    $v0                                      0x080065a4   Number         0  dnaninf.o(x$fpl$dnaninf)
-    x$fpl$dretinf                            0x08006640   Section       12  dretinf.o(x$fpl$dretinf)
-    $v0                                      0x08006640   Number         0  dretinf.o(x$fpl$dretinf)
-    x$fpl$fpinit                             0x0800664c   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x0800664c   Number         0  fpinit.o(x$fpl$fpinit)
-    x$fpl$fretinf                            0x08006656   Section       10  fretinf.o(x$fpl$fretinf)
-    $v0                                      0x08006656   Number         0  fretinf.o(x$fpl$fretinf)
-    .constdata                               0x08006660   Section       40  app_hx711_ctrl.o(.constdata)
-    x$fpl$usenofp                            0x08006660   Section        0  usenofp.o(x$fpl$usenofp)
-    .constdata                               0x08006688   Section      512  app_crc.o(.constdata)
-    .constdata                               0x08006888   Section       36  app_t5l_ctrl.o(.constdata)
-    .constdata                               0x080068ac   Section      164  hal_gpio.o(.constdata)
-    .constdata                               0x08006950   Section      124  hal_uart.o(.constdata)
+    i.getModbusOtherRemoveFlag               0x080029f4   Section        0  app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag)
+    i.getSysColorWhichUsable                 0x08002a00   Section        0  app_t5l_ctrl.o(i.getSysColorWhichUsable)
+    i.hal_clock_init                         0x08002a34   Section        0  hal_clock.o(i.hal_clock_init)
+    i.hal_delay_init                         0x08002a4c   Section        0  hal_delay.o(i.hal_delay_init)
+    i.hal_delay_us                           0x08002a54   Section        0  app_hx711_ctrl.o(i.hal_delay_us)
+    i.hal_di_get                             0x08002a60   Section        0  hal_gpio.o(i.hal_di_get)
+    i.hal_gpio_set_do_high                   0x08002a8c   Section        0  hal_gpio.o(i.hal_gpio_set_do_high)
+    i.hal_gpio_set_do_low                    0x08002aac   Section        0  hal_gpio.o(i.hal_gpio_set_do_low)
+    i.hal_timer_init                         0x08002acc   Section        0  hal_timer.o(i.hal_timer_init)
+    i.hal_uart_dma_rx_start                  0x08002b18   Section        0  hal_uart.o(i.hal_uart_dma_rx_start)
+    i.hal_uart_gpio_init                     0x08002b70   Section        0  hal_uart.o(i.hal_uart_gpio_init)
+    i.hal_uart_port_init                     0x08002ec8   Section        0  hal_uart.o(i.hal_uart_port_init)
+    i.hal_uart_rx_irq_disable                0x08003130   Section        0  hal_uart.o(i.hal_uart_rx_irq_disable)
+    i.hal_uart_rx_irq_enable                 0x0800316c   Section        0  hal_uart.o(i.hal_uart_rx_irq_enable)
+    i.hal_uart_set_braudrate                 0x080031a8   Section        0  hal_uart.o(i.hal_uart_set_braudrate)
+    i.hal_uart_set_rx_mode                   0x080031d4   Section        0  hal_uart.o(i.hal_uart_set_rx_mode)
+    i.hal_uart_set_timeout                   0x080031f8   Section        0  hal_uart.o(i.hal_uart_set_timeout)
+    i.hal_uart_set_tx_mode                   0x080031fc   Section        0  hal_uart.o(i.hal_uart_set_tx_mode)
+    i.hal_uart_tx_bytes                      0x0800321c   Section        0  hal_uart.o(i.hal_uart_tx_bytes)
+    i.hx711_AllChanelSample                  0x08003324   Section        0  app_hx711_ctrl.o(i.hx711_AllChanelSample)
+    i.hx711_DataSampleCtrl                   0x08003400   Section        0  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
+    i.hx711_MainFunction                     0x0800342c   Section        0  app_hx711_ctrl.o(i.hx711_MainFunction)
+    i.hx711_SigChanelAvrgAndWeightCalc       0x08003508   Section        0  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
+    i.hx711_getAvgSample                     0x080035e8   Section        0  app_hx711_ctrl.o(i.hx711_getAvgSample)
+    i.hx711_getWeight                        0x08003608   Section        0  app_hx711_ctrl.o(i.hx711_getWeight)
+    i.hx711_init                             0x08003694   Section        0  app_hx711_ctrl.o(i.hx711_init)
+    i.hx711_setAllRemoveWeight               0x080037fc   Section        0  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
+    i.jumpToActivePage                       0x08003838   Section        0  app_t5l_ctrl.o(i.jumpToActivePage)
+    i.jumpToBalancingCleanPage               0x080038a0   Section        0  app_t5l_ctrl.o(i.jumpToBalancingCleanPage)
+    i.jumpToBalancingHomePage                0x0800391c   Section        0  app_t5l_ctrl.o(i.jumpToBalancingHomePage)
+    i.jumpToBalancingPage                    0x08003998   Section        0  app_t5l_ctrl.o(i.jumpToBalancingPage)
+    i.jumpToBanlingPage                      0x08003a28   Section        0  app_t5l_ctrl.o(i.jumpToBanlingPage)
+    i.jumpToCalibrationPage                  0x08003ab8   Section        0  app_t5l_ctrl.o(i.jumpToCalibrationPage)
+    i.jumpToHomePage                         0x08003b20   Section        0  app_t5l_ctrl.o(i.jumpToHomePage)
+    i.key_FilterGet                          0x08003b88   Section        0  app_key_ctrl.o(i.key_FilterGet)
+    i.key_MainFunction                       0x08003bac   Section        0  app_key_ctrl.o(i.key_MainFunction)
+    i.key_filter                             0x08003c4c   Section        0  app_key_ctrl.o(i.key_filter)
+    i.key_init                               0x08003cf8   Section        0  app_key_ctrl.o(i.key_init)
+    i.led_MainFunction                       0x08003d50   Section        0  app_led_ctrl.o(i.led_MainFunction)
+    i.led_init                               0x08003de0   Section        0  app_led_ctrl.o(i.led_init)
+    i.main                                   0x08003e20   Section        0  app_main.o(i.main)
+    i.masterCaculateHelpData                 0x08003e5c   Section        0  app_t5l_ctrl.o(i.masterCaculateHelpData)
+    i.pointSampleTrigerDataSet               0x08004000   Section        0  app_t5l_ctrl.o(i.pointSampleTrigerDataSet)
+    i.pointTrigerDataSet                     0x08004024   Section        0  app_t5l_ctrl.o(i.pointTrigerDataSet)
+    i.pointTrigerDeal                        0x08004068   Section        0  app_t5l_ctrl.o(i.pointTrigerDeal)
+    i.pointWeightTrigerDataSet               0x080041b0   Section        0  app_t5l_ctrl.o(i.pointWeightTrigerDataSet)
+    i.preColorDataAndJudgeIfNeedSend         0x080041d4   Section        0  app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend)
+    i.preWeightDataAndJudgeIfNeedSend        0x080044d4   Section        0  app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend)
+    i.readHelpDataFromSys                    0x080045d0   Section        0  app_t5l_ctrl.o(i.readHelpDataFromSys)
+    i.readSysDataFromFlash                   0x08004608   Section        0  app_syspara.o(i.readSysDataFromFlash)
+    i.readSysDataFromFlash_3030              0x08004788   Section        0  app_syspara.o(i.readSysDataFromFlash_3030)
+    i.releaseSysColor                        0x08004858   Section        0  app_t5l_ctrl.o(i.releaseSysColor)
+    i.removeWeightTrigerDeal                 0x08004888   Section        0  app_t5l_ctrl.o(i.removeWeightTrigerDeal)
+    i.resetCalibrationTrigerDeal             0x080049a0   Section        0  app_t5l_ctrl.o(i.resetCalibrationTrigerDeal)
+    i.sampleDataPush                         0x08004ae8   Section        0  app_hx711_ctrl.o(i.sampleDataPush)
+    i.screenT5L_HelpDataMainFunction         0x08004b24   Section        0  app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction)
+    i.screenT5L_Init                         0x08004b5c   Section        0  app_t5l_ctrl.o(i.screenT5L_Init)
+    i.screenT5L_OutputVoice                  0x08004c10   Section        0  app_t5l_ctrl.o(i.screenT5L_OutputVoice)
+    i.screenT5L_RxFunction                   0x08004c90   Section        0  app_t5l_ctrl.o(i.screenT5L_RxFunction)
+    i.screenT5L_TxFunction                   0x08004de8   Section        0  app_t5l_ctrl.o(i.screenT5L_TxFunction)
+    i.screenT5L_VoicePrintfMainfunction      0x08004f64   Section        0  app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction)
+    i.sdweAskRegData                         0x080050a8   Section        0  app_t5l_ctrl.o(i.sdweAskRegData)
+    i.sdweAskVaribleData                     0x080050c0   Section        0  app_t5l_ctrl.o(i.sdweAskVaribleData)
+    i.sdwe_VoicePrintfPop                    0x0800546c   Section        0  app_t5l_ctrl.o(i.sdwe_VoicePrintfPop)
+    i.sendBalancingWeightAndColor619         0x080054f4   Section        0  app_t5l_ctrl.o(i.sendBalancingWeightAndColor619)
+    i.sendHelpDataDiff                       0x080055a0   Section        0  app_t5l_ctrl.o(i.sendHelpDataDiff)
+    i.sendHelpDataDiff_AtSlave1Device        0x08005794   Section        0  app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device)
+    i.sendSysParaDataToDiwen                 0x080057f4   Section        0  app_t5l_ctrl.o(i.sendSysParaDataToDiwen)
+    i.setModbusOtherRemoveFlag               0x08005cd4   Section        0  app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag)
+    i.setModbusSelfRemoveFlag                0x08005ce0   Section        0  app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag)
+    i.setSampleWeightValue                   0x08005cec   Section        0  app_hx711_ctrl.o(i.setSampleWeightValue)
+    i.sreenT5L_MainFunction                  0x08005d14   Section        0  app_t5l_ctrl.o(i.sreenT5L_MainFunction)
+    i.storeSysDataToFlash                    0x08005d40   Section        0  app_syspara.o(i.storeSysDataToFlash)
+    i.storeSysDataToFlash_3030               0x08005ea4   Section        0  app_syspara.o(i.storeSysDataToFlash_3030)
+    i.system_init                            0x08006004   Section        0  app_main.o(i.system_init)
+    i.t5lDisPlayDataClear                    0x08006024   Section        0  app_t5l_ctrl.o(i.t5lDisPlayDataClear)
+    i.t5lWriteData                           0x0800608c   Section        0  app_t5l_ctrl.o(i.t5lWriteData)
+    i.t5lWriteVarible                        0x080061c0   Section        0  app_t5l_ctrl.o(i.t5lWriteVarible)
+    i.trigerCalcKB                           0x080062b4   Section        0  app_hx711_ctrl.o(i.trigerCalcKB)
+    i.wm_hal_gpio_init                       0x080064b4   Section        0  hal_gpio.o(i.wm_hal_gpio_init)
+    i.writeHelpDataFromCom                   0x08006524   Section        0  app_t5l_ctrl.o(i.writeHelpDataFromCom)
+    x$fpl$d2f                                0x08006584   Section       98  d2f.o(x$fpl$d2f)
+    $v0                                      0x08006584   Number         0  d2f.o(x$fpl$d2f)
+    x$fpl$dflt                               0x080065e6   Section       46  dflt_clz.o(x$fpl$dflt)
+    $v0                                      0x080065e6   Number         0  dflt_clz.o(x$fpl$dflt)
+    x$fpl$dmul                               0x08006614   Section      340  dmul.o(x$fpl$dmul)
+    $v0                                      0x08006614   Number         0  dmul.o(x$fpl$dmul)
+    x$fpl$dnaninf                            0x08006768   Section      156  dnaninf.o(x$fpl$dnaninf)
+    $v0                                      0x08006768   Number         0  dnaninf.o(x$fpl$dnaninf)
+    x$fpl$dretinf                            0x08006804   Section       12  dretinf.o(x$fpl$dretinf)
+    $v0                                      0x08006804   Number         0  dretinf.o(x$fpl$dretinf)
+    x$fpl$fpinit                             0x08006810   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x08006810   Number         0  fpinit.o(x$fpl$fpinit)
+    x$fpl$fretinf                            0x0800681a   Section       10  fretinf.o(x$fpl$fretinf)
+    $v0                                      0x0800681a   Number         0  fretinf.o(x$fpl$fretinf)
+    .constdata                               0x08006824   Section       40  app_hx711_ctrl.o(.constdata)
+    x$fpl$usenofp                            0x08006824   Section        0  usenofp.o(x$fpl$usenofp)
+    .constdata                               0x0800684c   Section      512  app_crc.o(.constdata)
+    .constdata                               0x08006a4c   Section       36  app_t5l_ctrl.o(.constdata)
+    .constdata                               0x08006a70   Section      164  hal_gpio.o(.constdata)
+    .constdata                               0x08006b14   Section      124  hal_uart.o(.constdata)
     .data                                    0x20000000   Section        5  app_main_task.o(.data)
     removeWeight                             0x20000004   Data           1  app_main_task.o(.data)
     .data                                    0x20000005   Section       11  app_led_ctrl.o(.data)
@@ -1109,7 +1120,7 @@ Image Symbol Table
     .data                                    0x200003a0   Section       56  app_syspara.o(.data)
     storeTick                                0x200003d4   Data           2  app_syspara.o(.data)
     storeTick                                0x200003d6   Data           2  app_syspara.o(.data)
-    .data                                    0x200003d8   Section      646  app_t5l_ctrl.o(.data)
+    .data                                    0x200003d8   Section      632  app_t5l_ctrl.o(.data)
     inerStatus                               0x2000063e   Data           1  app_t5l_ctrl.o(.data)
     localChanel                              0x2000063f   Data           1  app_t5l_ctrl.o(.data)
     inerStatus                               0x20000640   Data           1  app_t5l_ctrl.o(.data)
@@ -1117,40 +1128,37 @@ Image Symbol Table
     inerStatus                               0x20000642   Data           1  app_t5l_ctrl.o(.data)
     localChanel                              0x20000643   Data           1  app_t5l_ctrl.o(.data)
     inerStatus                               0x20000644   Data           1  app_t5l_ctrl.o(.data)
-    si16Number1                              0x20000646   Data           4  app_t5l_ctrl.o(.data)
-    si16Number2                              0x2000064a   Data           4  app_t5l_ctrl.o(.data)
-    si16Min                                  0x2000064e   Data           4  app_t5l_ctrl.o(.data)
-    need_send                                0x20000652   Data           1  app_t5l_ctrl.o(.data)
-    needSend                                 0x20000653   Data           1  app_t5l_ctrl.o(.data)
-    dataSendFlag                             0x20000654   Data           1  app_t5l_ctrl.o(.data)
-    colorSendFlag                            0x20000655   Data           1  app_t5l_ctrl.o(.data)
-    inerStatus                               0x20000656   Data           1  app_t5l_ctrl.o(.data)
-    u8Vstatus                                0x20000657   Data           1  app_t5l_ctrl.o(.data)
-    u8Voice1                                 0x20000658   Data           1  app_t5l_ctrl.o(.data)
-    u8Voice2                                 0x20000659   Data           1  app_t5l_ctrl.o(.data)
-    u8Voice3                                 0x2000065a   Data           1  app_t5l_ctrl.o(.data)
-    u16Ticks                                 0x2000065c   Data           2  app_t5l_ctrl.o(.data)
-    .data                                    0x2000065e   Section        4  drv_delay.o(.data)
-    g_DelayUsFac                             0x2000065e   Data           2  drv_delay.o(.data)
-    g_DelayMsFac                             0x20000660   Data           2  drv_delay.o(.data)
-    .data                                    0x20000664   Section      108  hal_gpio.o(.data)
-    .data                                    0x200006d0   Section      176  hal_uart.o(.data)
-    .data                                    0x20000780   Section       28  drv_rcc.o(.data)
-    l_AhbPrescTable                          0x20000780   Data          16  drv_rcc.o(.data)
-    l_ApbPrescTable                          0x20000790   Data           8  drv_rcc.o(.data)
-    .bss                                     0x2000079c   Section     1368  app_hx711_ctrl.o(.bss)
-    .bss                                     0x20000cf4   Section       12  app_key_ctrl.o(.bss)
-    .bss                                     0x20000d00   Section       12  app_password.o(.bss)
-    .bss                                     0x20000d0c   Section     1112  app_syspara.o(.bss)
-    .bss                                     0x20001164   Section      964  app_t5l_ctrl.o(.bss)
-    g_t5l_triger_data                        0x20001194   Data         560  app_t5l_ctrl.o(.bss)
-    .bss                                     0x20001528   Section       36  drv_rcc.o(.bss)
-    .bss                                     0x2000154c   Section       96  libspace.o(.bss)
-    HEAP                                     0x200015b0   Section     3072  startup_stm32f30x.o(HEAP)
-    Heap_Mem                                 0x200015b0   Data        3072  startup_stm32f30x.o(HEAP)
-    STACK                                    0x200021b0   Section     3072  startup_stm32f30x.o(STACK)
-    Stack_Mem                                0x200021b0   Data        3072  startup_stm32f30x.o(STACK)
-    __initial_sp                             0x20002db0   Data           0  startup_stm32f30x.o(STACK)
+    needSend                                 0x20000645   Data           1  app_t5l_ctrl.o(.data)
+    needSend                                 0x20000646   Data           1  app_t5l_ctrl.o(.data)
+    dataSendFlag                             0x20000647   Data           1  app_t5l_ctrl.o(.data)
+    colorSendFlag                            0x20000648   Data           1  app_t5l_ctrl.o(.data)
+    inerStatus                               0x20000649   Data           1  app_t5l_ctrl.o(.data)
+    u8Vstatus                                0x2000064a   Data           1  app_t5l_ctrl.o(.data)
+    u8Voice1                                 0x2000064b   Data           1  app_t5l_ctrl.o(.data)
+    u8Voice2                                 0x2000064c   Data           1  app_t5l_ctrl.o(.data)
+    u8Voice3                                 0x2000064d   Data           1  app_t5l_ctrl.o(.data)
+    u16Ticks                                 0x2000064e   Data           2  app_t5l_ctrl.o(.data)
+    .data                                    0x20000650   Section        4  drv_delay.o(.data)
+    g_DelayUsFac                             0x20000650   Data           2  drv_delay.o(.data)
+    g_DelayMsFac                             0x20000652   Data           2  drv_delay.o(.data)
+    .data                                    0x20000654   Section      108  hal_gpio.o(.data)
+    .data                                    0x200006c0   Section      176  hal_uart.o(.data)
+    .data                                    0x20000770   Section       28  drv_rcc.o(.data)
+    l_AhbPrescTable                          0x20000770   Data          16  drv_rcc.o(.data)
+    l_ApbPrescTable                          0x20000780   Data           8  drv_rcc.o(.data)
+    .bss                                     0x2000078c   Section     1368  app_hx711_ctrl.o(.bss)
+    .bss                                     0x20000ce4   Section       12  app_key_ctrl.o(.bss)
+    .bss                                     0x20000cf0   Section       12  app_password.o(.bss)
+    .bss                                     0x20000cfc   Section     1112  app_syspara.o(.bss)
+    .bss                                     0x20001154   Section      964  app_t5l_ctrl.o(.bss)
+    g_t5l_triger_data                        0x20001184   Data         560  app_t5l_ctrl.o(.bss)
+    .bss                                     0x20001518   Section       36  drv_rcc.o(.bss)
+    .bss                                     0x2000153c   Section       96  libspace.o(.bss)
+    HEAP                                     0x200015a0   Section     3072  startup_stm32f30x.o(HEAP)
+    Heap_Mem                                 0x200015a0   Data        3072  startup_stm32f30x.o(HEAP)
+    STACK                                    0x200021a0   Section     3072  startup_stm32f30x.o(STACK)
+    Stack_Mem                                0x200021a0   Data        3072  startup_stm32f30x.o(STACK)
+    __initial_sp                             0x20002da0   Data           0  startup_stm32f30x.o(STACK)
 
     Global Symbols
 
@@ -1336,20 +1344,20 @@ Image Symbol Table
     ModbusRtu_MasterCycleReadWeightScan      0x08000569   Thumb Code    52  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterCycleReadWeightScan)
     ModbusRtu_MasterMainFunction             0x0800059d   Thumb Code    28  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMainFunction)
     ModbusRtu_MasterMaskDeal                 0x080005b9   Thumb Code   506  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMaskDeal)
-    ModbusRtu_MasterRxMainFunction           0x080007b5   Thumb Code   818  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterRxMainFunction)
-    ModbusRtu_MasterTxMainFunction           0x08000aed   Thumb Code   138  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterTxMainFunction)
-    ModbusRtu_RxMainFunction                 0x08000b77   Thumb Code   130  app_modbus_rtu_ctrl.o(i.ModbusRtu_RxMainFunction)
-    ModbusRtu_SlaveMainFunction              0x08000bf9   Thumb Code    28  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveMainFunction)
-    ModbusRtu_SlaveRxMainFunction            0x08000c15   Thumb Code   194  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction)
-    ModbusRtu_SlaveTxMainFunction            0x08000cdd   Thumb Code    86  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMainFunction)
-    ModbusRtu_SlaveTxMaskDeal                0x08000d35   Thumb Code  1252  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal)
-    ModbusRtu_init                           0x08001219   Thumb Code    68  app_modbus_rtu_ctrl.o(i.ModbusRtu_init)
-    STM32CheckPassWord                       0x08001265   Thumb Code    58  app_password.o(i.STM32CheckPassWord)
-    STM32MCUIDGet                            0x080012b1   Thumb Code    34  app_password.o(i.STM32MCUIDGet)
-    TIM6_DAC_IRQHandler                      0x080012d9   Thumb Code    16  hal_timer.o(i.TIM6_DAC_IRQHandler)
-    USART2_IRQHandler                        0x080012ed   Thumb Code   226  hal_uart.o(i.USART2_IRQHandler)
-    USART3_IRQHandler                        0x080013e5   Thumb Code   348  hal_uart.o(i.USART3_IRQHandler)
-    app_main_init                            0x0800155d   Thumb Code    34  app_main_task.o(i.app_main_init)
+    ModbusRtu_MasterRxMainFunction           0x080007b5   Thumb Code   816  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterRxMainFunction)
+    ModbusRtu_MasterTxMainFunction           0x08000ae9   Thumb Code   138  app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterTxMainFunction)
+    ModbusRtu_RxMainFunction                 0x08000b73   Thumb Code   130  app_modbus_rtu_ctrl.o(i.ModbusRtu_RxMainFunction)
+    ModbusRtu_SlaveMainFunction              0x08000bf5   Thumb Code    28  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveMainFunction)
+    ModbusRtu_SlaveRxMainFunction            0x08000c11   Thumb Code   194  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction)
+    ModbusRtu_SlaveTxMainFunction            0x08000cd9   Thumb Code    86  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMainFunction)
+    ModbusRtu_SlaveTxMaskDeal                0x08000d31   Thumb Code  1252  app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal)
+    ModbusRtu_init                           0x08001215   Thumb Code    68  app_modbus_rtu_ctrl.o(i.ModbusRtu_init)
+    STM32CheckPassWord                       0x08001261   Thumb Code    58  app_password.o(i.STM32CheckPassWord)
+    STM32MCUIDGet                            0x080012ad   Thumb Code    34  app_password.o(i.STM32MCUIDGet)
+    TIM6_DAC_IRQHandler                      0x080012d5   Thumb Code    16  hal_timer.o(i.TIM6_DAC_IRQHandler)
+    USART2_IRQHandler                        0x080012e9   Thumb Code   226  hal_uart.o(i.USART2_IRQHandler)
+    USART3_IRQHandler                        0x080013e1   Thumb Code   348  hal_uart.o(i.USART3_IRQHandler)
+    app_main_init                            0x08001559   Thumb Code    38  app_main_task.o(i.app_main_init)
     app_main_task                            0x08001589   Thumb Code    42  app_main_task.o(i.app_main_task)
     app_uart_extern_msg_packet_process       0x080015b9   Thumb Code     2  app_t5l_ctrl.o(i.app_uart_extern_msg_packet_process)
     cal_crc16                                0x080015bd   Thumb Code    62  app_crc.o(i.cal_crc16)
@@ -1413,122 +1421,125 @@ Image Symbol Table
     drv_uart_put_bytes                       0x0800293b   Thumb Code    32  drv_uart.o(i.drv_uart_put_bytes)
     drv_uart_set_baudrate                    0x0800295d   Thumb Code   116  drv_uart.o(i.drv_uart_set_baudrate)
     getChanelStruct                          0x080029d9   Thumb Code    24  app_hx711_ctrl.o(i.getChanelStruct)
-    getSysColorWhichUsable                   0x080029f5   Thumb Code    48  app_t5l_ctrl.o(i.getSysColorWhichUsable)
-    hal_clock_init                           0x08002a29   Thumb Code    24  hal_clock.o(i.hal_clock_init)
-    hal_delay_init                           0x08002a41   Thumb Code     8  hal_delay.o(i.hal_delay_init)
-    hal_delay_us                             0x08002a49   Thumb Code    12  app_hx711_ctrl.o(i.hal_delay_us)
-    hal_di_get                               0x08002a55   Thumb Code    36  hal_gpio.o(i.hal_di_get)
-    hal_gpio_set_do_high                     0x08002a81   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_high)
-    hal_gpio_set_do_low                      0x08002aa1   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_low)
-    hal_timer_init                           0x08002ac1   Thumb Code    66  hal_timer.o(i.hal_timer_init)
-    hal_uart_dma_rx_start                    0x08002b0d   Thumb Code    70  hal_uart.o(i.hal_uart_dma_rx_start)
-    hal_uart_gpio_init                       0x08002b65   Thumb Code   806  hal_uart.o(i.hal_uart_gpio_init)
-    hal_uart_port_init                       0x08002ebd   Thumb Code   560  hal_uart.o(i.hal_uart_port_init)
-    hal_uart_rx_irq_disable                  0x08003125   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_disable)
-    hal_uart_rx_irq_enable                   0x08003161   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_enable)
-    hal_uart_set_braudrate                   0x0800319d   Thumb Code    34  hal_uart.o(i.hal_uart_set_braudrate)
-    hal_uart_set_rx_mode                     0x080031c9   Thumb Code    26  hal_uart.o(i.hal_uart_set_rx_mode)
-    hal_uart_set_timeout                     0x080031ed   Thumb Code     2  hal_uart.o(i.hal_uart_set_timeout)
-    hal_uart_set_tx_mode                     0x080031f1   Thumb Code    24  hal_uart.o(i.hal_uart_set_tx_mode)
-    hal_uart_tx_bytes                        0x08003211   Thumb Code   246  hal_uart.o(i.hal_uart_tx_bytes)
-    hx711_AllChanelSample                    0x08003319   Thumb Code   216  app_hx711_ctrl.o(i.hx711_AllChanelSample)
-    hx711_DataSampleCtrl                     0x080033f5   Thumb Code    40  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
-    hx711_MainFunction                       0x08003421   Thumb Code   212  app_hx711_ctrl.o(i.hx711_MainFunction)
-    hx711_SigChanelAvrgAndWeightCalc         0x080034fd   Thumb Code   220  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
-    hx711_getAvgSample                       0x080035dd   Thumb Code    26  app_hx711_ctrl.o(i.hx711_getAvgSample)
-    hx711_getWeight                          0x080035fd   Thumb Code   118  app_hx711_ctrl.o(i.hx711_getWeight)
-    hx711_init                               0x08003689   Thumb Code   340  app_hx711_ctrl.o(i.hx711_init)
-    hx711_setAllRemoveWeight                 0x080037f1   Thumb Code    56  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
-    jumpToActivePage                         0x0800382d   Thumb Code    96  app_t5l_ctrl.o(i.jumpToActivePage)
-    jumpToBalancingCleanPage                 0x08003895   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBalancingCleanPage)
-    jumpToBalancingHomePage                  0x08003911   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBalancingHomePage)
-    jumpToBalancingPage                      0x0800398d   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBalancingPage)
-    jumpToBanlingPage                        0x08003a09   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBanlingPage)
-    jumpToCalibrationPage                    0x08003a85   Thumb Code    96  app_t5l_ctrl.o(i.jumpToCalibrationPage)
-    jumpToHomePage                           0x08003aed   Thumb Code    96  app_t5l_ctrl.o(i.jumpToHomePage)
-    key_FilterGet                            0x08003b55   Thumb Code    30  app_key_ctrl.o(i.key_FilterGet)
-    key_MainFunction                         0x08003b79   Thumb Code   148  app_key_ctrl.o(i.key_MainFunction)
-    key_filter                               0x08003c1d   Thumb Code   168  app_key_ctrl.o(i.key_filter)
-    key_init                                 0x08003cc9   Thumb Code    84  app_key_ctrl.o(i.key_init)
-    led_MainFunction                         0x08003d21   Thumb Code   130  app_led_ctrl.o(i.led_MainFunction)
-    led_init                                 0x08003db1   Thumb Code    62  app_led_ctrl.o(i.led_init)
-    main                                     0x08003df1   Thumb Code    52  app_main.o(i.main)
-    masterCaculateHelpData                   0x08003e2d   Thumb Code   390  app_t5l_ctrl.o(i.masterCaculateHelpData)
-    pointSampleTrigerDataSet                 0x08003fcd   Thumb Code    32  app_t5l_ctrl.o(i.pointSampleTrigerDataSet)
-    pointTrigerDataSet                       0x08003ff1   Thumb Code    62  app_t5l_ctrl.o(i.pointTrigerDataSet)
-    pointTrigerDeal                          0x08004035   Thumb Code   312  app_t5l_ctrl.o(i.pointTrigerDeal)
-    pointWeightTrigerDataSet                 0x0800417d   Thumb Code    32  app_t5l_ctrl.o(i.pointWeightTrigerDataSet)
-    preColorDataAndJudgeIfNeedSend           0x080041a1   Thumb Code   756  app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend)
-    preWeightDataAndJudgeIfNeedSend          0x080044a1   Thumb Code   248  app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend)
-    readHelpDataFromSys                      0x0800459d   Thumb Code    50  app_t5l_ctrl.o(i.readHelpDataFromSys)
-    readSysDataFromFlash                     0x080045d5   Thumb Code   378  app_syspara.o(i.readSysDataFromFlash)
-    readSysDataFromFlash_3030                0x08004755   Thumb Code   196  app_syspara.o(i.readSysDataFromFlash_3030)
-    releaseSysColor                          0x08004825   Thumb Code    42  app_t5l_ctrl.o(i.releaseSysColor)
-    removeWeightTrigerDeal                   0x08004855   Thumb Code   268  app_t5l_ctrl.o(i.removeWeightTrigerDeal)
-    resetCalibrationTrigerDeal               0x0800496d   Thumb Code   310  app_t5l_ctrl.o(i.resetCalibrationTrigerDeal)
-    sampleDataPush                           0x08004ab5   Thumb Code    58  app_hx711_ctrl.o(i.sampleDataPush)
-    screenT5L_HelpDataMainFunction           0x08004af1   Thumb Code    48  app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction)
-    screenT5L_Init                           0x08004b29   Thumb Code   158  app_t5l_ctrl.o(i.screenT5L_Init)
-    screenT5L_OutputVoice                    0x08004bdd   Thumb Code   120  app_t5l_ctrl.o(i.screenT5L_OutputVoice)
-    screenT5L_RxFunction                     0x08004c5d   Thumb Code   340  app_t5l_ctrl.o(i.screenT5L_RxFunction)
-    screenT5L_TxFunction                     0x08004db5   Thumb Code   348  app_t5l_ctrl.o(i.screenT5L_TxFunction)
-    screenT5L_VoicePrintfMainfunction        0x08004f19   Thumb Code   304  app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction)
-    sdweAskRegData                           0x0800505d   Thumb Code    18  app_t5l_ctrl.o(i.sdweAskRegData)
-    sdweAskVaribleData                       0x08005075   Thumb Code   932  app_t5l_ctrl.o(i.sdweAskVaribleData)
-    sdwe_VoicePrintfPop                      0x08005421   Thumb Code   126  app_t5l_ctrl.o(i.sdwe_VoicePrintfPop)
-    sendBalancingWeightAndColor619           0x080054a9   Thumb Code   140  app_t5l_ctrl.o(i.sendBalancingWeightAndColor619)
-    sendHelpDataDiff                         0x08005555   Thumb Code   664  app_t5l_ctrl.o(i.sendHelpDataDiff)
-    sendHelpDataDiff_AtSlave1Device          0x0800580d   Thumb Code    84  app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device)
-    sendSysParaDataToDiwen                   0x0800586d   Thumb Code   772  app_t5l_ctrl.o(i.sendSysParaDataToDiwen)
-    setModbusSelfRemoveFlag                  0x08005b85   Thumb Code     8  app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag)
-    setSampleWeightValue                     0x08005b91   Thumb Code    36  app_hx711_ctrl.o(i.setSampleWeightValue)
-    sreenT5L_MainFunction                    0x08005bb9   Thumb Code    40  app_t5l_ctrl.o(i.sreenT5L_MainFunction)
-    storeSysDataToFlash                      0x08005be5   Thumb Code   342  app_syspara.o(i.storeSysDataToFlash)
-    storeSysDataToFlash_3030                 0x08005d49   Thumb Code   330  app_syspara.o(i.storeSysDataToFlash_3030)
-    system_init                              0x08005ea9   Thumb Code    32  app_main.o(i.system_init)
-    t5lWriteData                             0x08005ec9   Thumb Code   300  app_t5l_ctrl.o(i.t5lWriteData)
-    t5lWriteVarible                          0x08005ffd   Thumb Code   236  app_t5l_ctrl.o(i.t5lWriteVarible)
-    trigerCalcKB                             0x080060f1   Thumb Code   502  app_hx711_ctrl.o(i.trigerCalcKB)
-    wm_hal_gpio_init                         0x080062f1   Thumb Code    86  hal_gpio.o(i.wm_hal_gpio_init)
-    writeHelpDataFromCom                     0x08006361   Thumb Code    92  app_t5l_ctrl.o(i.writeHelpDataFromCom)
-    __aeabi_d2f                              0x080063c1   Thumb Code     0  d2f.o(x$fpl$d2f)
-    _d2f                                     0x080063c1   Thumb Code    98  d2f.o(x$fpl$d2f)
-    __aeabi_i2d                              0x08006423   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
-    _dflt                                    0x08006423   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
-    __aeabi_dmul                             0x08006451   Thumb Code     0  dmul.o(x$fpl$dmul)
-    _dmul                                    0x08006451   Thumb Code   332  dmul.o(x$fpl$dmul)
-    __fpl_dnaninf                            0x080065a5   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
-    __fpl_dretinf                            0x08006641   Thumb Code    12  dretinf.o(x$fpl$dretinf)
-    _fp_init                                 0x0800664d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x08006655   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x08006655   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fpl_fretinf                            0x08006657   Thumb Code    10  fretinf.o(x$fpl$fretinf)
-    __I$use$fp                               0x08006660   Number         0  usenofp.o(x$fpl$usenofp)
-    defaultChanelSamplePoint                 0x08006660   Data          40  app_hx711_ctrl.o(.constdata)
-    g_CrcHTable                              0x08006688   Data         256  app_crc.o(.constdata)
-    g_CrcLTable                              0x08006788   Data         256  app_crc.o(.constdata)
-    DO_GPIO_CLK                              0x080068ac   Data          52  hal_gpio.o(.constdata)
-    DO_GPIO_PIN                              0x080068e0   Data          26  hal_gpio.o(.constdata)
-    DI_GPIO_CLK                              0x080068fc   Data          56  hal_gpio.o(.constdata)
-    DI_GPIO_PIN                              0x08006934   Data          28  hal_gpio.o(.constdata)
-    UART_PORT_CLK                            0x08006950   Data           8  hal_uart.o(.constdata)
-    UART_PORT_IRQn                           0x08006958   Data           2  hal_uart.o(.constdata)
-    UART_PORT_GPIO_AF                        0x0800695a   Data           2  hal_uart.o(.constdata)
-    UART_TX_GPIO_CLK                         0x0800695c   Data           8  hal_uart.o(.constdata)
-    UART_TX_GPIO_PIN                         0x08006964   Data           4  hal_uart.o(.constdata)
-    UART_TX_PIN_SOURCE                       0x08006968   Data           4  hal_uart.o(.constdata)
-    UART_RX_GPIO_CLK                         0x0800696c   Data           8  hal_uart.o(.constdata)
-    UART_RX_GPIO_PIN                         0x08006974   Data           4  hal_uart.o(.constdata)
-    UART_RX_PIN_SOURCE                       0x08006978   Data           4  hal_uart.o(.constdata)
-    UART_DEA_GPIO_CLK                        0x0800697c   Data           8  hal_uart.o(.constdata)
-    UART_DEA_GPIO_PIN                        0x08006984   Data           4  hal_uart.o(.constdata)
-    UART_TX_DMA_CLK                          0x08006988   Data           8  hal_uart.o(.constdata)
-    UART_TX_DMA_IRQn                         0x08006990   Data           2  hal_uart.o(.constdata)
-    UART_TX_DMA_IT_TCIF                      0x08006994   Data           8  hal_uart.o(.constdata)
-    UART_RX_DMA_CLK                          0x0800699c   Data           8  hal_uart.o(.constdata)
-    g_UartBaudTab                            0x080069a4   Data          40  hal_uart.o(.constdata)
-    Region$$Table$$Base                      0x080069cc   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080069ec   Number         0  anon$$obj.o(Region$$Table)
+    getModbusOtherRemoveFlag                 0x080029f5   Thumb Code     8  app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag)
+    getSysColorWhichUsable                   0x08002a01   Thumb Code    48  app_t5l_ctrl.o(i.getSysColorWhichUsable)
+    hal_clock_init                           0x08002a35   Thumb Code    24  hal_clock.o(i.hal_clock_init)
+    hal_delay_init                           0x08002a4d   Thumb Code     8  hal_delay.o(i.hal_delay_init)
+    hal_delay_us                             0x08002a55   Thumb Code    12  app_hx711_ctrl.o(i.hal_delay_us)
+    hal_di_get                               0x08002a61   Thumb Code    36  hal_gpio.o(i.hal_di_get)
+    hal_gpio_set_do_high                     0x08002a8d   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_high)
+    hal_gpio_set_do_low                      0x08002aad   Thumb Code    22  hal_gpio.o(i.hal_gpio_set_do_low)
+    hal_timer_init                           0x08002acd   Thumb Code    66  hal_timer.o(i.hal_timer_init)
+    hal_uart_dma_rx_start                    0x08002b19   Thumb Code    70  hal_uart.o(i.hal_uart_dma_rx_start)
+    hal_uart_gpio_init                       0x08002b71   Thumb Code   806  hal_uart.o(i.hal_uart_gpio_init)
+    hal_uart_port_init                       0x08002ec9   Thumb Code   560  hal_uart.o(i.hal_uart_port_init)
+    hal_uart_rx_irq_disable                  0x08003131   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_disable)
+    hal_uart_rx_irq_enable                   0x0800316d   Thumb Code    48  hal_uart.o(i.hal_uart_rx_irq_enable)
+    hal_uart_set_braudrate                   0x080031a9   Thumb Code    34  hal_uart.o(i.hal_uart_set_braudrate)
+    hal_uart_set_rx_mode                     0x080031d5   Thumb Code    26  hal_uart.o(i.hal_uart_set_rx_mode)
+    hal_uart_set_timeout                     0x080031f9   Thumb Code     2  hal_uart.o(i.hal_uart_set_timeout)
+    hal_uart_set_tx_mode                     0x080031fd   Thumb Code    24  hal_uart.o(i.hal_uart_set_tx_mode)
+    hal_uart_tx_bytes                        0x0800321d   Thumb Code   246  hal_uart.o(i.hal_uart_tx_bytes)
+    hx711_AllChanelSample                    0x08003325   Thumb Code   216  app_hx711_ctrl.o(i.hx711_AllChanelSample)
+    hx711_DataSampleCtrl                     0x08003401   Thumb Code    40  app_hx711_ctrl.o(i.hx711_DataSampleCtrl)
+    hx711_MainFunction                       0x0800342d   Thumb Code   212  app_hx711_ctrl.o(i.hx711_MainFunction)
+    hx711_SigChanelAvrgAndWeightCalc         0x08003509   Thumb Code   220  app_hx711_ctrl.o(i.hx711_SigChanelAvrgAndWeightCalc)
+    hx711_getAvgSample                       0x080035e9   Thumb Code    26  app_hx711_ctrl.o(i.hx711_getAvgSample)
+    hx711_getWeight                          0x08003609   Thumb Code   118  app_hx711_ctrl.o(i.hx711_getWeight)
+    hx711_init                               0x08003695   Thumb Code   340  app_hx711_ctrl.o(i.hx711_init)
+    hx711_setAllRemoveWeight                 0x080037fd   Thumb Code    56  app_hx711_ctrl.o(i.hx711_setAllRemoveWeight)
+    jumpToActivePage                         0x08003839   Thumb Code    96  app_t5l_ctrl.o(i.jumpToActivePage)
+    jumpToBalancingCleanPage                 0x080038a1   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBalancingCleanPage)
+    jumpToBalancingHomePage                  0x0800391d   Thumb Code   110  app_t5l_ctrl.o(i.jumpToBalancingHomePage)
+    jumpToBalancingPage                      0x08003999   Thumb Code   132  app_t5l_ctrl.o(i.jumpToBalancingPage)
+    jumpToBanlingPage                        0x08003a29   Thumb Code   132  app_t5l_ctrl.o(i.jumpToBanlingPage)
+    jumpToCalibrationPage                    0x08003ab9   Thumb Code    96  app_t5l_ctrl.o(i.jumpToCalibrationPage)
+    jumpToHomePage                           0x08003b21   Thumb Code    96  app_t5l_ctrl.o(i.jumpToHomePage)
+    key_FilterGet                            0x08003b89   Thumb Code    30  app_key_ctrl.o(i.key_FilterGet)
+    key_MainFunction                         0x08003bad   Thumb Code   142  app_key_ctrl.o(i.key_MainFunction)
+    key_filter                               0x08003c4d   Thumb Code   168  app_key_ctrl.o(i.key_filter)
+    key_init                                 0x08003cf9   Thumb Code    84  app_key_ctrl.o(i.key_init)
+    led_MainFunction                         0x08003d51   Thumb Code   130  app_led_ctrl.o(i.led_MainFunction)
+    led_init                                 0x08003de1   Thumb Code    62  app_led_ctrl.o(i.led_init)
+    main                                     0x08003e21   Thumb Code    52  app_main.o(i.main)
+    masterCaculateHelpData                   0x08003e5d   Thumb Code   394  app_t5l_ctrl.o(i.masterCaculateHelpData)
+    pointSampleTrigerDataSet                 0x08004001   Thumb Code    32  app_t5l_ctrl.o(i.pointSampleTrigerDataSet)
+    pointTrigerDataSet                       0x08004025   Thumb Code    62  app_t5l_ctrl.o(i.pointTrigerDataSet)
+    pointTrigerDeal                          0x08004069   Thumb Code   312  app_t5l_ctrl.o(i.pointTrigerDeal)
+    pointWeightTrigerDataSet                 0x080041b1   Thumb Code    32  app_t5l_ctrl.o(i.pointWeightTrigerDataSet)
+    preColorDataAndJudgeIfNeedSend           0x080041d5   Thumb Code   756  app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend)
+    preWeightDataAndJudgeIfNeedSend          0x080044d5   Thumb Code   248  app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend)
+    readHelpDataFromSys                      0x080045d1   Thumb Code    50  app_t5l_ctrl.o(i.readHelpDataFromSys)
+    readSysDataFromFlash                     0x08004609   Thumb Code   378  app_syspara.o(i.readSysDataFromFlash)
+    readSysDataFromFlash_3030                0x08004789   Thumb Code   196  app_syspara.o(i.readSysDataFromFlash_3030)
+    releaseSysColor                          0x08004859   Thumb Code    42  app_t5l_ctrl.o(i.releaseSysColor)
+    removeWeightTrigerDeal                   0x08004889   Thumb Code   268  app_t5l_ctrl.o(i.removeWeightTrigerDeal)
+    resetCalibrationTrigerDeal               0x080049a1   Thumb Code   310  app_t5l_ctrl.o(i.resetCalibrationTrigerDeal)
+    sampleDataPush                           0x08004ae9   Thumb Code    58  app_hx711_ctrl.o(i.sampleDataPush)
+    screenT5L_HelpDataMainFunction           0x08004b25   Thumb Code    48  app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction)
+    screenT5L_Init                           0x08004b5d   Thumb Code   158  app_t5l_ctrl.o(i.screenT5L_Init)
+    screenT5L_OutputVoice                    0x08004c11   Thumb Code   120  app_t5l_ctrl.o(i.screenT5L_OutputVoice)
+    screenT5L_RxFunction                     0x08004c91   Thumb Code   340  app_t5l_ctrl.o(i.screenT5L_RxFunction)
+    screenT5L_TxFunction                     0x08004de9   Thumb Code   370  app_t5l_ctrl.o(i.screenT5L_TxFunction)
+    screenT5L_VoicePrintfMainfunction        0x08004f65   Thumb Code   304  app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction)
+    sdweAskRegData                           0x080050a9   Thumb Code    18  app_t5l_ctrl.o(i.sdweAskRegData)
+    sdweAskVaribleData                       0x080050c1   Thumb Code   932  app_t5l_ctrl.o(i.sdweAskVaribleData)
+    sdwe_VoicePrintfPop                      0x0800546d   Thumb Code   126  app_t5l_ctrl.o(i.sdwe_VoicePrintfPop)
+    sendBalancingWeightAndColor619           0x080054f5   Thumb Code   140  app_t5l_ctrl.o(i.sendBalancingWeightAndColor619)
+    sendHelpDataDiff                         0x080055a1   Thumb Code   468  app_t5l_ctrl.o(i.sendHelpDataDiff)
+    sendHelpDataDiff_AtSlave1Device          0x08005795   Thumb Code    84  app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device)
+    sendSysParaDataToDiwen                   0x080057f5   Thumb Code  1238  app_t5l_ctrl.o(i.sendSysParaDataToDiwen)
+    setModbusOtherRemoveFlag                 0x08005cd5   Thumb Code     8  app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag)
+    setModbusSelfRemoveFlag                  0x08005ce1   Thumb Code     8  app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag)
+    setSampleWeightValue                     0x08005ced   Thumb Code    36  app_hx711_ctrl.o(i.setSampleWeightValue)
+    sreenT5L_MainFunction                    0x08005d15   Thumb Code    40  app_t5l_ctrl.o(i.sreenT5L_MainFunction)
+    storeSysDataToFlash                      0x08005d41   Thumb Code   342  app_syspara.o(i.storeSysDataToFlash)
+    storeSysDataToFlash_3030                 0x08005ea5   Thumb Code   330  app_syspara.o(i.storeSysDataToFlash_3030)
+    system_init                              0x08006005   Thumb Code    32  app_main.o(i.system_init)
+    t5lDisPlayDataClear                      0x08006025   Thumb Code    74  app_t5l_ctrl.o(i.t5lDisPlayDataClear)
+    t5lWriteData                             0x0800608d   Thumb Code   300  app_t5l_ctrl.o(i.t5lWriteData)
+    t5lWriteVarible                          0x080061c1   Thumb Code   236  app_t5l_ctrl.o(i.t5lWriteVarible)
+    trigerCalcKB                             0x080062b5   Thumb Code   502  app_hx711_ctrl.o(i.trigerCalcKB)
+    wm_hal_gpio_init                         0x080064b5   Thumb Code    86  hal_gpio.o(i.wm_hal_gpio_init)
+    writeHelpDataFromCom                     0x08006525   Thumb Code    92  app_t5l_ctrl.o(i.writeHelpDataFromCom)
+    __aeabi_d2f                              0x08006585   Thumb Code     0  d2f.o(x$fpl$d2f)
+    _d2f                                     0x08006585   Thumb Code    98  d2f.o(x$fpl$d2f)
+    __aeabi_i2d                              0x080065e7   Thumb Code     0  dflt_clz.o(x$fpl$dflt)
+    _dflt                                    0x080065e7   Thumb Code    46  dflt_clz.o(x$fpl$dflt)
+    __aeabi_dmul                             0x08006615   Thumb Code     0  dmul.o(x$fpl$dmul)
+    _dmul                                    0x08006615   Thumb Code   332  dmul.o(x$fpl$dmul)
+    __fpl_dnaninf                            0x08006769   Thumb Code   156  dnaninf.o(x$fpl$dnaninf)
+    __fpl_dretinf                            0x08006805   Thumb Code    12  dretinf.o(x$fpl$dretinf)
+    _fp_init                                 0x08006811   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x08006819   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x08006819   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fpl_fretinf                            0x0800681b   Thumb Code    10  fretinf.o(x$fpl$fretinf)
+    __I$use$fp                               0x08006824   Number         0  usenofp.o(x$fpl$usenofp)
+    defaultChanelSamplePoint                 0x08006824   Data          40  app_hx711_ctrl.o(.constdata)
+    g_CrcHTable                              0x0800684c   Data         256  app_crc.o(.constdata)
+    g_CrcLTable                              0x0800694c   Data         256  app_crc.o(.constdata)
+    DO_GPIO_CLK                              0x08006a70   Data          52  hal_gpio.o(.constdata)
+    DO_GPIO_PIN                              0x08006aa4   Data          26  hal_gpio.o(.constdata)
+    DI_GPIO_CLK                              0x08006ac0   Data          56  hal_gpio.o(.constdata)
+    DI_GPIO_PIN                              0x08006af8   Data          28  hal_gpio.o(.constdata)
+    UART_PORT_CLK                            0x08006b14   Data           8  hal_uart.o(.constdata)
+    UART_PORT_IRQn                           0x08006b1c   Data           2  hal_uart.o(.constdata)
+    UART_PORT_GPIO_AF                        0x08006b1e   Data           2  hal_uart.o(.constdata)
+    UART_TX_GPIO_CLK                         0x08006b20   Data           8  hal_uart.o(.constdata)
+    UART_TX_GPIO_PIN                         0x08006b28   Data           4  hal_uart.o(.constdata)
+    UART_TX_PIN_SOURCE                       0x08006b2c   Data           4  hal_uart.o(.constdata)
+    UART_RX_GPIO_CLK                         0x08006b30   Data           8  hal_uart.o(.constdata)
+    UART_RX_GPIO_PIN                         0x08006b38   Data           4  hal_uart.o(.constdata)
+    UART_RX_PIN_SOURCE                       0x08006b3c   Data           4  hal_uart.o(.constdata)
+    UART_DEA_GPIO_CLK                        0x08006b40   Data           8  hal_uart.o(.constdata)
+    UART_DEA_GPIO_PIN                        0x08006b48   Data           4  hal_uart.o(.constdata)
+    UART_TX_DMA_CLK                          0x08006b4c   Data           8  hal_uart.o(.constdata)
+    UART_TX_DMA_IRQn                         0x08006b54   Data           2  hal_uart.o(.constdata)
+    UART_TX_DMA_IT_TCIF                      0x08006b58   Data           8  hal_uart.o(.constdata)
+    UART_RX_DMA_CLK                          0x08006b60   Data           8  hal_uart.o(.constdata)
+    g_UartBaudTab                            0x08006b68   Data          40  hal_uart.o(.constdata)
+    Region$$Table$$Base                      0x08006b90   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08006bb0   Number         0  anon$$obj.o(Region$$Table)
     g_sys_ms_tick                            0x20000000   Data           4  app_main_task.o(.data)
     g_led_ctrl_data                          0x20000005   Data           3  app_led_ctrl.o(.data)
     g_ModbusRtu                              0x20000018   Data         852  app_modbus_rtu_ctrl.o(.data)
@@ -1540,40 +1551,40 @@ Image Symbol Table
     g_T5L                                    0x200003d8   Data         612  app_t5l_ctrl.o(.data)
     u8T5LVoiceBuffPush_i                     0x2000063c   Data           1  app_t5l_ctrl.o(.data)
     u8T5LVoiceBuffPop_i                      0x2000063d   Data           1  app_t5l_ctrl.o(.data)
-    DO_GPIO_PORT                             0x20000664   Data          52  hal_gpio.o(.data)
-    DI_GPIO_PORT                             0x20000698   Data          56  hal_gpio.o(.data)
-    UART_PORT                                0x200006d0   Data           8  hal_uart.o(.data)
-    UART_TX_GPIO_PORT                        0x200006d8   Data           8  hal_uart.o(.data)
-    UART_RX_GPIO_PORT                        0x200006e0   Data           8  hal_uart.o(.data)
-    UART_DEA_GPIO_PORT                       0x200006e8   Data           8  hal_uart.o(.data)
-    UART_TX_DMA                              0x200006f0   Data           8  hal_uart.o(.data)
-    UART_TX_DMA_CHANNEL                      0x200006f8   Data           8  hal_uart.o(.data)
-    UART_RX_DMA                              0x20000700   Data           8  hal_uart.o(.data)
-    UART_RX_DMA_CHANNEL                      0x20000708   Data           8  hal_uart.o(.data)
-    g_UartDevice                             0x20000710   Data         112  hal_uart.o(.data)
-    l_RccWiteTimeOut                         0x20000798   Data           4  drv_rcc.o(.data)
-    HX711Chanel                              0x2000079c   Data        1368  app_hx711_ctrl.o(.bss)
-    SysKey                                   0x20000cf4   Data          12  app_key_ctrl.o(.bss)
-    STM32McuId                               0x20000d00   Data          12  app_password.o(.bss)
-    flashStoreDataBuf                        0x20000d0c   Data        1060  app_syspara.o(.bss)
-    flashStoreDataBuf_3030                   0x20001130   Data          52  app_syspara.o(.bss)
-    g_t5l_dis_data                           0x20001164   Data          24  app_t5l_ctrl.o(.bss)
-    g_t5l_dis_data_buff                      0x2000117c   Data          24  app_t5l_ctrl.o(.bss)
-    g_T5L_VoiceBuff                          0x200013c4   Data          18  app_t5l_ctrl.o(.bss)
-    g_i16DataBuff                            0x200013d6   Data          24  app_t5l_ctrl.o(.bss)
-    g_i16DataBuffPre                         0x200013ee   Data          24  app_t5l_ctrl.o(.bss)
-    g_i16ColorBuff                           0x20001406   Data          24  app_t5l_ctrl.o(.bss)
-    g_i16ColorBuffPre                        0x2000141e   Data          24  app_t5l_ctrl.o(.bss)
-    g_i16ColorOtherChanel                    0x20001436   Data          24  app_t5l_ctrl.o(.bss)
-    g_fDataBuffCaculate                      0x20001450   Data          48  app_t5l_ctrl.o(.bss)
-    g_i16OtherChanelCaculate                 0x20001480   Data          24  app_t5l_ctrl.o(.bss)
-    g_i16HelpDataBuff                        0x20001498   Data          36  app_t5l_ctrl.o(.bss)
-    g_i16HelpDataBuffPre                     0x200014bc   Data          36  app_t5l_ctrl.o(.bss)
-    g_i16HelpDataSort                        0x200014e0   Data          48  app_t5l_ctrl.o(.bss)
-    g_i16HelpDataChnSort                     0x20001510   Data          24  app_t5l_ctrl.o(.bss)
-    g_ClockFrequency                         0x20001528   Data          36  drv_rcc.o(.bss)
-    __libspace_start                         0x2000154c   Data          96  libspace.o(.bss)
-    __temporary_stack_top$libspace           0x200015ac   Data           0  libspace.o(.bss)
+    DO_GPIO_PORT                             0x20000654   Data          52  hal_gpio.o(.data)
+    DI_GPIO_PORT                             0x20000688   Data          56  hal_gpio.o(.data)
+    UART_PORT                                0x200006c0   Data           8  hal_uart.o(.data)
+    UART_TX_GPIO_PORT                        0x200006c8   Data           8  hal_uart.o(.data)
+    UART_RX_GPIO_PORT                        0x200006d0   Data           8  hal_uart.o(.data)
+    UART_DEA_GPIO_PORT                       0x200006d8   Data           8  hal_uart.o(.data)
+    UART_TX_DMA                              0x200006e0   Data           8  hal_uart.o(.data)
+    UART_TX_DMA_CHANNEL                      0x200006e8   Data           8  hal_uart.o(.data)
+    UART_RX_DMA                              0x200006f0   Data           8  hal_uart.o(.data)
+    UART_RX_DMA_CHANNEL                      0x200006f8   Data           8  hal_uart.o(.data)
+    g_UartDevice                             0x20000700   Data         112  hal_uart.o(.data)
+    l_RccWiteTimeOut                         0x20000788   Data           4  drv_rcc.o(.data)
+    HX711Chanel                              0x2000078c   Data        1368  app_hx711_ctrl.o(.bss)
+    SysKey                                   0x20000ce4   Data          12  app_key_ctrl.o(.bss)
+    STM32McuId                               0x20000cf0   Data          12  app_password.o(.bss)
+    flashStoreDataBuf                        0x20000cfc   Data        1060  app_syspara.o(.bss)
+    flashStoreDataBuf_3030                   0x20001120   Data          52  app_syspara.o(.bss)
+    g_t5l_dis_data                           0x20001154   Data          24  app_t5l_ctrl.o(.bss)
+    g_t5l_dis_data_buff                      0x2000116c   Data          24  app_t5l_ctrl.o(.bss)
+    g_T5L_VoiceBuff                          0x200013b4   Data          18  app_t5l_ctrl.o(.bss)
+    g_i16DataBuff                            0x200013c6   Data          24  app_t5l_ctrl.o(.bss)
+    g_i16DataBuffPre                         0x200013de   Data          24  app_t5l_ctrl.o(.bss)
+    g_i16ColorBuff                           0x200013f6   Data          24  app_t5l_ctrl.o(.bss)
+    g_i16ColorBuffPre                        0x2000140e   Data          24  app_t5l_ctrl.o(.bss)
+    g_i16ColorOtherChanel                    0x20001426   Data          24  app_t5l_ctrl.o(.bss)
+    g_fDataBuffCaculate                      0x20001440   Data          48  app_t5l_ctrl.o(.bss)
+    g_i16OtherChanelCaculate                 0x20001470   Data          24  app_t5l_ctrl.o(.bss)
+    g_i16HelpDataBuff                        0x20001488   Data          36  app_t5l_ctrl.o(.bss)
+    g_i16HelpDataBuffPre                     0x200014ac   Data          36  app_t5l_ctrl.o(.bss)
+    g_i16HelpDataSort                        0x200014d0   Data          48  app_t5l_ctrl.o(.bss)
+    g_i16HelpDataChnSort                     0x20001500   Data          24  app_t5l_ctrl.o(.bss)
+    g_ClockFrequency                         0x20001518   Data          36  drv_rcc.o(.bss)
+    __libspace_start                         0x2000153c   Data          96  libspace.o(.bss)
+    __temporary_stack_top$libspace           0x2000159c   Data           0  libspace.o(.bss)
 
 
 
@@ -1583,74 +1594,74 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00007188, Max: 0x00030000, ABSOLUTE, COMPRESSED[0x00006aa4])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x0000733c, Max: 0x00030000, ABSOLUTE, COMPRESSED[0x00006c68])
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000069ec, Max: 0x00030000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00006bb0, Max: 0x00030000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x08000000   0x00000188   Data   RO          881    RESET               startup_stm32f30x.o
-    0x08000188   0x00000008   Code   RO         2565  * !!!main             c_w.l(__main.o)
-    0x08000190   0x00000034   Code   RO         2741    !!!scatter          c_w.l(__scatter.o)
-    0x080001c4   0x0000005a   Code   RO         2739    !!dczerorl2         c_w.l(__dczerorl2.o)
+    0x08000000   0x00000188   Data   RO          899    RESET               startup_stm32f30x.o
+    0x08000188   0x00000008   Code   RO         2583  * !!!main             c_w.l(__main.o)
+    0x08000190   0x00000034   Code   RO         2759    !!!scatter          c_w.l(__scatter.o)
+    0x080001c4   0x0000005a   Code   RO         2757    !!dczerorl2         c_w.l(__dczerorl2.o)
     0x0800021e   0x00000002   PAD
-    0x08000220   0x0000001c   Code   RO         2743    !!handler_zi        c_w.l(__scatter_zi.o)
-    0x0800023c   0x00000002   Code   RO         2609    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
-    0x0800023e   0x00000004   Code   RO         2615    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2618    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2621    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2623    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2625    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2628    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2630    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2632    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2634    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2636    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2638    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2640    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2642    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2644    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2646    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2648    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2652    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2654    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2656    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
-    0x08000242   0x00000000   Code   RO         2658    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
-    0x08000242   0x00000002   Code   RO         2659    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
-    0x08000244   0x00000002   Code   RO         2679    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
-    0x08000246   0x00000000   Code   RO         2692    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2694    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2697    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2700    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2702    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
-    0x08000246   0x00000000   Code   RO         2705    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
-    0x08000246   0x00000002   Code   RO         2706    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
-    0x08000248   0x00000000   Code   RO         2577    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
-    0x08000248   0x00000000   Code   RO         2586    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
-    0x08000248   0x00000006   Code   RO         2598    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
-    0x0800024e   0x00000000   Code   RO         2588    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
-    0x0800024e   0x00000004   Code   RO         2589    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
-    0x08000252   0x00000000   Code   RO         2591    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
-    0x08000252   0x00000008   Code   RO         2592    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
-    0x0800025a   0x00000002   Code   RO         2613    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
-    0x0800025c   0x00000000   Code   RO         2661    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
-    0x0800025c   0x00000004   Code   RO         2662    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
-    0x08000260   0x00000006   Code   RO         2663    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
+    0x08000220   0x0000001c   Code   RO         2761    !!handler_zi        c_w.l(__scatter_zi.o)
+    0x0800023c   0x00000002   Code   RO         2627    .ARM.Collect$$libinit$$00000000  c_w.l(libinit.o)
+    0x0800023e   0x00000004   Code   RO         2633    .ARM.Collect$$libinit$$00000001  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2636    .ARM.Collect$$libinit$$00000004  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2639    .ARM.Collect$$libinit$$0000000A  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2641    .ARM.Collect$$libinit$$0000000C  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2643    .ARM.Collect$$libinit$$0000000E  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2646    .ARM.Collect$$libinit$$00000011  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2648    .ARM.Collect$$libinit$$00000013  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2650    .ARM.Collect$$libinit$$00000015  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2652    .ARM.Collect$$libinit$$00000017  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2654    .ARM.Collect$$libinit$$00000019  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2656    .ARM.Collect$$libinit$$0000001B  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2658    .ARM.Collect$$libinit$$0000001D  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2660    .ARM.Collect$$libinit$$0000001F  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2662    .ARM.Collect$$libinit$$00000021  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2664    .ARM.Collect$$libinit$$00000023  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2666    .ARM.Collect$$libinit$$00000025  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2670    .ARM.Collect$$libinit$$0000002C  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2672    .ARM.Collect$$libinit$$0000002E  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2674    .ARM.Collect$$libinit$$00000030  c_w.l(libinit2.o)
+    0x08000242   0x00000000   Code   RO         2676    .ARM.Collect$$libinit$$00000032  c_w.l(libinit2.o)
+    0x08000242   0x00000002   Code   RO         2677    .ARM.Collect$$libinit$$00000033  c_w.l(libinit2.o)
+    0x08000244   0x00000002   Code   RO         2697    .ARM.Collect$$libshutdown$$00000000  c_w.l(libshutdown.o)
+    0x08000246   0x00000000   Code   RO         2710    .ARM.Collect$$libshutdown$$00000002  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2712    .ARM.Collect$$libshutdown$$00000004  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2715    .ARM.Collect$$libshutdown$$00000007  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2718    .ARM.Collect$$libshutdown$$0000000A  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2720    .ARM.Collect$$libshutdown$$0000000C  c_w.l(libshutdown2.o)
+    0x08000246   0x00000000   Code   RO         2723    .ARM.Collect$$libshutdown$$0000000F  c_w.l(libshutdown2.o)
+    0x08000246   0x00000002   Code   RO         2724    .ARM.Collect$$libshutdown$$00000010  c_w.l(libshutdown2.o)
+    0x08000248   0x00000000   Code   RO         2595    .ARM.Collect$$rtentry$$00000000  c_w.l(__rtentry.o)
+    0x08000248   0x00000000   Code   RO         2604    .ARM.Collect$$rtentry$$00000002  c_w.l(__rtentry2.o)
+    0x08000248   0x00000006   Code   RO         2616    .ARM.Collect$$rtentry$$00000004  c_w.l(__rtentry4.o)
+    0x0800024e   0x00000000   Code   RO         2606    .ARM.Collect$$rtentry$$00000009  c_w.l(__rtentry2.o)
+    0x0800024e   0x00000004   Code   RO         2607    .ARM.Collect$$rtentry$$0000000A  c_w.l(__rtentry2.o)
+    0x08000252   0x00000000   Code   RO         2609    .ARM.Collect$$rtentry$$0000000C  c_w.l(__rtentry2.o)
+    0x08000252   0x00000008   Code   RO         2610    .ARM.Collect$$rtentry$$0000000D  c_w.l(__rtentry2.o)
+    0x0800025a   0x00000002   Code   RO         2631    .ARM.Collect$$rtexit$$00000000  c_w.l(rtexit.o)
+    0x0800025c   0x00000000   Code   RO         2679    .ARM.Collect$$rtexit$$00000002  c_w.l(rtexit2.o)
+    0x0800025c   0x00000004   Code   RO         2680    .ARM.Collect$$rtexit$$00000003  c_w.l(rtexit2.o)
+    0x08000260   0x00000006   Code   RO         2681    .ARM.Collect$$rtexit$$00000004  c_w.l(rtexit2.o)
     0x08000266   0x00000002   PAD
-    0x08000268   0x00000048   Code   RO          882    .text               startup_stm32f30x.o
-    0x080002b0   0x0000004e   Code   RO         2561    .text               c_w.l(rt_memclr_w.o)
-    0x080002fe   0x00000006   Code   RO         2563    .text               c_w.l(heapauxi.o)
-    0x08000304   0x0000004a   Code   RO         2600    .text               c_w.l(sys_stackheap_outer.o)
-    0x0800034e   0x00000012   Code   RO         2602    .text               c_w.l(exit.o)
-    0x08000360   0x00000008   Code   RO         2610    .text               c_w.l(libspace.o)
-    0x08000368   0x0000000c   Code   RO         2671    .text               c_w.l(sys_exit.o)
-    0x08000374   0x00000002   Code   RO         2682    .text               c_w.l(use_no_semi.o)
-    0x08000376   0x00000000   Code   RO         2684    .text               c_w.l(indicate_semi.o)
+    0x08000268   0x00000048   Code   RO          900    .text               startup_stm32f30x.o
+    0x080002b0   0x0000004e   Code   RO         2579    .text               c_w.l(rt_memclr_w.o)
+    0x080002fe   0x00000006   Code   RO         2581    .text               c_w.l(heapauxi.o)
+    0x08000304   0x0000004a   Code   RO         2618    .text               c_w.l(sys_stackheap_outer.o)
+    0x0800034e   0x00000012   Code   RO         2620    .text               c_w.l(exit.o)
+    0x08000360   0x00000008   Code   RO         2628    .text               c_w.l(libspace.o)
+    0x08000368   0x0000000c   Code   RO         2689    .text               c_w.l(sys_exit.o)
+    0x08000374   0x00000002   Code   RO         2700    .text               c_w.l(use_no_semi.o)
+    0x08000376   0x00000000   Code   RO         2702    .text               c_w.l(indicate_semi.o)
     0x08000376   0x00000002   PAD
     0x08000378   0x00000094   Code   RO          385    i.BubbleSort        app_crc.o
-    0x0800040c   0x0000003c   Code   RO         1249    i.DMA1_Channel2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08000448   0x0000003c   Code   RO         1250    i.DMA1_Channel7_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08000484   0x0000003c   Code   RO          576    i.GetFloatBalancingModelData  app_t5l_ctrl.o
+    0x0800040c   0x0000003c   Code   RO         1267    i.DMA1_Channel2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08000448   0x0000003c   Code   RO         1268    i.DMA1_Channel7_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08000484   0x0000003c   Code   RO          588    i.GetFloatBalancingModelData  app_t5l_ctrl.o
     0x080004c0   0x00000058   Code   RO          159    i.LedCtrlSendPulse  app_led_ctrl.o
     0x08000518   0x0000000a   Code   RO          161    i.Led_delay         app_led_ctrl.o
     0x08000522   0x00000002   PAD
@@ -1659,187 +1670,190 @@ Memory Map of the image
     0x0800059c   0x0000001c   Code   RO          408    i.ModbusRtu_MasterMainFunction  app_modbus_rtu_ctrl.o
     0x080005b8   0x000001fa   Code   RO          409    i.ModbusRtu_MasterMaskDeal  app_modbus_rtu_ctrl.o
     0x080007b2   0x00000002   PAD
-    0x080007b4   0x00000338   Code   RO          410    i.ModbusRtu_MasterRxMainFunction  app_modbus_rtu_ctrl.o
-    0x08000aec   0x0000008a   Code   RO          411    i.ModbusRtu_MasterTxMainFunction  app_modbus_rtu_ctrl.o
-    0x08000b76   0x00000082   Code   RO          412    i.ModbusRtu_RxMainFunction  app_modbus_rtu_ctrl.o
-    0x08000bf8   0x0000001c   Code   RO          413    i.ModbusRtu_SlaveMainFunction  app_modbus_rtu_ctrl.o
-    0x08000c14   0x000000c8   Code   RO          414    i.ModbusRtu_SlaveRxMainFunction  app_modbus_rtu_ctrl.o
-    0x08000cdc   0x00000056   Code   RO          415    i.ModbusRtu_SlaveTxMainFunction  app_modbus_rtu_ctrl.o
-    0x08000d32   0x00000002   PAD
-    0x08000d34   0x000004e4   Code   RO          416    i.ModbusRtu_SlaveTxMaskDeal  app_modbus_rtu_ctrl.o
-    0x08001218   0x0000004c   Code   RO          417    i.ModbusRtu_init    app_modbus_rtu_ctrl.o
-    0x08001264   0x0000004c   Code   RO          505    i.STM32CheckPassWord  app_password.o
-    0x080012b0   0x00000028   Code   RO          506    i.STM32MCUIDGet     app_password.o
-    0x080012d8   0x00000014   Code   RO         1164    i.TIM6_DAC_IRQHandler  firmware_wm_00_hal.lib(hal_timer.o)
-    0x080012ec   0x000000f8   Code   RO         1251    i.USART2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080013e4   0x00000178   Code   RO         1252    i.USART3_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
-    0x0800155c   0x0000002c   Code   RO          138    i.app_main_init     app_main_task.o
+    0x080007b4   0x00000334   Code   RO          410    i.ModbusRtu_MasterRxMainFunction  app_modbus_rtu_ctrl.o
+    0x08000ae8   0x0000008a   Code   RO          411    i.ModbusRtu_MasterTxMainFunction  app_modbus_rtu_ctrl.o
+    0x08000b72   0x00000082   Code   RO          412    i.ModbusRtu_RxMainFunction  app_modbus_rtu_ctrl.o
+    0x08000bf4   0x0000001c   Code   RO          413    i.ModbusRtu_SlaveMainFunction  app_modbus_rtu_ctrl.o
+    0x08000c10   0x000000c8   Code   RO          414    i.ModbusRtu_SlaveRxMainFunction  app_modbus_rtu_ctrl.o
+    0x08000cd8   0x00000056   Code   RO          415    i.ModbusRtu_SlaveTxMainFunction  app_modbus_rtu_ctrl.o
+    0x08000d2e   0x00000002   PAD
+    0x08000d30   0x000004e4   Code   RO          416    i.ModbusRtu_SlaveTxMaskDeal  app_modbus_rtu_ctrl.o
+    0x08001214   0x0000004c   Code   RO          417    i.ModbusRtu_init    app_modbus_rtu_ctrl.o
+    0x08001260   0x0000004c   Code   RO          517    i.STM32CheckPassWord  app_password.o
+    0x080012ac   0x00000028   Code   RO          518    i.STM32MCUIDGet     app_password.o
+    0x080012d4   0x00000014   Code   RO         1182    i.TIM6_DAC_IRQHandler  firmware_wm_00_hal.lib(hal_timer.o)
+    0x080012e8   0x000000f8   Code   RO         1269    i.USART2_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080013e0   0x00000178   Code   RO         1270    i.USART3_IRQHandler  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08001558   0x00000030   Code   RO          138    i.app_main_init     app_main_task.o
     0x08001588   0x00000030   Code   RO          139    i.app_main_task     app_main_task.o
-    0x080015b8   0x00000002   Code   RO          577    i.app_uart_extern_msg_packet_process  app_t5l_ctrl.o
+    0x080015b8   0x00000002   Code   RO          589    i.app_uart_extern_msg_packet_process  app_t5l_ctrl.o
     0x080015ba   0x00000002   PAD
     0x080015bc   0x00000048   Code   RO          386    i.cal_crc16         app_crc.o
-    0x08001604   0x00000228   Code   RO          578    i.chanelChangedTrigerDeal  app_t5l_ctrl.o
-    0x0800182c   0x000000c0   Code   RO          579    i.clearLocalCalibrationKAndBAndSample  app_t5l_ctrl.o
-    0x080018ec   0x00000080   Code   RO          580    i.clearLocalCalibrationRecordData  app_t5l_ctrl.o
-    0x0800196c   0x00000020   Code   RO          581    i.color_clearAllColor  app_t5l_ctrl.o
-    0x0800198c   0x00000010   Code   RO         1377    i.drv_debug_apb1_stop  STM32F303DriverLib.lib(drv_dbgmcu.o)
-    0x0800199c   0x0000004c   Code   RO          888    i.drv_delay_init    STM32F303DriverLib.lib(drv_delay.o)
-    0x080019e8   0x00000044   Code   RO          889    i.drv_delay_ms      STM32F303DriverLib.lib(drv_delay.o)
-    0x08001a2c   0x00000044   Code   RO          890    i.drv_delay_us      STM32F303DriverLib.lib(drv_delay.o)
-    0x08001a70   0x0000000c   Code   RO         1412    i.drv_dma_set_mem_addr_length  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001a7c   0x00000028   Code   RO         1413    i.drv_dma_stream_clear_flag_status  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001aa4   0x0000001c   Code   RO         1414    i.drv_dma_stream_clear_it_pending_bit  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001ac0   0x00000104   Code   RO         1415    i.drv_dma_stream_deinit  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001bc4   0x0000000a   Code   RO         1416    i.drv_dma_stream_disable  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001bce   0x0000000c   Code   RO         1417    i.drv_dma_stream_enable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001604   0x00000228   Code   RO          590    i.chanelChangedTrigerDeal  app_t5l_ctrl.o
+    0x0800182c   0x000000c0   Code   RO          591    i.clearLocalCalibrationKAndBAndSample  app_t5l_ctrl.o
+    0x080018ec   0x00000080   Code   RO          592    i.clearLocalCalibrationRecordData  app_t5l_ctrl.o
+    0x0800196c   0x00000020   Code   RO          593    i.color_clearAllColor  app_t5l_ctrl.o
+    0x0800198c   0x00000010   Code   RO         1395    i.drv_debug_apb1_stop  STM32F303DriverLib.lib(drv_dbgmcu.o)
+    0x0800199c   0x0000004c   Code   RO          906    i.drv_delay_init    STM32F303DriverLib.lib(drv_delay.o)
+    0x080019e8   0x00000044   Code   RO          907    i.drv_delay_ms      STM32F303DriverLib.lib(drv_delay.o)
+    0x08001a2c   0x00000044   Code   RO          908    i.drv_delay_us      STM32F303DriverLib.lib(drv_delay.o)
+    0x08001a70   0x0000000c   Code   RO         1430    i.drv_dma_set_mem_addr_length  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001a7c   0x00000028   Code   RO         1431    i.drv_dma_stream_clear_flag_status  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001aa4   0x0000001c   Code   RO         1432    i.drv_dma_stream_clear_it_pending_bit  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001ac0   0x00000104   Code   RO         1433    i.drv_dma_stream_deinit  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001bc4   0x0000000a   Code   RO         1434    i.drv_dma_stream_disable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001bce   0x0000000c   Code   RO         1435    i.drv_dma_stream_enable  STM32F303DriverLib.lib(drv_dma.o)
     0x08001bda   0x00000002   PAD
-    0x08001bdc   0x00000064   Code   RO         1420    i.drv_dma_stream_get_it_status  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001c40   0x0000000e   Code   RO         1421    i.drv_dma_stream_get_left_length  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001c4e   0x0000006c   Code   RO         1422    i.drv_dma_stream_init  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001cba   0x00000008   Code   RO         1424    i.drv_dma_stream_it_enable  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001cc2   0x00000034   Code   RO         1425    i.drv_dma_stream_start_mem_to_periph  STM32F303DriverLib.lib(drv_dma.o)
-    0x08001cf6   0x00000034   Code   RO         1426    i.drv_dma_stream_start_periph_to_mem  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001bdc   0x00000064   Code   RO         1438    i.drv_dma_stream_get_it_status  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001c40   0x0000000e   Code   RO         1439    i.drv_dma_stream_get_left_length  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001c4e   0x0000006c   Code   RO         1440    i.drv_dma_stream_init  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001cba   0x00000008   Code   RO         1442    i.drv_dma_stream_it_enable  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001cc2   0x00000034   Code   RO         1443    i.drv_dma_stream_start_mem_to_periph  STM32F303DriverLib.lib(drv_dma.o)
+    0x08001cf6   0x00000034   Code   RO         1444    i.drv_dma_stream_start_periph_to_mem  STM32F303DriverLib.lib(drv_dma.o)
     0x08001d2a   0x00000002   PAD
-    0x08001d2c   0x00000048   Code   RO          943    i.drv_flash_erase_sector  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001d74   0x0000002c   Code   RO          945    i.drv_flash_get_status  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001da0   0x00000014   Code   RO          946    i.drv_flash_lock    STM32F303DriverLib.lib(drv_flash.o)
-    0x08001db4   0x00000020   Code   RO          948    i.drv_flash_read_words  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001dd4   0x00000024   Code   RO          949    i.drv_flash_unlock  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001df8   0x00000028   Code   RO          950    i.drv_flash_wait_last_operation  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001e20   0x00000080   Code   RO          954    i.drv_flash_write_words  STM32F303DriverLib.lib(drv_flash.o)
-    0x08001ea0   0x00000042   Code   RO         1520    i.drv_gpio_alternate_function_connect  STM32F303DriverLib.lib(drv_gpio.o)
-    0x08001ee2   0x000000dc   Code   RO         1521    i.drv_gpio_alternate_function_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x08001fbe   0x00000060   Code   RO         1524    i.drv_gpio_input_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x0800201e   0x000000dc   Code   RO         1525    i.drv_gpio_output_init  STM32F303DriverLib.lib(drv_gpio.o)
-    0x080020fa   0x00000008   Code   RO         1334    i.drv_gpio_set_pins_high  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002102   0x00000016   Code   RO         1570    i.drv_nvic_enable   STM32F303DriverLib.lib(drv_nvic.o)
-    0x08002118   0x00000040   Code   RO         1571    i.drv_nvic_init     STM32F303DriverLib.lib(drv_nvic.o)
-    0x08002158   0x00000010   Code   RO         1605    i.drv_rcc_ahb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08002168   0x00000010   Code   RO         1609    i.drv_rcc_apb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08002178   0x00000010   Code   RO         1610    i.drv_rcc_apb1_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08002188   0x00000010   Code   RO         1611    i.drv_rcc_apb1_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x08002198   0x00000010   Code   RO         1613    i.drv_rcc_apb2_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080021a8   0x00000010   Code   RO         1614    i.drv_rcc_apb2_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080021b8   0x00000010   Code   RO         1615    i.drv_rcc_apb2_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080021c8   0x00000104   Code   RO         1616    i.drv_rcc_get_clocks_freq  STM32F303DriverLib.lib(drv_rcc.o)
-    0x080022cc   0x000002e0   Code   RO         1617    i.drv_rcc_init      STM32F303DriverLib.lib(drv_rcc.o)
-    0x080025ac   0x00000080   Code   RO         1714    i.drv_timer_base_init  STM32F303DriverLib.lib(drv_timer.o)
-    0x0800262c   0x00000008   Code   RO         1738    i.drv_timer_clear_it_pending_bit  STM32F303DriverLib.lib(drv_timer.o)
-    0x08002634   0x000000fc   Code   RO         1739    i.drv_timer_deinit  STM32F303DriverLib.lib(drv_timer.o)
-    0x08002730   0x0000000c   Code   RO         1741    i.drv_timer_enable  STM32F303DriverLib.lib(drv_timer.o)
-    0x0800273c   0x00000008   Code   RO         1769    i.drv_timer_it_enable  STM32F303DriverLib.lib(drv_timer.o)
-    0x08002744   0x00000004   Code   RO         2402    i.drv_uart_clear_flag_status  STM32F303DriverLib.lib(drv_uart.o)
-    0x08002748   0x00000012   Code   RO         2403    i.drv_uart_clear_it_pending_bit  STM32F303DriverLib.lib(drv_uart.o)
+    0x08001d2c   0x00000048   Code   RO          961    i.drv_flash_erase_sector  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001d74   0x0000002c   Code   RO          963    i.drv_flash_get_status  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001da0   0x00000014   Code   RO          964    i.drv_flash_lock    STM32F303DriverLib.lib(drv_flash.o)
+    0x08001db4   0x00000020   Code   RO          966    i.drv_flash_read_words  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001dd4   0x00000024   Code   RO          967    i.drv_flash_unlock  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001df8   0x00000028   Code   RO          968    i.drv_flash_wait_last_operation  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001e20   0x00000080   Code   RO          972    i.drv_flash_write_words  STM32F303DriverLib.lib(drv_flash.o)
+    0x08001ea0   0x00000042   Code   RO         1538    i.drv_gpio_alternate_function_connect  STM32F303DriverLib.lib(drv_gpio.o)
+    0x08001ee2   0x000000dc   Code   RO         1539    i.drv_gpio_alternate_function_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x08001fbe   0x00000060   Code   RO         1542    i.drv_gpio_input_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x0800201e   0x000000dc   Code   RO         1543    i.drv_gpio_output_init  STM32F303DriverLib.lib(drv_gpio.o)
+    0x080020fa   0x00000008   Code   RO         1352    i.drv_gpio_set_pins_high  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002102   0x00000016   Code   RO         1588    i.drv_nvic_enable   STM32F303DriverLib.lib(drv_nvic.o)
+    0x08002118   0x00000040   Code   RO         1589    i.drv_nvic_init     STM32F303DriverLib.lib(drv_nvic.o)
+    0x08002158   0x00000010   Code   RO         1623    i.drv_rcc_ahb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08002168   0x00000010   Code   RO         1627    i.drv_rcc_apb1_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08002178   0x00000010   Code   RO         1628    i.drv_rcc_apb1_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08002188   0x00000010   Code   RO         1629    i.drv_rcc_apb1_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x08002198   0x00000010   Code   RO         1631    i.drv_rcc_apb2_clk_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x080021a8   0x00000010   Code   RO         1632    i.drv_rcc_apb2_periph_reset_disable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x080021b8   0x00000010   Code   RO         1633    i.drv_rcc_apb2_periph_reset_enable  STM32F303DriverLib.lib(drv_rcc.o)
+    0x080021c8   0x00000104   Code   RO         1634    i.drv_rcc_get_clocks_freq  STM32F303DriverLib.lib(drv_rcc.o)
+    0x080022cc   0x000002e0   Code   RO         1635    i.drv_rcc_init      STM32F303DriverLib.lib(drv_rcc.o)
+    0x080025ac   0x00000080   Code   RO         1732    i.drv_timer_base_init  STM32F303DriverLib.lib(drv_timer.o)
+    0x0800262c   0x00000008   Code   RO         1756    i.drv_timer_clear_it_pending_bit  STM32F303DriverLib.lib(drv_timer.o)
+    0x08002634   0x000000fc   Code   RO         1757    i.drv_timer_deinit  STM32F303DriverLib.lib(drv_timer.o)
+    0x08002730   0x0000000c   Code   RO         1759    i.drv_timer_enable  STM32F303DriverLib.lib(drv_timer.o)
+    0x0800273c   0x00000008   Code   RO         1787    i.drv_timer_it_enable  STM32F303DriverLib.lib(drv_timer.o)
+    0x08002744   0x00000004   Code   RO         2420    i.drv_uart_clear_flag_status  STM32F303DriverLib.lib(drv_uart.o)
+    0x08002748   0x00000012   Code   RO         2421    i.drv_uart_clear_it_pending_bit  STM32F303DriverLib.lib(drv_uart.o)
     0x0800275a   0x00000002   PAD
-    0x0800275c   0x00000090   Code   RO         2404    i.drv_uart_deinit   STM32F303DriverLib.lib(drv_uart.o)
-    0x080027ec   0x0000000c   Code   RO         2407    i.drv_uart_dma_rx_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x080027f8   0x0000000c   Code   RO         2409    i.drv_uart_dma_tx_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08002804   0x00000010   Code   RO         2414    i.drv_uart_get_flag_status  STM32F303DriverLib.lib(drv_uart.o)
-    0x08002814   0x000000be   Code   RO         2416    i.drv_uart_init     STM32F303DriverLib.lib(drv_uart.o)
-    0x080028d2   0x00000034   Code   RO         2417    i.drv_uart_it_disable  STM32F303DriverLib.lib(drv_uart.o)
-    0x08002906   0x00000034   Code   RO         2418    i.drv_uart_it_enable  STM32F303DriverLib.lib(drv_uart.o)
-    0x0800293a   0x00000020   Code   RO         2419    i.drv_uart_put_bytes  STM32F303DriverLib.lib(drv_uart.o)
+    0x0800275c   0x00000090   Code   RO         2422    i.drv_uart_deinit   STM32F303DriverLib.lib(drv_uart.o)
+    0x080027ec   0x0000000c   Code   RO         2425    i.drv_uart_dma_rx_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x080027f8   0x0000000c   Code   RO         2427    i.drv_uart_dma_tx_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08002804   0x00000010   Code   RO         2432    i.drv_uart_get_flag_status  STM32F303DriverLib.lib(drv_uart.o)
+    0x08002814   0x000000be   Code   RO         2434    i.drv_uart_init     STM32F303DriverLib.lib(drv_uart.o)
+    0x080028d2   0x00000034   Code   RO         2435    i.drv_uart_it_disable  STM32F303DriverLib.lib(drv_uart.o)
+    0x08002906   0x00000034   Code   RO         2436    i.drv_uart_it_enable  STM32F303DriverLib.lib(drv_uart.o)
+    0x0800293a   0x00000020   Code   RO         2437    i.drv_uart_put_bytes  STM32F303DriverLib.lib(drv_uart.o)
     0x0800295a   0x00000002   PAD
-    0x0800295c   0x0000007c   Code   RO         2423    i.drv_uart_set_baudrate  STM32F303DriverLib.lib(drv_uart.o)
+    0x0800295c   0x0000007c   Code   RO         2441    i.drv_uart_set_baudrate  STM32F303DriverLib.lib(drv_uart.o)
     0x080029d8   0x0000001c   Code   RO          220    i.getChanelStruct   app_hx711_ctrl.o
-    0x080029f4   0x00000034   Code   RO          582    i.getSysColorWhichUsable  app_t5l_ctrl.o
-    0x08002a28   0x00000018   Code   RO         1034    i.hal_clock_init    firmware_wm_00_hal.lib(hal_clock.o)
-    0x08002a40   0x00000008   Code   RO         1065    i.hal_delay_init    firmware_wm_00_hal.lib(hal_delay.o)
-    0x08002a48   0x0000000c   Code   RO          330    i.hal_delay_us      app_hx711_ctrl.o
-    0x08002a54   0x0000002c   Code   RO         1087    i.hal_di_get        firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08002a80   0x00000020   Code   RO         1088    i.hal_gpio_set_do_high  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08002aa0   0x00000020   Code   RO         1089    i.hal_gpio_set_do_low  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08002ac0   0x0000004c   Code   RO         1168    i.hal_timer_init    firmware_wm_00_hal.lib(hal_timer.o)
-    0x08002b0c   0x00000058   Code   RO         1253    i.hal_uart_dma_rx_start  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002b64   0x00000358   Code   RO         1254    i.hal_uart_gpio_init  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08002ebc   0x00000268   Code   RO         1255    i.hal_uart_port_init  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08003124   0x0000003c   Code   RO         1256    i.hal_uart_rx_irq_disable  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08003160   0x0000003c   Code   RO         1257    i.hal_uart_rx_irq_enable  firmware_wm_00_hal.lib(hal_uart.o)
-    0x0800319c   0x0000002c   Code   RO         1258    i.hal_uart_set_braudrate  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080031c8   0x00000024   Code   RO         1328    i.hal_uart_set_rx_mode  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080031ec   0x00000002   Code   RO         1259    i.hal_uart_set_timeout  firmware_wm_00_hal.lib(hal_uart.o)
-    0x080031ee   0x00000002   PAD
-    0x080031f0   0x00000020   Code   RO         1339    i.hal_uart_set_tx_mode  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08003210   0x00000108   Code   RO         1260    i.hal_uart_tx_bytes  firmware_wm_00_hal.lib(hal_uart.o)
-    0x08003318   0x000000dc   Code   RO          222    i.hx711_AllChanelSample  app_hx711_ctrl.o
-    0x080033f4   0x0000002c   Code   RO          223    i.hx711_DataSampleCtrl  app_hx711_ctrl.o
-    0x08003420   0x000000dc   Code   RO          224    i.hx711_MainFunction  app_hx711_ctrl.o
-    0x080034fc   0x000000e0   Code   RO          227    i.hx711_SigChanelAvrgAndWeightCalc  app_hx711_ctrl.o
-    0x080035dc   0x00000020   Code   RO          228    i.hx711_getAvgSample  app_hx711_ctrl.o
-    0x080035fc   0x0000008c   Code   RO          229    i.hx711_getWeight   app_hx711_ctrl.o
-    0x08003688   0x00000168   Code   RO          230    i.hx711_init        app_hx711_ctrl.o
-    0x080037f0   0x0000003c   Code   RO          231    i.hx711_setAllRemoveWeight  app_hx711_ctrl.o
-    0x0800382c   0x00000068   Code   RO          584    i.jumpToActivePage  app_t5l_ctrl.o
-    0x08003894   0x0000007c   Code   RO          585    i.jumpToBalancingCleanPage  app_t5l_ctrl.o
-    0x08003910   0x0000007c   Code   RO          586    i.jumpToBalancingHomePage  app_t5l_ctrl.o
-    0x0800398c   0x0000007c   Code   RO          587    i.jumpToBalancingPage  app_t5l_ctrl.o
-    0x08003a08   0x0000007c   Code   RO          588    i.jumpToBanlingPage  app_t5l_ctrl.o
-    0x08003a84   0x00000068   Code   RO          589    i.jumpToCalibrationPage  app_t5l_ctrl.o
-    0x08003aec   0x00000068   Code   RO          590    i.jumpToHomePage    app_t5l_ctrl.o
-    0x08003b54   0x00000024   Code   RO          351    i.key_FilterGet     app_key_ctrl.o
-    0x08003b78   0x000000a4   Code   RO          352    i.key_MainFunction  app_key_ctrl.o
-    0x08003c1c   0x000000ac   Code   RO          353    i.key_filter        app_key_ctrl.o
-    0x08003cc8   0x00000058   Code   RO          354    i.key_init          app_key_ctrl.o
-    0x08003d20   0x00000090   Code   RO          162    i.led_MainFunction  app_led_ctrl.o
-    0x08003db0   0x0000003e   Code   RO          163    i.led_init          app_led_ctrl.o
-    0x08003dee   0x00000002   PAD
-    0x08003df0   0x0000003c   Code   RO            1    i.main              app_main.o
-    0x08003e2c   0x000001a0   Code   RO          591    i.masterCaculateHelpData  app_t5l_ctrl.o
-    0x08003fcc   0x00000024   Code   RO          592    i.pointSampleTrigerDataSet  app_t5l_ctrl.o
-    0x08003ff0   0x00000044   Code   RO          593    i.pointTrigerDataSet  app_t5l_ctrl.o
-    0x08004034   0x00000148   Code   RO          594    i.pointTrigerDeal   app_t5l_ctrl.o
-    0x0800417c   0x00000024   Code   RO          595    i.pointWeightTrigerDataSet  app_t5l_ctrl.o
-    0x080041a0   0x00000300   Code   RO          596    i.preColorDataAndJudgeIfNeedSend  app_t5l_ctrl.o
-    0x080044a0   0x000000fc   Code   RO          597    i.preWeightDataAndJudgeIfNeedSend  app_t5l_ctrl.o
-    0x0800459c   0x00000038   Code   RO          598    i.readHelpDataFromSys  app_t5l_ctrl.o
-    0x080045d4   0x00000180   Code   RO          530    i.readSysDataFromFlash  app_syspara.o
-    0x08004754   0x000000d0   Code   RO          531    i.readSysDataFromFlash_3030  app_syspara.o
-    0x08004824   0x00000030   Code   RO          599    i.releaseSysColor   app_t5l_ctrl.o
-    0x08004854   0x00000118   Code   RO          600    i.removeWeightTrigerDeal  app_t5l_ctrl.o
-    0x0800496c   0x00000148   Code   RO          601    i.resetCalibrationTrigerDeal  app_t5l_ctrl.o
-    0x08004ab4   0x0000003a   Code   RO          233    i.sampleDataPush    app_hx711_ctrl.o
-    0x08004aee   0x00000002   PAD
-    0x08004af0   0x00000038   Code   RO          602    i.screenT5L_HelpDataMainFunction  app_t5l_ctrl.o
-    0x08004b28   0x000000b4   Code   RO          603    i.screenT5L_Init    app_t5l_ctrl.o
-    0x08004bdc   0x00000080   Code   RO          604    i.screenT5L_OutputVoice  app_t5l_ctrl.o
-    0x08004c5c   0x00000158   Code   RO          605    i.screenT5L_RxFunction  app_t5l_ctrl.o
-    0x08004db4   0x00000164   Code   RO          606    i.screenT5L_TxFunction  app_t5l_ctrl.o
-    0x08004f18   0x00000144   Code   RO          607    i.screenT5L_VoicePrintfMainfunction  app_t5l_ctrl.o
-    0x0800505c   0x00000018   Code   RO          608    i.sdweAskRegData    app_t5l_ctrl.o
-    0x08005074   0x000003ac   Code   RO          609    i.sdweAskVaribleData  app_t5l_ctrl.o
-    0x08005420   0x00000088   Code   RO          611    i.sdwe_VoicePrintfPop  app_t5l_ctrl.o
-    0x080054a8   0x000000ac   Code   RO          613    i.sendBalancingWeightAndColor619  app_t5l_ctrl.o
-    0x08005554   0x000002b8   Code   RO          614    i.sendHelpDataDiff  app_t5l_ctrl.o
-    0x0800580c   0x00000060   Code   RO          615    i.sendHelpDataDiff_AtSlave1Device  app_t5l_ctrl.o
-    0x0800586c   0x00000318   Code   RO          616    i.sendSysParaDataToDiwen  app_t5l_ctrl.o
-    0x08005b84   0x0000000c   Code   RO          419    i.setModbusSelfRemoveFlag  app_modbus_rtu_ctrl.o
-    0x08005b90   0x00000028   Code   RO          235    i.setSampleWeightValue  app_hx711_ctrl.o
-    0x08005bb8   0x0000002c   Code   RO          617    i.sreenT5L_MainFunction  app_t5l_ctrl.o
-    0x08005be4   0x00000164   Code   RO          532    i.storeSysDataToFlash  app_syspara.o
-    0x08005d48   0x00000160   Code   RO          533    i.storeSysDataToFlash_3030  app_syspara.o
-    0x08005ea8   0x00000020   Code   RO            2    i.system_init       app_main.o
-    0x08005ec8   0x00000134   Code   RO          619    i.t5lWriteData      app_t5l_ctrl.o
-    0x08005ffc   0x000000f4   Code   RO          620    i.t5lWriteVarible   app_t5l_ctrl.o
-    0x080060f0   0x00000200   Code   RO          236    i.trigerCalcKB      app_hx711_ctrl.o
-    0x080062f0   0x00000070   Code   RO         1090    i.wm_hal_gpio_init  firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08006360   0x00000060   Code   RO          622    i.writeHelpDataFromCom  app_t5l_ctrl.o
-    0x080063c0   0x00000062   Code   RO         2567    x$fpl$d2f           fz_wm.l(d2f.o)
-    0x08006422   0x0000002e   Code   RO         2570    x$fpl$dflt          fz_wm.l(dflt_clz.o)
-    0x08006450   0x00000154   Code   RO         2575    x$fpl$dmul          fz_wm.l(dmul.o)
-    0x080065a4   0x0000009c   Code   RO         2578    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
-    0x08006640   0x0000000c   Code   RO         2580    x$fpl$dretinf       fz_wm.l(dretinf.o)
-    0x0800664c   0x0000000a   Code   RO         2669    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x08006656   0x0000000a   Code   RO         2582    x$fpl$fretinf       fz_wm.l(fretinf.o)
-    0x08006660   0x00000000   Code   RO         2584    x$fpl$usenofp       fz_wm.l(usenofp.o)
-    0x08006660   0x00000028   Data   RO          238    .constdata          app_hx711_ctrl.o
-    0x08006688   0x00000200   Data   RO          387    .constdata          app_crc.o
-    0x08006888   0x00000024   Data   RO          624    .constdata          app_t5l_ctrl.o
-    0x080068ac   0x000000a4   Data   RO         1091    .constdata          firmware_wm_00_hal.lib(hal_gpio.o)
-    0x08006950   0x0000007c   Data   RO         1261    .constdata          firmware_wm_00_hal.lib(hal_uart.o)
-    0x080069cc   0x00000020   Data   RO         2737    Region$$Table       anon$$obj.o
+    0x080029f4   0x0000000c   Code   RO          418    i.getModbusOtherRemoveFlag  app_modbus_rtu_ctrl.o
+    0x08002a00   0x00000034   Code   RO          594    i.getSysColorWhichUsable  app_t5l_ctrl.o
+    0x08002a34   0x00000018   Code   RO         1052    i.hal_clock_init    firmware_wm_00_hal.lib(hal_clock.o)
+    0x08002a4c   0x00000008   Code   RO         1083    i.hal_delay_init    firmware_wm_00_hal.lib(hal_delay.o)
+    0x08002a54   0x0000000c   Code   RO          330    i.hal_delay_us      app_hx711_ctrl.o
+    0x08002a60   0x0000002c   Code   RO         1105    i.hal_di_get        firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08002a8c   0x00000020   Code   RO         1106    i.hal_gpio_set_do_high  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08002aac   0x00000020   Code   RO         1107    i.hal_gpio_set_do_low  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08002acc   0x0000004c   Code   RO         1186    i.hal_timer_init    firmware_wm_00_hal.lib(hal_timer.o)
+    0x08002b18   0x00000058   Code   RO         1271    i.hal_uart_dma_rx_start  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002b70   0x00000358   Code   RO         1272    i.hal_uart_gpio_init  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08002ec8   0x00000268   Code   RO         1273    i.hal_uart_port_init  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08003130   0x0000003c   Code   RO         1274    i.hal_uart_rx_irq_disable  firmware_wm_00_hal.lib(hal_uart.o)
+    0x0800316c   0x0000003c   Code   RO         1275    i.hal_uart_rx_irq_enable  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080031a8   0x0000002c   Code   RO         1276    i.hal_uart_set_braudrate  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080031d4   0x00000024   Code   RO         1346    i.hal_uart_set_rx_mode  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080031f8   0x00000002   Code   RO         1277    i.hal_uart_set_timeout  firmware_wm_00_hal.lib(hal_uart.o)
+    0x080031fa   0x00000002   PAD
+    0x080031fc   0x00000020   Code   RO         1357    i.hal_uart_set_tx_mode  firmware_wm_00_hal.lib(hal_uart.o)
+    0x0800321c   0x00000108   Code   RO         1278    i.hal_uart_tx_bytes  firmware_wm_00_hal.lib(hal_uart.o)
+    0x08003324   0x000000dc   Code   RO          222    i.hx711_AllChanelSample  app_hx711_ctrl.o
+    0x08003400   0x0000002c   Code   RO          223    i.hx711_DataSampleCtrl  app_hx711_ctrl.o
+    0x0800342c   0x000000dc   Code   RO          224    i.hx711_MainFunction  app_hx711_ctrl.o
+    0x08003508   0x000000e0   Code   RO          227    i.hx711_SigChanelAvrgAndWeightCalc  app_hx711_ctrl.o
+    0x080035e8   0x00000020   Code   RO          228    i.hx711_getAvgSample  app_hx711_ctrl.o
+    0x08003608   0x0000008c   Code   RO          229    i.hx711_getWeight   app_hx711_ctrl.o
+    0x08003694   0x00000168   Code   RO          230    i.hx711_init        app_hx711_ctrl.o
+    0x080037fc   0x0000003c   Code   RO          231    i.hx711_setAllRemoveWeight  app_hx711_ctrl.o
+    0x08003838   0x00000068   Code   RO          596    i.jumpToActivePage  app_t5l_ctrl.o
+    0x080038a0   0x0000007c   Code   RO          597    i.jumpToBalancingCleanPage  app_t5l_ctrl.o
+    0x0800391c   0x0000007c   Code   RO          598    i.jumpToBalancingHomePage  app_t5l_ctrl.o
+    0x08003998   0x00000090   Code   RO          599    i.jumpToBalancingPage  app_t5l_ctrl.o
+    0x08003a28   0x00000090   Code   RO          600    i.jumpToBanlingPage  app_t5l_ctrl.o
+    0x08003ab8   0x00000068   Code   RO          601    i.jumpToCalibrationPage  app_t5l_ctrl.o
+    0x08003b20   0x00000068   Code   RO          602    i.jumpToHomePage    app_t5l_ctrl.o
+    0x08003b88   0x00000024   Code   RO          351    i.key_FilterGet     app_key_ctrl.o
+    0x08003bac   0x000000a0   Code   RO          352    i.key_MainFunction  app_key_ctrl.o
+    0x08003c4c   0x000000ac   Code   RO          353    i.key_filter        app_key_ctrl.o
+    0x08003cf8   0x00000058   Code   RO          354    i.key_init          app_key_ctrl.o
+    0x08003d50   0x00000090   Code   RO          162    i.led_MainFunction  app_led_ctrl.o
+    0x08003de0   0x0000003e   Code   RO          163    i.led_init          app_led_ctrl.o
+    0x08003e1e   0x00000002   PAD
+    0x08003e20   0x0000003c   Code   RO            1    i.main              app_main.o
+    0x08003e5c   0x000001a4   Code   RO          603    i.masterCaculateHelpData  app_t5l_ctrl.o
+    0x08004000   0x00000024   Code   RO          604    i.pointSampleTrigerDataSet  app_t5l_ctrl.o
+    0x08004024   0x00000044   Code   RO          605    i.pointTrigerDataSet  app_t5l_ctrl.o
+    0x08004068   0x00000148   Code   RO          606    i.pointTrigerDeal   app_t5l_ctrl.o
+    0x080041b0   0x00000024   Code   RO          607    i.pointWeightTrigerDataSet  app_t5l_ctrl.o
+    0x080041d4   0x00000300   Code   RO          608    i.preColorDataAndJudgeIfNeedSend  app_t5l_ctrl.o
+    0x080044d4   0x000000fc   Code   RO          609    i.preWeightDataAndJudgeIfNeedSend  app_t5l_ctrl.o
+    0x080045d0   0x00000038   Code   RO          610    i.readHelpDataFromSys  app_t5l_ctrl.o
+    0x08004608   0x00000180   Code   RO          542    i.readSysDataFromFlash  app_syspara.o
+    0x08004788   0x000000d0   Code   RO          543    i.readSysDataFromFlash_3030  app_syspara.o
+    0x08004858   0x00000030   Code   RO          611    i.releaseSysColor   app_t5l_ctrl.o
+    0x08004888   0x00000118   Code   RO          612    i.removeWeightTrigerDeal  app_t5l_ctrl.o
+    0x080049a0   0x00000148   Code   RO          613    i.resetCalibrationTrigerDeal  app_t5l_ctrl.o
+    0x08004ae8   0x0000003a   Code   RO          233    i.sampleDataPush    app_hx711_ctrl.o
+    0x08004b22   0x00000002   PAD
+    0x08004b24   0x00000038   Code   RO          614    i.screenT5L_HelpDataMainFunction  app_t5l_ctrl.o
+    0x08004b5c   0x000000b4   Code   RO          615    i.screenT5L_Init    app_t5l_ctrl.o
+    0x08004c10   0x00000080   Code   RO          616    i.screenT5L_OutputVoice  app_t5l_ctrl.o
+    0x08004c90   0x00000158   Code   RO          617    i.screenT5L_RxFunction  app_t5l_ctrl.o
+    0x08004de8   0x0000017c   Code   RO          618    i.screenT5L_TxFunction  app_t5l_ctrl.o
+    0x08004f64   0x00000144   Code   RO          619    i.screenT5L_VoicePrintfMainfunction  app_t5l_ctrl.o
+    0x080050a8   0x00000018   Code   RO          620    i.sdweAskRegData    app_t5l_ctrl.o
+    0x080050c0   0x000003ac   Code   RO          621    i.sdweAskVaribleData  app_t5l_ctrl.o
+    0x0800546c   0x00000088   Code   RO          623    i.sdwe_VoicePrintfPop  app_t5l_ctrl.o
+    0x080054f4   0x000000ac   Code   RO          625    i.sendBalancingWeightAndColor619  app_t5l_ctrl.o
+    0x080055a0   0x000001f4   Code   RO          626    i.sendHelpDataDiff  app_t5l_ctrl.o
+    0x08005794   0x00000060   Code   RO          627    i.sendHelpDataDiff_AtSlave1Device  app_t5l_ctrl.o
+    0x080057f4   0x000004e0   Code   RO          628    i.sendSysParaDataToDiwen  app_t5l_ctrl.o
+    0x08005cd4   0x0000000c   Code   RO          420    i.setModbusOtherRemoveFlag  app_modbus_rtu_ctrl.o
+    0x08005ce0   0x0000000c   Code   RO          421    i.setModbusSelfRemoveFlag  app_modbus_rtu_ctrl.o
+    0x08005cec   0x00000028   Code   RO          235    i.setSampleWeightValue  app_hx711_ctrl.o
+    0x08005d14   0x0000002c   Code   RO          629    i.sreenT5L_MainFunction  app_t5l_ctrl.o
+    0x08005d40   0x00000164   Code   RO          544    i.storeSysDataToFlash  app_syspara.o
+    0x08005ea4   0x00000160   Code   RO          545    i.storeSysDataToFlash_3030  app_syspara.o
+    0x08006004   0x00000020   Code   RO            2    i.system_init       app_main.o
+    0x08006024   0x00000068   Code   RO          631    i.t5lDisPlayDataClear  app_t5l_ctrl.o
+    0x0800608c   0x00000134   Code   RO          632    i.t5lWriteData      app_t5l_ctrl.o
+    0x080061c0   0x000000f4   Code   RO          633    i.t5lWriteVarible   app_t5l_ctrl.o
+    0x080062b4   0x00000200   Code   RO          236    i.trigerCalcKB      app_hx711_ctrl.o
+    0x080064b4   0x00000070   Code   RO         1108    i.wm_hal_gpio_init  firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08006524   0x00000060   Code   RO          635    i.writeHelpDataFromCom  app_t5l_ctrl.o
+    0x08006584   0x00000062   Code   RO         2585    x$fpl$d2f           fz_wm.l(d2f.o)
+    0x080065e6   0x0000002e   Code   RO         2588    x$fpl$dflt          fz_wm.l(dflt_clz.o)
+    0x08006614   0x00000154   Code   RO         2593    x$fpl$dmul          fz_wm.l(dmul.o)
+    0x08006768   0x0000009c   Code   RO         2596    x$fpl$dnaninf       fz_wm.l(dnaninf.o)
+    0x08006804   0x0000000c   Code   RO         2598    x$fpl$dretinf       fz_wm.l(dretinf.o)
+    0x08006810   0x0000000a   Code   RO         2687    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x0800681a   0x0000000a   Code   RO         2600    x$fpl$fretinf       fz_wm.l(fretinf.o)
+    0x08006824   0x00000000   Code   RO         2602    x$fpl$usenofp       fz_wm.l(usenofp.o)
+    0x08006824   0x00000028   Data   RO          238    .constdata          app_hx711_ctrl.o
+    0x0800684c   0x00000200   Data   RO          387    .constdata          app_crc.o
+    0x08006a4c   0x00000024   Data   RO          637    .constdata          app_t5l_ctrl.o
+    0x08006a70   0x000000a4   Data   RO         1109    .constdata          firmware_wm_00_hal.lib(hal_gpio.o)
+    0x08006b14   0x0000007c   Data   RO         1279    .constdata          firmware_wm_00_hal.lib(hal_uart.o)
+    0x08006b90   0x00000020   Data   RO         2755    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00002db0, Max: 0x0000c000, ABSOLUTE, COMPRESSED[0x000000b8])
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00002da0, Max: 0x0000c000, ABSOLUTE, COMPRESSED[0x000000b8])
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1848,25 +1862,24 @@ Memory Map of the image
     0x20000010   0x00000002   Data   RW          239    .data               app_hx711_ctrl.o
     0x20000012   0x00000003   Data   RW          356    .data               app_key_ctrl.o
     0x20000015   0x00000003   PAD
-    0x20000018   0x00000354   Data   RW          420    .data               app_modbus_rtu_ctrl.o
-    0x2000036c   0x00000034   Data   RW          508    .data               app_password.o
-    0x200003a0   0x00000038   Data   RW          535    .data               app_syspara.o
-    0x200003d8   0x00000286   Data   RW          625    .data               app_t5l_ctrl.o
-    0x2000065e   0x00000004   Data   RW          891    .data               STM32F303DriverLib.lib(drv_delay.o)
-    0x20000662   0x00000002   PAD
-    0x20000664   0x0000006c   Data   RW         1092    .data               firmware_wm_00_hal.lib(hal_gpio.o)
-    0x200006d0   0x000000b0   Data   RW         1262    .data               firmware_wm_00_hal.lib(hal_uart.o)
-    0x20000780   0x0000001c   Data   RW         1619    .data               STM32F303DriverLib.lib(drv_rcc.o)
-    0x2000079c   0x00000558   Zero   RW          237    .bss                app_hx711_ctrl.o
-    0x20000cf4   0x0000000c   Zero   RW          355    .bss                app_key_ctrl.o
-    0x20000d00   0x0000000c   Zero   RW          507    .bss                app_password.o
-    0x20000d0c   0x00000458   Zero   RW          534    .bss                app_syspara.o
-    0x20001164   0x000003c4   Zero   RW          623    .bss                app_t5l_ctrl.o
-    0x20001528   0x00000024   Zero   RW         1618    .bss                STM32F303DriverLib.lib(drv_rcc.o)
-    0x2000154c   0x00000060   Zero   RW         2611    .bss                c_w.l(libspace.o)
-    0x200015ac   0x00000004   PAD
-    0x200015b0   0x00000c00   Zero   RW          880    HEAP                startup_stm32f30x.o
-    0x200021b0   0x00000c00   Zero   RW          879    STACK               startup_stm32f30x.o
+    0x20000018   0x00000354   Data   RW          422    .data               app_modbus_rtu_ctrl.o
+    0x2000036c   0x00000034   Data   RW          520    .data               app_password.o
+    0x200003a0   0x00000038   Data   RW          547    .data               app_syspara.o
+    0x200003d8   0x00000278   Data   RW          638    .data               app_t5l_ctrl.o
+    0x20000650   0x00000004   Data   RW          909    .data               STM32F303DriverLib.lib(drv_delay.o)
+    0x20000654   0x0000006c   Data   RW         1110    .data               firmware_wm_00_hal.lib(hal_gpio.o)
+    0x200006c0   0x000000b0   Data   RW         1280    .data               firmware_wm_00_hal.lib(hal_uart.o)
+    0x20000770   0x0000001c   Data   RW         1637    .data               STM32F303DriverLib.lib(drv_rcc.o)
+    0x2000078c   0x00000558   Zero   RW          237    .bss                app_hx711_ctrl.o
+    0x20000ce4   0x0000000c   Zero   RW          355    .bss                app_key_ctrl.o
+    0x20000cf0   0x0000000c   Zero   RW          519    .bss                app_password.o
+    0x20000cfc   0x00000458   Zero   RW          546    .bss                app_syspara.o
+    0x20001154   0x000003c4   Zero   RW          636    .bss                app_t5l_ctrl.o
+    0x20001518   0x00000024   Zero   RW         1636    .bss                STM32F303DriverLib.lib(drv_rcc.o)
+    0x2000153c   0x00000060   Zero   RW         2629    .bss                c_w.l(libspace.o)
+    0x2000159c   0x00000004   PAD
+    0x200015a0   0x00000c00   Zero   RW          898    HEAP                startup_stm32f30x.o
+    0x200021a0   0x00000c00   Zero   RW          897    STACK               startup_stm32f30x.o
 
 
 ==============================================================================
@@ -1878,18 +1891,18 @@ Image component sizes
 
        220         14        512          0          0       2267   app_crc.o
       1950         96         40          2       1368      12181   app_hx711_ctrl.o
-       460         30          0          3         12       3112   app_key_ctrl.o
+       456         32          0          3         12       3108   app_key_ctrl.o
        304         14          0         11          0       5233   app_led_ctrl.o
         92          8          0          0          0      30097   app_main.o
-        92         16          0          5          0       1360   app_main_task.o
-      3400         36          0        852          0      13593   app_modbus_rtu_ctrl.o
+        96         16          0          5          0       1364   app_main_task.o
+      3420         42          0        852          0      14691   app_modbus_rtu_ctrl.o
        116         24          0         52         12       2534   app_password.o
       1300         54          0         56       1112       8279   app_syspara.o
-      9378        474         36        646        964      40128   app_t5l_ctrl.o
+      9810        516         36        632        964      40882   app_t5l_ctrl.o
         72         28        392          0       6144        908   startup_stm32f30x.o
 
     ----------------------------------------------------------------------
-     17396        794       1012       1630       9612     119692   Object Totals
+     17848        844       1012       1616       9612     121544   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          3          0          0   (incl. Padding)
 
@@ -1942,8 +1955,8 @@ Image component sizes
          0          0          0          0          0          0   usenofp.o
 
     ----------------------------------------------------------------------
-      8420        676        288        318        136     138080   Library Totals
-        16          0          0          2          4          0   (incl. Padding)
+      8420        676        288        316        136     138080   Library Totals
+        16          0          0          0          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -1955,7 +1968,7 @@ Image component sizes
        672         20          0          0          0        896   fz_wm.l
 
     ----------------------------------------------------------------------
-      8420        676        288        318        136     138080   Library Totals
+      8420        676        288        316        136     138080   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -1964,15 +1977,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     25816       1470       1300       1948       9748     241264   Grand Totals
-     25816       1470       1300        184       9748     241264   ELF Image Totals (compressed)
-     25816       1470       1300        184          0          0   ROM Totals
+     26268       1520       1300       1932       9748     242916   Grand Totals
+     26268       1520       1300        184       9748     242916   ELF Image Totals (compressed)
+     26268       1520       1300        184          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                27116 (  26.48kB)
-    Total RW  Size (RW Data + ZI Data)             11696 (  11.42kB)
-    Total ROM Size (Code + RO Data + RW Data)      27300 (  26.66kB)
+    Total RO  Size (Code + RO Data)                27568 (  26.92kB)
+    Total RW  Size (RW Data + ZI Data)             11680 (  11.41kB)
+    Total ROM Size (Code + RO Data + RW Data)      27752 (  27.10kB)
 
 ==============================================================================
 

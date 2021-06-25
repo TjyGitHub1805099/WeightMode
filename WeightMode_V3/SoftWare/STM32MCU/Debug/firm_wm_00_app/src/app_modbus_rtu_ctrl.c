@@ -38,11 +38,30 @@ void ModbusRtu_init(void)
 	g_ModbusRtu.pUartDevice->init(g_ModbusRtu.pUartDevice);
 }
 
+
+void modbusRemoveAllWeightData(void)
+{
+	UINT8 com_id = 0 ,chn_i = 0;
+	//clear com data
+	for(com_id=0;com_id<(ModbusAdd_Slave_Max - ModbusAdd_Master);com_id++)
+	{
+		for(chn_i=0;chn_i<MODBUS_RTU_SLAVE_CHANEL_NUM;chn_i++)
+		{
+			g_ModbusRtu.MultWeightData[com_id][chn_i].f_value = 0.0;
+		}
+	}
+	//clear gloabal data
+}
 void setModbusSelfRemoveFlag(UINT8 value)
 {
 	g_ModbusRtu.removeWeight_Slef = value;
 }
-UINT8 getModbusOtherRemoveFlag()
+void setModbusOtherRemoveFlag(UINT8 value)
+{
+	g_ModbusRtu.removeWeight_Other = value;
+}
+
+UINT8 getModbusOtherRemoveFlag(void)
 {
 	return g_ModbusRtu.removeWeight_Other;
 }
@@ -280,7 +299,7 @@ void ModbusRtu_MasterRxMainFunction(ModbusRtuType *pContex)
 						}
 					}
 				break;
-				case MFC_Mater_Ask_3://master recv slave answer weight was flaot
+				case MFC_Slave_Ans_3://master recv slave answer weight was flaot
 					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MODBUS_RTU_SLAVE_DATA_LEN)
 					{
 						//recv data
@@ -293,7 +312,7 @@ void ModbusRtu_MasterRxMainFunction(ModbusRtuType *pContex)
 						}
 					}
 				break;
-				case MFC_Mater_Ask_4://master recv slave answer weight was flaot , remove flag
+				case MFC_Slave_Ans_4://master recv slave answer weight was flaot , remove flag
 					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MODBUS_RTU_SLAVE_DATA_LEN+1))
 					{
 						//recv data

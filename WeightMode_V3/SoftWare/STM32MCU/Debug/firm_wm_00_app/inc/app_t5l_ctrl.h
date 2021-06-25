@@ -99,7 +99,8 @@ typedef enum DMGPageType
 	DMG_FUNC_Balancing_6_PAGE = 49,
 	DMG_FUNC_Balancing_6_HOME_PAGE = 57,
 	DMG_FUNC_Balancing_12_PAGE = 55,
-	DMG_FUNC_Balancing_12_HOME_PAGE =58
+	DMG_FUNC_Balancing_12_HOME_PAGE =58,
+	DMG_FUNC_Help_PAGE =59
 }enumDMGPageType;
 
 #define T5L_VOICE_MAX_PRINTF_NUM	6
@@ -285,4 +286,5 @@ extern void pointWeightTrigerDataSet(UINT8 localChanel , UINT8 point , INT16 val
 extern void sreenT5L_MainFunction(void);
 extern void writeHelpDataFromCom(UINT8 *pHelpData,UINT8 len);
 extern void readHelpDataFromSys(UINT8 *pHelpData,UINT8 len);
+extern void t5lDisPlayDataClear(void);
 #endif
