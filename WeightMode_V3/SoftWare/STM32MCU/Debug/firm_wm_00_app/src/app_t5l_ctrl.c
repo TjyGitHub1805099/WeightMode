@@ -28,7 +28,7 @@ static INT16 g_t5l_triger_data[HX711_CHANEL_NUM+1][DMG_TRIGER_SAMPLE_MAX_NUM][CH
 
 //voice printf buff
 tT5LVoinceType g_T5L_VoiceBuff[T5L_VOICE_MAX_PRINTF_NUM][3];
-UINT8 u8T5LVoiceBuffPush_i = 0 ,u8T5LVoiceBuffPop_i = 0;
+UINT8 u8T5LVoiceBuffPush_i = 0 ,u8T5LVoiceBuffPop_i = 0 , u8T5LVoiceBuffStoreNum = 0;
 
 //data send to DIWEN
 INT16 g_i16DataBuff[T5L_MAX_CHANEL_LEN]={0};
@@ -1323,6 +1323,10 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 					//clear other color display
 					pColor[chn_self] = LED_COLOR_NONE;
 					pColor[chn_other] = LED_COLOR_NONE;
+
+					//LED : display
+					LedDataSet((enumLedSeqType)chn_self, LED_COLOR_NONE);
+					LedDataSet((enumLedSeqType)chn_other, LED_COLOR_NONE);
 				}
 			}
 			else if(T5L_CHANEL_WEIGHT_NOT_EQUAL != pColorOtherCh[chn_self])
@@ -1332,6 +1336,10 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 				pColorOtherCh[chn_self] = T5L_CHANEL_WEIGHT_NOT_EQUAL;
 				releaseSysColor((enumLedColorType)pColor[chn_self]);
 				pColor[chn_self] = LED_COLOR_NONE;
+
+				//LED : display
+				LedDataSet((enumLedSeqType)chn_self, LED_COLOR_NONE);
+				LedDataSet((enumLedSeqType)chn_other, LED_COLOR_NONE);
 			}
 			else
 			{
@@ -1363,13 +1371,22 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 					((pData[chn_other] < -gSystemPara.zeroRange) || (pData[chn_other] > gSystemPara.zeroRange)) &&
 					(((pData[chn_self] - pData[chn_other]) > -gSystemPara.errRange) && ((pData[chn_self] - pData[chn_other]) < gSystemPara.errRange) ) )
 				{
-					//set the same color
+					//screen : set the same color
 					colorVld = getSysColorWhichUsable();
 					pColor[chn_self] = colorVld;
 					pColor[chn_other] = colorVld;
 					//otherChn recode
 					pColorOtherCh[chn_self] = chn_other;
 					pColorOtherCh[chn_other] = chn_self;
+					
+					//screen : voice pritf
+					if(LED_COLOR_NONE != colorVld)//bug : case weight equal but colot was LED_COLOR_NONE
+					{
+						sdwe_VoicePrintfPush((tT5LVoinceType)(chn_self+1),(tT5LVoinceType)(chn_other+1));
+					}
+					//LED : display
+					LedDataSet((enumLedSeqType)chn_self, colorVld);
+					LedDataSet((enumLedSeqType)chn_other, colorVld);
 				}
 			}
 		}
@@ -1605,26 +1622,41 @@ UINT8 trigerVoice(UINT8 test_id)
 //===========================T5L Voice Printf Manage
 void sdwe_VoicePrintfPush(tT5LVoinceType u8Voice1 ,tT5LVoinceType u8Voice2)
 {
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][0] = u8Voice1;
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][1] = u8Voice2;
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][2] = VoiceTypePeiPin_14;
-	u8T5LVoiceBuffPush_i = (u8T5LVoiceBuffPush_i+1)%T5L_VOICE_MAX_PRINTF_NUM;
+	if(u8T5LVoiceBuffStoreNum == 0)
+	{
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][0] = u8Voice1;
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][1] = u8Voice2;
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPush_i][2] = VoiceTypePeiPin_14;
+		u8T5LVoiceBuffPush_i = (u8T5LVoiceBuffPush_i+1)%T5L_VOICE_MAX_PRINTF_NUM;
+		//
+		u8T5LVoiceBuffStoreNum++;
+	}
 }
 UINT8 sdwe_VoicePrintfPop(tT5LVoinceType *u8Voice1 , tT5LVoinceType *u8Voice2 , tT5LVoinceType *u8Voice3)
 {
 	UINT8 ret = FALSE;
-	*u8Voice1 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][0];
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][0] =T5L_VoiceTypeNum_0;
-	*u8Voice2 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][1];
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][1] = T5L_VoiceTypeNum_0;
-	*u8Voice3 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][2];
-	g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][2] = T5L_VoiceTypeNum_0;
-	u8T5LVoiceBuffPop_i = (u8T5LVoiceBuffPop_i+1)%T5L_VOICE_MAX_PRINTF_NUM;
-	//
-	if((T5L_VoiceTypeNum_0 != *u8Voice1) && (T5L_VoiceTypeNum_0 != *u8Voice2))
+	if(u8T5LVoiceBuffStoreNum > 0)
 	{
-		ret = TRUE;
+		u8T5LVoiceBuffStoreNum--;
+		//
+		*u8Voice1 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][0];
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][0] =T5L_VoiceTypeNum_0;
+		*u8Voice2 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][1];
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][1] = T5L_VoiceTypeNum_0;
+		*u8Voice3 = g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][2];
+		g_T5L_VoiceBuff[u8T5LVoiceBuffPop_i][2] = T5L_VoiceTypeNum_0;
+		
+		//add u8T5LVoiceBuffPop_i
+		u8T5LVoiceBuffPop_i = (u8T5LVoiceBuffPop_i+1)%T5L_VOICE_MAX_PRINTF_NUM;
+		//
+		if(((T5L_VoiceTypeNum_1 <= *u8Voice1) && (T5L_VoiceTypeNum_12 >= *u8Voice1)) &&
+			((T5L_VoiceTypeNum_1 <= *u8Voice2) && (T5L_VoiceTypeNum_12 >= *u8Voice2)) &&
+			(VoiceTypePeiPin_14 == *u8Voice3) )
+		{
+			ret = TRUE;
+		}
 	}
+	//
 	return ret;
 }
 //if need jump to Banling page 

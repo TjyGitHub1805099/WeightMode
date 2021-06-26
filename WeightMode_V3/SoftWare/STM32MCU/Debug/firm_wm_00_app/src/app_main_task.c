@@ -35,6 +35,7 @@ void app_main_init(void)
 void app_main_task()
 {
 	UINT8 hx711DataUpgrade = 0 ;
+	(void)hx711DataUpgrade;
 	//sys tick add
 	g_sys_ms_tick++;
 
