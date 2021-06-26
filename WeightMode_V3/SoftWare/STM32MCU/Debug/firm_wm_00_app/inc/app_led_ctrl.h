@@ -7,7 +7,8 @@
 #define LED_CTRL_DATA_LEN 	(3)
 
 #define SYS_COLOR_GROUP_NUM		(4)//sys max color num
-#define SYS_COLOR_USED_FLAG		(0X123)//color if not used
+#define SYS_COLOR_USED_FLAG		(0X123)//color used
+#define SYS_COLOR_NOT_USED_FLAG		(0)//color not used
 
 //main task status
 typedef enum LedSeqType
@@ -63,6 +64,7 @@ extern void useWeightUpdataOutColor(UINT8 hx711DataUpgrade);
 extern void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade);
 void LedSysTest(UINT32 ms_tick);
 extern UINT8 led_test_flag ;
+extern void balaningColorClear(void);
 
 
 #if(COLOR_ALT_20210414_DEFINE)

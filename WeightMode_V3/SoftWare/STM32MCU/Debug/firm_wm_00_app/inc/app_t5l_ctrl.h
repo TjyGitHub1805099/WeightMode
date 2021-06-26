@@ -291,4 +291,8 @@ extern void sreenT5L_MainFunction(void);
 extern void writeHelpDataFromCom(UINT8 *pHelpData,UINT8 len);
 extern void readHelpDataFromSys(UINT8 *pHelpData,UINT8 len);
 extern void t5lDisPlayDataClear(void);
+extern void readWeightDataFromSys(UINT8 *pWeightData,UINT8 len);
+extern void readColorDataFromSys(UINT8 *pColorData,UINT8 len);
+extern void writeWeightDataFromCom(UINT8 *pWeightData,UINT8 len);
+extern void writeColorDataFromCom(UINT8 *pColorData,UINT8 len);
 #endif

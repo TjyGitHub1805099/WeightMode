@@ -125,6 +125,15 @@ UINT8 LedDataSet(enumLedSeqType seq , enumLedColorType color)
 	}
 	return ret;
 }
+void balaningColorClear(void)
+{
+	UINT8 color_i = 0 ;
+	for(color_i=0;color_i<LED_SEQ_NUM;color_i++)
+	{
+		LedDataSet((enumLedSeqType)color_i,LED_COLOR_NONE);
+	}
+}
+
 //===================v3.0 color compare start
 typedef struct WeightUpdateColorType
 {
@@ -1073,10 +1082,7 @@ enumLedColorType balaningFinoutUseableColor()
 	}
 	return color;
 }
-void balaningColorClear()
-{
 
-}
 
 //balanind mainfunction
 void balaningMainfuction222()

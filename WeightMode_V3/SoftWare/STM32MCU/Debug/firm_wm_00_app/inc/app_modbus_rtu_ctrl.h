@@ -45,7 +45,10 @@ typedef enum ModbusFuncCodeType
 	MFC_Slave_Ans_3 = 0x83 ,
 	
 	MFC_Mater_Ask_4 = 0x04 ,//: CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag 
-	MFC_Slave_Ans_4 = 0x84 
+	MFC_Slave_Ans_4 = 0x84 ,
+
+	MFC_Mater_Ask_5 = 0x05 ,//: CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag  + 12chan data + 12chanel color
+	MFC_Slave_Ans_5 = 0x85 
 }enumModbusFuncCodeType;
 	
 //======MasterTimer
@@ -55,6 +58,7 @@ typedef enum ModbusFuncCodeType
 #define MasterTimer_EventTriger_TX_T2	(200)//200ms : CycleReadWeightInit
 #define MasterTimer_EventTriger_TX_T3	(200)//200ms : CycleReadWeightFloat + SetHelpDataToSlave1
 #define MasterTimer_EventTriger_TX_T4	(200)//200ms : CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+#define MasterTimer_EventTriger_TX_T5	(200)//200ms : CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag  + 12chan data + 12chanel color
 
 //======SlaveTimer
 #define SlaveTimer_TxOrderDlay			(15)//15ms
@@ -71,6 +75,7 @@ typedef UINT16 MasterEventTxMaskType;
 #define MasterEvent_Tx_E2	(MasterEventTxMaskType)(0x0002)//ReadWeightInt32
 #define MasterEvent_Tx_E3	(MasterEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
 #define MasterEvent_Tx_E4	(MasterEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+#define MasterEvent_Tx_E5	(MasterEventTxMaskType)(0x0010)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag + 12chan data + 12chanel color
 
 //======MasterEvent:RX
 typedef UINT16 MasterEventRxMaskType;
@@ -83,15 +88,16 @@ typedef UINT16 SlaveEventTxMaskType;
 #define SlaveEvent_Tx_E2	(SlaveEventTxMaskType)(0x0002)//ReadWeightInt32
 #define SlaveEvent_Tx_E3	(SlaveEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
 #define SlaveEvent_Tx_E4	(SlaveEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+#define SlaveEvent_Tx_E5	(SlaveEventTxMaskType)(0x0010)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag + 12chan data + 12chanel color
 
 //======SlaveEvent:RX
 typedef UINT16 SlaveEventRxMaskType;
 #define SlaveEvent_Rx_Idle	(SlaveEventRxMaskType)(0x0000)
-#define SlaveEvent_Rx_E1	(SlaveEventTxMaskType)(0x0001)//ReadWeightFloat
-#define SlaveEvent_Rx_E2	(SlaveEventTxMaskType)(0x0002)//ReadWeightInt32
-#define SlaveEvent_Rx_E3	(SlaveEventTxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
-#define SlaveEvent_Rx_E4	(SlaveEventTxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
-
+#define SlaveEvent_Rx_E1	(SlaveEventRxMaskType)(0x0001)//ReadWeightFloat
+#define SlaveEvent_Rx_E2	(SlaveEventRxMaskType)(0x0002)//ReadWeightInt32
+#define SlaveEvent_Rx_E3	(SlaveEventRxMaskType)(0x0004)//ReadWeightFloat + SetHelpDataToSlave1
+#define SlaveEvent_Rx_E4	(SlaveEventRxMaskType)(0x0008)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag
+#define SlaveEvent_Rx_E5	(SlaveEventRxMaskType)(0x0010)//CycleReadWeightFloat + SetHelpDataToSlave1 + SendRemoveFlag + 12chan data + 12chanel color
 
 typedef enum MasterStateType
 {

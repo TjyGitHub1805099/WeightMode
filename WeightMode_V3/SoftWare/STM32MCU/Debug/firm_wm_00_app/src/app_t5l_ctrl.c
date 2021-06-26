@@ -1142,6 +1142,37 @@ void writeHelpDataFromCom(UINT8 *pHelpData,UINT8 len)
 		}
 	}
 }
+void writeWeightDataFromCom(UINT8 *pWeightData,UINT8 len)
+{
+	UINT8 i = 0 ;
+	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	{
+		for(i=0;i<len;i++)
+		{
+			g_i16DataBuff[i] = 0 ;
+			g_i16DataBuff[i] = pWeightData[2*i+0];
+			g_i16DataBuff[i] <<= 8;
+			g_i16DataBuff[i] &= 0XFF00;
+			g_i16DataBuff[i] += pWeightData[2*i+1];
+		}
+	}
+}
+void writeColorDataFromCom(UINT8 *pColorData,UINT8 len)
+{
+	UINT8 i = 0 ;
+	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	{
+		for(i=0;i<len;i++)
+		{
+			g_i16ColorBuff[i] = 0 ;
+			g_i16ColorBuff[i] = pColorData[2*i+0];
+			g_i16ColorBuff[i] <<= 8;
+			g_i16ColorBuff[i] &= 0XFF00;
+			g_i16ColorBuff[i] += pColorData[2*i+1];
+		}
+	}
+}
+
 void readHelpDataFromSys(UINT8 *pHelpData,UINT8 len)
 {
 	UINT8 i = 0 ;
@@ -1151,6 +1182,30 @@ void readHelpDataFromSys(UINT8 *pHelpData,UINT8 len)
 		{
 			pHelpData[2*i+0] = (g_i16HelpDataBuff[i]>>8)&0xff;
 			pHelpData[2*i+1] = (g_i16HelpDataBuff[i]>>0)&0xff;
+		}
+	}
+}
+void readWeightDataFromSys(UINT8 *pWeightData,UINT8 len)
+{
+	UINT8 i = 0 ;
+	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	{
+		for(i=0;i<len;i++)
+		{
+			pWeightData[2*i+0] = (g_i16DataBuff[i]>>8)&0xff;
+			pWeightData[2*i+1] = (g_i16DataBuff[i]>>0)&0xff;
+		}
+	}
+}
+void readColorDataFromSys(UINT8 *pColorData,UINT8 len)
+{
+	UINT8 i = 0 ;
+	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	{
+		for(i=0;i<len;i++)
+		{
+			pColorData[2*i+0] = (g_i16ColorBuff[i]>>8)&0xff;
+			pColorData[2*i+1] = (g_i16ColorBuff[i]>>0)&0xff;
 		}
 	}
 }
@@ -1212,7 +1267,8 @@ UINT8 preWeightDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pDataPre,UINT8 chanel_
 					ret = TRUE ;
 				}
 			}
-		}else if(ModbusAdd_Master == gSystemPara.isCascade)
+		}
+		else if(ModbusAdd_Master == gSystemPara.isCascade)
 		{
 			//master local data
 			for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
@@ -1421,6 +1477,52 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 		}
 	}
 	return ret;	
+}
+void sendBalancingWeightAndColor6192(void)
+{
+	static UINT8 dataSendFlag = FALSE,colorSendFlag = FALSE;
+	UINT8 data_i = 0 ;
+	//
+	INT16 *pData = &g_i16DataBuff[0];
+	INT16 *pDataPre = &g_i16DataBuffPre[0];
+	
+	//
+	INT16 *pColor = &g_i16ColorBuff[0];
+	INT16 *pColorPre = &g_i16ColorBuffPre[0];
+	for(data_i=0;data_i<T5L_MAX_CHANEL_LEN;data_i++)
+	{
+		if(pDataPre[data_i] != pData[data_i])
+		{
+			pDataPre[data_i] = pData[data_i];
+			dataSendFlag = TRUE;
+		}
+	}
+	//
+	if(TRUE == dataSendFlag)
+	{
+		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pData,T5L_MAX_CHANEL_LEN,0))
+		{
+			dataSendFlag = FALSE;
+		}
+	}
+	else if(dataSendFlag == FALSE)
+	{
+		for(data_i=0;data_i<T5L_MAX_CHANEL_LEN;data_i++)
+		{
+			if(pColorPre[data_i] != pColor[data_i])
+			{
+				pColorPre[data_i] = pColor[data_i];
+				colorSendFlag = TRUE;
+			}
+		}
+		if(TRUE == colorSendFlag)
+		{
+			if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_COLOR_ADDRESS,pColor,T5L_MAX_CHANEL_LEN,0))
+			{
+				colorSendFlag = FALSE;
+			}
+		}
+	}
 }
 
 void sendBalancingWeightAndColor619()
@@ -1900,7 +2002,14 @@ void screenT5L_TxFunction(void)
 	else if(g_sysLocked == STM32MCU_UNLOCKED)
 	{
 		//sendBalancingModelData();
-		sendBalancingWeightAndColor619();
+		if((0 == gSystemPara.isCascade) || (ModbusAdd_Master == gSystemPara.isCascade))
+		{
+			sendBalancingWeightAndColor619();
+		}
+		else
+		{
+			sendBalancingWeightAndColor6192();
+		}
 		screenT5L_HelpDataMainFunction();
 	}	
 
