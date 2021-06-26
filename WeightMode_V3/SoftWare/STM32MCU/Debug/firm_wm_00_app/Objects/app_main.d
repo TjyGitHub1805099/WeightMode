@@ -35,3 +35,5 @@
 .\objects\app_main.o: .\inc\app_password.h
 .\objects\app_main.o: .\inc\app_syspara.h
 .\objects\app_main.o: .\inc\app_t5l_ctrl.h
+.\objects\app_main.o: ..\STM32F303DriverLib\inc\drv_iwdg.h
+.\objects\app_main.o: ..\STM32F303DriverLib\reg\reg_stm32f303_iwdg.h

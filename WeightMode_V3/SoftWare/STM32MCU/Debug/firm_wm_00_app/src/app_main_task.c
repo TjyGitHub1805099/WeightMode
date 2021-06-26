@@ -9,6 +9,7 @@
 #include "app_sdwe_ctrl.h"
 #include "app_modbus_rtu_ctrl.h"
 #include "app_t5l_ctrl.h"
+#include "drv_iwdg.h"
 
 /*******************************************************************************
  * Definitions
@@ -36,6 +37,10 @@ void app_main_task()
 {
 	UINT8 hx711DataUpgrade = 0 ;
 	(void)hx711DataUpgrade;
+	
+	drv_iwdg_feed();
+
+	
 	//sys tick add
 	g_sys_ms_tick++;
 

@@ -23,6 +23,9 @@ typedef enum HX711SystemParaType
 	HX711SystemPara_COLOR3 = 8,		/**< HX711	系统设置-颜色3 */
 	HX711SystemPara_COLOR4 = 9,		/**< HX711	系统设置-颜色4 */	
 	HX711SystemPara_ZERO_RANGE = 10,/**< HX711	零点范围 */ 
+	HX711SystemPara_ScreenVoiceSwitch = 11,/**< HX711	语音开关 */ 
+	HX711SystemPara_ScreenCastMode = 12,/**< HX711	级联模式 */ 
+	HX711SystemPara_FlashEraseTimes = 13,/**< HX711	FLASH擦写次数 */ 
 	HX711SystemPara_NUM  			/**< HX711  系统设置-最大长度 */
 }enumHX711SystemParaType;
 
@@ -99,7 +102,11 @@ typedef struct SystemParaType
 	INT32	isLedIndicate;/**< 是否LED指示 */
 	INT32	userColorSet[SYS_COLOR_GROUP_NUM];/**< 配平色1~4 */
 	float	zeroRange;/**< 零点范围 */
-
+	
+	INT32	ScreenVoiceSwitch;/**< HX711	语音开关 */ 
+	INT32 	ScreenCastMode;/**< HX711	级联显示模式 */ 
+	INT32 	FlashEraseTimes;/**< HX711	FLASH 擦写次数 */ 
+	
 	//sys used flag
 	UINT16	userColorUsed[SYS_COLOR_GROUP_NUM];/**< chanel_a<<8 + chanel_b*/
 } gSystemParaType;
@@ -113,6 +120,9 @@ typedef struct SystemParaType
 TRUE, \
 {LED_COLOR_GREEN, LED_COLOR_NONE, LED_COLOR_NONE, LED_COLOR_NONE },\
 (float)(5.0), \
+0,\
+0,\
+0,\
 {FALSE, FALSE, FALSE, FALSE },\
 }
 //

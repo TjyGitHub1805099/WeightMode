@@ -17,6 +17,7 @@
 #include "app_password.h"
 #include "app_syspara.h"
 #include "app_t5l_ctrl.h"
+#include "drv_iwdg.h"
 
 /*******************************************************************************
  * Functions
@@ -44,6 +45,8 @@ void system_init( void )
 	wm_hal_gpio_init();
 	
     hal_timer_init( 1000 );
+
+	drv_iwdg_init(1000);
     //wdg_init( 4000 );
 }
 

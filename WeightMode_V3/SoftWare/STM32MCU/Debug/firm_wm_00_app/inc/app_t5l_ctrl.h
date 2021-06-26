@@ -11,7 +11,7 @@
 
 //================================================================================================
 //==(update:20210328):DIWEN reserve (uodate to v3:2021.03.26)
-#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER			(15)//15ms 
+#define DMG_MIN_DIFF_OF_TWO_SEND_ORDER			(25)//25ms 
 
 
 //==(update:20210328):address of set chanel number : 0->all chanel set  ; (1~8)->single chanel set
@@ -61,6 +61,10 @@
 #define DMG_FUNC_SET_COLOR_START_ADDRESS	(0X100F)//0x100F
 #define DMG_FUNC_SET_COLOR_END_ADDRESS		(0X1012)//0x1012
 #define DMG_FUNC_SET_ZERO_RANGE_ADDRESS		(0X1013)//0x1013
+
+#define DMG_FUNC_SET_VOICE_SWITCH_ADDRESS	(0X1017)//0x1017
+#define DMG_FUNC_SET_CAST_SWITCH_ADDRESS	(0X1018)//0x1018
+#define DMG_FUNC_SET_FLASH_ERASEE_TIMES_ADDRESS	(0X1019)//0x1019
 
 #define DMG_FUNC_MCUID_ADDRESS				(0X1500)//0x1500
 

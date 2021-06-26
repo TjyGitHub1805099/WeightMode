@@ -472,6 +472,8 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 	{
 		//==(update:20210411):sys para
 		if(((pSdwe->SetAdd >= DMG_FUNC_SET_UNIT_ADDRESS)&&(pSdwe->SetAdd <= (DMG_FUNC_SET_ZERO_RANGE_ADDRESS)))
+			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_SWITCH_ADDRESS)
+			|| (pSdwe->SetAdd == DMG_FUNC_SET_CAST_SWITCH_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_PASSORD_SET_ADDRESS))
 		{	
 			switch(pSdwe->SetAdd)
@@ -499,6 +501,12 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				break;
 				case  DMG_FUNC_SET_ZERO_RANGE_ADDRESS://		(0X1013)//0x1013
 					gSystemPara.zeroRange = pSdwe->SetData;/**< 零点范围 */
+				break;
+				case DMG_FUNC_SET_VOICE_SWITCH_ADDRESS://	(0X1017)//0x1017
+					gSystemPara.ScreenVoiceSwitch = pSdwe->SetData;/**< HX711	语音开关 */ 
+				break;
+				case DMG_FUNC_SET_CAST_SWITCH_ADDRESS://	(0X1018)//0x1018
+					gSystemPara.ScreenCastMode = pSdwe->SetData;/**< HX711	级联显示模式 */
 				break;
 				default:
 					if((pSdwe->SetAdd >= DMG_FUNC_SET_COLOR_START_ADDRESS)&&(pSdwe->SetAdd <= (DMG_FUNC_SET_COLOR_END_ADDRESS)))
@@ -664,14 +672,18 @@ UINT8 jumpToBalancingPage()
 	{
 		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_6_PAGE;
 	}
-	else if(ModbusAdd_Master == gSystemPara.isCascade)
+	else 
 	{
-		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
+		if(0 == gSystemPara.ScreenCastMode)
+		{
+			pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
+		}
+		else
+		{
+			pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
+		}
 	}
-	else
-	{
-		pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
-	}
+	
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 		((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 	{
@@ -686,11 +698,16 @@ UINT8 jumpToBalancingHomePage()
 	UINT8 result = 0 ;
 	//5A A5 07 82 0084 5A01 page
 	INT16 pageChangeOrderAndData[2]={0x5A01,DMG_FUNC_Balancing_6_HOME_PAGE};
-
-	if(TRUE == gSystemPara.isCascade)
+	
+	if(0 == gSystemPara.isCascade)
+	{
+		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_6_HOME_PAGE;
+	}
+	else
 	{
 		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_HOME_PAGE;
 	}
+
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 		((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 	{
@@ -758,13 +775,16 @@ UINT8 jumpToBanlingPage()
 	{
 		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_6_PAGE;
 	}
-	else if(ModbusAdd_Master == gSystemPara.isCascade)
+	else 
 	{
-		pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
-	}
-	else
-	{
-		pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
+		if(0 == gSystemPara.ScreenCastMode)
+		{
+			pageChangeOrderAndData[1] = DMG_FUNC_Balancing_12_PAGE;
+		}
+		else
+		{
+			pageChangeOrderAndData[1] = DMG_FUNC_Help_PAGE;
+		}
 	}
 
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
@@ -1487,8 +1507,8 @@ UINT8 sendSysParaDataToDiwen(void)
 	switch(inerStatus)
 	{
 		case 0://send 0x1000 单位
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				sendData[len++] = gSystemPara.uint;
@@ -1497,27 +1517,33 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 1://send 0X100A~0X1013 系统参数
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len = 0 ;
-				sendData[len++] = gSystemPara.minWeight;/**< 最小量程 */
-				sendData[len++] = gSystemPara.maxWeight;/**< 最大量程 */
-				sendData[len++] = gSystemPara.errRange;/**< 误差范围 */
-				sendData[len++] = gSystemPara.isCascade;/**< 是否级联 */
-				sendData[len++] = gSystemPara.isLedIndicate;/**< 是否LED指示 */
-				sendData[len++] = gSystemPara.userColorSet[0];/**< 配平色1 */
-				sendData[len++] = gSystemPara.userColorSet[1];/**< 配平色2 */
-				sendData[len++] = gSystemPara.userColorSet[2];/**< 配平色3 */
-				sendData[len++] = gSystemPara.userColorSet[3];/**< 配平色4 */
-				sendData[len++] = gSystemPara.zeroRange;/**< 零点范围 */
+				sendData[len++] = gSystemPara.minWeight;/**< 最小量程 */ //100A
+				sendData[len++] = gSystemPara.maxWeight;/**< 最大量程 */ //100B
+				sendData[len++] = gSystemPara.errRange;/**< 误差范围 */ //100C
+				sendData[len++] = gSystemPara.isCascade;/**< 是否级联 */ //100D
+				sendData[len++] = gSystemPara.isLedIndicate;/**< 是否LED指示 */ //100E
+				sendData[len++] = gSystemPara.userColorSet[0];/**< 配平色1 */ //100F
+				sendData[len++] = gSystemPara.userColorSet[1];/**< 配平色2 */ //1010
+				sendData[len++] = gSystemPara.userColorSet[2];/**< 配平色3 */ //1011
+				sendData[len++] = gSystemPara.userColorSet[3];/**< 配平色4 */ //1012
+				sendData[len++] = gSystemPara.zeroRange;/**< 零点范围 */ //1013
+				sendData[len++] = 50;/**< 正常亮度 */ //1014
+				sendData[len++] = 25;/**< 待机亮度 */ //1015
+				sendData[len++] = 300;/**< 待机时间 */ //1016
+				sendData[len++] = gSystemPara.ScreenVoiceSwitch;/**< HX711	语音开关 */ //1017
+				sendData[len++] = gSystemPara.ScreenCastMode;/**< HX711	级联显示模式 */ //1018
+				sendData[len++] = gSystemPara.FlashEraseTimes;/**< HX711	FLASH 擦写次数 */ //1019
 				t5lWriteVarible((0x100A),sendData,len,0);
 				inerStatus++;
 			}
 		break;
 		case 2://send 0X1501 password ID
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				sendData[len++] = g_passWordId&0XFFFF;
@@ -1526,8 +1552,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 3://send 1510 password store
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				sendData[len++] = g_passWordStore&0XFFFF;
@@ -1536,8 +1562,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 4://send 2100 DMG_FUNC_SET_CHANEL_NUM
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				sendData[len++] = g_T5L.CalibrateChanel;
@@ -1546,8 +1572,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 5://send 1201 DMG_FUNC_HELP_TO_JUDGE_SET_ADDRESS
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				for(len=0;len<DIFF_TO_DIWEN_DATA_LEN;len++)
@@ -1559,8 +1585,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 6://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				for(len=0;len<T5L_MAX_CHANEL_LEN;len++)
@@ -1572,8 +1598,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 7://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				for(len=0;len<T5L_MAX_CHANEL_LEN;len++)
@@ -1585,8 +1611,8 @@ UINT8 sendSysParaDataToDiwen(void)
 			}
 		break;
 		case 8://send 0x3000 DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS
-			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
-				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 10*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
 			{
 				len=0;
 				jumpToBanlingPage();
@@ -1776,7 +1802,10 @@ void screenT5L_HelpDataMainFunction(void)
 void screenT5L_TxFunction(void)
 {
 	//voice printf mainfunction
-	screenT5L_VoicePrintfMainfunction();
+	if(TRUE == gSystemPara.ScreenVoiceSwitch)
+	{
+		screenT5L_VoicePrintfMainfunction();
+	}
 
 	//==send initial data to DIWEN to display
 	if(T5L_INITIAL_COMPLETE != g_T5L.sendSdweInit)
@@ -1957,6 +1986,7 @@ void screenT5L_RxFunction(void)
 				if(0 != (DMG_TRIGER_SAVE_SECOTOR_1&needStore))
 				{
 					storeSysDataToFlash();
+					storeSysDataToFlash_3030();//Flash Erase Times Manager
 				}
 				//store in flash
 				else if(0 != (DMG_TRIGER_SAVE_SECOTOR_2&needStore))
@@ -1974,7 +2004,7 @@ void screenT5L_RxFunction(void)
 void sreenT5L_MainFunction(void)
 {
 	g_T5L.CurTick++;
-	if(g_T5L.CurTick > 3000)
+	if(g_T5L.CurTick > 3500)
 	{
 		//deal rx data from SDWE
 		screenT5L_RxFunction();

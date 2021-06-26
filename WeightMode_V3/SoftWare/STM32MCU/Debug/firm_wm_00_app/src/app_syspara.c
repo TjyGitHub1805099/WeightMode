@@ -219,6 +219,10 @@ void readSysDataFromFlash_3030(void)
 			gSystemPara.userColorSet[point_i++] = readflashDataBuf[start_i].i_value;/**< 配平色1~4 */
 		}
 		gSystemPara.zeroRange = readflashDataBuf[start_i++].f_value;/**< 零点范围 */
+
+		gSystemPara.ScreenVoiceSwitch = readflashDataBuf[start_i++].i_value;/**< HX711	语音开关 */ 
+		gSystemPara.ScreenCastMode = readflashDataBuf[start_i++].i_value;/**< HX711	级联显示模式 */ 
+		gSystemPara.FlashEraseTimes = readflashDataBuf[start_i++].i_value;/**< HX711 Flash 擦写次数 */ 
 	}
 }
 
@@ -232,6 +236,9 @@ void storeSysDataToFlash_3030(void)
 	float *pFloat = 0;
 	UINT32 crc = 0 ;
 	UINT16 start_i = 0 , end_i = 0;
+
+	//Flash Erase Times
+	gSystemPara.FlashEraseTimes++;
 
 	//0
 	start_i = end_i ;
@@ -305,7 +312,31 @@ void storeSysDataToFlash_3030(void)
 	{
 		pWordInt32Float[start_i].f_value = *pFloat++;
 	}
-
+	//12
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.ScreenVoiceSwitch);/**< HX711	语音开关 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//13
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.ScreenCastMode);/**< HX711	级联显示模式 */ 
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//14
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.FlashEraseTimes);/**< HX711	FLASH擦写次数 */ 
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	
 	//
 	pChar = (UINT8 *)(&pWordInt32Float[0].u_value[0]);
 	crc = cal_crc16(pChar,(4*start_i));
