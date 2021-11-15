@@ -475,7 +475,8 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_SWITCH_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_CAST_SWITCH_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_PASSORD_SET_ADDRESS)
-			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_NUM_ADDRESS))
+			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_NUM_ADDRESS)
+			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_NUM_TOUCH_ADDRESS))
 		{	
 			switch(pSdwe->SetAdd)
 			{
@@ -511,6 +512,9 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				break;
 				case DMG_FUNC_SET_VOICE_NUM_ADDRESS://	(0X1016)//0x1016
 					gSystemPara.VoiceNum = pSdwe->SetData;/**< 语音大小 */
+				break;
+				case DMG_FUNC_SET_VOICE_NUM_TOUCH_ADDRESS://	(0X1015)//0x1015
+					gSystemPara.VoiceNumTouch = pSdwe->SetData;/**< 语音大小 触控*/
 				break;
 				default:
 					if((pSdwe->SetAdd >= DMG_FUNC_SET_COLOR_START_ADDRESS)&&(pSdwe->SetAdd <= (DMG_FUNC_SET_COLOR_END_ADDRESS)))
@@ -1805,11 +1809,10 @@ UINT8 sendSysParaDataToDiwen(void)
 				sendData[len++] = gSystemPara.userColorSet[3];/**< 配平色4 */ //1012
 				sendData[len++] = gSystemPara.zeroRange;/**< 零点范围 */ //1013
 				sendData[len++] = 50;/**< 正常亮度 */ //1014
-				sendData[len++] = 25;/**< 待机亮度 */ //1015
+				//sendData[len++] = 25;/**< 待机亮度 */ //1015
 				//sendData[len++] = 300;/**< 待机时间 */ //1016
+				sendData[len++] = gSystemPara.VoiceNumTouch;/**< 音量大小 触控*/ //1015
 				sendData[len++] = gSystemPara.VoiceNum;/**< 音量大小 */ //1016
-				
-
 				
 				sendData[len++] = gSystemPara.ScreenVoiceSwitch;/**< HX711	语音开关 */ //1017
 				sendData[len++] = gSystemPara.ScreenCastMode;/**< HX711	级联显示模式 */ //1018
@@ -1898,7 +1901,16 @@ UINT8 sendSysParaDataToDiwen(void)
 				jumpToBanlingPage();
 				inerStatus++;
 			}
-		break;		
+		break;	
+		case 9:	
+			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{
+				len=0;
+				screenT5L_OutputVoice(VoiceTypeMax);
+				inerStatus++;
+			}
+			break;
 		default:
 			result = TRUE;
 		break;
@@ -1977,7 +1989,11 @@ UINT8 screenT5L_OutputVoice(UINT8 voiceId)
 		pageChangeOrderAndData[1] &= 0x00ff;
 		pageChangeOrderAndData[1] |= (0xff00&(gSystemPara.VoiceNum<<8)); 
 	}
-	
+	if(voiceId == VoiceTypeMax)
+	{
+		pageChangeOrderAndData[1] &= 0x00ff;
+		pageChangeOrderAndData[1] |= (0xff00&(gSystemPara.VoiceNumTouch<<8)); 
+	}
 	//
 	pageChangeOrderAndData[0] = ((voiceId%VoiceTypeMax)<<8)+(1);//音乐序号 1：整段音乐
 	if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
@@ -2055,9 +2071,10 @@ void screenT5L_VoicePrintfMainfunction(void)
 			}
 		break;
 		case 8://wait time
-			if(u16Ticks++ > 1500)
+			if(u16Ticks++ > 1000)
 			{
 				u8Vstatus++;
+				screenT5L_OutputVoice(VoiceTypeMax);
 			}
 		break;
 		default:

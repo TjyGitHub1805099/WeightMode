@@ -227,6 +227,7 @@ void readSysDataFromFlash_3030(void)
 		gSystemPara.McuVersion = readflashDataBuf[start_i++].i_value;/**< MCU 软件版本号 */  
 		gSystemPara.DiWenVersion = readflashDataBuf[start_i++].i_value;/**< 迪文	软件版本号 */ 
 		gSystemPara.VoiceNum = readflashDataBuf[start_i++].i_value;/**< 语音大小 */ 
+		gSystemPara.VoiceNumTouch = readflashDataBuf[start_i++].i_value;/**< 语音大小 触控*/ 
 		
 	}
 }
@@ -341,8 +342,6 @@ void storeSysDataToFlash_3030(void)
 	{
 		pWordInt32Float[start_i].i_value = *pInt32++;
 	}
-
-
 	//15
 	start_i = end_i ;
 	end_i = start_i+1;
@@ -367,7 +366,14 @@ void storeSysDataToFlash_3030(void)
 	{
 		pWordInt32Float[start_i].i_value = *pInt32++;
 	}
-	
+	//18
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.VoiceNumTouch);/**< 语音大小 触控*/
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
 	//
 	pChar = (UINT8 *)(&pWordInt32Float[0].u_value[0]);
 	crc = cal_crc16(pChar,(4*start_i));

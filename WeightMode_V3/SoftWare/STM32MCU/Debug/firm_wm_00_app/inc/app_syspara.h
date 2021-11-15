@@ -29,6 +29,7 @@ typedef enum HX711SystemParaType
 	HX711SystemPara_McuVersion = 14,/**< MCU 软件版本 */ 
 	HX711SystemPara_DiVenVersion = 15,/**< 迪文屏 软件版本 */ 
 	HX711SystemPara_VoiceNum = 16,/**< 音量参数 */ 
+	HX711SystemPara_VoiceNumTouch = 17,/**< 音量参数 触控*/ 
 	HX711SystemPara_NUM  			/**< HX711  系统设置-最大长度 */
 }enumHX711SystemParaType;
 
@@ -117,6 +118,7 @@ typedef struct SystemParaType
 	INT32 	McuVersion;/**< MCU	软件版本号 */ 
 	INT32 	DiWenVersion;/**< 迪文	软件版本号 */ 
 	INT32 	VoiceNum;/**< 语音大小 */ 
+	INT32 	VoiceNumTouch;/**< 语音大小 触控 */ 
 	//sys used flag
 	UINT16	userColorUsed[SYS_COLOR_GROUP_NUM];/**< chanel_a<<8 + chanel_b*/
 } gSystemParaType;
@@ -134,6 +136,7 @@ TRUE, \
 0,\
 0,\
 100,\
+30,\
 30,\
 30,\
 {FALSE, FALSE, FALSE, FALSE },\

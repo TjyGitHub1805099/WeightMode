@@ -62,6 +62,8 @@
 #define DMG_FUNC_SET_COLOR_END_ADDRESS		(0X1012)//0x1012
 #define DMG_FUNC_SET_ZERO_RANGE_ADDRESS		(0X1013)//0x1013
 
+#define DMG_FUNC_SET_VOICE_NUM_TOUCH_ADDRESS		(0X1015)//0x1015
+
 #define DMG_FUNC_SET_VOICE_NUM_ADDRESS		(0X1016)//0x1016
 
 #define DMG_FUNC_SET_VOICE_SWITCH_ADDRESS	(0X1017)//0x1017
@@ -304,4 +306,5 @@ extern void readWeightDataFromSys(UINT8 *pWeightData,UINT8 len);
 extern void readColorDataFromSys(UINT8 *pColorData,UINT8 len);
 extern void writeWeightDataFromCom(UINT8 *pWeightData,UINT8 len);
 extern void writeColorDataFromCom(UINT8 *pColorData,UINT8 len);
+extern UINT8 screenT5L_OutputVoice(UINT8 voiceId);
 #endif

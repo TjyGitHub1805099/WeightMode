@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\firmware_wm_00_app.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\firmware_wm_00_app.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Mon Nov 15 22:01:17 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Mon Nov 15 23:53:12 2021
 <BR><P>
 <H3>Maximum Stack Usage =       1124 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -743,7 +743,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[45]"></a>TIM6_DAC_IRQHandler</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, hal_timer.o(i.TIM6_DAC_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; jumpToBanlingPage &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_clear_it_pending_bit
@@ -789,7 +789,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[85]"></a>app_main_task</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, app_main_task.o(i.app_main_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; jumpToBanlingPage &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_MainFunction
@@ -1657,8 +1657,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e7]"></a>readSysDataFromFlash_3030</STRONG> (Thumb, 280 bytes, Stack size 96 bytes, app_syspara.o(i.readSysDataFromFlash_3030))
-<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = readSysDataFromFlash_3030 &rArr; cal_crc16
+<P><STRONG><a name="[e7]"></a>readSysDataFromFlash_3030</STRONG> (Thumb, 326 bytes, Stack size 104 bytes, app_syspara.o(i.readSysDataFromFlash_3030))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = readSysDataFromFlash_3030 &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_read_words
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
@@ -1716,12 +1716,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[fc]"></a>screenT5L_OutputVoice</STRONG> (Thumb, 172 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.screenT5L_OutputVoice))
+<P><STRONG><a name="[fc]"></a>screenT5L_OutputVoice</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.screenT5L_OutputVoice))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
 </UL>
 
 <P><STRONG><a name="[fd]"></a>screenT5L_RxFunction</STRONG> (Thumb, 344 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.screenT5L_RxFunction))
@@ -1736,7 +1737,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[102]"></a>screenT5L_TxFunction</STRONG> (Thumb, 400 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_TxFunction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 228<LI>Call Chain = screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; jumpToBanlingPage &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 228<LI>Call Chain = screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusOtherRemoveFlag
 <LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getModbusOtherRemoveFlag
@@ -1762,7 +1763,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 </UL>
 
-<P><STRONG><a name="[103]"></a>screenT5L_VoicePrintfMainfunction</STRONG> (Thumb, 300 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction))
+<P><STRONG><a name="[103]"></a>screenT5L_VoicePrintfMainfunction</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = screenT5L_VoicePrintfMainfunction &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_VoicePrintfPop
@@ -1777,7 +1778,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
-<P><STRONG><a name="[ff]"></a>sdweAskVaribleData</STRONG> (Thumb, 1036 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.sdweAskVaribleData))
+<P><STRONG><a name="[ff]"></a>sdweAskVaribleData</STRONG> (Thumb, 1058 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.sdweAskVaribleData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = sdweAskVaribleData &rArr; clearLocalCalibrationKAndBAndSample
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointWeightTrigerDataSet
@@ -1841,10 +1842,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
 </UL>
 
-<P><STRONG><a name="[104]"></a>sendSysParaDataToDiwen</STRONG> (Thumb, 1362 bytes, Stack size 144 bytes, app_t5l_ctrl.o(i.sendSysParaDataToDiwen))
-<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = sendSysParaDataToDiwen &rArr; jumpToBanlingPage &rArr; t5lWriteVarible &rArr; cal_crc16
+<P><STRONG><a name="[104]"></a>sendSysParaDataToDiwen</STRONG> (Thumb, 1458 bytes, Stack size 144 bytes, app_t5l_ctrl.o(i.sendSysParaDataToDiwen))
+<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = sendSysParaDataToDiwen &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
+<LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpToBanlingPage
 </UL>
 <BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
@@ -1866,7 +1868,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[93]"></a>sreenT5L_MainFunction</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sreenT5L_MainFunction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; jumpToBanlingPage &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
@@ -1887,7 +1889,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
-<P><STRONG><a name="[101]"></a>storeSysDataToFlash_3030</STRONG> (Thumb, 496 bytes, Stack size 32 bytes, app_syspara.o(i.storeSysDataToFlash_3030))
+<P><STRONG><a name="[101]"></a>storeSysDataToFlash_3030</STRONG> (Thumb, 522 bytes, Stack size 32 bytes, app_syspara.o(i.storeSysDataToFlash_3030))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = storeSysDataToFlash_3030 &rArr; drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
