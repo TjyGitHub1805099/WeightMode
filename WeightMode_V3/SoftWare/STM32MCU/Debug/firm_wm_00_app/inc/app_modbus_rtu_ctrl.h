@@ -142,8 +142,10 @@ typedef struct structModbusRtuType
 	UINT8 	slaveID;
 	UINT8	removeWeight_Slef;
 	UINT8	removeWeight_Other;
+	UINT8   dataValid;
 }ModbusRtuType;
 
+#define SLAVE_DATA_VALID (0XA5)
 /** ModbusRtu设备默认配置 */
 #define ModbusRtuDefault   { \
 	&g_UartDevice[UART_COM], \
@@ -167,6 +169,7 @@ typedef struct structModbusRtuType
 	0,\
 	FALSE,\
 	FALSE,\
+	0,\
 	}
 	
 extern ModbusRtuType g_ModbusRtu;
@@ -178,5 +181,6 @@ extern void setModbusSelfRemoveFlag(UINT8 value);
 extern void setModbusOtherRemoveFlag(UINT8 value);
 extern void modbusRemoveAllWeightData(void);
 extern UINT8 getModbusOtherRemoveFlag(void);
+extern void setModbusDataValid(UINT8 value);
 
 #endif

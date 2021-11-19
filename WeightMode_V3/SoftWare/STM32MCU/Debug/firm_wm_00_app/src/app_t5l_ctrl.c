@@ -2390,6 +2390,9 @@ void sreenT5L_MainFunction(void)
 		
 		//prepare data and send to SDWE
 		screenT5L_TxFunction();
+
+		//slave data valid
+		setModbusDataValid(SLAVE_DATA_VALID);
 	}
 }
 

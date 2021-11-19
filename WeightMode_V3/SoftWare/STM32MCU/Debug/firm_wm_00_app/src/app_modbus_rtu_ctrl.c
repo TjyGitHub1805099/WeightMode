@@ -56,6 +56,11 @@ void setModbusSelfRemoveFlag(UINT8 value)
 {
 	g_ModbusRtu.removeWeight_Slef = value;
 }
+void setModbusDataValid(UINT8 value)
+{
+	g_ModbusRtu.dataValid = value;
+}
+
 void setModbusOtherRemoveFlag(UINT8 value)
 {
 	g_ModbusRtu.removeWeight_Other = value;
@@ -646,7 +651,10 @@ UINT8 ModbusRtu_SlaveTxMaskDeal(ModbusRtuType *pContex)
 		}
 		pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->removeWeight_Slef;
 		pContex->removeWeight_Slef = FALSE;
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i+1;
+
+		pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->dataValid;
+		
+		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i+2;
 		//crc
 	#if(TRUE == MODBUS_RTU_CRC_EN)
 			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
@@ -691,7 +699,10 @@ void ModbusRtu_MasterMainFunction(ModbusRtuType *pContex)
 	ModbusRtu_MasterTxMainFunction(pContex);
 	if(TRUE == ModbusRtu_RxMainFunction(pContex))
 	{
-		ModbusRtu_MasterRxMainFunction(pContex);
+		if(pContex->rxDataUart[pContex->RxLength-3] == SLAVE_DATA_VALID)
+		{
+			ModbusRtu_MasterRxMainFunction(pContex);
+		}
 	}
 }
 //==slave main function
