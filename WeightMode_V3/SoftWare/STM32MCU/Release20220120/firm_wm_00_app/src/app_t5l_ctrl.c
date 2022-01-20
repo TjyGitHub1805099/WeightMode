@@ -2266,7 +2266,7 @@ void screenT5L_VoicePrintfMainfunction_ReadBackFromScreen(void)
 			}
 		break;
 		case 4://wait time
-			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等1000ms
+			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等2000ms
 			{
 				u8Vstatus++;
 			}
@@ -2279,7 +2279,7 @@ void screenT5L_VoicePrintfMainfunction_ReadBackFromScreen(void)
 			}
 		break;
 		case 6://wait time
-			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等900ms
+			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等2000ms
 			{
 				u8Vstatus++;
 			}
@@ -2292,7 +2292,7 @@ void screenT5L_VoicePrintfMainfunction_ReadBackFromScreen(void)
 			}
 		break;
 		case 8://wait time
-			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等900ms
+			if(TRUE == screenT5L_VoicePrintfMainfunction_WaitSuccess(2000))//最多等2000ms
 			{
 				u8Vstatus++;
 				screenT5L_OutputVoice(VoiceTypeMax);

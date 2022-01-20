@@ -93,12 +93,6 @@ typedef enum HX711SystemParaType
 //store flash data : HX711_CHANEL_NUM * (sample value , weight value , k , b , remove value , weightDir ) , crc
 #define FLASH_STORE_MAX_LEN						(((FLASH_STORE_ADDRESS_END-FLASH_STORE_ADDRESS_START)/4)+1)
 //==========================================================================================================================
-
-
-
-#define MCU_VERSION			(31)//2021.11.19
-#define DIWEN_VERSION		(32)//2021.11.19
-
 //
 typedef struct SystemParaType
 {
