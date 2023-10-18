@@ -28,3 +28,7 @@
 11.folder : Release20220127 【mcu version : 3.3】
 	11.1、优化语音播报时，监听屏端是否播报完毕
 	11.1、添加FunctionA，Master=11,Slave=12
+...
+13.folder : Release20231018 【mcu version : 3.6】【DW version : 3.5】
+	13.1、适应新屏，通过读取到版本号后，开始播放开机动画
+	13.1、新屏修改开机动画由MCU控制
