@@ -131,7 +131,7 @@ void ModbusRtu_MasterCycleReadWeightScan(ModbusRtuType *pContex)
 				pContex->slaveID = ModbusAdd_Slave_1;
 			break;
 			case ModbusFuncA_Master:
-					pContex->slaveID = ModbusFuncA_Slave;
+				pContex->slaveID = ModbusFuncA_Slave;
 			break;
 			default:
 			break;
@@ -146,127 +146,7 @@ UINT8 ModbusRtu_MasterMaskDeal(ModbusRtuType *pContex)
 #if(TRUE == MODBUS_RTU_CRC_EN)
 	UINT16 crc_data = 0 ;
 #endif
-	if((pContex->masterTxMask & MasterEvent_Tx_E1) != 0 )//CycleReadWeightFloat
-	{
-		//clear Mask
-		pContex->masterTxMask &= (~MasterEvent_Tx_E1);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_1;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN;
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_1;
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN+1;
-		//	
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret = TRUE;
-	}
-	else if((pContex->masterTxMask & MasterEvent_Tx_E2) != 0 )//CycleReadWeightInit
-	{
-		//clear Mask
-		pContex->masterTxMask &= (~MasterEvent_Tx_E2);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_2;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN;
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_2;
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN+1;
-		//	
-	#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-	#endif
-		//
-		ret = TRUE;
-	}
-	else if((pContex->masterTxMask & MasterEvent_Tx_E3) != 0 )//CycleReadWeightFloat + SetHelpDataToSlave1
-	{
-		//clear Mask
-		pContex->masterTxMask &= (~MasterEvent_Tx_E3);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_3;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN + 2*DIFF_TO_DIWEN_DATA_LEN;
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_3;
-		readHelpDataFromSys(&pContex->txData[MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN],DIFF_TO_DIWEN_DATA_LEN);
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN+1+2*DIFF_TO_DIWEN_DATA_LEN;
-		//	
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret = TRUE;
-	}
-	else if((pContex->masterTxMask & MasterEvent_Tx_E4) != 0 )
-	{
-		//clear Mask
-		pContex->masterTxMask &= (~MasterEvent_Tx_E4);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_4;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1;
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_4;
-		readHelpDataFromSys(&pContex->txData[MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN],DIFF_TO_DIWEN_DATA_LEN);
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN] = pContex->removeWeight_Slef;
-		pContex->removeWeight_Slef = FALSE;
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+MFC_ASK_MAJID_LEN+1+2*DIFF_TO_DIWEN_DATA_LEN+1;
-		//	
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret = TRUE;
-	}
-	else if((pContex->masterTxMask & MasterEvent_Tx_E5) != 0 )
-	{
-		//clear Mask
-		pContex->masterTxMask &= (~MasterEvent_Tx_E5);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_5;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+2*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN;
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_5;
-		//
-		star_pos = MODBUS_RTU_DATA_STAR_POS + 1;
-		readHelpDataFromSys(&pContex->txData[star_pos],DIFF_TO_DIWEN_DATA_LEN);
-		//
-		star_pos += 2*DIFF_TO_DIWEN_DATA_LEN;
-		pContex->txData[star_pos] = pContex->removeWeight_Slef;
-		pContex->removeWeight_Slef = FALSE;
-		//
-		star_pos += 1;
-		readWeightDataFromSys(&pContex->txData[star_pos],T5L_MAX_CHANEL_LEN);
-		//
-		star_pos += 2*T5L_MAX_CHANEL_LEN;
-		readColorDataFromSys(&pContex->txData[star_pos],T5L_MAX_CHANEL_LEN);
-
-		//
-		star_pos += 2*T5L_MAX_CHANEL_LEN;
-		pContex->needSendLen = star_pos + 1;
-		//	
-	#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-	#endif
-		//
-		ret = TRUE;
-	}
-	else if((pContex->masterTxMask & MasterEvent_Tx_E6) != 0 )
+	if((pContex->masterTxMask & MasterEvent_Tx_E6) != 0 )
 	{
 		//clear Mask
 		pContex->masterTxMask &= (~MasterEvent_Tx_E6);
@@ -284,7 +164,7 @@ UINT8 ModbusRtu_MasterMaskDeal(ModbusRtuType *pContex)
 		}
 		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = pContex->slaveID;
 		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Mater_Ask_6;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+2*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN;
+		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+4*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN;
 		pContex->txData[MODBUS_RTU_DATA_STAR_POS] = MFC_Mater_Ask_6;
 		//
 		star_pos = MODBUS_RTU_DATA_STAR_POS + 1;
@@ -297,7 +177,7 @@ UINT8 ModbusRtu_MasterMaskDeal(ModbusRtuType *pContex)
 		star_pos += 1;
 		readWeightDataFromSys(&pContex->txData[star_pos],T5L_MAX_CHANEL_LEN);
 		//
-		star_pos += 2*T5L_MAX_CHANEL_LEN;
+		star_pos += 4*T5L_MAX_CHANEL_LEN;
 		readColorDataFromSys(&pContex->txData[star_pos],T5L_MAX_CHANEL_LEN);
 
 		//
@@ -375,85 +255,6 @@ void ModbusRtu_MasterRxMainFunction(ModbusRtuType *pContex)
 		{
 			switch(pContex->rxData[MODBUS_RTU_FUN_CODE_POS])
 			{
-				case MFC_Slave_Ans_1://master recv slave answer weight was float
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MODBUS_RTU_SLAVE_DATA_LEN)
-					{
-						//recv data
-						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
-						}
-					}
-				break;
-				case MFC_Slave_Ans_2://master recv slave answer weight was int
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MODBUS_RTU_SLAVE_DATA_LEN)
-					{
-						//recv data
-						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value = 0 ;
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value <<= 8;
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].i_value += pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
-						}
-					}
-				break;
-				case MFC_Slave_Ans_3://master recv slave answer weight was flaot
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MODBUS_RTU_SLAVE_DATA_LEN)
-					{
-						//recv data
-						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
-						}
-					}
-				break;
-				case MFC_Slave_Ans_4://master recv slave answer weight was flaot , remove flag
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MODBUS_RTU_SLAVE_DATA_LEN+1))
-					{
-						//recv data
-						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
-						}
-						//
-						if(TRUE == pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0])
-						{
-							pContex->removeWeight_Other = TRUE;
-						}
-					}
-				break;
-				case MFC_Slave_Ans_5://master recv slave answer weight was flaot , remove flag
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MODBUS_RTU_SLAVE_DATA_LEN+1))
-					{
-						//recv data
-						for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-						{
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[0] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[1] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+1];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[2] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+2];
-							pContex->MultWeightData[sender_add-ModbusAdd_Master][i].u_value[3] =  pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+3];
-						}
-						//
-						if(TRUE == pContex->rxData[MODBUS_RTU_DATA_STAR_POS+4*i+0])
-						{
-							pContex->removeWeight_Other = TRUE;
-						}
-					}
-				break;
 				case MFC_Slave_Ans_6://master recv slave answer weight was flaot , remove flag
 					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MODBUS_RTU_SLAVE_DATA_LEN+1))
 					{
@@ -523,81 +324,8 @@ void ModbusRtu_SlaveRxMainFunction(ModbusRtuType *pContex)
 		{
 			switch(pContex->rxData[MODBUS_RTU_FUN_CODE_POS])
 			{
-				case MFC_Mater_Ask_1://master ask slave chanel weight:float
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MFC_ASK_MAJID_LEN)
-					{
-						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_1)
-						{
-							pContex->slaveTxMask |= SlaveEvent_Tx_E1;
-						}
-					}
-				break;
-				case MFC_Mater_Ask_2://master ask slave chanel weight:int32
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == MFC_ASK_MAJID_LEN)
-					{
-						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_2)
-						{
-							pContex->slaveTxMask |= SlaveEvent_Tx_E2;
-						}
-					}
-				break;
-				case MFC_Mater_Ask_3:
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN))
-					{
-						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_3)
-						{
-							//rx data
-							writeHelpDataFromCom(&pContex->rxData[MODBUS_RTU_DATA_STAR_POS+1],DIFF_TO_DIWEN_DATA_LEN);
-							//
-							pContex->slaveTxMask |= SlaveEvent_Tx_E3;
-						}
-					}
-				break;
-				case MFC_Mater_Ask_4:
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1))
-					{
-						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_4)
-						{
-							//rx data
-							writeHelpDataFromCom(&pContex->rxData[MODBUS_RTU_DATA_STAR_POS+1],DIFF_TO_DIWEN_DATA_LEN);
-							if(TRUE == pContex->rxData[MODBUS_RTU_DATA_STAR_POS+1+2*DIFF_TO_DIWEN_DATA_LEN])
-							{
-								pContex->removeWeight_Other = TRUE;
-								//
-							}
-					
-							//
-							pContex->slaveTxMask |= SlaveEvent_Tx_E4;
-						}
-					}
-				break;
-				case MFC_Mater_Ask_5:
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+2*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN))
-					{
-						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_5)
-						{
-							//rx data
-							star_pos = MODBUS_RTU_DATA_STAR_POS+1;
-							writeHelpDataFromCom(&pContex->rxData[star_pos],DIFF_TO_DIWEN_DATA_LEN);
-							//
-							star_pos += 2*DIFF_TO_DIWEN_DATA_LEN;
-							if(TRUE == pContex->rxData[star_pos])
-							{
-								pContex->removeWeight_Other = TRUE;
-							}
-							//
-							star_pos += 1;
-							writeWeightDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
-							//
-							star_pos += 2*T5L_MAX_CHANEL_LEN;
-							writeColorDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
-							//
-							pContex->slaveTxMask |= SlaveEvent_Tx_E5;
-						}
-					}
-				break;
 				case MFC_Mater_Ask_6:
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+2*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN))
+					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+4*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN))
 					{
 						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_6)
 						{
@@ -614,7 +342,7 @@ void ModbusRtu_SlaveRxMainFunction(ModbusRtuType *pContex)
 							star_pos += 1;
 							writeWeightDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
 							//
-							star_pos += 2*T5L_MAX_CHANEL_LEN;
+							star_pos += 4*T5L_MAX_CHANEL_LEN;
 							writeColorDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
 							//
 							pContex->slaveTxMask |= SlaveEvent_Tx_E6;
@@ -633,7 +361,7 @@ void ModbusRtu_SlaveRxMainFunction(ModbusRtuType *pContex)
 			switch(pContex->rxData[MODBUS_RTU_FUN_CODE_POS])
 			{
 				case MFC_Mater_Ask_6:
-					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+2*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN))
+					if(pContex->rxData[MODBUS_RTU_DATA_LEN_POS] == (MFC_ASK_MAJID_LEN+2*DIFF_TO_DIWEN_DATA_LEN+1+4*T5L_MAX_CHANEL_LEN+2*T5L_MAX_CHANEL_LEN))
 					{
 						if(pContex->rxData[MODBUS_RTU_DATA_STAR_POS] == MFC_Mater_Ask_6)
 						{
@@ -650,7 +378,7 @@ void ModbusRtu_SlaveRxMainFunction(ModbusRtuType *pContex)
 							star_pos += 1;
 							writeWeightDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
 							//
-							star_pos += 2*T5L_MAX_CHANEL_LEN;
+							star_pos += 4*T5L_MAX_CHANEL_LEN;
 							writeColorDataFromCom(&pContex->rxData[star_pos],T5L_MAX_CHANEL_LEN);
 							//
 							pContex->slaveTxMask |= SlaveEvent_Tx_E6;
@@ -673,172 +401,7 @@ UINT8 ModbusRtu_SlaveTxMaskDeal(ModbusRtuType *pContex)
 #endif
 	//sender_ID , recv_ID
 	recive_add = pContex->rxData[MODBUS_RTU_ASK_ADDRESS_POS];
-	if((pContex->slaveTxMask & SlaveEvent_Tx_E1 ) != 0)
-	{
-		pContex->slaveTxMask &= (~SlaveEvent_Tx_E1);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = gSystemPara.isCascade;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_1;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MODBUS_RTU_SLAVE_DATA_LEN;
-		//===================push data to MultWeightData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value = hx711_getWeight((enumHX711ChanelType)i);
-		}
-		//===================push data to txData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[0];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[1];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+2] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[2];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+3] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[3];
-		}
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i;
-		//crc
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret =TRUE;
-	}
-	else if((pContex->slaveTxMask & SlaveEvent_Tx_E2 ) != 0)
-	{
-		pContex->slaveTxMask &= (~SlaveEvent_Tx_E2);
-		//
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = gSystemPara.isCascade;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_2;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MODBUS_RTU_SLAVE_DATA_LEN;
-		//===================push data to MultWeightData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value = hx711_getWeight((enumHX711ChanelType)i);
-		}
-		//===================push data to txData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = (((INT32)pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value)>>24)&0xff;
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = (((INT32)pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value)>>16)&0xff;
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+2] = (((INT32)pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value)>>8)&0xff;
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+3] = (((INT32)pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value)>>0)&0xff;
-		}
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i;
-		//crc
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-			#endif
-		//
-		ret =TRUE;
-	}
-	else if((pContex->slaveTxMask & SlaveEvent_Tx_E3 ) != 0)
-	{
-		pContex->slaveTxMask &= (~SlaveEvent_Tx_E3);
-		//
-		//tx data
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = gSystemPara.isCascade;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_3;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MODBUS_RTU_SLAVE_DATA_LEN;
-		//===================push data to MultWeightData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value = hx711_getWeight((enumHX711ChanelType)i);
-		}
-		//===================push data to txData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[0];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[1];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+2] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[2];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+3] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[3];
-		}
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i;
-		//crc
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret =TRUE;
-	}
-	else if((pContex->slaveTxMask & SlaveEvent_Tx_E4) != 0)
-	{
-		pContex->slaveTxMask &= (~SlaveEvent_Tx_E4);
-		//
-		//tx data
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = gSystemPara.isCascade;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_4;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MODBUS_RTU_SLAVE_DATA_LEN+1;
-		//===================push data to MultWeightData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value = hx711_getWeight((enumHX711ChanelType)i);
-		}
-		//===================push data to txData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[0];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[1];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+2] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[2];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+3] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[3];
-		}
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->removeWeight_Slef;
-		pContex->removeWeight_Slef = FALSE;
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i+1;
-		//crc
-		#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-		#endif
-		//
-		ret =TRUE;
-	}
-	else if((pContex->slaveTxMask & SlaveEvent_Tx_E5) != 0)
-	{
-		pContex->slaveTxMask &= (~SlaveEvent_Tx_E5);
-		//
-		//tx data
-		pContex->txData[MODBUS_RTU_SEND_ADDRESS_POS] = gSystemPara.isCascade;
-		pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusAdd_Master;
-		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_5;
-		pContex->txData[MODBUS_RTU_DATA_LEN_POS] = MODBUS_RTU_SLAVE_DATA_LEN+1;
-		//===================push data to MultWeightData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->MultWeightData[recive_add-ModbusAdd_Master][i].f_value = hx711_getWeight((enumHX711ChanelType)i);
-		}
-		//===================push data to txData.....
-		for(i=0;i<MODBUS_RTU_SLAVE_CHANEL_NUM;i++)
-		{
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[0];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[1];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+2] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[2];
-			pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+3] = pContex->MultWeightData[recive_add-ModbusAdd_Master][i].u_value[3];
-		}
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+0] = pContex->removeWeight_Slef;
-		pContex->removeWeight_Slef = FALSE;
-
-		pContex->txData[MODBUS_RTU_DATA_STAR_POS+4*i+1] = pContex->dataValid;
-		
-		pContex->needSendLen = MODBUS_RTU_DATA_STAR_POS+4*i+2;
-		//crc
-	#if(TRUE == MODBUS_RTU_CRC_EN)
-			crc_data = cal_crc16(pContex->txData,(pContex->needSendLen));
-			pContex->txData[pContex->needSendLen++] = (crc_data>>8)&0xff;
-			pContex->txData[pContex->needSendLen++] = (crc_data>>0)&0xff;
-	#endif
-		//
-		ret =TRUE;
-	}
-	else if((pContex->slaveTxMask & SlaveEvent_Tx_E6) != 0)
+	if((pContex->slaveTxMask & SlaveEvent_Tx_E6) != 0)
 	{
 		pContex->slaveTxMask &= (~SlaveEvent_Tx_E6);
 		//
@@ -854,6 +417,8 @@ UINT8 ModbusRtu_SlaveTxMaskDeal(ModbusRtuType *pContex)
 				recive_add = 2;
 			break;
 			default:
+				pContex->txData[MODBUS_RTU_ASK_ADDRESS_POS] = ModbusFuncA_Master ;
+				recive_add = 2;
 			break;
 		}
 		pContex->txData[MODBUS_RTU_FUN_CODE_POS] = MFC_Slave_Ans_6;

@@ -228,7 +228,8 @@ void readSysDataFromFlash_3030(void)
 		gSystemPara.DiWenVersion = readflashDataBuf[start_i++].i_value;/**< 迪文	软件版本号 */ 
 		gSystemPara.VoiceNum = readflashDataBuf[start_i++].i_value;/**< 语音大小 */ 
 		gSystemPara.VoiceNumTouch = readflashDataBuf[start_i++].i_value;/**< 语音大小 触控*/ 
-		gSystemPara.ScreenLight = readflashDataBuf[start_i++].i_value;/**< 屏幕背光亮度 */		
+		gSystemPara.ScreenLight = readflashDataBuf[start_i++].i_value;/**< 屏幕背光亮度 */	
+		gSystemPara.xiaoShuXianShi = readflashDataBuf[start_i++].i_value;/**< 屏幕背光亮度 */		
 	}
 }
 
@@ -378,6 +379,14 @@ void storeSysDataToFlash_3030(void)
 	start_i = end_i ;
 	end_i = start_i+1;
 	pInt32 = (INT32 *)&(gSystemPara.ScreenLight);/**< 屏幕背光亮度 */
+	for(;start_i<end_i;start_i++)
+	{
+		pWordInt32Float[start_i].i_value = *pInt32++;
+	}
+	//20
+	start_i = end_i ;
+	end_i = start_i+1;
+	pInt32 = (INT32 *)&(gSystemPara.xiaoShuXianShi);/**< 小数显示 */
 	for(;start_i<end_i;start_i++)
 	{
 		pWordInt32Float[start_i].i_value = *pInt32++;

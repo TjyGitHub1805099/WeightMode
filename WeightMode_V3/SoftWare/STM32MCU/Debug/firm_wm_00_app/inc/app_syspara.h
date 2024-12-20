@@ -31,6 +31,7 @@ typedef enum HX711SystemParaType
 	HX711SystemPara_VoiceNum = 16,/**< 音量参数 */ 
 	HX711SystemPara_VoiceNumTouch = 17,/**< 音量参数 触控*/ 
 	HX711SystemPara_ScreenLight = 18,/**< 屏幕背光亮度 */	
+	HX711SystemPara_xiaoShuXianShi = 19,	/**< 小数显示 0x101c*/
 	HX711SystemPara_NUM  			/**< HX711  系统设置-最大长度 */
 }enumHX711SystemParaType;
 
@@ -96,6 +97,11 @@ typedef enum HX711SystemParaType
 //
 typedef struct SystemParaType
 {
+    INT16 scl_MinVlu;
+    INT16 scl_MaxVlu;
+    INT16 scl_RangeVlu;//error range
+    INT16 scl_ZeroRangeVlu;//zero point
+
 	//store in flash
 	INT32	uint;/**< 单位 */
 	INT32	minWeight;/**< 最小量程 */
@@ -115,11 +121,16 @@ typedef struct SystemParaType
 	INT32 	VoiceNum;/**< 语音大小 */ 
 	INT32 	VoiceNumTouch;/**< 语音大小 触控 */ 
 	INT32	ScreenLight;/**< 屏幕背光亮度 */
+	INT32 	xiaoShuXianShi;	/**< 小数显示 0x101c*/
 	//sys used flag
 	UINT16	userColorUsed[SYS_COLOR_GROUP_NUM];/**< chanel_a<<8 + chanel_b*/
 } gSystemParaType;
 //
 #define gSystemParaDefault {\
+0, \
+0, \
+0, \
+0, \
 0, \
 0, \
 5000, \
@@ -136,6 +147,7 @@ TRUE, \
 30,\
 30,\
 50,\
+0,\
 {FALSE, FALSE, FALSE, FALSE },\
 }
 //

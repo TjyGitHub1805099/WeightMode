@@ -29,4 +29,7 @@
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_hx711_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
+.\objects\app_hx711_ctrl.o: .\inc\app_t5l_cfg.h
+.\objects\app_hx711_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_hx711_ctrl.o: .\inc\app_InnerScreen_Cfg.h
 .\objects\app_hx711_ctrl.o: .\inc\app_crc.h

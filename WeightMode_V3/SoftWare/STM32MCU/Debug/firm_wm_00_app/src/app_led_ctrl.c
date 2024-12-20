@@ -184,11 +184,11 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 				curWeightBuf = pWeightUpdateColorArr[chanel].curWeight;
 				lockedWeightBuf = pWeightUpdateColorArr[chanel].lockedWeight;
 				//2.1.1.at zero range , such as take out
-				if(( curWeightBuf >= -gSystemPara.zeroRange) && ( curWeightBuf <= gSystemPara.zeroRange))
+				if(( curWeightBuf >= -gSystemPara.scl_ZeroRangeVlu) && ( curWeightBuf <= gSystemPara.scl_ZeroRangeVlu))
 				{
 					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
-				}//2.1.2.cur weight and pre weight out of errRange , such as weight changed
-				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.errRange ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.errRange ))
+				}//2.1.2.cur weight and pre weight out of scl_RangeVlu , such as weight changed
+				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.scl_RangeVlu ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.scl_RangeVlu ))
 				{
 					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
 				}
@@ -248,15 +248,15 @@ void useWeightUpdataOutColor_3030(UINT8 hx711DataUpgrade)
 			//4.4 get compare chanel
 			compare_a = compare_i;
 			compare_b = compare_i+1;
-			//4.5.1.compare_i out of zeroRange
-			if((sortWeight[compare_a] < -gSystemPara.zeroRange) || (sortWeight[compare_a] > gSystemPara.zeroRange))
+			//4.5.1.compare_i out of scl_ZeroRangeVlu
+			if((sortWeight[compare_a] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[compare_a] > gSystemPara.scl_ZeroRangeVlu))
 			{
-				//4.5.2.compare_i+1 out of zeroRange
-				if((sortWeight[compare_b] < -gSystemPara.zeroRange) || (sortWeight[compare_b] > gSystemPara.zeroRange))
+				//4.5.2.compare_i+1 out of scl_ZeroRangeVlu
+				if((sortWeight[compare_b] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[compare_b] > gSystemPara.scl_ZeroRangeVlu))
 				{
-					//4.5.3.compare_i+1 - compare_i at of errRange
-					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
-						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+					//4.5.3.compare_i+1 - compare_i at of scl_RangeVlu
+					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.scl_RangeVlu) 
+						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.scl_RangeVlu) )
 					{
 						//4.2.3.1.compare success,ger chanel
 						chanel_a = sortArry[compare_a];
@@ -329,15 +329,15 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			//is lock
 			if(chanelCompareInfo[chanel] & CHANEL_COMPARED_FLAG_MASK)//0xFxxx
 			{
-				//if a or b changed lager than gSystemPara.errRange
+				//if a or b changed lager than gSystemPara.scl_RangeVlu
 				#if 0
-				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.errRange) ||
-					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.errRange) )
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.scl_RangeVlu) ||
+					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.scl_RangeVlu) )
 				#else
-				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.errRange) ||
-					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.errRange) ||
-					((curWeight[chanel_a] > -gSystemPara.errRange) && (curWeight[chanel_a] < gSystemPara.errRange)) ||
-					((curWeight[chanel_b] > -gSystemPara.errRange) && (curWeight[chanel_b] < gSystemPara.errRange)) )
+				if( ((curWeight[chanel_a] - curWeight[chanel_b]) > gSystemPara.scl_RangeVlu) ||
+					((curWeight[chanel_a] - curWeight[chanel_b]) < -gSystemPara.scl_RangeVlu) ||
+					((curWeight[chanel_a] > -gSystemPara.scl_RangeVlu) && (curWeight[chanel_a] < gSystemPara.scl_RangeVlu)) ||
+					((curWeight[chanel_b] > -gSystemPara.scl_RangeVlu) && (curWeight[chanel_b] < gSystemPara.scl_RangeVlu)) )
 				#endif
 				{
 					//chanel unlock,other..,color unlock
@@ -402,9 +402,9 @@ void useWeightUpdataOutColor(UINT8 hx711DataUpgrade)
 			chanel_a = sortArry[compare_i];
 			chanel_b = sortArry[compare_i+1];
 			//is equal
-			if(	((curWeight[chanel_a] < -gSystemPara.errRange) || (curWeight[chanel_a] > gSystemPara.errRange)) &&
-				((curWeight[chanel_b] < -gSystemPara.errRange) || (curWeight[chanel_b] > gSystemPara.errRange)) &&
-				(((curWeight[chanel_b] - curWeight[chanel_a]) > -gSystemPara.errRange) && ((curWeight[chanel_b] - curWeight[chanel_a]) < gSystemPara.errRange) ) )
+			if(	((curWeight[chanel_a] < -gSystemPara.scl_RangeVlu) || (curWeight[chanel_a] > gSystemPara.scl_RangeVlu)) &&
+				((curWeight[chanel_b] < -gSystemPara.scl_RangeVlu) || (curWeight[chanel_b] > gSystemPara.scl_RangeVlu)) &&
+				(((curWeight[chanel_b] - curWeight[chanel_a]) > -gSystemPara.scl_RangeVlu) && ((curWeight[chanel_b] - curWeight[chanel_a]) < gSystemPara.scl_RangeVlu) ) )
 			{
 				//set color
 				//find color
@@ -486,10 +486,10 @@ void useWeightUpdateLedAndSdweColor(UINT8 hx711DataUpgrade)
 		//
 		for(ledSeq = LED_SEQ_1;ledSeq<(LED_SEQ_NUM-1);ledSeq++)
 		{
-			if(((weight[ledSeq+1] - weight[ledSeq]) < gSystemPara.errRange) &&
-				((weight[ledSeq+1] - weight[ledSeq]) > -gSystemPara.errRange) &&
-				((weight[ledSeq] < -gSystemPara.errRange) || (weight[ledSeq] > gSystemPara.errRange)) &&
-				((weight[ledSeq+1] < -gSystemPara.errRange) || (weight[ledSeq+1] > gSystemPara.errRange)) )
+			if(((weight[ledSeq+1] - weight[ledSeq]) < gSystemPara.scl_RangeVlu) &&
+				((weight[ledSeq+1] - weight[ledSeq]) > -gSystemPara.scl_RangeVlu) &&
+				((weight[ledSeq] < -gSystemPara.scl_RangeVlu) || (weight[ledSeq] > gSystemPara.scl_RangeVlu)) &&
+				((weight[ledSeq+1] < -gSystemPara.scl_RangeVlu) || (weight[ledSeq+1] > gSystemPara.scl_RangeVlu)) )
 			{
 				LedDataSet((enumLedSeqType)arry[ledSeq], color);//light same color
 				sdweSetWeightBackColor(arry[ledSeq], color);
@@ -579,15 +579,15 @@ void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade)
 	{
 		for(chanel_a=0;chanel_a<num;chanel_a++)
 		{
-			if((sortWeight[chanel_a] < -gSystemPara.zeroRange) || (sortWeight[chanel_a] > gSystemPara.zeroRange))
+			if((sortWeight[chanel_a] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[chanel_a] > gSystemPara.scl_ZeroRangeVlu))
 			{
 				for(chanel_b=1;chanel_b<num;chanel_b++)
 				{
-					if((sortWeight[chanel_b] < -gSystemPara.zeroRange) || (sortWeight[chanel_b] > gSystemPara.zeroRange))
+					if((sortWeight[chanel_b] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[chanel_b] > gSystemPara.scl_ZeroRangeVlu))
 					{
-						//4.5.3.compare_i+1 - compare_i at of errRange
-						if(((sortWeight[chanel_a] - sortWeight[chanel_b]) > -gSystemPara.errRange) 
-							&& ((sortWeight[chanel_a] - sortWeight[chanel_b]) < gSystemPara.errRange) )
+						//4.5.3.compare_i+1 - compare_i at of scl_RangeVlu
+						if(((sortWeight[chanel_a] - sortWeight[chanel_b]) > -gSystemPara.scl_RangeVlu) 
+							&& ((sortWeight[chanel_a] - sortWeight[chanel_b]) < gSystemPara.scl_RangeVlu) )
 						{
 							//4.1.get used color
 							for(colorGet_i=0;colorGet_i<SYS_COLOR_GROUP_NUM;colorGet_i++)
@@ -648,14 +648,14 @@ void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade)
 
 		
 			{
-				if((sortWeight[chanel_a] < -gSystemPara.zeroRange) || (sortWeight[chanel_a] > gSystemPara.zeroRange))
+				if((sortWeight[chanel_a] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[chanel_a] > gSystemPara.scl_ZeroRangeVlu))
 				{
-					//4.5.2.compare_i+1 out of zeroRange
-					if((sortWeight[chanel_b] < -gSystemPara.zeroRange) || (sortWeight[chanel_b] > gSystemPara.zeroRange))
+					//4.5.2.compare_i+1 out of scl_ZeroRangeVlu
+					if((sortWeight[chanel_b] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[chanel_b] > gSystemPara.scl_ZeroRangeVlu))
 					{
-						//4.5.3.compare_i+1 - compare_i at of errRange
-						if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
-							&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+						//4.5.3.compare_i+1 - compare_i at of scl_RangeVlu
+						if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.scl_RangeVlu) 
+							&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.scl_RangeVlu) )
 							{}
 					}
 				}
@@ -704,11 +704,11 @@ void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade)
 				curWeightBuf = pWeightUpdateColorArr[chanel].curWeight;
 				lockedWeightBuf = pWeightUpdateColorArr[chanel].lockedWeight;
 				//2.1.1.at zero range , such as take out
-				if(( curWeightBuf >= -gSystemPara.zeroRange) && ( curWeightBuf <= gSystemPara.zeroRange))
+				if(( curWeightBuf >= -gSystemPara.scl_ZeroRangeVlu) && ( curWeightBuf <= gSystemPara.scl_ZeroRangeVlu))
 				{
 					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
-				}//2.1.2.cur weight and pre weight out of errRange , such as weight changed
-				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.errRange ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.errRange ))
+				}//2.1.2.cur weight and pre weight out of scl_RangeVlu , such as weight changed
+				else if(((lockedWeightBuf - curWeightBuf) > gSystemPara.scl_RangeVlu ) || ((lockedWeightBuf - curWeightBuf) < -gSystemPara.scl_RangeVlu ))
 				{
 					pWeightUpdateColorArr[chanel].lockedChanel = HX711_CHANEL_UNLOCKED;//unlock
 				}
@@ -771,15 +771,15 @@ void useWeightUpdataOutColor_20210414(UINT8 hx711DataUpgrade)
 			//
 			chanel_a = sortArry[compare_a]%HX711_CHANEL_NUM;
 			chanel_b = sortArry[compare_b]%HX711_CHANEL_NUM;
-			//4.5.1.compare_i out of zeroRange
-			if((sortWeight[compare_a] < -gSystemPara.zeroRange) || (sortWeight[compare_a] > gSystemPara.zeroRange))
+			//4.5.1.compare_i out of scl_ZeroRangeVlu
+			if((sortWeight[compare_a] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[compare_a] > gSystemPara.scl_ZeroRangeVlu))
 			{
-				//4.5.2.compare_i+1 out of zeroRange
-				if((sortWeight[compare_b] < -gSystemPara.zeroRange) || (sortWeight[compare_b] > gSystemPara.zeroRange))
+				//4.5.2.compare_i+1 out of scl_ZeroRangeVlu
+				if((sortWeight[compare_b] < -gSystemPara.scl_ZeroRangeVlu) || (sortWeight[compare_b] > gSystemPara.scl_ZeroRangeVlu))
 				{
-					//4.5.3.compare_i+1 - compare_i at of errRange
-					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.errRange) 
-						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.errRange) )
+					//4.5.3.compare_i+1 - compare_i at of scl_RangeVlu
+					if(((sortWeight[compare_a] - sortWeight[compare_b]) > -gSystemPara.scl_RangeVlu) 
+						&& ((sortWeight[compare_a] - sortWeight[compare_b]) < gSystemPara.scl_RangeVlu) )
 					{
 						//4.2.3.1.compare success,ger chanel
 						chanel_a = sortArry[compare_a];
@@ -982,14 +982,14 @@ eBalaningJudgeStatus_t balaningJudge(tBalaningInfo_t *pA,tBalaningInfo_t *pB)
 		curWeight = pA->curWight;
 		otherWeight = pB->curWight;
 		//
-		if((curWeight < -gSystemPara.zeroRange) || (curWeight > gSystemPara.zeroRange))
+		if((curWeight < -gSystemPara.scl_ZeroRangeVlu) || (curWeight > gSystemPara.scl_ZeroRangeVlu))
 		{
-			//4.5.2.compare_i+1 out of zeroRange
-			if((otherWeight < -gSystemPara.zeroRange) || (otherWeight > gSystemPara.zeroRange))
+			//4.5.2.compare_i+1 out of scl_ZeroRangeVlu
+			if((otherWeight < -gSystemPara.scl_ZeroRangeVlu) || (otherWeight > gSystemPara.scl_ZeroRangeVlu))
 			{
-				//4.5.3.compare_i+1 - compare_i at of errRange
-				if(((curWeight - otherWeight) > -gSystemPara.errRange) 
-					&& ((curWeight - otherWeight) < gSystemPara.errRange) )
+				//4.5.3.compare_i+1 - compare_i at of scl_RangeVlu
+				if(((curWeight - otherWeight) > -gSystemPara.scl_RangeVlu) 
+					&& ((curWeight - otherWeight) < gSystemPara.scl_RangeVlu) )
 				{
 					balaningStatus = eBalaningJudgeStatus_SUCCESS;
 				}

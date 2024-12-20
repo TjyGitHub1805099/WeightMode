@@ -12,8 +12,8 @@
 #define SYS_HX711_ONLINE_CHECK_TIME	(2000)//when power on 2000ms start check HX711
 #define SYS_REMOVE_WEIGHT_TIME		(3300)//when power on 3300ms remove weight
 #define SYS_POWER_REDAY_TIME		(3500)//when power on 3500ms send data to T5L , do not change
-#define MCU_VERSION			(36)//2023.10.18
-#define DIWEN_VERSION		(35)//2023.10.11
+#define MCU_VERSION			(37)//2023.10.18
+#define DIWEN_VERSION		(37)//2023.10.11
 //================================================================================================
 /*
 1.Screen Page describe
@@ -59,6 +59,9 @@ Page59:help page , six group help data display , logo and unit and err display
 
 2.1 send weight and color date to screen
 	
+
+
+    3.7 : 添加小数显示
 */
 
 /*2023.10.11 change list

@@ -32,3 +32,6 @@
 .\objects\app_t5l_ctrl.o: .\inc\app_syspara.h
 .\objects\app_t5l_ctrl.o: .\inc\app_password.h
 .\objects\app_t5l_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_t5l_ctrl.o: .\inc\app_t5l_cfg.h
+.\objects\app_t5l_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_t5l_ctrl.o: .\inc\app_InnerScreen_Cfg.h

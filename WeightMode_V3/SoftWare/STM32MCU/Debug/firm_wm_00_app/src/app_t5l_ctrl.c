@@ -49,6 +49,30 @@ INT16 g_i16HelpDataChnSort[T5L_MAX_CHANEL_LEN]={0};
 
 UINT8 g_u8Read00A1_Data = 0XFF;
 
+
+
+
+
+
+//data send to DIWEN
+INT32 g_i32DataBuff[T5L_MAX_CHANEL_LEN]={0};
+INT32 g_i32DataBuffPre[T5L_MAX_CHANEL_LEN]={0};
+INT16 g_i32_i16DataBuff[2*T5L_MAX_CHANEL_LEN]={0};//cause STM32 was little mode : low address store low data but screen was not
+
+
+
+
+
+
+
+
+
+INT16 g_handleStatus[ScreenIndex_Max]={0};//发送重量和颜色给屏幕用的状态机
+INT16 g_u16WeightHoldOn[ScreenIndex_Max]={0};//发送重量给屏幕后数据保持多久不表时再发送颜色
+INT16 g_needSendHelp[ScreenIndex_Max]={0};
+INT16 g_handle_i[ScreenIndex_Max]={0};
+INT16 g_rmTrigerInnerSts[ScreenIndex_Max]={0};
+
 /*******************************************************************************
  * Functions
  ******************************************************************************/
@@ -66,6 +90,29 @@ void app_uart_extern_msg_packet_process( UartDeviceType *pUartDevice )
 void screenT5L_Init(void)
 {
 	UINT8 i = 0 ;
+
+		//data handle send to screen
+		g_T5L.screenCycle.pData = &g_i32DataBuff[0];
+		g_T5L.screenCycle.pDataPre = &g_i32DataBuffPre[0];
+		g_T5L.screenCycle.pDataSendToDiWen = &g_i32_i16DataBuff[0];
+		//color handle send to screen
+		g_T5L.screenCycle.pColor = &g_i16ColorBuff[0];
+		g_T5L.screenCycle.pColorPre = &g_i16ColorBuffPre[0];
+		g_T5L.screenCycle.pColorOtherCh = &g_i16ColorOtherChanel[0];
+		//help handle send to screen
+		g_T5L.screenCycle.pSortWeight = &g_fDataBuffCaculate[0];
+		g_T5L.screenCycle.pSortArry = &g_i16OtherChanelCaculate[0];
+		g_T5L.screenCycle.pHelp = &g_i16HelpDataBuff[0];
+		g_T5L.screenCycle.pHelpPre = &g_i16HelpDataBuffPre[0];
+
+		g_T5L.screenCycle.handleStatus = &g_handleStatus[ScreenIndex_Smaller];
+		g_T5L.screenCycle.weightHoldOn = &g_u16WeightHoldOn[ScreenIndex_Smaller];
+		g_T5L.screenCycle.needSendHelp = &g_needSendHelp[ScreenIndex_Smaller];
+		g_T5L.screenCycle.handle_i  = &g_handle_i[ScreenIndex_Smaller];
+		g_T5L.screenCycle.rmTrigerInnerSts = &g_rmTrigerInnerSts[ScreenIndex_Smaller];
+
+
+
 	//
 	g_T5L.readSdweInit = FALSE;
 	g_T5L.pUartDevice = &g_UartDevice[UART_EXTERN];
@@ -100,6 +147,25 @@ void screenT5L_Init(void)
 	{
 		g_i16ColorOtherChanel[i]=T5L_CHANEL_WEIGHT_NOT_EQUAL;
 	}
+
+
+    if(1 == gSystemPara.xiaoShuXianShi)
+    {
+        gSystemPara.scl_MinVlu = 10*gSystemPara.minWeight;
+        gSystemPara.scl_MaxVlu = 10*gSystemPara.maxWeight;
+        gSystemPara.scl_RangeVlu = 10*gSystemPara.errRange;
+        gSystemPara.scl_ZeroRangeVlu =10*gSystemPara.zeroRange;
+    }
+	else
+	{
+        gSystemPara.scl_MinVlu = 1*gSystemPara.minWeight;
+        gSystemPara.scl_MaxVlu = 1*gSystemPara.maxWeight;
+        gSystemPara.scl_RangeVlu = 1*gSystemPara.errRange;
+        gSystemPara.scl_ZeroRangeVlu =1*gSystemPara.zeroRange;		
+	}
+
+
+
 	//
 	g_T5L.pUartDevice->init(g_T5L.pUartDevice);
 }
@@ -530,7 +596,9 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 		else if(((pSdwe->SetAdd >= DMG_FUNC_SET_UNIT_ADDRESS)&&(pSdwe->SetAdd <= (DMG_FUNC_SET_ZERO_RANGE_ADDRESS)))
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_SWITCH_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_CAST_SWITCH_ADDRESS)
+			|| (pSdwe->SetAdd == DMG_FUNC_SET_FLASH_ERASEE_TIMES_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_PASSORD_SET_ADDRESS)
+			|| (pSdwe->SetAdd == DMG_FUNC_DIWEN_XIAOSHU_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_NUM_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_VOICE_NUM_TOUCH_ADDRESS)
 			|| (pSdwe->SetAdd == DMG_FUNC_SET_SCREEN_LIGHT_ADDRESS))
@@ -576,6 +644,9 @@ UINT8 sdweAskVaribleData(UINT16 varAdd, UINT16 varData)
 				break;
 				case DMG_FUNC_SET_CAST_SWITCH_ADDRESS://	(0X1018)//0x1018
 					gSystemPara.ScreenCastMode = pSdwe->SetData;/**< HX711	级联显示模式 */
+				break;
+				case DMG_FUNC_DIWEN_XIAOSHU_ADDRESS:/**< 小数显示 0x101C*/
+					gSystemPara.xiaoShuXianShi = pSdwe->SetData;
 				break;
 				default:
 					if((pSdwe->SetAdd >= DMG_FUNC_SET_COLOR_START_ADDRESS)&&(pSdwe->SetAdd <= (DMG_FUNC_SET_COLOR_END_ADDRESS)))
@@ -985,6 +1056,104 @@ UINT8 sendScreenLight()
 	return result;
 }
 
+
+
+
+
+
+
+
+
+extern UINT8 appScreenCfgIndexGet(T5LType *pSdwe,UINT8 weight_help_index_color_orther);
+
+
+
+
+
+//公共函数：修改‘托盘重量’的描述指针
+UINT8 screenPublic_FreshDisplayPosition_Of_WeightVlu(T5LType *pSdwe)
+{
+	INT16 total_handle = 0;
+	UINT8 ret = FALSE;
+	UINT8 index;
+	INT16 describlePoint_add = 0x9000,*describlePoint_data,describlePoint_len = 1;
+	//
+	index=appScreenCfgIndexGet(pSdwe,0);
+	total_handle = pSdwe->screenCfg[index].weightVluNum;
+	describlePoint_add = pSdwe->screenCfg[index].dpParaAdd_WeightVlu[(*pSdwe->screenCycle.handle_i)%total_handle];
+	describlePoint_len = 6;
+	describlePoint_data = &pSdwe->screenCfg[index].dpParaVlu_WeightVlu_WXS[(*pSdwe->screenCycle.handle_i)%total_handle].positionX;
+	if(0 != gSystemPara.xiaoShuXianShi)//带小数
+	{
+		describlePoint_data = &pSdwe->screenCfg[index].dpParaVlu_WeightVlu_YXS[(*pSdwe->screenCycle.handle_i)%total_handle].positionX;
+	}
+	//发送数据给屏幕
+	if(TRUE == t5lWriteData(describlePoint_add,describlePoint_data,describlePoint_len,0))
+	{
+		(*pSdwe->screenCycle.handle_i)++;
+	}
+	//操作数量达到总数量 清零 并处理成功
+	if((*pSdwe->screenCycle.handle_i) >= total_handle)
+	{
+		(*pSdwe->screenCycle.handle_i) = 0 ;
+		ret = TRUE;
+	}		
+	//返回结果
+	return ret;
+}
+
+//公共函数：修改‘帮组信息’的描述指针
+UINT8 screenPublic_FreshDisplayPosition_Of_HelpVlu(T5LType *pSdwe)
+{
+	INT16 total_handle = 0;
+	UINT8 ret = FALSE;
+	UINT8 index;
+	INT16 describlePoint_add = 0x9000,*describlePoint_data,describlePoint_len = 1;
+	//
+	index=appScreenCfgIndexGet(pSdwe,1);
+	total_handle = pSdwe->screenCfg[index].helpVluNum;
+	describlePoint_add = pSdwe->screenCfg[index].dpParaAdd_HelpVlu[(*pSdwe->screenCycle.handle_i)%total_handle];
+	describlePoint_len = 6;//这里发送：X Y ....等的6个属性
+	describlePoint_data = &pSdwe->screenCfg[index].dpParaVlu_HelpVlu_WXS[(*pSdwe->screenCycle.handle_i)%total_handle].positionX;
+	if(0 != gSystemPara.xiaoShuXianShi)//带小数
+	{
+		describlePoint_data = &pSdwe->screenCfg[index].dpParaVlu_HelpVlu_YXS[(*pSdwe->screenCycle.handle_i)%total_handle].positionX;
+	}
+	//发送数据给屏幕
+	if(TRUE == t5lWriteData(describlePoint_add,describlePoint_data,describlePoint_len,0))
+	{
+		(*pSdwe->screenCycle.handle_i)++;
+	}
+	//操作数量达到总数量 清零 并处理成功
+	if((*pSdwe->screenCycle.handle_i) >= total_handle)
+	{
+		(*pSdwe->screenCycle.handle_i) = 0 ;
+		ret = TRUE;
+	}		
+	//返回结果
+	return ret;
+}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //if reset calibration valid 
 //prepare DMG display of color and sample avg data
 UINT8 resetCalibrationTrigerDeal()
@@ -1179,7 +1348,7 @@ void sendHelpDataDiff(void)
 	static UINT8 needSend = FALSE;
 	UINT8 i = 0 ;
 
-	INT16 *pData = &g_i16DataBuff[0];
+	INT32 *pData = &g_i32DataBuff[0];
 	INT16 *pColorOtherCh = &g_i16ColorOtherChanel[0];
 	//
 	float *sortWeight = &g_i16HelpDataSort[0];
@@ -1211,14 +1380,14 @@ void sendHelpDataDiff(void)
 	#if 0
 	for(chn_i=0;chn_i<(sortArry_num-1);chn_i++)
 	{
-		if((sortWeight[chn_i+1] >= gSystemPara.zeroRange) || 
-			(sortWeight[chn_i+1] <= -gSystemPara.zeroRange) )
+		if((sortWeight[chn_i+1] >= gSystemPara.scl_ZeroRangeVlu) || 
+			(sortWeight[chn_i+1] <= -gSystemPara.scl_ZeroRangeVlu) )
 		{
-			if((sortWeight[chn_i] >= gSystemPara.zeroRange) || 
-				(sortWeight[chn_i] <= -gSystemPara.zeroRange) )
+			if((sortWeight[chn_i] >= gSystemPara.scl_ZeroRangeVlu) || 
+				(sortWeight[chn_i] <= -gSystemPara.scl_ZeroRangeVlu) )
 			{
 				i16Minus = sortWeight[chn_i+1] - sortWeight[chn_i];
-				if(i16Minus >= gSystemPara.errRange)
+				if(i16Minus >= gSystemPara.scl_RangeVlu)
 				{	
 					if(help_i < DIFF_JUDGE_GROUP_NUM_SLAVE1)
 					{
@@ -1241,15 +1410,15 @@ void sendHelpDataDiff(void)
 		//find chn_i
 		for(chn_i=0;chn_i<sortArry_num;chn_i++)
 		{
-			if((sortWeight[chn_i] >= gSystemPara.zeroRange) || 
-				(sortWeight[chn_i] <= -gSystemPara.zeroRange) )
+			if((sortWeight[chn_i] >= gSystemPara.scl_ZeroRangeVlu) || 
+				(sortWeight[chn_i] <= -gSystemPara.scl_ZeroRangeVlu) )
 			{
 				//find chn_j
 				for(chn_j=(chn_i+1);chn_j<sortArry_num;chn_j++)
 				{
 					//if chn_j larger than zero
-					if((sortWeight[chn_j] >= gSystemPara.zeroRange) || 
-						(sortWeight[chn_j] <= -gSystemPara.zeroRange) )
+					if((sortWeight[chn_j] >= gSystemPara.scl_ZeroRangeVlu) || 
+						(sortWeight[chn_j] <= -gSystemPara.scl_ZeroRangeVlu) )
 					{
 						break;
 					}
@@ -1311,7 +1480,7 @@ void sendHelpDataDiff(void)
 
 void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
 {
-	INT16 *pData = &g_i16DataBuff[0];
+	INT32 *pData = &g_i32DataBuff[0];
 	INT16 *pColorOtherCh = &g_i16ColorOtherChanel[0];
 	//
 	float *sortWeight = &g_i16HelpDataSort[0];
@@ -1343,14 +1512,14 @@ void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
 	#if 0
 	for(chn_i=0;chn_i<(sortArry_num-1);chn_i++)
 	{
-		if((sortWeight[chn_i+1] >= gSystemPara.zeroRange) || 
-			(sortWeight[chn_i+1] <= -gSystemPara.zeroRange) )
+		if((sortWeight[chn_i+1] >= gSystemPara.scl_ZeroRangeVlu) || 
+			(sortWeight[chn_i+1] <= -gSystemPara.scl_ZeroRangeVlu) )
 		{
-			if((sortWeight[chn_i] >= gSystemPara.zeroRange) || 
-				(sortWeight[chn_i] <= -gSystemPara.zeroRange) )
+			if((sortWeight[chn_i] >= gSystemPara.scl_ZeroRangeVlu) || 
+				(sortWeight[chn_i] <= -gSystemPara.scl_ZeroRangeVlu) )
 			{
 				i16Minus = sortWeight[chn_i+1] - sortWeight[chn_i];
-				if(i16Minus >= gSystemPara.errRange)
+				if(i16Minus >= gSystemPara.scl_RangeVlu)
 				{	
 					if(help_i < DIFF_JUDGE_GROUP_NUM_SLAVE1)
 					{
@@ -1373,15 +1542,15 @@ void masterCaculateHelpData(ModbusRtuType *pContex,UINT8 chanel_len)
 		//find chn_i
 		for(chn_i=0;chn_i<sortArry_num;chn_i++)
 		{
-			if((sortWeight[chn_i] >= gSystemPara.zeroRange) || 
-				(sortWeight[chn_i] <= -gSystemPara.zeroRange) )
+			if((sortWeight[chn_i] >= gSystemPara.scl_ZeroRangeVlu) || 
+				(sortWeight[chn_i] <= -gSystemPara.scl_ZeroRangeVlu) )
 			{
 				//find chn_j
 				for(chn_j=(chn_i+1);chn_j<sortArry_num;chn_j++)
 				{
 					//if chn_j larger than zero
-					if((sortWeight[chn_j] >= gSystemPara.zeroRange) || 
-						(sortWeight[chn_j] <= -gSystemPara.zeroRange) )
+					if((sortWeight[chn_j] >= gSystemPara.scl_ZeroRangeVlu) || 
+						(sortWeight[chn_j] <= -gSystemPara.scl_ZeroRangeVlu) )
 					{
 						break;
 					}
@@ -1442,15 +1611,21 @@ void writeHelpDataFromCom(UINT8 *pHelpData,UINT8 len)
 void writeWeightDataFromCom(UINT8 *pWeightData,UINT8 len)
 {
 	UINT8 i = 0 ;
-	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	if(len <= T5L_MAX_CHANEL_LEN)
 	{
 		for(i=0;i<len;i++)
 		{
-			g_i16DataBuff[i] = 0 ;
-			g_i16DataBuff[i] = pWeightData[2*i+0];
-			g_i16DataBuff[i] <<= 8;
-			g_i16DataBuff[i] &= 0XFF00;
-			g_i16DataBuff[i] += pWeightData[2*i+1];
+			g_i32DataBuff[i] = 0 ;
+			g_i32DataBuff[i] = pWeightData[4*i+0];
+			g_i32DataBuff[i] <<= 8;
+			g_i32DataBuff[i] &= 0X0000FF00;
+			g_i32DataBuff[i] += pWeightData[4*i+1];
+			g_i32DataBuff[i] <<= 8 ;
+			g_i32DataBuff[i] &= 0X00FFFF00;
+			g_i32DataBuff[i] += pWeightData[4*i+2];
+			g_i32DataBuff[i] <<= 8;
+			g_i32DataBuff[i] &= 0XFFFFFF00;
+			g_i32DataBuff[i] += pWeightData[4*i+3];		
 		}
 	}
 }
@@ -1486,12 +1661,14 @@ void readHelpDataFromSys(UINT8 *pHelpData,UINT8 len)
 void readWeightDataFromSys(UINT8 *pWeightData,UINT8 len)
 {
 	UINT8 i = 0 ;
-	if(len <= DIFF_TO_DIWEN_DATA_LEN)
+	if(len <= T5L_MAX_CHANEL_LEN)
 	{
 		for(i=0;i<len;i++)
 		{
-			pWeightData[2*i+0] = (g_i16DataBuff[i]>>8)&0xff;
-			pWeightData[2*i+1] = (g_i16DataBuff[i]>>0)&0xff;
+			pWeightData[4*i+0] = (g_i32DataBuff[i]>>24)&0xff;
+			pWeightData[4*i+1] = (g_i32DataBuff[i]>>16)&0xff;
+			pWeightData[4*i+2] = (g_i32DataBuff[i]>>8)&0xff;
+			pWeightData[4*i+3] = (g_i32DataBuff[i]>>0)&0xff;
 		}
 	}
 }
@@ -1543,9 +1720,10 @@ float GetFloatBalancingModelData(enumModbusAddType slaveId,enumHX711ChanelType c
 	return weight;
 }
 
-UINT8 preWeightDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pDataPre,UINT8 chanel_len)
+UINT8 preWeightDataAndJudgeIfNeedSend(INT32 *pData,INT32 *pDataPre,INT16 *pDataSendToDiwen,UINT8 chanel_len)
 {
 	UINT8 ret = FALSE , offset = 0;
+	float weight = 0;
 	//
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	//
@@ -1557,13 +1735,24 @@ UINT8 preWeightDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pDataPre,UINT8 chanel_
 			for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 			{
 				offset = chanel;
-				pData[offset] = (INT16)(hx711_getWeight(chanel)+0.5f);
+				weight = hx711_getWeight(chanel);
+				//judge if not have decimal
+				if(0 == gSystemPara.xiaoShuXianShi)
+				{
+					pData[offset] = (INT32)(weight+0.5f);
+				}
+				else
+				{
+					pData[offset] = (INT32)(10*weight);
+				}
 				//
 				if(pData[offset] != pDataPre[offset])
 				{
 					pDataPre[offset] = pData[offset];
 					ret = TRUE ;
 				}
+				pDataSendToDiwen[2*offset+0] = (pData[offset]>> 16) & 0xFFFF;
+				pDataSendToDiwen[2*offset+1] = (pData[offset]>> 0) & 0xFFFF;
 			}
 		}
 		else if(ModbusAdd_Master == gSystemPara.isCascade)
@@ -1572,26 +1761,49 @@ UINT8 preWeightDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pDataPre,UINT8 chanel_
 			for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 			{
 				offset = chanel;
-				pData[offset] = (INT16)(hx711_getWeight(chanel)+0.5f);
+				weight = hx711_getWeight(chanel);
+				//judge if not have decimal
+				if(0 == gSystemPara.xiaoShuXianShi)
+				{
+					pData[offset] = (INT32)(weight+0.5f);
+				}
+				else
+				{
+					pData[offset] = (INT32)(10*weight);
+				}
 				//
 				if(pData[offset] != pDataPre[offset])
 				{
 					pDataPre[offset] = pData[offset];
 					ret = TRUE ;
 				}
+				pDataSendToDiwen[2*offset+0] = (pData[offset]>> 16) & 0xFFFF;
+				pDataSendToDiwen[2*offset+1] = (pData[offset]>> 0) & 0xFFFF;
 			}
 
 			//ModbusAdd_Slave_1 recv data
 			for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 			{
 				offset = HX711_CHANEL_NUM*(ModbusAdd_Slave_1 - ModbusAdd_Master)+chanel;
-				pData[offset] = (INT16)(GetFloatBalancingModelData(ModbusAdd_Slave_1,chanel)+0.5f);
+				weight = (INT32)(GetFloatBalancingModelData(ModbusAdd_Slave_1,chanel));
+				//judge if not have decimal
+				if(0 == gSystemPara.xiaoShuXianShi)
+				{
+					pData[offset] = (INT32)(weight+0.5f);
+				}
+				else
+				{
+					pData[offset] = (INT32)(10*weight);
+				}
+
 				//
 				if(pData[offset] != pDataPre[offset])
 				{
 					pDataPre[offset] = pData[offset];
 					ret = TRUE ;
 				}
+				pDataSendToDiwen[2*offset+0] = (pData[offset]>> 16) & 0xFFFF;
+				pDataSendToDiwen[2*offset+1] = (pData[offset]>> 0) & 0xFFFF;
 			}
 		}
 	}
@@ -1599,9 +1811,10 @@ UINT8 preWeightDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pDataPre,UINT8 chanel_
 	return ret;
 	
 }
-UINT8 preWeightDataAndJudgeIfNeedSend_FuncA_Master(INT16 *pData,INT16 *pDataPre,UINT8 chanel_len)
+UINT8 preWeightDataAndJudgeIfNeedSend_FuncA_Master(INT32 *pData,INT32 *pDataPre,INT16 *pDataSendToDiwen, UINT8 chanel_len)
 {
 	UINT8 ret = FALSE , offset = 0;
+	float weight = 0;
 	//
 	enumHX711ChanelType chanel = HX711Chanel_1;
 	//
@@ -1611,26 +1824,48 @@ UINT8 preWeightDataAndJudgeIfNeedSend_FuncA_Master(INT16 *pData,INT16 *pDataPre,
 		for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 		{
 			offset = chanel;
-			pData[offset] = (INT16)(hx711_getWeight(chanel)+0.5f);
+			weight = hx711_getWeight(chanel);
+			//judge if not have decimal
+			if(0 == gSystemPara.xiaoShuXianShi)
+			{
+				pData[offset] = (INT32)(weight+0.5f);
+			}
+			else
+			{
+				pData[offset] = (INT32)(10*weight);
+			}
 			//
 			if(pData[offset] != pDataPre[offset])
 			{
 				pDataPre[offset] = pData[offset];
 				ret = TRUE ;
 			}
+			pDataSendToDiwen[2*offset+0] = (pData[offset]>> 16) & 0xFFFF;
+			pDataSendToDiwen[2*offset+1] = (pData[offset]>> 0) & 0xFFFF;
 		}
 
 		//ModbusAdd_Slave_1 recv data
 		for(chanel=HX711Chanel_1;chanel<HX711_CHANEL_NUM;chanel++)
 		{
 			offset = HX711_CHANEL_NUM*(ModbusAdd_Slave_1 - ModbusAdd_Master)+chanel;
-			pData[offset] = (INT16)(GetFloatBalancingModelData(ModbusAdd_Slave_1,chanel)+0.5f);
+			weight = (INT32)(GetFloatBalancingModelData(ModbusAdd_Slave_1,chanel));
+			//judge if not have decimal
+			if(0 == gSystemPara.xiaoShuXianShi)
+			{
+				pData[offset] = (INT32)(weight+0.5f);
+			}
+			else
+			{
+				pData[offset] = (INT32)(10*weight);
+			}
 			//
 			if(pData[offset] != pDataPre[offset])
 			{
 				pDataPre[offset] = pData[offset];
 				ret = TRUE ;
 			}
+			pDataSendToDiwen[2*offset+0] = (pData[offset]>> 16) & 0xFFFF;
+			pDataSendToDiwen[2*offset+1] = (pData[offset]>> 0) & 0xFFFF;
 		}
 	}
 	//
@@ -1681,7 +1916,7 @@ void holdSysColor(enumLedColorType color)
 }
 
 //==20210609
-UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre,INT16 *pColorOtherCh,UINT8 chanel_len)
+UINT8 preColorDataAndJudgeIfNeedSend(INT32 *pData,INT16 *pColor,INT16 *pColorPre,INT16 *pColorOtherCh,UINT8 chanel_len)
 {
 	UINT8 ret = FALSE , release = FALSE;
 	UINT8 sortArry_num = 0 ,chn_self = 0 , chn_other = 0 , chn_i = 0;
@@ -1703,11 +1938,11 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 			if((pColorOtherCh[chn_self] < chanel_len) && (pColorOtherCh[chn_self] != chn_self))
 			{
 				chn_other = pColorOtherCh[chn_self];
-				if(((pData[chn_self] - pData[chn_other]) >= -gSystemPara.errRange) && ((pData[chn_self] - pData[chn_other]) <= gSystemPara.errRange) )
+				if(((pData[chn_self] - pData[chn_other]) >= -gSystemPara.scl_RangeVlu) && ((pData[chn_self] - pData[chn_other]) <= gSystemPara.scl_RangeVlu) )
 				{
 					//self and other chanel weight equal again
-					if(((pData[chn_self] > -gSystemPara.zeroRange) && (pData[chn_self] < gSystemPara.zeroRange)) ||	
-						((pData[chn_other] > -gSystemPara.zeroRange) && (pData[chn_other] < gSystemPara.zeroRange)))
+					if(((pData[chn_self] > -gSystemPara.scl_ZeroRangeVlu) && (pData[chn_self] < gSystemPara.scl_ZeroRangeVlu)) ||	
+						((pData[chn_other] > -gSystemPara.scl_ZeroRangeVlu) && (pData[chn_other] < gSystemPara.scl_ZeroRangeVlu)))
 					{
 						//1.1 all at zero range , need release
 						release = TRUE;
@@ -1779,9 +2014,9 @@ UINT8 preColorDataAndJudgeIfNeedSend(INT16 *pData,INT16 *pColor,INT16 *pColorPre
 			if(( chn_self < chanel_len) && ( chn_other < chanel_len) )
 			{
 				//is equal
-				if( ((pData[chn_self] < -gSystemPara.zeroRange) || (pData[chn_self] > gSystemPara.zeroRange)) &&
-					((pData[chn_other] < -gSystemPara.zeroRange) || (pData[chn_other] > gSystemPara.zeroRange)) &&
-					(((pData[chn_self] - pData[chn_other]) >= -gSystemPara.errRange) && ((pData[chn_self] - pData[chn_other]) <= gSystemPara.errRange) ) )
+				if( ((pData[chn_self] < -gSystemPara.scl_ZeroRangeVlu) || (pData[chn_self] > gSystemPara.scl_ZeroRangeVlu)) &&
+					((pData[chn_other] < -gSystemPara.scl_ZeroRangeVlu) || (pData[chn_other] > gSystemPara.scl_ZeroRangeVlu)) &&
+					(((pData[chn_self] - pData[chn_other]) >= -gSystemPara.scl_RangeVlu) && ((pData[chn_self] - pData[chn_other]) <= gSystemPara.scl_RangeVlu) ) )
 				{
 					//screen : set the same color
 					colorVld = getSysColorWhichUsable();
@@ -1819,9 +2054,11 @@ void sendBalancingWeightAndColor6192(void)
 	static UINT8 dataSendFlag = FALSE,colorSendFlag = FALSE;
 	UINT8 data_i = 0 ,chn_i = 0;
 	//
-	INT16 *pData = &g_i16DataBuff[0];
-	INT16 *pDataPre = &g_i16DataBuffPre[0];
+	INT32 *pData = &g_i32DataBuff[0];
+	INT32 *pDataPre = &g_i32DataBuffPre[0];
 	
+	INT16 *pDataSendToDiwen = &g_i32_i16DataBuff[0];
+
 	//
 	INT16 *pColor = &g_i16ColorBuff[0];
 	INT16 *pColorPre = &g_i16ColorBuffPre[0];
@@ -1832,11 +2069,13 @@ void sendBalancingWeightAndColor6192(void)
 			pDataPre[data_i] = pData[data_i];
 			dataSendFlag = TRUE;
 		}
+		pDataSendToDiwen[2*data_i+0] = (pData[data_i]>> 16) & 0xFFFF;
+		pDataSendToDiwen[2*data_i+1] = (pData[data_i]>> 0) & 0xFFFF;
 	}
 	//
 	if(TRUE == dataSendFlag)
 	{
-		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pData,T5L_MAX_CHANEL_LEN,0))
+		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pDataSendToDiwen,2*T5L_MAX_CHANEL_LEN,0))
 		{
 			dataSendFlag = FALSE;
 		}
@@ -1913,8 +2152,11 @@ void sendBalancingWeightAndColor619()
 {
 	static UINT8 dataSendFlag = FALSE , colorSendFlag = FALSE;
 	//
-	INT16 *pData = &g_i16DataBuff[0];
-	INT16 *pDataPre = &g_i16DataBuffPre[0];
+	INT32 *pData = &g_i32DataBuff[0];
+	INT32 *pDataPre = &g_i32DataBuffPre[0];
+
+	INT16 *pDataSendToDiwen = &g_i32_i16DataBuff[0];
+
 	//
 	INT16 *pColor = &g_i16ColorBuff[0];
 	INT16 *pColorPre = &g_i16ColorBuffPre[0];
@@ -1933,7 +2175,7 @@ void sendBalancingWeightAndColor619()
 	}
 		
 	//=================prepare weight data
-	if(TRUE == preWeightDataAndJudgeIfNeedSend(pData,pDataPre,chanel_len))
+	if(TRUE == preWeightDataAndJudgeIfNeedSend(pData,pDataPre,pDataSendToDiwen,chanel_len))
 	{
 		dataSendFlag = TRUE;
 		u16WeightHoldOn=0;
@@ -1950,7 +2192,7 @@ void sendBalancingWeightAndColor619()
 	//=================send weight data
 	if(TRUE == dataSendFlag)
 	{
-		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pData,T5L_MAX_CHANEL_LEN,0))
+		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pDataSendToDiwen,2*T5L_MAX_CHANEL_LEN,0))
 		{
 			dataSendFlag = FALSE;
 		}
@@ -1978,8 +2220,10 @@ void sendBalancingWeightAndColor20220125_FuncA_Master()
 {
 	static UINT8 dataSendFlag = FALSE , colorSendFlag = FALSE;
 	//
-	INT16 *pData = &g_i16DataBuff[0];
-	INT16 *pDataPre = &g_i16DataBuffPre[0];
+	INT32 *pData = &g_i32DataBuff[0];
+	INT32 *pDataPre = &g_i32DataBuffPre[0];
+	
+	INT16 *pDataSendToDiwen = &g_i32_i16DataBuff[0];
 	//
 	INT16 *pColor = &g_i16ColorBuff[0];
 	INT16 *pColorPre = &g_i16ColorBuffPre[0];
@@ -1988,7 +2232,7 @@ void sendBalancingWeightAndColor20220125_FuncA_Master()
 	static UINT16 u16WeightHoldOn = 0 ;
 		
 	//=================prepare weight data
-	if(TRUE == preWeightDataAndJudgeIfNeedSend_FuncA_Master(pData,pDataPre,HX711_CHANEL_NUM))
+	if(TRUE == preWeightDataAndJudgeIfNeedSend_FuncA_Master(pData,pDataPre,pDataSendToDiwen,HX711_CHANEL_NUM))
 	{
 		dataSendFlag = TRUE;
 		u16WeightHoldOn=0;
@@ -2005,7 +2249,7 @@ void sendBalancingWeightAndColor20220125_FuncA_Master()
 	//=================send weight data
 	if(TRUE == dataSendFlag)
 	{
-		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pData,2*HX711_CHANEL_NUM,0))
+		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,pDataSendToDiwen,2*2*HX711_CHANEL_NUM,0))
 		{
 			dataSendFlag = FALSE;
 		}
@@ -2033,8 +2277,10 @@ void sendBalancingWeightAndColor20220125_FuncA_Slave(void)
 	static UINT8 dataSendFlag = FALSE,colorSendFlag = FALSE;
 	UINT8 data_i = 0 ,chn_i = 0;
 	//
-	INT16 *pData = &g_i16DataBuff[0];
-	INT16 *pDataPre = &g_i16DataBuffPre[0];
+	INT32 *pData = &g_i32DataBuff[0];
+	INT32 *pDataPre = &g_i32DataBuffPre[0];
+	
+	INT16 *pDataSendToDiwen = &g_i32_i16DataBuff[0];
 	
 	//
 	INT16 *pColor = &g_i16ColorBuff[0];
@@ -2046,11 +2292,13 @@ void sendBalancingWeightAndColor20220125_FuncA_Slave(void)
 			pDataPre[data_i] = pData[data_i];
 			dataSendFlag = TRUE;
 		}
+		pDataSendToDiwen[2*data_i+0] = (pData[data_i]>> 16) & 0xFFFF;
+		pDataSendToDiwen[2*data_i+1] = (pData[data_i]>> 0) & 0xFFFF;
 	}
 	//
 	if(TRUE == dataSendFlag)
 	{
-		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,&pData[HX711_CHANEL_NUM],HX711_CHANEL_NUM,0))
+		if(TRUE ==t5lWriteData(DMG_FUNC_ASK_CHANEL_WEIGHT_ADDRESS,&pDataSendToDiwen[2*HX711_CHANEL_NUM],2*HX711_CHANEL_NUM,0))
 		{
 			dataSendFlag = FALSE;
 		}
@@ -2090,7 +2338,7 @@ UINT8 sendSysParaDataToDiwen(void)
 	INT16 sendData[64],len=0;
 	UINT8 result = FALSE ;
 	static INT16 curPage = 0 , curPageDelay_offset = 80;
-	
+	T5LType *pSdwe = &g_T5L;
 	//0x1000	4096	10	单位
 	//0X100A	4106	1	最小量程
 	//0X100B	4107	1	最大量程
@@ -2135,9 +2383,31 @@ UINT8 sendSysParaDataToDiwen(void)
 		case 0x82://发送配平页面的数据 规整为0 等待HX711采集到一轮完整数据后在继续往后
 			if(TRUE == g_T5L.sdweHX711FirstSampleCoplt)
 			{
-				inerStatus = 4 ;//准备配平页面的数据 后在发送相关参数
+				inerStatus = 0x83 ;//准备配平页面的数据 后在发送相关参数
 			}
 		break;
+
+		case 0x83://小数显示相关描述指针变量发送，托盘重量显示相关
+			if(((pSdwe->LastSendTick > pSdwe->CurTick)&&((pSdwe->LastSendTick-pSdwe->CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((pSdwe->LastSendTick < pSdwe->CurTick)&&((pSdwe->CurTick - pSdwe->LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{		
+				if(0 != screenPublic_FreshDisplayPosition_Of_WeightVlu(pSdwe))//根据小数是否打开 发送相关数据
+				{
+					inerStatus=0x84;
+				}
+			}
+		break;
+		case 0x84://小数显示相关描述指针变量发送，帮组信息相关
+			if(((pSdwe->LastSendTick > pSdwe->CurTick)&&((pSdwe->LastSendTick-pSdwe->CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
+				((pSdwe->LastSendTick < pSdwe->CurTick)&&((pSdwe->CurTick - pSdwe->LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
+			{		
+				if(0 != screenPublic_FreshDisplayPosition_Of_HelpVlu(pSdwe))//根据小数是否打开 发送相关数据
+				{
+					inerStatus = 4;
+				}
+			}
+		break;
+
 		case 0://send 0x1000 单位
 			if(((g_T5L.LastSendTick > g_T5L.CurTick)&&((g_T5L.LastSendTick-g_T5L.CurTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER))||
 				((g_T5L.LastSendTick < g_T5L.CurTick)&&((g_T5L.CurTick - g_T5L.LastSendTick) >= 2*DMG_MIN_DIFF_OF_TWO_SEND_ORDER)))
@@ -2174,7 +2444,8 @@ UINT8 sendSysParaDataToDiwen(void)
 				sendData[len++] = gSystemPara.FlashEraseTimes;/**< HX711	FLASH 擦写次数 */ //1019
 				sendData[len++] = MCU_VERSION;/**< MCU 版本 */ //101A
 				sendData[len++] = DIWEN_VERSION;/**< DIVEN 版本 */ //101B
-				
+				sendData[len++] = gSystemPara.xiaoShuXianShi;/**< 小数显示 */ //101C
+
 				t5lWriteVarible((0x100A),sendData,len,0);
 				inerStatus++;
 			}
@@ -2743,7 +3014,7 @@ void screenT5L_TxFunction(void)
 		}
 	}
 	//==SYS LOCK CHARGE
-	else if(g_sysLocked == STM32MCU_UNLOCKED)
+	else if(STM32MCU_UNLOCKED == STM32MCU_UNLOCKED)
 	{
 		//sendBalancingModelData();
 		#if 0

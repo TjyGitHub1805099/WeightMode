@@ -27,3 +27,6 @@
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_dbg.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\inc\drv_uart.h
 .\objects\app_led_ctrl.o: ..\STM32F303DriverLib\reg\reg_stm32f303_uart.h
+.\objects\app_led_ctrl.o: .\inc\app_t5l_cfg.h
+.\objects\app_led_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_led_ctrl.o: .\inc\app_InnerScreen_Cfg.h

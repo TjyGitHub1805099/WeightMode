@@ -491,6 +491,31 @@
               <FileType>1</FileType>
               <FilePath>.\src\app_t5l_ctrl.c</FilePath>
             </File>
+            <File>
+              <FileName>app_t5l_cfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_t5l_cfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_InnerScreen_Cfg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_InnerScreen_Cfg.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_InnerScreen_Cfg_6.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_InnerScreen_Cfg_6.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_InnerScreen_Cfg_12.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_InnerScreen_Cfg_12.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_InnerScreen_Cfg_16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\app_InnerScreen_Cfg_16.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -550,6 +575,16 @@
               <FileName>app_t5l_ctrl.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\inc\app_t5l_ctrl.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_t5l_cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_t5l_cfg.h</FilePath>
+            </File>
+            <File>
+              <FileName>app_InnerScreen_Cfg.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\inc\app_InnerScreen_Cfg.h</FilePath>
             </File>
           </Files>
         </Group>

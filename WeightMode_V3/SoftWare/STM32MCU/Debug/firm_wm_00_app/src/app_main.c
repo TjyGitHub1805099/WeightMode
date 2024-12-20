@@ -60,12 +60,12 @@ int main(void)
 	key_init();
 	led_init();
 	hx711_init();
-	screenT5L_Init();
 	ModbusRtu_init();
 	readSysDataFromFlash();
 	readSysDataFromFlash_3030();
 	STM32MCUIDGet(&STM32McuId[0],STM32F1);
 	STM32CheckPassWord(g_passWordStore);
+	screenT5L_Init();
 	while(1)
 	{}
 }

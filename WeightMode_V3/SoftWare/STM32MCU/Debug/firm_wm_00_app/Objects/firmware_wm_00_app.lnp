@@ -13,6 +13,11 @@
 ".\objects\app_syspara.o"
 ".\objects\app_systest.o"
 ".\objects\app_t5l_ctrl.o"
+".\objects\app_t5l_cfg.o"
+".\objects\app_innerscreen_cfg.o"
+".\objects\app_innerscreen_cfg_6.o"
+".\objects\app_innerscreen_cfg_12.o"
+".\objects\app_innerscreen_cfg_16.o"
 ".\objects\startup_stm32f30x.o"
 --strict --scatter ".\Objects\firmware_wm_00_app.sct"
 --summary_stderr --info summarysizes --map --xref --callgraph --symbols

@@ -31,3 +31,6 @@
 .\objects\app_modbus_rtu_ctrl.o: .\inc\app_sdwe_ctrl.h
 .\objects\app_modbus_rtu_ctrl.o: .\inc\app_syspara.h
 .\objects\app_modbus_rtu_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_modbus_rtu_ctrl.o: .\inc\app_t5l_cfg.h
+.\objects\app_modbus_rtu_ctrl.o: .\inc\app_t5l_ctrl.h
+.\objects\app_modbus_rtu_ctrl.o: .\inc\app_InnerScreen_Cfg.h

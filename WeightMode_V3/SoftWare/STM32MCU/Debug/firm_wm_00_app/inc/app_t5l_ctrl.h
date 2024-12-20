@@ -5,7 +5,8 @@
 
 #include "hal_uart.h"
 #include "app_hx711_ctrl.h"
-
+#include "app_t5l_cfg.h"
+#include "app_InnerScreen_Cfg.h"
 
 #define T5L_DMG_UART_DATA_LEN	(0X100)
 
@@ -81,6 +82,7 @@
 #define DMG_FUNC_MCU_VERSION_ADDRESS	(0X101A)//0x101A
 #define DMG_FUNC_DIWEN_VERSION_ADDRESS	(0X101B)//0x101B
 
+#define DMG_FUNC_DIWEN_XIAOSHU_ADDRESS			(0X101C)//0X101C 小数使能
 
 #define DMG_FUNC_MCUID_ADDRESS				(0X1500)//0x1500
 
@@ -118,7 +120,12 @@
 #define DMG_SYS_VERSION_GET_ADD				(0X000E)
 
 
-
+//枚举：大小屏序号
+typedef enum
+{
+	ScreenIndex_Smaller  = 0 ,	
+	ScreenIndex_Max,
+}enumScreenIndexType;
 typedef enum
 {
 	cmdWaitVoivePrint_forceRead  = 0 ,
@@ -231,9 +238,36 @@ typedef enum
 }enumSDWEcmdPosType;
 
 
+typedef struct structScreenCycleType
+{
+	//chanel_len
+	UINT8 chanel_len;
+	//weight data
+	INT32 *pData;
+	INT32 *pDataPre;
+	INT16 *pDataSendToDiWen;
+	//color data
+	INT16 *pColor;
+	INT16 *pColorPre;
+	INT16 *pColorOtherCh;
+	//help data
+	float *pSortWeight;
+	INT16 *pSortArry;
+	INT16 *pHelp;
+	INT16 *pHelpPre;
+	//weight and color send to screen
+	INT16 *handleStatus;
+	INT16 *weightHoldOn;
+	INT16 *needSendHelp;
+	INT16 *handle_i;//发送描述指针给屏幕
+	INT16 *rmTrigerInnerSts;//去皮按钮按下时处理
+}ScreenCycleType;
+
 /** 定义从机串口设备类型 */
 typedef struct structSdweType
 {
+	ScreenCycleType screenCycle;
+	appScreenCfg_Type *screenCfg;
 	UINT8 	sendSdweInit;
 	UINT8 	readSdweInit;
 	UartDeviceType *pUartDevice;        /**< 串口设备 */
@@ -273,8 +307,36 @@ typedef struct structSdweType
 }T5LType;
 extern T5LType g_T5L;
 
+#define ScreenCycleTypeDefault   { \
+	/*chanel_len*/\
+	0,\
+	/*weight data*/\
+	0,\
+	0,\
+	0,\
+	/*color data*/\
+	0,\
+	0,\
+	0,\
+	/*help data*/\
+	0,\
+	0,\
+	0,\
+	0,\
+	/*weight and color send to screen*/\
+	0,\
+	0,\
+	0,\
+	/*发送描述指针给屏幕*/\
+	0,\
+	/*去皮按钮按下时处理*/\
+	0,\
+}
+
 /** ModbusRtu设备默认配置 */
 #define T5LDataDefault   { \
+	ScreenCycleTypeDefault,\
+	innerScreenCfg,\
 	0,\
 	0,\
 	&g_UartDevice[UART_EXTERN], \
@@ -334,4 +396,6 @@ extern void readColorDataFromSys(UINT8 *pColorData,UINT8 len);
 extern void writeWeightDataFromCom(UINT8 *pWeightData,UINT8 len);
 extern void writeColorDataFromCom(UINT8 *pColorData,UINT8 len);
 extern UINT8 screenT5L_OutputVoice(UINT8 voiceId);
+extern UINT8 screenPublic_FreshDisplayPosition_Of_WeightVlu(T5LType *pSdwe);
+extern UINT8 screenPublic_FreshDisplayPosition_Of_HelpVlu(T5LType *pSdwe);
 #endif

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\firmware_wm_00_app.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\firmware_wm_00_app.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Wed Oct 18 22:23:14 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060020: Last Updated: Sat Dec 21 01:03:18 2024
 <BR><P>
 <H3>Maximum Stack Usage =       1124 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -122,8 +122,8 @@ Function Pointers
 Global Symbols
 </H3>
 <P><STRONG><a name="[55]"></a>__main</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, __main.o(!!!main))
-<BR><BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<BR><BR>[Calls]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
 <P><STRONG><a name="[56]"></a>__scatterload</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter))
@@ -134,15 +134,15 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry
 </UL>
 
-<P><STRONG><a name="[129]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[12c]"></a>__scatterload_rt2_thumb_only</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[12a]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
+<P><STRONG><a name="[12d]"></a>__scatterload_null</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __scatter.o(!!!scatter), UNUSED)
 
-<P><STRONG><a name="[12b]"></a>__decompress</STRONG> (Thumb, 90 bytes, Stack size unknown bytes, __dczerorl2.o(!!dczerorl2), UNUSED)
+<P><STRONG><a name="[12e]"></a>__decompress</STRONG> (Thumb, 100 bytes, Stack size unknown bytes, __dclz77c.o(!!dclz77c), UNUSED)
 
-<P><STRONG><a name="[12c]"></a>__decompress1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dczerorl2.o(!!dczerorl2), UNUSED)
+<P><STRONG><a name="[12f]"></a>__decompress2</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __dclz77c.o(!!dclz77c), UNUSED)
 
-<P><STRONG><a name="[12d]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
+<P><STRONG><a name="[130]"></a>__scatterload_zeroinit</STRONG> (Thumb, 28 bytes, Stack size unknown bytes, __scatter_zi.o(!!handler_zi), UNUSED)
 
 <P><STRONG><a name="[5e]"></a>__rt_lib_init</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit.o(.ARM.Collect$$libinit$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_li
@@ -152,70 +152,70 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_init
 </UL>
 
-<P><STRONG><a name="[12e]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
+<P><STRONG><a name="[131]"></a>__rt_lib_init_alloca_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002E))
 
-<P><STRONG><a name="[12f]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
+<P><STRONG><a name="[132]"></a>__rt_lib_init_argv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000002C))
 
-<P><STRONG><a name="[130]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
+<P><STRONG><a name="[133]"></a>__rt_lib_init_atexit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001B))
 
-<P><STRONG><a name="[131]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
+<P><STRONG><a name="[134]"></a>__rt_lib_init_clock_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000021))
 
-<P><STRONG><a name="[132]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
+<P><STRONG><a name="[135]"></a>__rt_lib_init_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000032))
 
-<P><STRONG><a name="[133]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
+<P><STRONG><a name="[136]"></a>__rt_lib_init_exceptions_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000030))
 
-<P><STRONG><a name="[134]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
+<P><STRONG><a name="[137]"></a>__rt_lib_init_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001F))
 
-<P><STRONG><a name="[135]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
+<P><STRONG><a name="[138]"></a>__rt_lib_init_getenv_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000023))
 
-<P><STRONG><a name="[136]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
+<P><STRONG><a name="[139]"></a>__rt_lib_init_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000A))
 
-<P><STRONG><a name="[137]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
+<P><STRONG><a name="[13a]"></a>__rt_lib_init_lc_collate_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000011))
 
-<P><STRONG><a name="[138]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
+<P><STRONG><a name="[13b]"></a>__rt_lib_init_lc_ctype_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000013))
 
-<P><STRONG><a name="[139]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
+<P><STRONG><a name="[13c]"></a>__rt_lib_init_lc_monetary_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000015))
 
-<P><STRONG><a name="[13a]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
+<P><STRONG><a name="[13d]"></a>__rt_lib_init_lc_numeric_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000017))
 
-<P><STRONG><a name="[13b]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
+<P><STRONG><a name="[13e]"></a>__rt_lib_init_lc_time_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000019))
 
-<P><STRONG><a name="[13c]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
+<P><STRONG><a name="[13f]"></a>__rt_lib_init_preinit_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000004))
 
-<P><STRONG><a name="[13d]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
+<P><STRONG><a name="[140]"></a>__rt_lib_init_rand_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000E))
 
-<P><STRONG><a name="[13e]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
+<P><STRONG><a name="[141]"></a>__rt_lib_init_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000033))
 
-<P><STRONG><a name="[13f]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
+<P><STRONG><a name="[142]"></a>__rt_lib_init_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000001D))
 
-<P><STRONG><a name="[140]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
+<P><STRONG><a name="[143]"></a>__rt_lib_init_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$00000025))
 
-<P><STRONG><a name="[141]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
+<P><STRONG><a name="[144]"></a>__rt_lib_init_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libinit2.o(.ARM.Collect$$libinit$$0000000C))
 
 <P><STRONG><a name="[63]"></a>__rt_lib_shutdown</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown.o(.ARM.Collect$$libshutdown$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_ls
 </UL>
 
-<P><STRONG><a name="[142]"></a>__rt_lib_shutdown_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
+<P><STRONG><a name="[145]"></a>__rt_lib_shutdown_cpp_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000002))
 
-<P><STRONG><a name="[143]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
+<P><STRONG><a name="[146]"></a>__rt_lib_shutdown_fp_trap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000007))
 
-<P><STRONG><a name="[144]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
+<P><STRONG><a name="[147]"></a>__rt_lib_shutdown_heap_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F))
 
-<P><STRONG><a name="[145]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
+<P><STRONG><a name="[148]"></a>__rt_lib_shutdown_return</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000010))
 
-<P><STRONG><a name="[146]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
+<P><STRONG><a name="[149]"></a>__rt_lib_shutdown_signal_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000A))
 
-<P><STRONG><a name="[147]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
+<P><STRONG><a name="[14a]"></a>__rt_lib_shutdown_stdio_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$00000004))
 
-<P><STRONG><a name="[148]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
+<P><STRONG><a name="[14b]"></a>__rt_lib_shutdown_user_alloc_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, libshutdown2.o(.ARM.Collect$$libshutdown$$0000000C))
 
 <P><STRONG><a name="[57]"></a>__rt_entry</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry.o(.ARM.Collect$$rtentry$$00000000))
-<BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__scatterload_rt2
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__main
 </UL>
 
-<P><STRONG><a name="[149]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
+<P><STRONG><a name="[14c]"></a>__rt_entry_presh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000002))
 
 <P><STRONG><a name="[5b]"></a>__rt_entry_sh</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry4.o(.ARM.Collect$$rtentry$$00000004))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -228,7 +228,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init
 </UL>
 
-<P><STRONG><a name="[14a]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
+<P><STRONG><a name="[14d]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[5f]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1124 + Unknown Stack Size
@@ -238,7 +238,7 @@ Global Symbols
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 </UL>
 
-<P><STRONG><a name="[14b]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
+<P><STRONG><a name="[14e]"></a>__rt_entry_postli_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000C))
 
 <P><STRONG><a name="[68]"></a>__rt_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit.o(.ARM.Collect$$rtexit$$00000000))
 <BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -248,7 +248,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_shutdown
 </UL>
 
-<P><STRONG><a name="[14c]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
+<P><STRONG><a name="[14f]"></a>__rt_exit_prels_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000002))
 
 <P><STRONG><a name="[64]"></a>__rt_exit_exit</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rtexit2.o(.ARM.Collect$$rtexit$$00000004))
 <BR><BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_sys_exit
@@ -514,21 +514,21 @@ Global Symbols
 <P><STRONG><a name="[f8]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 </UL>
 
-<P><STRONG><a name="[14d]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[150]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[14e]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[151]"></a>__rt_memclr_w</STRONG> (Thumb, 78 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[14f]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
+<P><STRONG><a name="[152]"></a>_memset_w</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr_w.o(.text), UNUSED)
 
-<P><STRONG><a name="[150]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[153]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
-<P><STRONG><a name="[151]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[154]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
-<P><STRONG><a name="[152]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P><STRONG><a name="[155]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
 
 <P><STRONG><a name="[5c]"></a>__user_setup_stackheap</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, sys_stackheap_outer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
@@ -549,28 +549,28 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[153]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[156]"></a>__user_libspace</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[66]"></a>__user_perproc_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__user_setup_stackheap
 </UL>
 
-<P><STRONG><a name="[154]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
+<P><STRONG><a name="[157]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[65]"></a>_sys_exit</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, sys_exit.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
-<P><STRONG><a name="[155]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[158]"></a>__I$use$semihosting</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[156]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
+<P><STRONG><a name="[159]"></a>__use_no_semihosting_swi</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, use_no_semi.o(.text), UNUSED)
 
-<P><STRONG><a name="[157]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
+<P><STRONG><a name="[15a]"></a>__semihosting_library_function</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, indicate_semi.o(.text), UNUSED)
 
 <P><STRONG><a name="[ef]"></a>BubbleSort</STRONG> (Thumb, 144 bytes, Stack size 20 bytes, app_crc.o(i.BubbleSort))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = BubbleSort
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
+<BR>[Called By]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preColorDataAndJudgeIfNeedSend
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;masterCaculateHelpData
 </UL>
@@ -623,8 +623,8 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = LedDataSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;balaningColorClear
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preColorDataAndJudgeIfNeedSend
 </UL>
 
@@ -655,18 +655,18 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MainFunction
 </UL>
 
-<P><STRONG><a name="[77]"></a>ModbusRtu_MasterMaskDeal</STRONG> (Thumb, 896 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMaskDeal))
+<P><STRONG><a name="[77]"></a>ModbusRtu_MasterMaskDeal</STRONG> (Thumb, 222 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterMaskDeal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = ModbusRtu_MasterMaskDeal &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readWeightDataFromSys
-<LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readHelpDataFromSys
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readColorDataFromSys
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readWeightDataFromSys
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readHelpDataFromSys
+<LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readColorDataFromSys
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterTxMainFunction
 </UL>
 
-<P><STRONG><a name="[76]"></a>ModbusRtu_MasterRxMainFunction</STRONG> (Thumb, 1296 bytes, Stack size 16 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterRxMainFunction))
+<P><STRONG><a name="[76]"></a>ModbusRtu_MasterRxMainFunction</STRONG> (Thumb, 364 bytes, Stack size 16 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_MasterRxMainFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ModbusRtu_MasterRxMainFunction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMainFunction
@@ -684,7 +684,7 @@ Global Symbols
 <P><STRONG><a name="[75]"></a>ModbusRtu_RxMainFunction</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_RxMainFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = ModbusRtu_RxMainFunction &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 </UL>
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveMainFunction
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMainFunction
@@ -700,7 +700,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MainFunction
 </UL>
 
-<P><STRONG><a name="[7e]"></a>ModbusRtu_SlaveRxMainFunction</STRONG> (Thumb, 476 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction))
+<P><STRONG><a name="[7e]"></a>ModbusRtu_SlaveRxMainFunction</STRONG> (Thumb, 240 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveRxMainFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = ModbusRtu_SlaveRxMainFunction &rArr; writeWeightDataFromCom
 </UL>
 <BR>[Calls]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;writeWeightDataFromCom
@@ -718,34 +718,34 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveMainFunction
 </UL>
 
-<P><STRONG><a name="[82]"></a>ModbusRtu_SlaveTxMaskDeal</STRONG> (Thumb, 1920 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal))
+<P><STRONG><a name="[82]"></a>ModbusRtu_SlaveTxMaskDeal</STRONG> (Thumb, 386 bytes, Stack size 24 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_SlaveTxMaskDeal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ModbusRtu_SlaveTxMaskDeal &rArr; hx711_getWeight &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveTxMainFunction
 </UL>
 
-<P><STRONG><a name="[e9]"></a>ModbusRtu_init</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_init))
+<P><STRONG><a name="[e8]"></a>ModbusRtu_init</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, app_modbus_rtu_ctrl.o(i.ModbusRtu_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = ModbusRtu_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ed]"></a>STM32CheckPassWord</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, app_password.o(i.STM32CheckPassWord))
+<P><STRONG><a name="[ec]"></a>STM32CheckPassWord</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, app_password.o(i.STM32CheckPassWord))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = STM32CheckPassWord
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
-<P><STRONG><a name="[ec]"></a>STM32MCUIDGet</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, app_password.o(i.STM32MCUIDGet))
+<P><STRONG><a name="[eb]"></a>STM32MCUIDGet</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, app_password.o(i.STM32MCUIDGet))
 <BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[45]"></a>TIM6_DAC_IRQHandler</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, hal_timer.o(i.TIM6_DAC_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = TIM6_DAC_IRQHandler &rArr; app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_clear_it_pending_bit
@@ -781,6 +781,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f30x.o(RESET)
 </UL>
+<P><STRONG><a name="[ff]"></a>appScreenCfgIndexGet</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, app_t5l_cfg.o(i.appScreenCfgIndexGet))
+<BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_WeightVlu
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_HelpVlu
+</UL>
+
 <P><STRONG><a name="[8d]"></a>app_main_init</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, app_main_task.o(i.app_main_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = app_main_init &rArr; hx711_setAllRemoveWeight &rArr; balaningColorClear &rArr; LedDataSet
 </UL>
@@ -791,7 +796,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[85]"></a>app_main_task</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, app_main_task.o(i.app_main_task))
-<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 260<LI>Call Chain = app_main_task &rArr; sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_MainFunction
@@ -816,19 +821,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_setAllRemoveWeight
 </UL>
 
-<P><STRONG><a name="[78]"></a>cal_crc16</STRONG> (Thumb, 62 bytes, Stack size 20 bytes, app_crc.o(i.cal_crc16))
+<P><STRONG><a name="[7b]"></a>cal_crc16</STRONG> (Thumb, 62 bytes, Stack size 20 bytes, app_crc.o(i.cal_crc16))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = cal_crc16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 <LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveTxMaskDeal
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_RxMainFunction
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMaskDeal
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
 </UL>
 
 <P><STRONG><a name="[97]"></a>chanelChangedTrigerDeal</STRONG> (Thumb, 530 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.chanelChangedTrigerDeal))
@@ -836,7 +841,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[99]"></a>clearLocalCalibrationKAndBAndSample</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, app_t5l_ctrl.o(i.clearLocalCalibrationKAndBAndSample))
@@ -844,13 +849,13 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChanelStruct
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
-<P><STRONG><a name="[114]"></a>clearLocalCalibrationRecordData</STRONG> (Thumb, 122 bytes, Stack size 12 bytes, app_t5l_ctrl.o(i.clearLocalCalibrationRecordData))
+<P><STRONG><a name="[118]"></a>clearLocalCalibrationRecordData</STRONG> (Thumb, 122 bytes, Stack size 12 bytes, app_t5l_ctrl.o(i.clearLocalCalibrationRecordData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = clearLocalCalibrationRecordData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
 <P><STRONG><a name="[d7]"></a>color_clearAllColor</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, app_t5l_ctrl.o(i.color_clearAllColor))
@@ -948,29 +953,29 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
 <P><STRONG><a name="[9f]"></a>drv_flash_get_status</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_get_status))
 <BR><BR>[Called By]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
 
-<P><STRONG><a name="[11c]"></a>drv_flash_lock</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_lock))
-<BR><BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<P><STRONG><a name="[11f]"></a>drv_flash_lock</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_lock))
+<BR><BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
 <P><STRONG><a name="[f9]"></a>drv_flash_read_words</STRONG> (Thumb, 32 bytes, Stack size 12 bytes, drv_flash.o(i.drv_flash_read_words))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = drv_flash_read_words
 </UL>
-<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 </UL>
 
-<P><STRONG><a name="[11b]"></a>drv_flash_unlock</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_unlock))
-<BR><BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<P><STRONG><a name="[11e]"></a>drv_flash_unlock</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, drv_flash.o(i.drv_flash_unlock))
+<BR><BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
 <P><STRONG><a name="[9e]"></a>drv_flash_wait_last_operation</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, drv_flash.o(i.drv_flash_wait_last_operation))
@@ -987,8 +992,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_wait_last_operation
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
 </UL>
 
 <P><STRONG><a name="[bf]"></a>drv_gpio_alternate_function_connect</STRONG> (Thumb, 66 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_alternate_function_connect))
@@ -1003,16 +1008,16 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[11f]"></a>drv_gpio_input_init</STRONG> (Thumb, 96 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_input_init))
+<P><STRONG><a name="[122]"></a>drv_gpio_input_init</STRONG> (Thumb, 96 bytes, Stack size 20 bytes, drv_gpio.o(i.drv_gpio_input_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = drv_gpio_input_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
+<BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 </UL>
 
 <P><STRONG><a name="[c0]"></a>drv_gpio_output_init</STRONG> (Thumb, 220 bytes, Stack size 28 bytes, drv_gpio.o(i.drv_gpio_output_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = drv_gpio_output_init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
+<BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
@@ -1021,7 +1026,7 @@ Global Symbols
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
 
-<P><STRONG><a name="[11e]"></a>drv_iwdg_init</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, drv_iwdg.o(i.drv_iwdg_init))
+<P><STRONG><a name="[121]"></a>drv_iwdg_init</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, drv_iwdg.o(i.drv_iwdg_init))
 <BR><BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
 
@@ -1038,7 +1043,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bd]"></a>drv_rcc_ahb1_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_ahb1_clk_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
+<BR><BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 <LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_port_init
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 </UL>
@@ -1049,13 +1054,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a7]"></a>drv_rcc_apb1_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_disable))
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
 <P><STRONG><a name="[a6]"></a>drv_rcc_apb1_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb1_periph_reset_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
 <P><STRONG><a name="[c3]"></a>drv_rcc_apb2_clk_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_clk_enable))
@@ -1063,13 +1068,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a5]"></a>drv_rcc_apb2_periph_reset_disable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_disable))
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
 <P><STRONG><a name="[a4]"></a>drv_rcc_apb2_periph_reset_enable</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, drv_rcc.o(i.drv_rcc_apb2_periph_reset_enable))
-<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
-<LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<BR><BR>[Called By]<UL><LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_deinit
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_timer_deinit
 </UL>
 
 <P><STRONG><a name="[a2]"></a>drv_rcc_get_clocks_freq</STRONG> (Thumb, 238 bytes, Stack size 20 bytes, drv_rcc.o(i.drv_rcc_get_clocks_freq))
@@ -1192,13 +1197,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[9a]"></a>getChanelStruct</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.getChanelStruct))
-<BR><BR>[Called By]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<BR><BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearLocalCalibrationKAndBAndSample
 </UL>
 
-<P><STRONG><a name="[10b]"></a>getModbusOtherRemoveFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<P><STRONG><a name="[10f]"></a>getModbusOtherRemoveFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.getModbusOtherRemoveFlag))
+<BR><BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[f3]"></a>getSysColorWhichUsable</STRONG> (Thumb, 48 bytes, Stack size 0 bytes, app_t5l_ctrl.o(i.getSysColorWhichUsable))
@@ -1227,7 +1232,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_delay_ms
 </UL>
 <BR>[Called By]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
+<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
 </UL>
 
 <P><STRONG><a name="[b0]"></a>hal_delay_us</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.hal_delay_us))
@@ -1304,10 +1309,7 @@ Global Symbols
 <P><STRONG><a name="[2]"></a>hal_uart_port_init</STRONG> (Thumb, 560 bytes, Stack size 32 bytes, hal_uart.o(i.hal_uart_port_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = hal_uart_port_init &rArr; hal_uart_gpio_init &rArr; drv_gpio_output_init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
-<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
-<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
-<LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
+<BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_it_enable
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_init
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_uart_dma_tx_enable
@@ -1320,6 +1322,9 @@ Global Symbols
 <LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_dma_stream_clear_it_pending_bit
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_gpio_init
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_uart_dma_rx_start
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_apb1_clk_enable
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_init
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_nvic_enable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[39]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
 <LI><a href="#[38]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART2_IRQHandler
@@ -1436,8 +1441,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_DataSampleCtrl
 </UL>
 
-<P><STRONG><a name="[116]"></a>hx711_getAvgSample</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.hx711_getAvgSample))
-<BR><BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<P><STRONG><a name="[11a]"></a>hx711_getAvgSample</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, app_hx711_ctrl.o(i.hx711_getAvgSample))
+<BR><BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
 <P><STRONG><a name="[83]"></a>hx711_getWeight</STRONG> (Thumb, 132 bytes, Stack size 40 bytes, app_hx711_ctrl.o(i.hx711_getWeight))
@@ -1466,7 +1471,7 @@ Global Symbols
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;balaningColorClear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_init
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[d8]"></a>jumpToActivePage</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToActivePage))
@@ -1474,7 +1479,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[d9]"></a>jumpToBalancingCleanPage</STRONG> (Thumb, 110 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToBalancingCleanPage))
@@ -1482,7 +1487,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[da]"></a>jumpToBalancingHomePage</STRONG> (Thumb, 150 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToBalancingHomePage))
@@ -1490,7 +1495,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[db]"></a>jumpToBalancingPage</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToBalancingPage))
@@ -1498,7 +1503,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[dc]"></a>jumpToBanlingPage</STRONG> (Thumb, 164 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToBanlingPage))
@@ -1506,8 +1511,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[dd]"></a>jumpToCalibrationPage</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToCalibrationPage))
@@ -1515,7 +1520,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[de]"></a>jumpToHomePage</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToHomePage))
@@ -1523,7 +1528,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[df]"></a>jumpToStartUpPage</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToStartUpPage))
@@ -1531,7 +1536,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
 </UL>
 
 <P><STRONG><a name="[e0]"></a>jumpToSysparaPage</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.jumpToSysparaPage))
@@ -1539,7 +1544,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[e2]"></a>key_FilterGet</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, app_key_ctrl.o(i.key_FilterGet))
@@ -1591,38 +1596,38 @@ Global Symbols
 <P><STRONG><a name="[60]"></a>main</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, app_main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1124<LI>Call Chain = main &rArr; readSysDataFromFlash &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_Init
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_Init
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash_3030
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;led_init
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_init
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_init
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32MCUIDGet
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32CheckPassWord
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_init
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32MCUIDGet
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32CheckPassWord
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_init
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[ee]"></a>masterCaculateHelpData</STRONG> (Thumb, 518 bytes, Stack size 64 bytes, app_t5l_ctrl.o(i.masterCaculateHelpData))
+<P><STRONG><a name="[ee]"></a>masterCaculateHelpData</STRONG> (Thumb, 546 bytes, Stack size 64 bytes, app_t5l_ctrl.o(i.masterCaculateHelpData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = masterCaculateHelpData &rArr; BubbleSort
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BubbleSort
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
 </UL>
 
 <P><STRONG><a name="[fa]"></a>pointSampleTrigerDataSet</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.pointSampleTrigerDataSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = pointSampleTrigerDataSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
 </UL>
 
-<P><STRONG><a name="[118]"></a>pointTrigerDataSet</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.pointTrigerDataSet))
+<P><STRONG><a name="[11c]"></a>pointTrigerDataSet</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.pointTrigerDataSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = pointTrigerDataSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
 <P><STRONG><a name="[f0]"></a>pointTrigerDeal</STRONG> (Thumb, 312 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.pointTrigerDeal))
@@ -1630,17 +1635,17 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[fb]"></a>pointWeightTrigerDataSet</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.pointWeightTrigerDataSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = pointWeightTrigerDataSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;readSysDataFromFlash
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
-<P><STRONG><a name="[f1]"></a>preColorDataAndJudgeIfNeedSend</STRONG> (Thumb, 824 bytes, Stack size 80 bytes, app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend))
+<P><STRONG><a name="[f1]"></a>preColorDataAndJudgeIfNeedSend</STRONG> (Thumb, 638 bytes, Stack size 80 bytes, app_t5l_ctrl.o(i.preColorDataAndJudgeIfNeedSend))
 <BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = preColorDataAndJudgeIfNeedSend &rArr; BubbleSort
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BubbleSort
@@ -1649,64 +1654,64 @@ Global Symbols
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;releaseSysColor
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getSysColorWhichUsable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
 </UL>
 
-<P><STRONG><a name="[f5]"></a>preWeightDataAndJudgeIfNeedSend</STRONG> (Thumb, 248 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = preWeightDataAndJudgeIfNeedSend &rArr; hx711_getWeight &rArr; __aeabi_dmul
+<P><STRONG><a name="[f5]"></a>preWeightDataAndJudgeIfNeedSend</STRONG> (Thumb, 448 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = preWeightDataAndJudgeIfNeedSend &rArr; hx711_getWeight &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetFloatBalancingModelData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
+<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
 </UL>
 
-<P><STRONG><a name="[f7]"></a>preWeightDataAndJudgeIfNeedSend_FuncA_Master</STRONG> (Thumb, 166 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend_FuncA_Master))
-<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = preWeightDataAndJudgeIfNeedSend_FuncA_Master &rArr; hx711_getWeight &rArr; __aeabi_dmul
+<P><STRONG><a name="[f7]"></a>preWeightDataAndJudgeIfNeedSend_FuncA_Master</STRONG> (Thumb, 308 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.preWeightDataAndJudgeIfNeedSend_FuncA_Master))
+<BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = preWeightDataAndJudgeIfNeedSend_FuncA_Master &rArr; hx711_getWeight &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GetFloatBalancingModelData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
+<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
 </UL>
 
-<P><STRONG><a name="[7b]"></a>readColorDataFromSys</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readColorDataFromSys))
+<P><STRONG><a name="[7a]"></a>readColorDataFromSys</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readColorDataFromSys))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = readColorDataFromSys
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMaskDeal
 </UL>
 
-<P><STRONG><a name="[79]"></a>readHelpDataFromSys</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readHelpDataFromSys))
+<P><STRONG><a name="[78]"></a>readHelpDataFromSys</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readHelpDataFromSys))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = readHelpDataFromSys
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMaskDeal
 </UL>
 
-<P><STRONG><a name="[ea]"></a>readSysDataFromFlash</STRONG> (Thumb, 378 bytes, Stack size 1104 bytes, app_syspara.o(i.readSysDataFromFlash))
+<P><STRONG><a name="[e9]"></a>readSysDataFromFlash</STRONG> (Thumb, 378 bytes, Stack size 1104 bytes, app_syspara.o(i.readSysDataFromFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 1124<LI>Call Chain = readSysDataFromFlash &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointWeightTrigerDataSet
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointSampleTrigerDataSet
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_read_words
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChanelStruct
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[eb]"></a>readSysDataFromFlash_3030</STRONG> (Thumb, 312 bytes, Stack size 104 bytes, app_syspara.o(i.readSysDataFromFlash_3030))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = readSysDataFromFlash_3030 &rArr; cal_crc16
+<P><STRONG><a name="[ea]"></a>readSysDataFromFlash_3030</STRONG> (Thumb, 358 bytes, Stack size 112 bytes, app_syspara.o(i.readSysDataFromFlash_3030))
+<BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = readSysDataFromFlash_3030 &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_read_words
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7a]"></a>readWeightDataFromSys</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readWeightDataFromSys))
+<P><STRONG><a name="[79]"></a>readWeightDataFromSys</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.readWeightDataFromSys))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = readWeightDataFromSys
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_MasterMaskDeal
@@ -1722,7 +1727,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[fd]"></a>resetCalibrationTrigerDeal</STRONG> (Thumb, 310 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.resetCalibrationTrigerDeal))
@@ -1730,7 +1735,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[ce]"></a>sampleDataPush</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, app_hx711_ctrl.o(i.sampleDataPush))
@@ -1739,57 +1744,75 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_AllChanelSample
 </UL>
 
-<P><STRONG><a name="[fe]"></a>screenT5L_HelpDataMainFunction</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = screenT5L_HelpDataMainFunction &rArr; sendHelpDataDiff &rArr; t5lWriteData &rArr; cal_crc16
+<P><STRONG><a name="[fe]"></a>screenPublic_FreshDisplayPosition_Of_HelpVlu</STRONG> (Thumb, 206 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.screenPublic_FreshDisplayPosition_Of_HelpVlu))
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = screenPublic_FreshDisplayPosition_Of_HelpVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff_AtSlave1Device
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;masterCaculateHelpData
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;appScreenCfgIndexGet
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
 </UL>
 
-<P><STRONG><a name="[e8]"></a>screenT5L_Init</STRONG> (Thumb, 158 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_Init))
+<P><STRONG><a name="[101]"></a>screenPublic_FreshDisplayPosition_Of_WeightVlu</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.screenPublic_FreshDisplayPosition_Of_WeightVlu))
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;appScreenCfgIndexGet
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+</UL>
+
+<P><STRONG><a name="[102]"></a>screenT5L_HelpDataMainFunction</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_HelpDataMainFunction))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124<LI>Call Chain = screenT5L_HelpDataMainFunction &rArr; sendHelpDataDiff &rArr; t5lWriteData &rArr; cal_crc16
+</UL>
+<BR>[Calls]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff_AtSlave1Device
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;masterCaculateHelpData
+</UL>
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+</UL>
+
+<P><STRONG><a name="[ed]"></a>screenT5L_Init</STRONG> (Thumb, 386 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = screenT5L_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[101]"></a>screenT5L_OutputVoice</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.screenT5L_OutputVoice))
+<P><STRONG><a name="[105]"></a>screenT5L_OutputVoice</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.screenT5L_OutputVoice))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
 </UL>
 
-<P><STRONG><a name="[102]"></a>screenT5L_RxFunction</STRONG> (Thumb, 344 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.screenT5L_RxFunction))
+<P><STRONG><a name="[106]"></a>screenT5L_RxFunction</STRONG> (Thumb, 364 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.screenT5L_RxFunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = screenT5L_RxFunction &rArr; storeSysDataToFlash &rArr; drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
-<BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskRegData
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash_3030
+<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;storeSysDataToFlash
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskRegData
 </UL>
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 </UL>
 
-<P><STRONG><a name="[107]"></a>screenT5L_TxFunction</STRONG> (Thumb, 524 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_TxFunction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 228<LI>Call Chain = screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
+<P><STRONG><a name="[10b]"></a>screenT5L_TxFunction</STRONG> (Thumb, 518 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_TxFunction))
+<BR><BR>[Stack]<UL><LI>Max Depth = 244<LI>Call Chain = screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusOtherRemoveFlag
-<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getModbusOtherRemoveFlag
+<BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusOtherRemoveFlag
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getModbusOtherRemoveFlag
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lDisPlayDataClear
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_setAllRemoveWeight
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
-<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
+<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;resetCalibrationTrigerDeal
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;removeWeightTrigerDeal
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointTrigerDeal
@@ -1806,50 +1829,50 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 </UL>
 
-<P><STRONG><a name="[111]"></a>screenT5L_VersionGet</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VersionGet))
+<P><STRONG><a name="[115]"></a>screenT5L_VersionGet</STRONG> (Thumb, 14 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VersionGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = screenT5L_VersionGet &rArr; t5lReadVarible &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
+<BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lReadVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
 </UL>
 
-<P><STRONG><a name="[108]"></a>screenT5L_VoicePrintfMainfunction</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction))
+<P><STRONG><a name="[10c]"></a>screenT5L_VoicePrintfMainfunction</STRONG> (Thumb, 304 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.screenT5L_VoicePrintfMainfunction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = screenT5L_VoicePrintfMainfunction &rArr; screenT5L_OutputVoice &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_VoicePrintfPop
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
+<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdwe_VoicePrintfPop
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[103]"></a>sdweAskRegData</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sdweAskRegData))
+<P><STRONG><a name="[107]"></a>sdweAskRegData</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sdweAskRegData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = sdweAskRegData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
-<P><STRONG><a name="[104]"></a>sdweAskVaribleData</STRONG> (Thumb, 1164 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.sdweAskVaribleData))
+<P><STRONG><a name="[108]"></a>sdweAskVaribleData</STRONG> (Thumb, 1196 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.sdweAskVaribleData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = sdweAskVaribleData &rArr; clearLocalCalibrationKAndBAndSample
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointWeightTrigerDataSet
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusSelfRemoveFlag
-<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trigerCalcKB
-<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setSampleWeightValue
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getAvgSample
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trigerCalcKB
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setSampleWeightValue
+<LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getAvgSample
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lDisPlayDataClear
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32CheckPassWord
-<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointTrigerDataSet
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearLocalCalibrationRecordData
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM32CheckPassWord
+<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointTrigerDataSet
+<LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearLocalCalibrationRecordData
 <LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clearLocalCalibrationKAndBAndSample
 </UL>
-<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
-<P><STRONG><a name="[113]"></a>sdwe_VoicePrintfPop</STRONG> (Thumb, 166 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.sdwe_VoicePrintfPop))
+<P><STRONG><a name="[117]"></a>sdwe_VoicePrintfPop</STRONG> (Thumb, 166 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.sdwe_VoicePrintfPop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = sdwe_VoicePrintfPop
 </UL>
-<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
+<BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VoicePrintfMainfunction
 </UL>
 
 <P><STRONG><a name="[f4]"></a>sdwe_VoicePrintfPush</STRONG> (Thumb, 80 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sdwe_VoicePrintfPush))
@@ -1858,186 +1881,190 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preColorDataAndJudgeIfNeedSend
 </UL>
 
-<P><STRONG><a name="[10f]"></a>sendBalancingWeightAndColor20220125_FuncA_Master</STRONG> (Thumb, 164 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor20220125_FuncA_Master))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = sendBalancingWeightAndColor20220125_FuncA_Master &rArr; preWeightDataAndJudgeIfNeedSend_FuncA_Master &rArr; hx711_getWeight &rArr; __aeabi_dmul
+<P><STRONG><a name="[113]"></a>sendBalancingWeightAndColor20220125_FuncA_Master</STRONG> (Thumb, 170 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor20220125_FuncA_Master))
+<BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = sendBalancingWeightAndColor20220125_FuncA_Master &rArr; preWeightDataAndJudgeIfNeedSend_FuncA_Master &rArr; hx711_getWeight &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preWeightDataAndJudgeIfNeedSend_FuncA_Master
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preColorDataAndJudgeIfNeedSend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[110]"></a>sendBalancingWeightAndColor20220125_FuncA_Slave</STRONG> (Thumb, 198 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor20220125_FuncA_Slave))
+<P><STRONG><a name="[114]"></a>sendBalancingWeightAndColor20220125_FuncA_Slave</STRONG> (Thumb, 228 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor20220125_FuncA_Slave))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = sendBalancingWeightAndColor20220125_FuncA_Slave &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedDataSet
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[10d]"></a>sendBalancingWeightAndColor619</STRONG> (Thumb, 178 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor619))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = sendBalancingWeightAndColor619 &rArr; preWeightDataAndJudgeIfNeedSend &rArr; hx711_getWeight &rArr; __aeabi_dmul
+<P><STRONG><a name="[111]"></a>sendBalancingWeightAndColor619</STRONG> (Thumb, 184 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor619))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = sendBalancingWeightAndColor619 &rArr; preWeightDataAndJudgeIfNeedSend &rArr; hx711_getWeight &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preWeightDataAndJudgeIfNeedSend
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;preColorDataAndJudgeIfNeedSend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[10e]"></a>sendBalancingWeightAndColor6192</STRONG> (Thumb, 194 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor6192))
+<P><STRONG><a name="[112]"></a>sendBalancingWeightAndColor6192</STRONG> (Thumb, 224 bytes, Stack size 32 bytes, app_t5l_ctrl.o(i.sendBalancingWeightAndColor6192))
 <BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = sendBalancingWeightAndColor6192 &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LedDataSet
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[ff]"></a>sendHelpDataDiff</STRONG> (Thumb, 608 bytes, Stack size 56 bytes, app_t5l_ctrl.o(i.sendHelpDataDiff))
+<P><STRONG><a name="[103]"></a>sendHelpDataDiff</STRONG> (Thumb, 636 bytes, Stack size 56 bytes, app_t5l_ctrl.o(i.sendHelpDataDiff))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = sendHelpDataDiff &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BubbleSort
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
 </UL>
 
-<P><STRONG><a name="[100]"></a>sendHelpDataDiff_AtSlave1Device</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device))
+<P><STRONG><a name="[104]"></a>sendHelpDataDiff_AtSlave1Device</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sendHelpDataDiff_AtSlave1Device))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = sendHelpDataDiff_AtSlave1Device &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
+<BR>[Calls]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteData
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_HelpDataMainFunction
 </UL>
 
-<P><STRONG><a name="[10a]"></a>sendScreenLight</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.sendScreenLight))
+<P><STRONG><a name="[10e]"></a>sendScreenLight</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, app_t5l_ctrl.o(i.sendScreenLight))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[109]"></a>sendSysParaDataToDiwen</STRONG> (Thumb, 1890 bytes, Stack size 144 bytes, app_t5l_ctrl.o(i.sendSysParaDataToDiwen))
-<BR><BR>[Stack]<UL><LI>Max Depth = 220<LI>Call Chain = sendSysParaDataToDiwen &rArr; sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
+<P><STRONG><a name="[10d]"></a>sendSysParaDataToDiwen</STRONG> (Thumb, 1992 bytes, Stack size 144 bytes, app_t5l_ctrl.o(i.sendSysParaDataToDiwen))
+<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = sendSysParaDataToDiwen &rArr; screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;t5lWriteVarible
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VersionGet
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
+<LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VersionGet
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_WeightVlu
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_HelpVlu
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpToStartUpPage
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;jumpToBanlingPage
 </UL>
-<BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[11a]"></a>setModbusDataValid</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.setModbusDataValid))
+<P><STRONG><a name="[11d]"></a>setModbusDataValid</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.setModbusDataValid))
 <BR><BR>[Called By]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sreenT5L_MainFunction
 </UL>
 
-<P><STRONG><a name="[10c]"></a>setModbusOtherRemoveFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag))
-<BR><BR>[Called By]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<P><STRONG><a name="[110]"></a>setModbusOtherRemoveFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.setModbusOtherRemoveFlag))
+<BR><BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
 <P><STRONG><a name="[e3]"></a>setModbusSelfRemoveFlag</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, app_modbus_rtu_ctrl.o(i.setModbusSelfRemoveFlag))
 <BR><BR>[Called By]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_MainFunction
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
-<P><STRONG><a name="[115]"></a>setSampleWeightValue</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.setSampleWeightValue))
+<P><STRONG><a name="[119]"></a>setSampleWeightValue</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.setSampleWeightValue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = setSampleWeightValue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
 <P><STRONG><a name="[93]"></a>sreenT5L_MainFunction</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.sreenT5L_MainFunction))
-<BR><BR>[Stack]<UL><LI>Max Depth = 236<LI>Call Chain = sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; sendScreenLight &rArr; t5lWriteVarible &rArr; cal_crc16
+<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = sreenT5L_MainFunction &rArr; screenT5L_TxFunction &rArr; sendSysParaDataToDiwen &rArr; screenPublic_FreshDisplayPosition_Of_WeightVlu &rArr; t5lWriteData &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusDataValid
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
+<BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setModbusDataValid
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_task
 </UL>
 
-<P><STRONG><a name="[105]"></a>storeSysDataToFlash</STRONG> (Thumb, 342 bytes, Stack size 40 bytes, app_syspara.o(i.storeSysDataToFlash))
+<P><STRONG><a name="[109]"></a>storeSysDataToFlash</STRONG> (Thumb, 342 bytes, Stack size 40 bytes, app_syspara.o(i.storeSysDataToFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = storeSysDataToFlash &rArr; drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_unlock
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_lock
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_unlock
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_lock
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getChanelStruct
 </UL>
-<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
-<P><STRONG><a name="[106]"></a>storeSysDataToFlash_3030</STRONG> (Thumb, 548 bytes, Stack size 32 bytes, app_syspara.o(i.storeSysDataToFlash_3030))
+<P><STRONG><a name="[10a]"></a>storeSysDataToFlash_3030</STRONG> (Thumb, 576 bytes, Stack size 32 bytes, app_syspara.o(i.storeSysDataToFlash_3030))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = storeSysDataToFlash_3030 &rArr; drv_flash_write_words &rArr; drv_flash_wait_last_operation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_write_words
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_unlock
-<LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_lock
+<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_unlock
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_lock
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_flash_erase_sector
-<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_RxFunction
 </UL>
 
 <P><STRONG><a name="[e5]"></a>system_init</STRONG> (Thumb, 40 bytes, Stack size 16 bytes, app_main.o(i.system_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = system_init &rArr; hal_clock_init &rArr; drv_rcc_init &rArr; drv_rcc_get_clocks_freq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
+<BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;wm_hal_gpio_init
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_timer_init
 <LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_init
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_clock_init
-<LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_iwdg_init
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_iwdg_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[8f]"></a>t5lDisPlayDataClear</STRONG> (Thumb, 74 bytes, Stack size 0 bytes, app_t5l_ctrl.o(i.t5lDisPlayDataClear))
 <BR><BR>[Called By]<UL><LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;app_main_init
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_TxFunction
 </UL>
 
-<P><STRONG><a name="[112]"></a>t5lReadVarible</STRONG> (Thumb, 158 bytes, Stack size 24 bytes, app_t5l_ctrl.o(i.t5lReadVarible))
+<P><STRONG><a name="[116]"></a>t5lReadVarible</STRONG> (Thumb, 158 bytes, Stack size 24 bytes, app_t5l_ctrl.o(i.t5lReadVarible))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = t5lReadVarible &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VersionGet
+<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_VersionGet
 </UL>
 
-<P><STRONG><a name="[119]"></a>t5lWriteData</STRONG> (Thumb, 300 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.t5lWriteData))
+<P><STRONG><a name="[100]"></a>t5lWriteData</STRONG> (Thumb, 300 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.t5lWriteData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = t5lWriteData &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 </UL>
-<BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff_AtSlave1Device
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
-<LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
-<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff_AtSlave1Device
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendHelpDataDiff
+<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor6192
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor619
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Slave
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendBalancingWeightAndColor20220125_FuncA_Master
+<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_WeightVlu
+<LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenPublic_FreshDisplayPosition_Of_HelpVlu
 </UL>
 
 <P><STRONG><a name="[98]"></a>t5lWriteVarible</STRONG> (Thumb, 226 bytes, Stack size 40 bytes, app_t5l_ctrl.o(i.t5lWriteVarible))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = t5lWriteVarible &rArr; cal_crc16
 </UL>
-<BR>[Calls]<UL><LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
+<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cal_crc16
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hal_delay_ms
 </UL>
-<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
+<BR>[Called By]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendSysParaDataToDiwen
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sendScreenLight
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;screenT5L_OutputVoice
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;resetCalibrationTrigerDeal
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;removeWeightTrigerDeal
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pointTrigerDeal
@@ -2053,18 +2080,18 @@ Global Symbols
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;chanelChangedTrigerDeal
 </UL>
 
-<P><STRONG><a name="[117]"></a>trigerCalcKB</STRONG> (Thumb, 502 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.trigerCalcKB))
+<P><STRONG><a name="[11b]"></a>trigerCalcKB</STRONG> (Thumb, 502 bytes, Stack size 12 bytes, app_hx711_ctrl.o(i.trigerCalcKB))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = trigerCalcKB
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sdweAskVaribleData
 </UL>
 
-<P><STRONG><a name="[11d]"></a>wm_hal_gpio_init</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, hal_gpio.o(i.wm_hal_gpio_init))
+<P><STRONG><a name="[120]"></a>wm_hal_gpio_init</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, hal_gpio.o(i.wm_hal_gpio_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = wm_hal_gpio_init &rArr; drv_gpio_output_init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_rcc_ahb1_clk_enable
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_output_init
-<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_input_init
+<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;drv_gpio_input_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;system_init
 </UL>
@@ -2081,7 +2108,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveRxMainFunction
 </UL>
 
-<P><STRONG><a name="[80]"></a>writeWeightDataFromCom</STRONG> (Thumb, 92 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.writeWeightDataFromCom))
+<P><STRONG><a name="[80]"></a>writeWeightDataFromCom</STRONG> (Thumb, 180 bytes, Stack size 8 bytes, app_t5l_ctrl.o(i.writeWeightDataFromCom))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = writeWeightDataFromCom
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ModbusRtu_SlaveRxMainFunction
@@ -2093,36 +2120,36 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 </UL>
 
-<P><STRONG><a name="[120]"></a>_d2f</STRONG> (Thumb, 98 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fretinf
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
+<P><STRONG><a name="[123]"></a>_d2f</STRONG> (Thumb, 98 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fretinf
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[124]"></a>__fpl_dcmp_Inf</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, dcmpi.o(x$fpl$dcmpinf), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmple
+<P><STRONG><a name="[127]"></a>__fpl_dcmp_Inf</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, dcmpi.o(x$fpl$dcmpinf), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmple
 </UL>
 
 <P><STRONG><a name="[d4]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
 <BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 </UL>
 
-<P><STRONG><a name="[158]"></a>_dflt</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt), UNUSED)
+<P><STRONG><a name="[15b]"></a>_dflt</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt), UNUSED)
 
 <P><STRONG><a name="[d1]"></a>__aeabi_ui2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu))
 <BR><BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_SenserCheck
 </UL>
 
-<P><STRONG><a name="[159]"></a>_dfltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu), UNUSED)
+<P><STRONG><a name="[15c]"></a>_dfltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu), UNUSED)
 
-<P><STRONG><a name="[15a]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
+<P><STRONG><a name="[15d]"></a>__aeabi_cdcmple</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
 
-<P><STRONG><a name="[123]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmp_Inf
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
+<P><STRONG><a name="[126]"></a>_dcmple</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, dleqf.o(x$fpl$dleqf), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmp_Inf
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[128]"></a>__fpl_dcmple_InfNaN</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, dleqf.o(x$fpl$dleqf), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drcmple
+<P><STRONG><a name="[12b]"></a>__fpl_dcmple_InfNaN</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, dleqf.o(x$fpl$dleqf), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_drcmple
 </UL>
 
 <P><STRONG><a name="[d5]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
@@ -2131,19 +2158,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_getWeight
 </UL>
 
-<P><STRONG><a name="[125]"></a>_dmul</STRONG> (Thumb, 332 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dretinf
-<LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
+<P><STRONG><a name="[128]"></a>_dmul</STRONG> (Thumb, 332 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dretinf
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[122]"></a>__fpl_dnaninf</STRONG> (Thumb, 156 bytes, Stack size 16 bytes, dnaninf.o(x$fpl$dnaninf), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmple
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
+<P><STRONG><a name="[125]"></a>__fpl_dnaninf</STRONG> (Thumb, 156 bytes, Stack size 16 bytes, dnaninf.o(x$fpl$dnaninf), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dcmple
+<LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
 </UL>
 
-<P><STRONG><a name="[126]"></a>__fpl_dretinf</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, dretinf.o(x$fpl$dretinf), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
+<P><STRONG><a name="[129]"></a>__fpl_dretinf</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, dretinf.o(x$fpl$dretinf), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
 </UL>
 
 <P><STRONG><a name="[d2]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
@@ -2152,20 +2179,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hx711_SenserCheck
 </UL>
 
-<P><STRONG><a name="[127]"></a>_drcmple</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmple_InfNaN
+<P><STRONG><a name="[12a]"></a>_drcmple</STRONG> (Thumb, 108 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dcmple_InfNaN
 </UL>
 
 <P><STRONG><a name="[5a]"></a>_fp_init</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fpinit.o(x$fpl$fpinit))
 <BR><BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_fp_1
 </UL>
 
-<P><STRONG><a name="[15b]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[15e]"></a>__fplib_config_fpu_vfp</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 
-<P><STRONG><a name="[15c]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
+<P><STRONG><a name="[15f]"></a>__fplib_config_pureend_doubles</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, fpinit.o(x$fpl$fpinit), UNUSED)
 
-<P><STRONG><a name="[121]"></a>__fpl_fretinf</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fretinf.o(x$fpl$fretinf), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
+<P><STRONG><a name="[124]"></a>__fpl_fretinf</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, fretinf.o(x$fpl$fretinf), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
 </UL>
 <P>
 <H3>
